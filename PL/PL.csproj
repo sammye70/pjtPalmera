@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{95A1B5CA-D0C3-497E-A314-ABFB8AE110AF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PL</RootNamespace>
+    <AssemblyName>PL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddProvincia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddProvincia.Designer.cs">
+      <DependentUpon>frmAddProvincia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCiudad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCiudad.Designer.cs">
+      <DependentUpon>frmCiudad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmConsulFactEmitidas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConsulFactEmitidas.Designer.cs">
+      <DependentUpon>frmConsulFactEmitidas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmConsultarProveedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConsultarProveedor.Designer.cs">
+      <DependentUpon>frmConsultarProveedor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmFactAnuladas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFactAnuladas.Designer.cs">
+      <DependentUpon>frmFactAnuladas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPrincipal.Designer.cs">
+      <DependentUpon>frmPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRegArticulos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRegArticulos.Designer.cs">
+      <DependentUpon>frmRegArticulos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRegClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRegClientes.Designer.cs">
+      <DependentUpon>frmRegClientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRegProveedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRegProveedor.Designer.cs">
+      <DependentUpon>frmRegProveedor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRepClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRepClientes.Designer.cs">
+      <DependentUpon>frmRepClientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRepFacturas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRepFacturas.Designer.cs">
+      <DependentUpon>frmRepFacturas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRepProveedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRepProveedor.Designer.cs">
+      <DependentUpon>frmRepProveedor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmVenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmVenta.Designer.cs">
+      <DependentUpon>frmVenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddProvincia.resx">
+      <DependentUpon>frmAddProvincia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCiudad.resx">
+      <DependentUpon>frmCiudad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmConsulFactEmitidas.resx">
+      <DependentUpon>frmConsulFactEmitidas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmConsultarProveedor.resx">
+      <DependentUpon>frmConsultarProveedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFactAnuladas.resx">
+      <DependentUpon>frmFactAnuladas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPrincipal.resx">
+      <DependentUpon>frmPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRegArticulos.resx">
+      <DependentUpon>frmRegArticulos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRegClientes.resx">
+      <DependentUpon>frmRegClientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRegProveedor.resx">
+      <DependentUpon>frmRegProveedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRepClientes.resx">
+      <DependentUpon>frmRepClientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRepFacturas.resx">
+      <DependentUpon>frmRepFacturas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRepProveedor.resx">
+      <DependentUpon>frmRepProveedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmVenta.resx">
+      <DependentUpon>frmVenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{e3ec5f0a-cd53-40cb-a68c-58b40abd40fa}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{e9ae71ce-a264-44ff-9285-21aedfe4e0bb}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

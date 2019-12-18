@@ -1,0 +1,88 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace PL
+{
+    public partial class frmPrincipal : Form
+    {
+        public frmPrincipal()
+        {
+            InitializeComponent();
+        }
+
+
+        private void crearProveedorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmRegProveedor Proveedor = new frmRegProveedor();
+            Proveedor.Show();
+        }
+
+        private void consultarProveedorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmConsultarProveedor ConsultaProv = new frmConsultarProveedor();
+            ConsultaProv.Show();
+        }
+
+        private void generarReporteDeProveedoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmRepProveedor ReporteProv = new frmRepProveedor();
+            ReporteProv.Show();
+        }
+
+        private void crearClientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmRegClientes RegistrarClientes = new frmRegClientes();
+            RegistrarClientes.Show();
+
+        }
+
+        private void generarReporteDeClientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmRepClientes ReporteClientes = new frmRepClientes();
+            ReporteClientes.Show();
+        }
+
+        private void reporteDeFacturasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmRepFacturas ReporteFact = new frmRepFacturas();
+            ReporteFact.Show();
+        }
+
+        private void facturasAnuladasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmFactAnuladas FactAnuladas = new frmFactAnuladas();
+            FactAnuladas.Show();
+        }
+
+        private void facturasEmitidasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmConsulFactEmitidas ConsultFactEmit = new frmConsulFactEmitidas();
+            ConsultFactEmit.Show();
+        }
+
+        private void toolStripLabel1_Click(object sender, EventArgs e)
+        {
+            frmVenta Venta = new frmVenta();
+            Venta.Show();
+        }
+
+        private void crearArticuloToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmRegArticulos RegArt = new frmRegArticulos();
+            RegArt.Show();
+        }
+
+        private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox about = new AboutBox();
+            about.Show();
+        }
+    }
+}
