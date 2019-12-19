@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
-using System.Data.sqlClient;
+using System.ComponentModel;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace DAL
@@ -12,30 +13,30 @@ namespace DAL
     class clsConexion
     {
         public String ConnectionString;
-        private sqlConnection Connection;
+        private  SqlConnection Connection;
 
         public void Conectar()
         {
-           try {
+            try
+            {
+                ConnectionString = @"Data Source=SRV-SQL\SQLEXPRESS;Initial Catalog=;Integrated Security=SSPI;";
+                Connection = new SqlConnection(ConnectionString);
+                Connection.Open();
+                MessageBox.Show("Conectado satisfactoriamente");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al intentar conectar con la base de datos", ex.Message);
+            }
+            finally
+            {
+                Desconectar();
+            }
 
-            ConnectionString = "";
-            Connection = new sqlConnection(ConnectionString);
-            Connection.Open();
-            MessagerBox.Show("");
-           }
-           Catch(Exception ex){
-               MessagerBox.Show("", ex.Message);
-           }
-           Finally{
-
-               Desconectar();
-           }
         }
-
         public void Desconectar()
         {
             Connection.Close();
-
         }
 
 
