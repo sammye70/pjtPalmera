@@ -63,11 +63,11 @@
             this.reporteDePedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ajustesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -117,6 +117,7 @@
             this.efectuarVentaToolStripMenuItem.Name = "efectuarVentaToolStripMenuItem";
             this.efectuarVentaToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.efectuarVentaToolStripMenuItem.Text = "Efectuar Venta";
+            this.efectuarVentaToolStripMenuItem.Click += new System.EventHandler(this.efectuarVentaToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -128,6 +129,7 @@
             this.notaDeCreditoToolStripMenuItem.Name = "notaDeCreditoToolStripMenuItem";
             this.notaDeCreditoToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.notaDeCreditoToolStripMenuItem.Text = "Nota de Credito";
+            this.notaDeCreditoToolStripMenuItem.Click += new System.EventHandler(this.notaDeCreditoToolStripMenuItem_Click);
             // 
             // operacionesDeCajaToolStripMenuItem
             // 
@@ -328,6 +330,13 @@
             this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.ayudaToolStripMenuItem.Text = "Ayuda (?)";
             // 
+            // acercaDeToolStripMenuItem
+            // 
+            this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
+            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.acercaDeToolStripMenuItem.Text = "Acerca de..";
+            this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.acercaDeToolStripMenuItem_Click);
+            // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -363,13 +372,6 @@
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(80, 17);
             this.toolStripStatusLabel1.Text = "EBG Solutions";
-            // 
-            // acercaDeToolStripMenuItem
-            // 
-            this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
-            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.acercaDeToolStripMenuItem.Text = "Acerca de..";
-            this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.acercaDeToolStripMenuItem_Click);
             // 
             // frmPrincipal
             // 

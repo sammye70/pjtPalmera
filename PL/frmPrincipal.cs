@@ -84,5 +84,17 @@ namespace PL
             AboutBox about = new AboutBox();
             about.Show();
         }
+
+        private void efectuarVentaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmVenta factura = new frmVenta();
+            factura.Show();
+        }
+
+        private void notaDeCreditoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmNotasCredito NoteCredito = new frmNotasCredito();
+            NoteCredito.Show();
+        }
     }
 }
