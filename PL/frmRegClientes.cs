@@ -9,7 +9,7 @@ namespace PL
 {
     public partial class frmRegClientes : Form
     {
-        clsConnection dbCon = new clsConnection();
+        clsSettings dbCon = new clsSettings();
 
         public frmRegClientes()
         {
@@ -30,7 +30,12 @@ namespace PL
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            dbCon.Connect();
+            dbCon.Connect();    
+        }
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            dbCon.Desconnect();
         }
     }
 }

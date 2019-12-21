@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Data;
+using MySql.Data;
+using MySql.Data.MySqlClient;
+
+namespace _DAL
+{
+    public class clsSettings
+    {
+        /// <summary>
+        /// 
+        /// Author: Samuel Estrella
+        /// StringConnection
+        /// Version: 1.0
+        /// Create Date:20/12/2019
+        /// Modificated: 
+        /// </summary>
+        static String ConnectionString = @"server=192.168.8.127;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas;";
+
+        public static String connectionstring
+        {
+            get { return ConnectionString; }
+        }
+        
+
+        //    public void Connect()
+        //    {
+        //        try
+        //        {
+        //            ConnectionString = "server=192.168.8.127;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas;";
+        //            Connections = new MySqlConnection(ConnectionString);
+        //            Connections.Open();
+        //            MessageBox.Show("Conectado satisfactoriamente");
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            MessageBox.Show(ex.Message);
+        //        }
+        //    }
+
+        //    public void Desconnect()
+        //    {
+        //        Connections.Close();
+        //        MessageBox.Show("Desconectado satisfactoriamente");
+
+        //    }
+        //}
+    }
+}
