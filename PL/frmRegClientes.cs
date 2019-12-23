@@ -30,12 +30,11 @@ namespace PL
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            dbCon.Connect();    
+
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)
-        {
-            dbCon.Desconnect();
+        { 
         }
     }
 }
