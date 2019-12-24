@@ -13,8 +13,7 @@ namespace BLL.Entity
         string _nombre;
         
         //
-        public int Idprovincia
-        {
+        public int Idprovincia {
             get { return _idprovincia; }
             set { _idprovincia = value; }
         }
@@ -30,6 +29,16 @@ namespace BLL.Entity
         {
             this._idprovincia = IdProvincia;
             this._nombre = Nombre;
+        }
+
+        public clsProvincia(int IdProvincia)
+        {
+            this._idprovincia = IdProvincia;
+        }
+
+        public clsProvincia( string nombre)
+        {
+            this._nombre = nombre;
         }
     }
 }

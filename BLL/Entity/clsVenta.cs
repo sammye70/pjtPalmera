@@ -26,7 +26,7 @@ namespace BLL.Entity
         private string _vendedor;
         private int _ncf; 
         private int _nif;
-        private string _descripcion;
+        //private string _descripcion;
         private decimal _p_venta;
         private float _cantidad;
         private List<clsProducto> _productos;
@@ -57,14 +57,19 @@ namespace BLL.Entity
         public decimal Total()
         {
             decimal total = 0;
-            foreach (clsProducto producto  in Productos)
+            foreach (clsProducto producto in Productos)
             {
                 total += producto.Valor;
             }
             return total;
         }
 
-
-
+        public decimal Itbis()
+        {
+            clsProducto producto = new clsProducto();
+            decimal itbis = 18, t_itbis;
+            t_itbis = (itbis*producto.Valor)/100;
+            return t_itbis;
+        }
     }
 }

@@ -79,6 +79,12 @@
     <Compile Include="frmConsulFactEmitidas.Designer.cs">
       <DependentUpon>frmConsulFactEmitidas.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmConsultarProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConsultarProductos.Designer.cs">
+      <DependentUpon>frmConsultarProductos.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmConsultarProveedor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmConsulFactEmitidas.resx">
       <DependentUpon>frmConsulFactEmitidas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmConsultarProductos.resx">
+      <DependentUpon>frmConsultarProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmConsultarProveedor.resx">
       <DependentUpon>frmConsultarProveedor.cs</DependentUpon>

@@ -12,7 +12,7 @@ namespace BLL.Entity
         /// Author: Samuel Estrella
         /// created: 22/12/2019
         /// Modificated by:  
-        /// Title: Product
+        /// Title: Products for Sales
         /// </summary>
 
         public int Id { get; set; }
@@ -26,6 +26,7 @@ namespace BLL.Entity
         public decimal Precio_Venta { get; set; }
         //public int createby { get; set; }
         //public int created { get; set; }
+        public decimal itbis { get; set; }
         public decimal Valor { get { return Precio_Venta * (decimal)Cantidad; } }
 
     }
