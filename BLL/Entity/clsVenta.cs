@@ -31,6 +31,9 @@ namespace BLL.Entity
         private float _cantidad;
         private List<clsProducto> _productos;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public List<clsProducto> Productos
         {
             get
@@ -54,6 +57,10 @@ namespace BLL.Entity
             Productos.Add(producto);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public decimal Total()
         {
             decimal total = 0;
@@ -64,12 +71,28 @@ namespace BLL.Entity
             return total;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public decimal Itbis()
         {
             clsProducto producto = new clsProducto();
             decimal itbis = 18, t_itbis;
-            t_itbis = (itbis*producto.Valor)/100;
+            t_itbis = (itbis* Total())/100;
             return t_itbis;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public decimal Descuento()
+        {
+            decimal t_decuento=0, descuento=15;
+            t_decuento =(descuento * Total())/100;
+            return t_decuento;
+        }
+        
     }
 }

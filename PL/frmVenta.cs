@@ -230,22 +230,22 @@ namespace PL
             productos.Descripcion = txtDescripcion.Text;
             productos.Cantidad = cantidad;
             productos.Precio_Venta = precio;
-            productos.itbis = decimal.Parse(txtItbis.Text);
+           // productos.itbis = decimal.Parse(txtItbis.Text);
             venta.addProduct(productos);
             dgvDetalle.DataSource = null;
             dgvDetalle.DataSource = venta.Productos;
 
             decimal total, t_pagar;
-            decimal _itbis=18, t_itbis;
+            decimal  itbis, t_itbis;
             total = venta.Total();
-            t_itbis = (total * _itbis) / 100;
+            itbis = venta.Itbis();
+            t_itbis = (total * itbis) / 100;
             t_pagar = t_itbis + total;
             this.txtSubtotal.Text = string.Format("{0:C2}",total);
             this.txtItbis.Text = string.Format("{0:C2}", t_itbis);
             this.txtTotalPagar.Text = string.Format("{0:C2}",t_pagar);
             Limpiar();
             this.txtProductos.Focus();
-
         }
 
         private void btnBuscarProducto_Click(object sender, EventArgs e)
@@ -267,6 +267,21 @@ namespace PL
         {
             label14.Text = DateTime.Now.ToString("hh:mm:ss tt");
             label15.Text = DateTime.Now.ToLongDateString();
+        }
+
+        private void chbDescuento_CheckedChanged(object sender, EventArgs e)
+        {
+            decimal descuento;
+            if (this.chbDescuento.Checked == true)
+            {
+                descuento = venta.Descuento();
+                this.txtDescuento.Text = string.Format("{0:C2}", descuento);
+            }
+            else
+            {
+                txtDescuento.Clear();
+                return;
+            }
         }
     }
 }
