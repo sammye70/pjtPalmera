@@ -17,7 +17,7 @@ namespace PL
             
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmVenta());
+            Application.Run(new frmPrincipal());
         }
     }
 }

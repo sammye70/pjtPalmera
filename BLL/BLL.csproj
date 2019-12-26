@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity\clsInventarioProductos.cs" />
-    <Compile Include="Entity\clsProducto.cs" />
+    <Compile Include="Entity\clsDetalleVenta.cs" />
     <Compile Include="Entity\clsCiudad.cs" />
     <Compile Include="Entity\clsClientes.cs" />
     <Compile Include="Entity\clsProvincia.cs" />

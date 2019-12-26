@@ -96,5 +96,12 @@ namespace PL
             frmNotasCredito NoteCredito = new frmNotasCredito();
             NoteCredito.Show();
         }
+
+        private void frmPrincipal_Load(object sender, EventArgs e)
+        {
+            frmlogin login = new frmlogin();
+            login.ShowDialog();
+
+        }
     }
 }

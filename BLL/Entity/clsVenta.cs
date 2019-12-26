@@ -11,7 +11,7 @@ namespace BLL.Entity
 
 {
 
-   public class clsVenta
+    public class clsVenta
     {
         /// <summary>
         /// Author: Samuel Estrella
@@ -23,18 +23,18 @@ namespace BLL.Entity
         //Atributes
         private string _clientes;
         private DateTime _f_factura;
-        private string _vendedor;
-        private int _ncf; 
-        private int _nif;
+        //private string _vendedor;
+        //private int _ncf; 
+        //private int _nif;
         //private string _descripcion;
-        private decimal _p_venta;
-        private float _cantidad;
-        private List<clsProducto> _productos;
+        //private decimal _p_venta;
+        //private float _cantidad;
+        private List<clsDetalleVenta> _productos;
 
         /// <summary>
         /// 
         /// </summary>
-        public List<clsProducto> Productos
+        public List<clsDetalleVenta> Productos
         {
             get
             {
@@ -44,15 +44,15 @@ namespace BLL.Entity
 
 
         //Constructor
-        public clsVenta(string clientes )
+        public clsVenta(string clientes)
         {
             this._clientes = clientes;
             this._f_factura = DateTime.Now;
-            this._productos = new List<clsProducto>();
+            this._productos = new List<clsDetalleVenta>();
         }
 
         //Method
-        public void addProduct(clsProducto producto)
+        public void addProduct(clsDetalleVenta producto)
         {
             Productos.Add(producto);
         }
@@ -64,9 +64,9 @@ namespace BLL.Entity
         public decimal Total()
         {
             decimal total = 0;
-            foreach (clsProducto producto in Productos)
+            foreach (clsDetalleVenta producto in Productos)
             {
-                total += producto.Valor;
+                total += producto.IMPORTE;
             }
             return total;
         }
@@ -77,9 +77,10 @@ namespace BLL.Entity
         /// <returns></returns>
         public decimal Itbis()
         {
-            clsProducto producto = new clsProducto();
-            decimal itbis = 18, t_itbis;
-            t_itbis = (itbis* Total())/100;
+            clsDetalleVenta producto = new clsDetalleVenta();
+            decimal itbis = 18, t_itbis, c_itbis;
+            c_itbis = (itbis * Total()) / 100;
+            t_itbis = Total() - c_itbis;
             return t_itbis;
         }
 
@@ -89,10 +90,10 @@ namespace BLL.Entity
         /// <returns></returns>
         public decimal Descuento()
         {
-            decimal t_decuento=0, descuento=15;
-            t_decuento =(descuento * Total())/100;
+            decimal t_decuento = 0, descuento = 10;
+            t_decuento = (descuento * Total()) / 100;
             return t_decuento;
         }
-        
+
     }
 }

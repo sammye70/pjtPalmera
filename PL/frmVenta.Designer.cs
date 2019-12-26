@@ -32,7 +32,6 @@
             this.dgvDetalle = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -68,11 +67,14 @@
             this.label5 = new System.Windows.Forms.Label();
             this.chbDescuento = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvDetalle
@@ -85,7 +87,7 @@
             this.dgvDetalle.Location = new System.Drawing.Point(13, 277);
             this.dgvDetalle.Margin = new System.Windows.Forms.Padding(4);
             this.dgvDetalle.Name = "dgvDetalle";
-            this.dgvDetalle.Size = new System.Drawing.Size(1286, 317);
+            this.dgvDetalle.Size = new System.Drawing.Size(1286, 304);
             this.dgvDetalle.TabIndex = 8;
             // 
             // groupBox1
@@ -105,7 +107,6 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.label16);
             this.groupBox3.Controls.Add(this.label15);
             this.groupBox3.Controls.Add(this.label14);
             this.groupBox3.Controls.Add(this.label13);
@@ -131,15 +132,6 @@
             this.groupBox3.TabIndex = 35;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Venta ";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(855, 88);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(59, 16);
-            this.label16.TabIndex = 56;
-            this.label16.Text = "label16";
             // 
             // label15
             // 
@@ -319,8 +311,8 @@
             // 
             this.cmbTipoVenta.FormattingEnabled = true;
             this.cmbTipoVenta.Items.AddRange(new object[] {
-            "Contado",
-            "Credito"});
+            "CONTADO",
+            "CREDITO"});
             this.cmbTipoVenta.Location = new System.Drawing.Point(694, 20);
             this.cmbTipoVenta.Margin = new System.Windows.Forms.Padding(4);
             this.cmbTipoVenta.Name = "cmbTipoVenta";
@@ -508,11 +500,28 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 585);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1311, 22);
+            this.statusStrip1.TabIndex = 19;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(98, 17);
+            this.toolStripStatusLabel1.Text = "By EBG-Solutions";
+            // 
             // frmVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1311, 607);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dgvDetalle);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -528,7 +537,10 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -571,6 +583,7 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     }
 }

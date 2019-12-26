@@ -42,10 +42,10 @@ namespace PL
             dgvDetalle.DataSource = venta.Productos;
         }
 
-
         //
         private void Limpiar()
         {
+
             //this.txtClientes.Clear();
             this.txtProductos.Clear();
             this.txtDescripcion.Clear();
@@ -53,7 +53,7 @@ namespace PL
             this.txtCantidad.Clear();
             //this.txtSubtotal.Clear();
             //this.txtTotalPagar.Clear();
-           // this.txtItbis.Clear();
+            // this.txtItbis.Clear();
         }
         //
         private void Deshabilitar()
@@ -107,6 +107,7 @@ namespace PL
             this.txtItbis.ReadOnly = true;
             this.txtDescuento.ReadOnly = true;
         }
+        //
 
         private void btnPagar_Click(object sender, EventArgs e)
         {
@@ -118,25 +119,32 @@ namespace PL
             Habilitar();
             Limpiar();
             OnlyRead();
+            this.txtClientes.Clear();
+            this.cmbTipoVenta.Text = "";
             this.dgvDetalle.DataSource = null;
             this.cmbTipoVenta.Focus();
-              
+
         }
 
         private void cmbTipoVenta_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.cmbTipoVenta.Text == "Contado")
+            if (this.cmbTipoVenta.Text == "CONTADO")
             {
-                this.txtClientes.Text = "Contado";
+                this.txtClientes.Text = "CONTADO";
                 venta = new BLL.Entity.clsVenta(txtClientes.Text);
                 dgvDetalle.DataSource = venta.Productos;
                 this.txtProductos.Focus();
             }
-            if (this.cmbTipoVenta.Text == "Credito")
+            if (this.cmbTipoVenta.Text == "CREDITO")
             {
                 this.txtClientes.Clear();
                 this.btnBuscarClientes.Focus();
                 dgvDetalle.DataSource = null;
+            }
+
+            if ((this.cmbTipoVenta.Text != "CONTADO") && (this.cmbTipoVenta.Text != "CREDITO"))
+            {
+                MessageBox.Show("Debe indicar un tipo de Venta (Contado o Credito)", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -145,14 +153,14 @@ namespace PL
 
             if (venta == null)
             {
-                MessageBox.Show("Debe ingresar un cliente");
+                MessageBox.Show("Debe ingresar un cliente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.txtClientes.Focus();
                 return;
             }
 
             if (this.txtProductos.Text == string.Empty)
             {
-                MessageBox.Show("Debe ingresar un Producto");
+                MessageBox.Show("Debe ingresar un Producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.txtProductos.Focus();
                 return;
             }
@@ -160,14 +168,14 @@ namespace PL
             int id;
             if (!int.TryParse(txtProductos.Text, out id))
             {
-                MessageBox.Show("Debe ingresar un Codigo numerico");
+                MessageBox.Show("Debe ingresar un Codigo numerico", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.txtProductos.Focus();
                 return;
             }
 
             if (id <= 0)
             {
-                MessageBox.Show("Debe ingresar un Codigo Valido");
+                MessageBox.Show("Debe ingresar un Codigo Valido", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.txtProductos.Focus();
                 return;
             }
@@ -175,14 +183,14 @@ namespace PL
 
             if (this.txtDescripcion.Text == string.Empty)
             {
-                MessageBox.Show("Debe ingresar una Descripcion");
+                MessageBox.Show("Debe ingresar una Descripcion", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.txtDescripcion.Focus();
                 return;
             }
 
             if (this.txtCantidad.Text == string.Empty)
             {
-                MessageBox.Show("Debe ingresar una cantidad");
+                MessageBox.Show("Debe ingresar una cantidad", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.txtCantidad.Focus();
                 return;
             }
@@ -190,21 +198,21 @@ namespace PL
             float cantidad = 0;
             if (!float.TryParse(txtCantidad.Text, out cantidad))
             {
-                MessageBox.Show("Debe ingresar una cantidad numerica");
+                MessageBox.Show("Debe ingresar una cantidad numerica", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.txtCantidad.Focus();
                 return;
             }
 
             if (cantidad <= 0)
             {
-                MessageBox.Show("Debe ingresar una cantidad mayor que 0");
+                MessageBox.Show("Debe ingresar una cantidad mayor que 0", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.txtCantidad.Focus();
                 return;
             }
 
             if (this.txtPrecio.Text == string.Empty)
             {
-                MessageBox.Show("Debe ingresar un precio");
+                MessageBox.Show("Debe ingresar un precio", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.txtPrecio.Focus();
                 return;
             }
@@ -212,38 +220,38 @@ namespace PL
             decimal precio = 0;
             if (!decimal.TryParse(txtPrecio.Text, out precio))
             {
-                MessageBox.Show("Debe ingresar un precio valido");
+                MessageBox.Show("Debe ingresar un precio valido", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.txtCantidad.Focus();
                 return;
             }
 
             if (precio <= 0)
             {
-                MessageBox.Show("Debe ingresar un precio mayor que 0");
+                MessageBox.Show("Debe ingresar un precio mayor que 0", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.txtPrecio.Focus();
                 return;
             }
 
             //add products to Gridview
-            BLL.Entity.clsProducto productos = new BLL.Entity.clsProducto();
-            productos.Id = id;
-            productos.Descripcion = txtDescripcion.Text;
-            productos.Cantidad = cantidad;
-            productos.Precio_Venta = precio;
-           // productos.itbis = decimal.Parse(txtItbis.Text);
+            BLL.Entity.clsDetalleVenta productos = new BLL.Entity.clsDetalleVenta();
+            productos.ID = id;
+            productos.DESCRIPCION = txtDescripcion.Text;
+            productos.CANTIDAD = cantidad;
+            productos.PRECIO_VENTA = precio;
+            //productos.ITBIS
             venta.addProduct(productos);
             dgvDetalle.DataSource = null;
             dgvDetalle.DataSource = venta.Productos;
 
             decimal total, t_pagar;
-            decimal  itbis, t_itbis;
+            decimal t_itbis;
             total = venta.Total();
-            itbis = venta.Itbis();
-            t_itbis = (total * itbis) / 100;
+            t_itbis = venta.Itbis();
             t_pagar = t_itbis + total;
-            this.txtSubtotal.Text = string.Format("{0:C2}",total);
+
+            this.txtSubtotal.Text = string.Format("{0:C2}", total);
             this.txtItbis.Text = string.Format("{0:C2}", t_itbis);
-            this.txtTotalPagar.Text = string.Format("{0:C2}",t_pagar);
+            this.txtTotalPagar.Text = string.Format("{0:C2}", t_pagar);
             Limpiar();
             this.txtProductos.Focus();
         }
@@ -251,9 +259,11 @@ namespace PL
         private void btnBuscarProducto_Click(object sender, EventArgs e)
         {
             frmConsultarProductos consulProductos = new frmConsultarProductos();
-            consulProductos.Show();
+            //consulProductos.Show();
+            consulProductos.ShowDialog(this);
             consulProductos.Text = "Buscar Productos";
-            
+
+
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -271,17 +281,43 @@ namespace PL
 
         private void chbDescuento_CheckedChanged(object sender, EventArgs e)
         {
-            decimal descuento;
-            if (this.chbDescuento.Checked == true)
+            try
             {
-                descuento = venta.Descuento();
-                this.txtDescuento.Text = string.Format("{0:C2}", descuento);
+                decimal descuento, td_pagar;
+                decimal total_pagar, t_itbis, t_itbis_c_pagar;
+
+                total_pagar = venta.Total();
+                t_itbis = venta.Itbis();
+
+                if (this.chbDescuento.Checked == true)
+                {
+                    descuento = venta.Descuento();
+                    t_itbis_c_pagar = total_pagar + t_itbis;
+                    td_pagar = t_itbis_c_pagar - descuento;
+                    this.txtDescuento.Text = string.Format("{0:C2}", descuento);
+                    this.txtTotalPagar.Text = string.Format("{0:C2}", td_pagar);
+                }
+                else
+                {
+                    t_itbis_c_pagar = t_itbis + total_pagar;
+                    this.txtTotalPagar.Text = string.Format("{0:C2}", t_itbis_c_pagar);
+                    txtDescuento.Clear();
+                    return;
+                }
             }
-            else
+
+            catch (Exception)
             {
-                txtDescuento.Clear();
+                MessageBox.Show("Debe indicar un Total a Pagar, asi poder aplicar Descuento", "Mensaje del Sistema", 
+                MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.txtProductos.Focus();
                 return;
             }
+
         }
     }
-}
+
+ }
+
+
+
