@@ -73,6 +73,12 @@
     <Compile Include="frmCiudad.Designer.cs">
       <DependentUpon>frmCiudad.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCobros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCobros.Designer.cs">
+      <DependentUpon>frmCobros.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmConsulFactEmitidas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -168,6 +174,9 @@
     <EmbeddedResource Include="frmCiudad.resx">
       <DependentUpon>frmCiudad.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmCobros.resx">
+      <DependentUpon>frmCobros.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmConsulFactEmitidas.resx">
       <DependentUpon>frmConsulFactEmitidas.cs</DependentUpon>
     </EmbeddedResource>
@@ -233,6 +242,10 @@
     <ProjectReference Include="..\BLL\BLL.csproj">
       <Project>{e3ec5f0a-cd53-40cb-a68c-58b40abd40fa}</Project>
       <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{65164c5b-b7e9-483a-966a-e5dc9aaee214}</Project>
+      <Name>Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\_DAL\_DAL.csproj">
       <Project>{4f1593fc-47f7-4b98-8afe-395a39d47367}</Project>

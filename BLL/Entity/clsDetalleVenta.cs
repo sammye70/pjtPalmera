@@ -15,7 +15,7 @@ namespace BLL.Entity
         /// Title: Products for Sales
         /// </summary>
 
-        public int ID { get; set; }
+        public long ID { get; set; }
         public string DESCRIPCION { get; set; }
         //public int idfamilia { get; set; }
         public float CANTIDAD { get; set; }
@@ -23,11 +23,11 @@ namespace BLL.Entity
         //public float stockmin { get; set; }
         //public DateTime f_vencimiento { get; set; }
         //public decimal costo { get; set; }
-        public decimal PRECIO_VENTA { get; set; }
+        public decimal PRECIO{ get; set; }
         //public int createby { get; set; }
         //public int created { get; set; }
         public decimal ITBIS { get { return (IMPORTE * 18) / 100; } }
-        public decimal IMPORTE { get { return PRECIO_VENTA * (decimal)CANTIDAD; } }
+        public decimal IMPORTE { get { return PRECIO * (decimal)CANTIDAD; } }
 
     }
 }

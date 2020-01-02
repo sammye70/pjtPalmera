@@ -44,7 +44,7 @@
             this.dgvProdConsultar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvProdConsultar.Location = new System.Drawing.Point(7, 52);
             this.dgvProdConsultar.Name = "dgvProdConsultar";
-            this.dgvProdConsultar.Size = new System.Drawing.Size(568, 261);
+            this.dgvProdConsultar.Size = new System.Drawing.Size(1003, 406);
             this.dgvProdConsultar.TabIndex = 0;
             // 
             // txtCriterioBusqueda
@@ -86,7 +86,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(587, 325);
+            this.ClientSize = new System.Drawing.Size(1022, 470);
             this.ControlBox = false;
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.button1);

@@ -1,9 +1,9 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using BLL.Entity;
 
 
@@ -30,7 +30,9 @@ namespace BLL.Entity
         //private decimal _p_venta;
         //private float _cantidad;
         private List<clsDetalleVenta> _productos;
-
+        public decimal precio = 0;
+        public Int64 id;
+        public float cantidad;
         /// <summary>
         /// 
         /// </summary>
@@ -51,17 +53,25 @@ namespace BLL.Entity
             this._productos = new List<clsDetalleVenta>();
         }
 
-        //Method
+        //Method Add Items to list<>
         public void addProduct(clsDetalleVenta producto)
         {
             Productos.Add(producto);
         }
 
+        //
+        public void RemoveItem(clsDetalleVenta producto)
+        {
+
+            Productos.RemoveAt(1);
+        }
+
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public decimal Total()
+        public decimal SubTotal()
         {
             decimal total = 0;
             foreach (clsDetalleVenta producto in Productos)
@@ -71,6 +81,7 @@ namespace BLL.Entity
             return total;
         }
 
+
         /// <summary>
         /// 
         /// </summary>
@@ -79,20 +90,48 @@ namespace BLL.Entity
         {
             clsDetalleVenta producto = new clsDetalleVenta();
             decimal itbis = 18, t_itbis, c_itbis;
-            c_itbis = (itbis * Total()) / 100;
-            t_itbis = Total() - c_itbis;
+            c_itbis = (itbis * SubTotal()) / 100;
+            t_itbis = SubTotal() - c_itbis;
             return t_itbis;
         }
 
+      
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         public decimal Descuento()
         {
-            decimal t_decuento = 0, descuento = 10;
-            t_decuento = (descuento * Total()) / 100;
-            return t_decuento;
+            decimal t_descuento = 0, descuento = 10;
+            t_descuento = (descuento * SubTotal()) / 100;
+            return t_descuento;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="itbis"></param>
+        /// <param name="subtotal"></param>
+        /// <returns></returns>
+        public decimal Pagar(decimal itbis, decimal subtotal)
+        {
+            decimal t_pagar, t_pagar_c_descuento;
+            t_pagar = itbis + subtotal;
+            t_pagar_c_descuento = t_pagar - Descuento();
+            return t_pagar_c_descuento;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="recibido"></param>
+        /// <param name="cobrar"></param>
+        /// <returns></returns>
+        public decimal Cambio_Compras( decimal recibido, decimal cobrar)
+        {
+            decimal cambio;
+            cambio = recibido - cobrar;
+            return cambio;
         }
 
     }

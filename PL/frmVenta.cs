@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BLL;
+using BLL.Entity;
 
 namespace PL
 {
     public partial class frmVenta : Form
     {
-        private BLL.Entity.clsVenta venta = null;
+        public clsVenta venta = null;
 
         public frmVenta()
         {
@@ -25,7 +25,9 @@ namespace PL
         {
             timer1.Enabled = true;
             Limpiar();
+            LimpiarEfectivo();
             Deshabilitar();
+            this.chbDescuento.Visible = false;
             this.btnNuevo.Focus();
         }
 
@@ -36,13 +38,25 @@ namespace PL
                 MessageBox.Show("Debe ingresar un cliente");
                 this.txtClientes.Focus();
                 return;
-                ; }
+            }
 
-            venta = new BLL.Entity.clsVenta(txtClientes.Text);
+            venta = new clsVenta(txtClientes.Text);
             dgvDetalle.DataSource = venta.Productos;
         }
 
-        //
+        //Load DataGrid Header
+        private void LoadDataGridView()
+        {
+            dgvDetalle.ColumnCount = 6;
+            dgvDetalle.Columns[0].Name= "ID";
+            dgvDetalle.Columns[1].Name= "DESCRIPCION";
+            dgvDetalle.Columns[2].Name= "CANTIDAD";
+            dgvDetalle.Columns[3].Name= "PRECIO";
+            dgvDetalle.Columns[4].Name= "ITBIS";
+            dgvDetalle.Columns[5].Name= "IMPORTE";
+        }
+
+        //Clear Textbox
         private void Limpiar()
         {
 
@@ -55,7 +69,8 @@ namespace PL
             //this.txtTotalPagar.Clear();
             // this.txtItbis.Clear();
         }
-        //
+        
+        //Deshabilita TextBox, Buttons
         private void Deshabilitar()
         {
             this.txtClientes.Enabled = false;
@@ -72,12 +87,15 @@ namespace PL
             this.txtTotalPagar.Enabled = false;
             this.txtDescuento.Enabled = false;
             this.chbDescuento.Enabled = false;
+            this.txtRecibidoEfectivo.Enabled = false;
+            this.txtDevueltaEfectivo.Enabled = false;
             if (dgvDetalle == null)
             {
                 this.chbDescuento.Enabled = false;
             }
         }
-        //
+
+        //Habilita TextBox, Buttons
         private void Habilitar()
         {
             this.txtClientes.Enabled = true;
@@ -93,36 +111,66 @@ namespace PL
             this.txtTotalPagar.Enabled = true;
             this.txtDescuento.Enabled = true;
             this.btnCancelar.Enabled = true;
+            this.txtRecibidoEfectivo.Enabled = true;
+            this.txtDevueltaEfectivo.Enabled = true;
             if (dgvDetalle != null)
             {
                 this.chbDescuento.Enabled = true;
             }
 
         }
-        //
+        
+        //Change ReadOnly TextBox
         private void OnlyRead()
         {
             this.txtSubtotal.ReadOnly = true;
             this.txtTotalPagar.ReadOnly = true;
             this.txtItbis.ReadOnly = true;
             this.txtDescuento.ReadOnly = true;
-        }
-        //
-
-        private void btnPagar_Click(object sender, EventArgs e)
-        {
-
+            this.txtDevueltaEfectivo.ReadOnly = true;
         }
 
-        private void btnNuevo_Click(object sender, EventArgs e)
+        //Pay Process 
+        private void Pagar()
         {
-            Habilitar();
             Limpiar();
             OnlyRead();
             this.txtClientes.Clear();
             this.cmbTipoVenta.Text = "";
             this.dgvDetalle.DataSource = null;
+            LimpiarEfectivo();
             this.cmbTipoVenta.Focus();
+            this.txtRecibidoEfectivo.Text = "0.00";
+            this.txtDevueltaEfectivo.Text = "0.00";
+        }
+
+        //Remove Items from the Grid  ---> Pendding
+        private void RemoveItems()
+        {
+
+           int  item = this.dgvDetalle.CurrentRow.Index;
+           MessageBox.Show("Selecciono el Item:" + item.ToString());
+
+            //if (this.dgvDetalle.CurrentRow.Index != -1)
+            //{
+            //    this.dgvDetalle.Rows.RemoveAt(1);
+            //    MessageBox.Show("Item seleccionado fue Eliminado");
+            //}
+        }
+
+
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            Habilitar();
+            Limpiar();
+            LimpiarEfectivo();
+            OnlyRead();
+            this.txtClientes.Clear();
+            this.cmbTipoVenta.Text = "";
+            this.dgvDetalle.DataSource = null;
+            this.cmbTipoVenta.Focus();
+            //this.txtRecibidoEfectivo.Text = "0.00";
 
         }
 
@@ -131,8 +179,9 @@ namespace PL
             if (this.cmbTipoVenta.Text == "CONTADO")
             {
                 this.txtClientes.Text = "CONTADO";
-                venta = new BLL.Entity.clsVenta(txtClientes.Text);
-                dgvDetalle.DataSource = venta.Productos;
+                venta = new clsVenta(txtClientes.Text);
+                //dgvDetalle.DataSource = venta.Productos;
+                LoadDataGridView();
                 this.txtProductos.Focus();
             }
             if (this.cmbTipoVenta.Text == "CREDITO")
@@ -165,8 +214,8 @@ namespace PL
                 return;
             }
 
-            int id;
-            if (!int.TryParse(txtProductos.Text, out id))
+            long id;
+            if (!long.TryParse(txtProductos.Text, out id))
             {
                 MessageBox.Show("Debe ingresar un Codigo numerico", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.txtProductos.Focus();
@@ -233,25 +282,18 @@ namespace PL
             }
 
             //add products to Gridview
-            BLL.Entity.clsDetalleVenta productos = new BLL.Entity.clsDetalleVenta();
-            productos.ID = id;
-            productos.DESCRIPCION = txtDescripcion.Text;
-            productos.CANTIDAD = cantidad;
-            productos.PRECIO_VENTA = precio;
-            //productos.ITBIS
-            venta.addProduct(productos);
+
+            //var producto = new BindingList<clsDetalleVenta>();
+            clsDetalleVenta ObjectDetail = new clsDetalleVenta();
+
+            ObjectDetail.ID = id;
+            ObjectDetail.DESCRIPCION = txtDescripcion.Text;
+            ObjectDetail.CANTIDAD = cantidad;
+            ObjectDetail.PRECIO = precio;
             dgvDetalle.DataSource = null;
-            dgvDetalle.DataSource = venta.Productos;
-
-            decimal total, t_pagar;
-            decimal t_itbis;
-            total = venta.Total();
-            t_itbis = venta.Itbis();
-            t_pagar = t_itbis + total;
-
-            this.txtSubtotal.Text = string.Format("{0:C2}", total);
-            this.txtItbis.Text = string.Format("{0:C2}", t_itbis);
-            this.txtTotalPagar.Text = string.Format("{0:C2}", t_pagar);
+            venta.addProduct(ObjectDetail);
+            dgvDetalle.DataSource = venta.Productos;  //Data from List to DataGridView
+            SetPagar();
             Limpiar();
             this.txtProductos.Focus();
         }
@@ -262,15 +304,14 @@ namespace PL
             //consulProductos.Show();
             consulProductos.ShowDialog(this);
             consulProductos.Text = "Buscar Productos";
-
-
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             Limpiar();
+            this.txtProductos.Focus();
             //Deshabilitar();
-            this.btnNuevo.Focus();
+            //this.btnNuevo.Focus();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -279,41 +320,140 @@ namespace PL
             label15.Text = DateTime.Now.ToLongDateString();
         }
 
-        private void chbDescuento_CheckedChanged(object sender, EventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        private void SetPagar()
+        {
+            decimal subtotal, itbis, t_pagar, descuento;
+            subtotal = venta.SubTotal();
+            itbis = venta.Itbis();
+            descuento = venta.Descuento();
+            t_pagar = venta.Pagar(itbis, subtotal);
+
+            this.txtSubtotal.Text = string.Format("{0:C2}", subtotal);
+            this.txtItbis.Text = string.Format("{0:C2}", itbis);
+            this.txtTotalPagar.Text = string.Format("{0:C2}", t_pagar);
+            this.txtDescuento.Text = string.Format("{0:C2}", descuento);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void LimpiarEfectivo()
+        {
+            this.txtDevueltaEfectivo.Text="0.00";
+            this.txtDescuento.Text = "0.00";
+            this.txtTotalPagar.Text ="0.00";
+            this.txtItbis.Text = "0.00";
+            this.txtSubtotal.Text = "0.00";
+           // this.txtRecibidoEfectivo.Text="0.0";
+        }
+        ///private void chbDescuento_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        decimal descuento, td_pagar, tpagar;
+        //        decimal total_pagar, t_itbis, t_itbis_c_pagar;
+
+        //        total_pagar = venta.Pagar(itbis, );
+        //        t_itbis = venta.Itbis();
+        //        tpagar = venta.SubTotal();
+
+        //        if (this.chbDescuento.Checked == true)
+        //        {
+        //            descuento = venta.Descuento();
+        //            t_itbis_c_pagar = total_pagar + t_itbis;
+        //            td_pagar = t_itbis_c_pagar - descuento;
+        //            this.txtDescuento.Text = string.Format("{0:C2}", descuento);
+        //            this.txtTotalPagar.Text = string.Format("{0:C2}", td_pagar);
+        //        }
+        //        else
+        //        {
+        //            t_itbis_c_pagar = t_itbis + total_pagar;
+        //            this.txtTotalPagar.Text = string.Format("{0:C2}", t_itbis_c_pagar);
+        //            txtDescuento.Clear();
+        //            return;
+        //        }
+        //    }
+
+        //    catch (Exception)
+        //    {
+        //        MessageBox.Show("Debe indicar un Total a Pagar, asi poder aplicar Descuento", "Mensaje del Sistema", 
+        //        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        //        this.txtProductos.Focus();
+        //        return;
+        //    }
+
+        //}
+
+
+
+        private void txtRecibidoEfectivo_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                decimal descuento, td_pagar;
-                decimal total_pagar, t_itbis, t_itbis_c_pagar;
-
-                total_pagar = venta.Total();
-                t_itbis = venta.Itbis();
-
-                if (this.chbDescuento.Checked == true)
-                {
-                    descuento = venta.Descuento();
-                    t_itbis_c_pagar = total_pagar + t_itbis;
-                    td_pagar = t_itbis_c_pagar - descuento;
-                    this.txtDescuento.Text = string.Format("{0:C2}", descuento);
-                    this.txtTotalPagar.Text = string.Format("{0:C2}", td_pagar);
-                }
-                else
-                {
-                    t_itbis_c_pagar = t_itbis + total_pagar;
-                    this.txtTotalPagar.Text = string.Format("{0:C2}", t_itbis_c_pagar);
-                    txtDescuento.Clear();
-                    return;
-                }
+                decimal itbis, subtotal, cobrar, recibido, devuelta;
+                itbis = venta.Itbis();
+                subtotal = venta.SubTotal();
+                cobrar = venta.Pagar(itbis, subtotal);
+                recibido = Convert.ToDecimal(this.txtRecibidoEfectivo.Text);
+                devuelta = venta.Cambio_Compras(recibido, cobrar);
+                this.txtDevueltaEfectivo.Text = string.Format("{0:C2}", devuelta);
             }
-
             catch (Exception)
             {
-                MessageBox.Show("Debe indicar un Total a Pagar, asi poder aplicar Descuento", "Mensaje del Sistema", 
-                MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                this.txtProductos.Focus();
-                return;
+
+                MessageBox.Show("Debe ingresar efectivo que recibio", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.txtRecibidoEfectivo.Focus();
+            }
+        }
+
+        private void txtDevueltaEfectivo_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPagar_Click(object sender, EventArgs e)
+        {
+
+            if (this.txtRecibidoEfectivo.Text == string.Empty)
+            {
+                MessageBox.Show("Debe ingresar efectivo que recibio", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.txtRecibidoEfectivo.Focus();
+            }
+            else
+            {
+                Pagar();
+                MessageBox.Show("Pago realizado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                RemoveItems();
+                MessageBox.Show("Item Eliminado");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Seleccione el Item  para Eliminar");
             }
 
+        }
+
+        private void dgvDetalle_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // RemoveItems();
+
+
+            int item;
+            if (this.dgvDetalle.SelectedRows.Count > 0)
+            {
+                item = this.dgvDetalle.CurrentRow.Index;
+                MessageBox.Show("Selecciono el Item:"+item);
+            }
         }
     }
 
