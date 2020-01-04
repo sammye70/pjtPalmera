@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using BLL.Entity;
 
 
-namespace BLL.Entity
+
+
+namespace pjPalmera.Entities
 
 {
 
-    public class clsVenta
+    public class clsVentaEntity
     {
         /// <summary>
         /// Author: Samuel Estrella
@@ -29,14 +29,14 @@ namespace BLL.Entity
         //private string _descripcion;
         //private decimal _p_venta;
         //private float _cantidad;
-        private List<clsDetalleVenta> _productos;
+        private List<clsDetalleVentaEntity> _productos;
         public decimal precio = 0;
         public Int64 id;
         public float cantidad;
         /// <summary>
         /// 
         /// </summary>
-        public List<clsDetalleVenta> Productos
+        public List<clsDetalleVentaEntity> Productos
         {
             get
             {

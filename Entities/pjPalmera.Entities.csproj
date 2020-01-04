@@ -42,6 +42,12 @@
   <ItemGroup>
     <Compile Include="CiudadEntity.cs" />
     <Compile Include="ClientesEntity.cs" />
+    <Compile Include="DetalleVentaEntity.cs" />
+    <Compile Include="InventarioProductos.cs" />
+    <Compile Include="ProvinciaEntity.cs" />
+    <Compile Include="VendedorEntity.cs" />
+    <Compile Include="VentaEntity.cs" />
+    <Compile Include="ProductosEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

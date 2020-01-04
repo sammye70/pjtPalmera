@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL.Entity
+namespace pjPalmera.Entities
 {
    public class clsClientes
     {
@@ -21,61 +21,61 @@ namespace BLL.Entity
         string _created;
 
         //Methods
-        public int _Idclientes
+        public int Idclientes
         {
             get { return _idclientes; }
             set { _idclientes = value; }
         }
 
-        public int _Cedula
+        public int Cedula
         {
             get { return _cedula; }
             set { _cedula = value; }
         }
 
-       public string _Nombre
+       public string Nombre
         {
             get { return _nombre; }
             set { _nombre = value; }
         }
 
-        public string _Apellidos
+        public string Apellidos
         {
             get { return _apellidos; }
             set { _apellidos = value; }
         }
 
-        public string _Telefono
+        public string Telefono
         {
             get { return _telefono; }
             set { _telefono = value; }
         }
 
-        public string _Direccion
+        public string Direccion
         {
             get { return _direccion; }
             set { _direccion = value; }
         }
 
-        public string _Ciudad
+        public string Ciudad
         {
             get { return _ciudad; }
             set { _ciudad = value; }
         }
 
-        public decimal _Limitecredito
+        public decimal Limitecredito
         {
             get { return _limitecredito; }
             set { _limitecredito = value; }
         }
 
-        public int _Createby
+        public int Createby
         {
             get { return _createby;}
             set { _createby = value; }
         }
         
-        public string created
+        public string Created
         {
             get { return _created; }
             set { _created = value; }

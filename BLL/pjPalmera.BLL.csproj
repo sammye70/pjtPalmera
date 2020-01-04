@@ -41,26 +41,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entity\clsInventarioProductos.cs" />
-    <Compile Include="Entity\clsDetalleVenta.cs" />
-    <Compile Include="Entity\clsCiudad.cs" />
-    <Compile Include="Entity\clsClientes.cs" />
-    <Compile Include="Entity\clsProvincia.cs" />
-    <Compile Include="Entity\clsVendedor.cs" />
-    <Compile Include="Entity\clsVenta.cs" />
     <Compile Include="LogicAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Entities\Entities.csproj">
+    <ProjectReference Include="..\Entities\pjPalmera.Entities.csproj">
       <Project>{65164c5b-b7e9-483a-966a-e5dc9aaee214}</Project>
-      <Name>Entities</Name>
+      <Name>pjPalmera.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\_DAL\_DAL.csproj">
+    <ProjectReference Include="..\_DAL\pjPalmera.DAL.csproj">
       <Project>{4f1593fc-47f7-4b98-8afe-395a39d47367}</Project>
-      <Name>_DAL</Name>
+      <Name>pjPalmera.DAL</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

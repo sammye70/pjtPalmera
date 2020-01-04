@@ -48,14 +48,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clsSettings.cs" />
-    <Compile Include="Data_Access\clsCiudad_Methods.cs" />
-    <Compile Include="Data_Access\clsMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Entities\Entities.csproj">
+    <ProjectReference Include="..\Entities\pjPalmera.Entities.csproj">
       <Project>{65164c5b-b7e9-483a-966a-e5dc9aaee214}</Project>
-      <Name>Entities</Name>
+      <Name>pjPalmera.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

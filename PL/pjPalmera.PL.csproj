@@ -239,17 +239,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BLL\BLL.csproj">
+    <ProjectReference Include="..\BLL\pjPalmera.BLL.csproj">
       <Project>{e3ec5f0a-cd53-40cb-a68c-58b40abd40fa}</Project>
-      <Name>BLL</Name>
+      <Name>pjPalmera.BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Entities\Entities.csproj">
+    <ProjectReference Include="..\Entities\pjPalmera.Entities.csproj">
       <Project>{65164c5b-b7e9-483a-966a-e5dc9aaee214}</Project>
-      <Name>Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\_DAL\_DAL.csproj">
-      <Project>{4f1593fc-47f7-4b98-8afe-395a39d47367}</Project>
-      <Name>_DAL</Name>
+      <Name>pjPalmera.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BLL.Entity;
+using pjPalmera.Entities;
 
 namespace PL
 {
     public partial class frmVenta : Form
     {
-        public clsVenta venta = null;
+        public clsVentaEntity venta = null;
 
         public frmVenta()
         {

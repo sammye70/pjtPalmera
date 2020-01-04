@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL.Entity
+namespace pjPalmera.Entities
 {
-    public class clsDetalleVenta
+    public class clsDetalleVentaEntity
     {
         /// <summary>
         /// Author: Samuel Estrella

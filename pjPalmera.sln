@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL", "PL\PL.csproj", "{95A1B5CA-D0C3-497E-A314-ABFB8AE110AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pjPalmera.PL", "PL\pjPalmera.PL.csproj", "{95A1B5CA-D0C3-497E-A314-ABFB8AE110AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{E3EC5F0A-CD53-40CB-A68C-58B40ABD40FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pjPalmera.BLL", "BLL\pjPalmera.BLL.csproj", "{E3EC5F0A-CD53-40CB-A68C-58B40ABD40FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_DAL", "_DAL\_DAL.csproj", "{4F1593FC-47F7-4B98-8AFE-395A39D47367}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pjPalmera.DAL", "_DAL\pjPalmera.DAL.csproj", "{4F1593FC-47F7-4B98-8AFE-395A39D47367}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{65164C5B-B7E9-483A-966A-E5DC9AAEE214}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pjPalmera.Entities", "Entities\pjPalmera.Entities.csproj", "{65164C5B-B7E9-483A-966A-E5DC9AAEE214}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
