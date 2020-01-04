@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace pjPalmera.Entities
 {
-    public class clsDetalleVentaEntity
+    public class DetalleVentaEntity
     {
         /// <summary>
         /// Author: Samuel Estrella

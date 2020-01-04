@@ -40,7 +40,7 @@ namespace PL
                 return;
             }
 
-            venta = new clsVenta(txtClientes.Text);
+            venta = new clsVentaEntity(txtClientes.Text);
             dgvDetalle.DataSource = venta.Productos;
         }
 
@@ -179,7 +179,7 @@ namespace PL
             if (this.cmbTipoVenta.Text == "CONTADO")
             {
                 this.txtClientes.Text = "CONTADO";
-                venta = new clsVenta(txtClientes.Text);
+                venta = new clsVentaEntity(txtClientes.Text);
                 //dgvDetalle.DataSource = venta.Productos;
                 LoadDataGridView();
                 this.txtProductos.Focus();
@@ -284,7 +284,7 @@ namespace PL
             //add products to Gridview
 
             //var producto = new BindingList<clsDetalleVenta>();
-            clsDetalleVenta ObjectDetail = new clsDetalleVenta();
+            clsDetalleVentaEntity ObjectDetail = new clsDetalleVentaEntity();
 
             ObjectDetail.ID = id;
             ObjectDetail.DESCRIPCION = txtDescripcion.Text;

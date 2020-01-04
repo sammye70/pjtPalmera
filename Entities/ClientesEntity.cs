@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace pjPalmera.Entities
 {
-   public class clsClientes
+   public class ClientesEntity
     {
         //Properties
         int _idclientes;
@@ -82,7 +82,7 @@ namespace pjPalmera.Entities
         }
 
         //Construtor
-        public clsClientes(int Idclientes, int Cedula, string Nombre, string Apellidos, string Telefono, string Direccion, string Ciudad,
+        public ClientesEntity(int Idclientes, int Cedula, string Nombre, string Apellidos, string Telefono, string Direccion, string Ciudad,
             decimal Limitecredito, int Createby, string Created)
         {
             this._idclientes = Idclientes;

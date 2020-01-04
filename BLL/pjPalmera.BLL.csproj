@@ -49,10 +49,6 @@
       <Project>{65164c5b-b7e9-483a-966a-e5dc9aaee214}</Project>
       <Name>pjPalmera.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\_DAL\pjPalmera.DAL.csproj">
-      <Project>{4f1593fc-47f7-4b98-8afe-395a39d47367}</Project>
-      <Name>pjPalmera.DAL</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

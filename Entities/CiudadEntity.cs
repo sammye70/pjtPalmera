@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace pjPalmera.Entities
 {
-   public  class clsCiudad
+   public  class CiudadEntity
     {
         //
         int _idCiudad;
@@ -26,7 +26,7 @@ namespace pjPalmera.Entities
         }
 
         //
-        public clsCiudad(int Idciudad, string Nombre)
+        public CiudadEntity(int Idciudad, string Nombre)
         {
             this._idCiudad = Idciudad;
             this._nombre = Nombre;

@@ -4,14 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-
-
 namespace pjPalmera.Entities
 
 {
 
-    public class clsVentaEntity
+    public class VentaEntity
     {
         /// <summary>
         /// Author: Samuel Estrella
@@ -46,21 +43,21 @@ namespace pjPalmera.Entities
 
 
         //Constructor
-        public clsVenta(string clientes)
+        public clsVentaEntity (string clientes)
         {
             this._clientes = clientes;
             this._f_factura = DateTime.Now;
-            this._productos = new List<clsDetalleVenta>();
+            this._productos = new List<clsDetalleVentaEntity>();
         }
 
         //Method Add Items to list<>
-        public void addProduct(clsDetalleVenta producto)
+        public void addProduct(clsDetalleVentaEntity producto)
         {
             Productos.Add(producto);
         }
 
         //
-        public void RemoveItem(clsDetalleVenta producto)
+        public void RemoveItem(clsDetalleVentaEntity producto)
         {
 
             Productos.RemoveAt(1);

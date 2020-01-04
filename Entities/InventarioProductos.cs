@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL.Entity
+namespace pjPalmera.Entities
 {
     /// <summary>
     /// Author: Samuel Estrella
@@ -12,7 +12,7 @@ namespace BLL.Entity
     /// Modificated by:  
     /// Title: 
     /// </summary>
-    public class clsInventarioProductos
+    public class InventarioProductosEntity
     {
         public int id { get; set; }
         public string descripcion { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace pjPalmera.Entities
 {
-    public class clsVendedor
+    public class VendedorEntity
     {
 
     }
