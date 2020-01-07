@@ -8,9 +8,9 @@ using System.Data;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 
-namespace _DAL
+namespace pjPalmera.DAL
 {
-    public class clsSettings
+    public class SettingDAL
     {
         /// <summary>
         /// 
@@ -22,6 +22,9 @@ namespace _DAL
         /// </summary>
         static String ConnectionString = @"server=192.168.8.127;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas;";
 
+        /// <summary>
+        /// ConnectionString to Databases
+        /// </summary>
         public static String connectionstring
         {
             get { return ConnectionString; }

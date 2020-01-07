@@ -26,14 +26,14 @@ namespace pjPalmera.Entities
         //private string _descripcion;
         //private decimal _p_venta;
         //private float _cantidad;
-        private List<clsDetalleVentaEntity> _productos;
+        private List<DetalleVentaEntity> _productos;
         public decimal precio = 0;
         public Int64 id;
         public float cantidad;
         /// <summary>
         /// 
         /// </summary>
-        public List<clsDetalleVentaEntity> Productos
+        public List<DetalleVentaEntity> Productos
         {
             get
             {
@@ -43,21 +43,25 @@ namespace pjPalmera.Entities
 
 
         //Constructor
-        public clsVentaEntity (string clientes)
+        public VentaEntity (string clientes)
         {
             this._clientes = clientes;
             this._f_factura = DateTime.Now;
-            this._productos = new List<clsDetalleVentaEntity>();
+            this._productos = new List<DetalleVentaEntity>();
+        }
+
+        public VentaEntity()
+        {
         }
 
         //Method Add Items to list<>
-        public void addProduct(clsDetalleVentaEntity producto)
+        public void addProduct(DetalleVentaEntity producto)
         {
             Productos.Add(producto);
         }
 
         //
-        public void RemoveItem(clsDetalleVentaEntity producto)
+        public void RemoveItem(DetalleVentaEntity producto)
         {
 
             Productos.RemoveAt(1);
@@ -71,7 +75,7 @@ namespace pjPalmera.Entities
         public decimal SubTotal()
         {
             decimal total = 0;
-            foreach (clsDetalleVenta producto in Productos)
+            foreach (DetalleVentaEntity producto in Productos)
             {
                 total += producto.IMPORTE;
             }
@@ -85,7 +89,7 @@ namespace pjPalmera.Entities
         /// <returns></returns>
         public decimal Itbis()
         {
-            clsDetalleVenta producto = new clsDetalleVenta();
+            DetalleVentaEntity producto = new DetalleVentaEntity();
             decimal itbis = 18, t_itbis, c_itbis;
             c_itbis = (itbis * SubTotal()) / 100;
             t_itbis = SubTotal() - c_itbis;

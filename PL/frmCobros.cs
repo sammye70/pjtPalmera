@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BLL.Entity;
+using pjPalmera.Entities;
 
-namespace PL
+namespace pjPamera.PL
 {
     public partial class frmCobros : Form
     {
-       private clsVenta venta=null;
+       private VentaEntity  venta=null;
 
         public frmCobros()
         {
@@ -43,7 +43,7 @@ namespace PL
         //
         private void Operacion()
         {
-            frmVenta obj = new frmVenta();
+            
             decimal subtotal, t_pagar;
             decimal t_itbis;
             subtotal = venta.SubTotal();

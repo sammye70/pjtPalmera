@@ -15,6 +15,7 @@ namespace pjPalmera.Entities
         string _apellidos;
         string _telefono;
         string _direccion;
+        string _provincia;
         string _ciudad;
         decimal _limitecredito;
         int _createby;
@@ -57,6 +58,12 @@ namespace pjPalmera.Entities
             set { _direccion = value; }
         }
 
+        public string Provincia
+        {
+            get { return _provincia; }
+            set { _provincia = value; }
+        }
+
         public string Ciudad
         {
             get { return _ciudad; }
@@ -82,7 +89,7 @@ namespace pjPalmera.Entities
         }
 
         //Construtor
-        public ClientesEntity(int Idclientes, int Cedula, string Nombre, string Apellidos, string Telefono, string Direccion, string Ciudad,
+        public ClientesEntity(int Idclientes, int Cedula, string Nombre, string Apellidos, string Telefono, string Direccion, string Provincia, string Ciudad,
             decimal Limitecredito, int Createby, string Created)
         {
             this._idclientes = Idclientes;
@@ -91,10 +98,16 @@ namespace pjPalmera.Entities
             this._apellidos = Apellidos;
             this._telefono = Telefono;
             this._direccion = Direccion;
+            this._provincia = Provincia;
             this._ciudad = Ciudad;
             this._limitecredito = Limitecredito;
             this._createby = Createby;
             this._created = Created;
         }
+
+        public ClientesEntity()
+        {
+        }
+
     }
 }

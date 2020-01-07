@@ -1,4 +1,4 @@
-﻿namespace PL
+﻿namespace pjPalmera.PL
 {
     partial class frmConsultarProductos
     {
@@ -38,8 +38,8 @@
             // 
             // dgvProdConsultar
             // 
-            this.dgvProdConsultar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgvProdConsultar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvProdConsultar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvProdConsultar.Location = new System.Drawing.Point(7, 52);

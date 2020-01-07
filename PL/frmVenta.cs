@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using pjPalmera.Entities;
 
-namespace PL
+namespace pjPalmera.PL
 {
     public partial class frmVenta : Form
     {
-        public clsVentaEntity venta = null;
+        public VentaEntity venta = null;
 
         public frmVenta()
         {
@@ -40,7 +40,7 @@ namespace PL
                 return;
             }
 
-            venta = new clsVentaEntity(txtClientes.Text);
+            venta = new VentaEntity(txtClientes.Text);
             dgvDetalle.DataSource = venta.Productos;
         }
 
@@ -179,7 +179,7 @@ namespace PL
             if (this.cmbTipoVenta.Text == "CONTADO")
             {
                 this.txtClientes.Text = "CONTADO";
-                venta = new clsVentaEntity(txtClientes.Text);
+                venta = new VentaEntity(txtClientes.Text);
                 //dgvDetalle.DataSource = venta.Productos;
                 LoadDataGridView();
                 this.txtProductos.Focus();
@@ -284,7 +284,7 @@ namespace PL
             //add products to Gridview
 
             //var producto = new BindingList<clsDetalleVenta>();
-            clsDetalleVentaEntity ObjectDetail = new clsDetalleVentaEntity();
+            DetalleVentaEntity ObjectDetail = new DetalleVentaEntity();
 
             ObjectDetail.ID = id;
             ObjectDetail.DESCRIPCION = txtDescripcion.Text;

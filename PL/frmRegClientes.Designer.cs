@@ -1,4 +1,4 @@
-﻿namespace PL
+﻿namespace pjPalmera.PL
 {
     partial class frmRegClientes
     {
@@ -35,15 +35,15 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.mktCedula = new System.Windows.Forms.MaskedTextBox();
+            this.txtNombre = new System.Windows.Forms.TextBox();
+            this.txtApellidos = new System.Windows.Forms.TextBox();
+            this.txtDireccion = new System.Windows.Forms.TextBox();
+            this.cmbProvincia = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cmbCiudad = new System.Windows.Forms.ComboBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
+            this.mktTelefono = new System.Windows.Forms.MaskedTextBox();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnNuevo = new System.Windows.Forms.Button();
@@ -112,41 +112,41 @@
             this.label7.TabIndex = 6;
             this.label7.Text = "Telefono";
             // 
-            // maskedTextBox1
+            // mktCedula
             // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(67, 29);
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(126, 20);
-            this.maskedTextBox1.TabIndex = 7;
+            this.mktCedula.Location = new System.Drawing.Point(67, 29);
+            this.mktCedula.Name = "mktCedula";
+            this.mktCedula.Size = new System.Drawing.Size(126, 20);
+            this.mktCedula.TabIndex = 7;
             // 
-            // textBox1
+            // txtNombre
             // 
-            this.textBox1.Location = new System.Drawing.Point(249, 29);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(188, 20);
-            this.textBox1.TabIndex = 8;
+            this.txtNombre.Location = new System.Drawing.Point(249, 29);
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(188, 20);
+            this.txtNombre.TabIndex = 8;
             // 
-            // textBox2
+            // txtApellidos
             // 
-            this.textBox2.Location = new System.Drawing.Point(67, 69);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(269, 20);
-            this.textBox2.TabIndex = 9;
+            this.txtApellidos.Location = new System.Drawing.Point(67, 69);
+            this.txtApellidos.Name = "txtApellidos";
+            this.txtApellidos.Size = new System.Drawing.Size(269, 20);
+            this.txtApellidos.TabIndex = 9;
             // 
-            // textBox3
+            // txtDireccion
             // 
-            this.textBox3.Location = new System.Drawing.Point(67, 106);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(370, 20);
-            this.textBox3.TabIndex = 10;
+            this.txtDireccion.Location = new System.Drawing.Point(67, 106);
+            this.txtDireccion.Name = "txtDireccion";
+            this.txtDireccion.Size = new System.Drawing.Size(370, 20);
+            this.txtDireccion.TabIndex = 10;
             // 
-            // comboBox1
+            // cmbProvincia
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(67, 149);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(139, 21);
-            this.comboBox1.TabIndex = 11;
+            this.cmbProvincia.FormattingEnabled = true;
+            this.cmbProvincia.Location = new System.Drawing.Point(67, 149);
+            this.cmbProvincia.Name = "cmbProvincia";
+            this.cmbProvincia.Size = new System.Drawing.Size(139, 21);
+            this.cmbProvincia.TabIndex = 11;
             // 
             // button1
             // 
@@ -158,13 +158,13 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // comboBox2
+            // cmbCiudad
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(288, 149);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(139, 21);
-            this.comboBox2.TabIndex = 13;
+            this.cmbCiudad.FormattingEnabled = true;
+            this.cmbCiudad.Location = new System.Drawing.Point(288, 149);
+            this.cmbCiudad.Name = "cmbCiudad";
+            this.cmbCiudad.Size = new System.Drawing.Size(139, 21);
+            this.cmbCiudad.TabIndex = 13;
             // 
             // button2
             // 
@@ -176,12 +176,12 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // maskedTextBox2
+            // mktTelefono
             // 
-            this.maskedTextBox2.Location = new System.Drawing.Point(67, 190);
-            this.maskedTextBox2.Name = "maskedTextBox2";
-            this.maskedTextBox2.Size = new System.Drawing.Size(114, 20);
-            this.maskedTextBox2.TabIndex = 15;
+            this.mktTelefono.Location = new System.Drawing.Point(67, 190);
+            this.mktTelefono.Name = "mktTelefono";
+            this.mktTelefono.Size = new System.Drawing.Size(114, 20);
+            this.mktTelefono.TabIndex = 15;
             // 
             // btnCancelar
             // 
@@ -220,15 +220,15 @@
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnNuevo);
-            this.Controls.Add(this.maskedTextBox2);
+            this.Controls.Add(this.mktTelefono);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.cmbCiudad);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.maskedTextBox1);
+            this.Controls.Add(this.cmbProvincia);
+            this.Controls.Add(this.txtDireccion);
+            this.Controls.Add(this.txtApellidos);
+            this.Controls.Add(this.txtNombre);
+            this.Controls.Add(this.mktCedula);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -255,15 +255,15 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.MaskedTextBox mktCedula;
+        private System.Windows.Forms.TextBox txtNombre;
+        private System.Windows.Forms.TextBox txtApellidos;
+        private System.Windows.Forms.TextBox txtDireccion;
+        private System.Windows.Forms.ComboBox cmbProvincia;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cmbCiudad;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox2;
+        private System.Windows.Forms.MaskedTextBox mktTelefono;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnNuevo;

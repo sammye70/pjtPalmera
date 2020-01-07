@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PL
+namespace pjPalmera.PL
 {
     public partial class frmConsulFactEmitidas : Form
     {

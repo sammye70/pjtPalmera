@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PL
+namespace pjPalmera.PL
 {
     partial class AboutBox : Form
     {

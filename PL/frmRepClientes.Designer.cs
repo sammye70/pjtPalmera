@@ -1,4 +1,4 @@
-﻿namespace PL
+﻿namespace pjPalmera.PL
 {
     partial class frmRepClientes
     {

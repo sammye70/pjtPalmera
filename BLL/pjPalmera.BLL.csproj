@@ -41,10 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LogicAccess.cs" />
+    <Compile Include="ClientesBO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DAL\pjPalmera.DAL.csproj">
+      <Project>{4f1593fc-47f7-4b98-8afe-395a39d47367}</Project>
+      <Name>pjPalmera.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Entities\pjPalmera.Entities.csproj">
       <Project>{65164c5b-b7e9-483a-966a-e5dc9aaee214}</Project>
       <Name>pjPalmera.Entities</Name>
