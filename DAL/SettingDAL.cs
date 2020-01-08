@@ -13,14 +13,13 @@ namespace pjPalmera.DAL
     public class SettingDAL
     {
         /// <summary>
-        /// 
         /// Author: Samuel Estrella
         /// StringConnection
         /// Version: 1.0
         /// Create Date:20/12/2019
         /// Modificated: 
         /// </summary>
-        static String ConnectionString = @"server=192.168.8.127;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas;";
+        static String ConnectionString = @"server=192.168.8.143;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas;";
 
         /// <summary>
         /// ConnectionString to Databases
@@ -29,8 +28,8 @@ namespace pjPalmera.DAL
         {
             get { return ConnectionString; }
         }
-        
 
+        #region
         //    public void Connect()
         //    {
         //        try
@@ -53,5 +52,6 @@ namespace pjPalmera.DAL
 
         //    }
         //}
+        #endregion
     }
 }

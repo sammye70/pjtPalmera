@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -40,13 +41,15 @@
             this.txtApellidos = new System.Windows.Forms.TextBox();
             this.txtDireccion = new System.Windows.Forms.TextBox();
             this.cmbProvincia = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnAgregarProvincia = new System.Windows.Forms.Button();
             this.cmbCiudad = new System.Windows.Forms.ComboBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnAgregarCiudad = new System.Windows.Forms.Button();
             this.mktTelefono = new System.Windows.Forms.MaskedTextBox();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnNuevo = new System.Windows.Forms.Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -148,15 +151,14 @@
             this.cmbProvincia.Size = new System.Drawing.Size(139, 21);
             this.cmbProvincia.TabIndex = 11;
             // 
-            // button1
+            // btnAgregarProvincia
             // 
-            this.button1.Location = new System.Drawing.Point(211, 148);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(27, 23);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "+";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnAgregarProvincia.Location = new System.Drawing.Point(211, 148);
+            this.btnAgregarProvincia.Name = "btnAgregarProvincia";
+            this.btnAgregarProvincia.Size = new System.Drawing.Size(27, 23);
+            this.btnAgregarProvincia.TabIndex = 12;
+            this.btnAgregarProvincia.Text = "+";
+            this.btnAgregarProvincia.UseVisualStyleBackColor = true;
             // 
             // cmbCiudad
             // 
@@ -166,15 +168,14 @@
             this.cmbCiudad.Size = new System.Drawing.Size(139, 21);
             this.cmbCiudad.TabIndex = 13;
             // 
-            // button2
+            // btnAgregarCiudad
             // 
-            this.button2.Location = new System.Drawing.Point(433, 149);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(27, 23);
-            this.button2.TabIndex = 14;
-            this.button2.Text = "+";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnAgregarCiudad.Location = new System.Drawing.Point(433, 149);
+            this.btnAgregarCiudad.Name = "btnAgregarCiudad";
+            this.btnAgregarCiudad.Size = new System.Drawing.Size(27, 23);
+            this.btnAgregarCiudad.TabIndex = 14;
+            this.btnAgregarCiudad.Text = "+";
+            this.btnAgregarCiudad.UseVisualStyleBackColor = true;
             // 
             // mktTelefono
             // 
@@ -191,6 +192,7 @@
             this.btnCancelar.TabIndex = 21;
             this.btnCancelar.Text = "&Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnGuardar
             // 
@@ -212,6 +214,10 @@
             this.btnNuevo.UseVisualStyleBackColor = true;
             this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // frmRegClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -221,9 +227,9 @@
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnNuevo);
             this.Controls.Add(this.mktTelefono);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnAgregarCiudad);
             this.Controls.Add(this.cmbCiudad);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnAgregarProvincia);
             this.Controls.Add(this.cmbProvincia);
             this.Controls.Add(this.txtDireccion);
             this.Controls.Add(this.txtApellidos);
@@ -241,6 +247,8 @@
             this.Name = "frmRegClientes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Registro de Clientes";
+            this.Load += new System.EventHandler(this.frmRegClientes_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -260,12 +268,13 @@
         private System.Windows.Forms.TextBox txtApellidos;
         private System.Windows.Forms.TextBox txtDireccion;
         private System.Windows.Forms.ComboBox cmbProvincia;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnAgregarProvincia;
         private System.Windows.Forms.ComboBox cmbCiudad;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnAgregarCiudad;
         private System.Windows.Forms.MaskedTextBox mktTelefono;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnNuevo;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

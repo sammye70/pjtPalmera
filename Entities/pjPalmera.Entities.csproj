@@ -43,7 +43,7 @@
     <Compile Include="CiudadEntity.cs" />
     <Compile Include="ClientesEntity.cs" />
     <Compile Include="DetalleVentaEntity.cs" />
-    <Compile Include="InventarioProductos.cs" />
+    <Compile Include="FacturasVentapEntity.cs" />
     <Compile Include="ProvinciaEntity.cs" />
     <Compile Include="VendedorEntity.cs" />
     <Compile Include="VentaEntity.cs" />

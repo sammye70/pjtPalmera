@@ -16,18 +16,20 @@ namespace pjPalmera.BLL
         /// </summary>
         /// <param name="costumer"></param>
         /// <returns></returns>
-        public static ClientesEntity Save (ClientesEntity costumer )
+        public static ClientesEntity Save(ClientesEntity costumer)
         {
-            if (ClientesDAL.Exits(costumer.Idclientes))
-            {
-                return ClientesDAL.Create(costumer);
-            }
-            else
-                {
-                  return ClientesDAL.Update(costumer);
-                }
+            return ClientesDAL.Create(costumer);
+            #region
+            //Find Costumer
+            //if (ClientesDAL.Exits(costumer.idclientes))
+            //{
+            //    return ClientesDAL.Create(costumer);
+            //}
+            //else
+            //{
+            //    return ClientesDAL.Update(costumer);
+            //}
+            #endregion
         }
-
-
     }
 }

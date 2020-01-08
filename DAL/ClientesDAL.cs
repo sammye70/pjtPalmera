@@ -20,6 +20,7 @@ namespace pjPalmera.DAL
 
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
+                con.Open();
                 string sql = @"INSERT INTO clientes (cedula, nombre, apellidos, telefono, direccion, ciudad, limitecredito,createby, created)
                                 VALUES (@cedula, @nombre, @apellidos, @telefono, @direccion, @ciudad, @limitecredito, @createby, @created)";
                 MySqlCommand cmd = new MySqlCommand(sql,con);
@@ -34,7 +35,7 @@ namespace pjPalmera.DAL
                 cmd.Parameters.AddWithValue("@createby",Costumer.Createby);
                 cmd.Parameters.AddWithValue("@created",Costumer.Created);
 
-                Costumer.Idclientes = Convert.ToInt32(cmd.ExecuteScalar());
+                Costumer.idclientes = Convert.ToInt32(cmd.ExecuteScalar());
 
             }
                 return Costumer;
@@ -51,12 +52,14 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql= @"SELECT Count(*)
+                string sql= @"SELECT idclientes, cedula, nombre, apellidos
                             FROM clientes 
-                            WHERE IdClientes=idclientes";
+                            WHERE idclientes=@idclientes";
                 MySqlCommand cmd = new MySqlCommand(sql,con);
 
-                cmd.Parameters.AddWithValue("idclientes",id);
+                cmd.Parameters.AddWithValue("@idclientes",id);
+
+                nrecord = Convert.ToInt32(cmd.ExecuteScalar());
             }
 
             return nrecord > 0;
@@ -75,7 +78,7 @@ namespace pjPalmera.DAL
                                 cedula = @cedula,
                                 nombre = @nombre, apellidos = @apellidos, telefono = @telefono,
                                 direccion = @direccion, ciudad = @ciudad, limitecredito = @limitecredito
-                                idclientes = @ideclientes                                
+                                idclientes = @idclientes                                
 
                                 ";
 
