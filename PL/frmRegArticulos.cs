@@ -20,6 +20,35 @@ namespace pjPalmera.PL
             InitializeComponent();
         }
 
+        private void frmRegArticulos_Load(object sender, EventArgs e)
+        {
+            InitializeControls();
+            DesableContros();
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                NewProduct();
+                CleanControls();
+                DesableContros();
+                MessageBox.Show("Guardado Satisfactoriamente","Mensaje del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,"Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+            }
+
+        }
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            EnableControls();
+            producto = null;
+        }
+
         /// <summary>
         /// Desable all Controls from form
         /// </summary>
@@ -57,47 +86,18 @@ namespace pjPalmera.PL
         }
 
         /// <summary>
-        /// Set Detail about controls
+        /// Set properties the controls
         /// </summary>
-        private void SetTooltipControls()
+        private void InitializeControls()
         {
-            toolTip1.SetToolTip(btnNuevo, "Nuevo Registro");
-            toolTip1.SetToolTip(btnGuardar, "Guardar Registro");
-            toolTip1.SetToolTip(btnCancelar, "Limpiar Campos");
-        }
-
-        private void frmRegArticulos_Load(object sender, EventArgs e)
-        {
-            SetTooltipControls();
-            DesableContros();
-        }
-
-        private void btnGuardar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                NewProduct();
-
-                DesableContros();
-                MessageBox.Show("Guardado Satisfactoriamente","Mensaje del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message,"Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-            }
-            
-
-        }
-
-        private void btnNuevo_Click(object sender, EventArgs e)
-        {
-            EnableControls();
-            producto = null;
+            this.toolTip1.SetToolTip(btnNuevo, "Nuevo Registro");
+            this.toolTip1.SetToolTip(btnGuardar, "Guardar Registro");
+            this.toolTip1.SetToolTip(btnCancelar, "Limpiar Campos");
+            this.dateTimePicker1.Format = DateTimePickerFormat.Short;
         }
 
         /// <summary>
-        /// Create New Product o Item
+        /// Create New Product or Item
         /// </summary>
         private void NewProduct()
         {
@@ -109,9 +109,9 @@ namespace pjPalmera.PL
                 producto.idfabricante = Convert.ToInt32(this.cmbFabrincante.Text);
                 producto.descripcion = this.txtDescripcion.Text;
                 producto.idfamilia = Convert.ToInt32(this.cmbFamilia.Text);
-                producto.stockinicial = Convert.ToDecimal(txtStockInicial.Text);
-                producto.stockminimo = Convert.ToDecimal(this.txtStockMinimo.Text);
-                producto.f_vencimiento = DateTime.Now.Date;
+                producto.stockinicial = Convert.ToInt32(txtStockInicial.Text);
+                producto.stockminimo = Convert.ToInt32(this.txtStockMinimo.Text);
+                producto.f_vencimiento = Convert.ToDateTime(dateTimePicker1.Value.Date.ToShortDateString());
                 producto.costo = Convert.ToDecimal(this.txtCosto.Text);
                 producto.precio_venta = Convert.ToDecimal(txtPrecioVenta.Text);
                 producto.created = DateTime.Now.Date;
@@ -120,5 +120,22 @@ namespace pjPalmera.PL
             }
 
         }
+
+        /// <summary>
+        /// Clean Content to all Controls
+        /// </summary>
+        private void CleanControls()
+        {
+            this.txtCodigo.Text = "";
+            this.txtDescripcion.Text = "";
+            this.txtCosto.Text = "";
+            this.txtPrecioVenta.Text = "";
+            this.txtStockInicial.Text = "";
+            this.txtStockMinimo.Text = "";
+            this.cmbEstanteLocalizacion.Text = "";
+            this.cmbFabrincante.Text = "";
+            this.cmbFamilia.Text = "";
+        }
+
     }
 }

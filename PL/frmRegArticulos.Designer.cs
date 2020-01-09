@@ -85,7 +85,7 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(500, 30);
+            this.dateTimePicker1.Location = new System.Drawing.Point(475, 30);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(183, 20);
             this.dateTimePicker1.TabIndex = 3;
@@ -93,7 +93,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(429, 36);
+            this.label4.Location = new System.Drawing.Point(403, 36);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 13);
             this.label4.TabIndex = 4;
@@ -260,7 +260,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(695, 292);
+            this.ClientSize = new System.Drawing.Size(678, 292);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cmbEstanteLocalizacion);
             this.Controls.Add(this.label10);

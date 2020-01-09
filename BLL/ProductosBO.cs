@@ -15,9 +15,9 @@ namespace pjPalmera.BLL
         /// </summary>
         /// <param name="Producto"></param>
         /// <returns></returns>
-        public static ProductosEntity Save(ProductosEntity producto)
+        public static ProductosEntity Save(ProductosEntity Producto)
         {
-            return ProductosDAL.Create(producto);
+            return ProductosDAL.Create(Producto);
         }
     }
 }

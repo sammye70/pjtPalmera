@@ -14,9 +14,9 @@ namespace pjPalmera.Entities
         public int idfamilia { get; set; }
         public int idfabricante { get; set; }
        // public float cantidad_vendida { get { return stock_actual - cantidad_vendida; } } //
-        public decimal stock_actual { get; set; }
-        public decimal stockinicial { get; set; }
-        public decimal stockminimo { get; set; }
+      //  public float stock_actual { get; set; }
+        public float stockinicial { get; set; }
+        public float stockminimo { get; set; }
         public DateTime f_vencimiento { get; set; }
         public decimal costo { get; set; }
         public decimal precio_venta { get; set; }
@@ -25,7 +25,7 @@ namespace pjPalmera.Entities
 
 
         //Constructor
-        public ProductosEntity(long Idproducto, string Descripcion, int Idfamilia, int Idfrabricante, decimal Stock_actual,decimal Stock_inicial, decimal Stock_minimo, 
+        public ProductosEntity(long Idproducto, string Descripcion, int Idfamilia, int Idfrabricante, float Stock_actual, float Stock_inicial, float Stock_minimo, 
             DateTime F_vencimiento, decimal Costo, decimal Precio_venta, int Createby, DateTime Created )
         {
             this.idproducto = Idproducto;

@@ -16,7 +16,7 @@ namespace pjPalmera.DAL
         /// </summary>
         /// <param name="Producto"></param>
         /// <returns></returns>
-        public static ProductosEntity Create( ProductosEntity producto)
+        public static ProductosEntity Create( ProductosEntity Producto)
         {
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
@@ -28,21 +28,21 @@ namespace pjPalmera.DAL
 
                 MySqlCommand cmd = new MySqlCommand(sql,con);
 
-                cmd.Parameters.AddWithValue("@idproducto", producto.idproducto);
-                cmd.Parameters.AddWithValue("@idfrabricante", producto.idfabricante);
-                cmd.Parameters.AddWithValue("@descripcion", producto.descripcion);
-                cmd.Parameters.AddWithValue("@idfamilia", producto.idfamilia);
-                cmd.Parameters.AddWithValue("@stockinicial", producto.stockinicial);
-                cmd.Parameters.AddWithValue("@stockminimo", producto.stockminimo);
-                cmd.Parameters.AddWithValue("@f_vencimiento", producto.f_vencimiento);
-                cmd.Parameters.AddWithValue("@costo", producto.costo);
-                cmd.Parameters.AddWithValue("@p_venta", producto.precio_venta);
-                cmd.Parameters.AddWithValue("@createby", producto.createby);
-                cmd.Parameters.AddWithValue("@created", producto.created);
+                cmd.Parameters.AddWithValue("@idproducto", Producto.idproducto);
+                cmd.Parameters.AddWithValue("@idfabricante", Producto.idfabricante);
+                cmd.Parameters.AddWithValue("@descripcion", Producto.descripcion);
+                cmd.Parameters.AddWithValue("@idfamilia", Producto.idfamilia);
+                cmd.Parameters.AddWithValue("@stockinicial", Producto.stockinicial);
+                cmd.Parameters.AddWithValue("@stockminimo", Producto.stockminimo);
+                cmd.Parameters.AddWithValue("@f_vencimiento", Producto.f_vencimiento);
+                cmd.Parameters.AddWithValue("@costo", Producto.costo);
+                cmd.Parameters.AddWithValue("@p_venta", Producto.precio_venta);
+                cmd.Parameters.AddWithValue("@createby", Producto.createby);
+                cmd.Parameters.AddWithValue("@created", Producto.created);
 
-                producto.idproducto=Convert.ToInt32(cmd.ExecuteScalar());
+                Producto.idproducto=Convert.ToInt32(cmd.ExecuteScalar());
             }
-          return producto;
+          return Producto;
         }
 
         /// <summary>
