@@ -17,7 +17,7 @@ namespace pjPalmera.PL
             
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmRegClientes());
+            Application.Run(new frmRegArticulos());
         }
     }
 }

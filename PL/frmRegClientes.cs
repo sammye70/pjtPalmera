@@ -37,7 +37,18 @@ namespace pjPalmera.PL
         {
             EnabledControls();
             this.mktCedula.Focus();
+            clientes = null;
             
+        }
+
+        /// <summary>
+        /// Set Detail About Control
+        /// </summary>
+        private void SetTooltipControls()
+        {
+            toolTip1.SetToolTip(btnNuevo, "Nuevo Registro");
+            toolTip1.SetToolTip(btnGuardar, "Guardar Registro");
+            toolTip1.SetToolTip(btnCancelar, "Limpiar Campos");
         }
 
         /// <summary>
@@ -173,6 +184,8 @@ namespace pjPalmera.PL
 
         private void frmRegClientes_Load(object sender, EventArgs e)
         {
+
+            SetTooltipControls();
             DesableControls();
             this.errorProvider1.Clear();
             this.btnNuevo.Focus();

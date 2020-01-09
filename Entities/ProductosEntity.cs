@@ -9,32 +9,40 @@ namespace pjPalmera.Entities
     public class ProductosEntity
     {
         //Properties
-        public int id { get; set; }
+        public long idproducto { get; set; }
         public string descripcion { get; set; }
         public int idfamilia { get; set; }
-        public float cantidad_vendida { get { return stock_actual - cantidad_vendida; } } //
-        public float stock_actual { get; set; }
-        public float stockmax { get; set; }
-        public float stockmin { get; set; }
+        public int idfabricante { get; set; }
+       // public float cantidad_vendida { get { return stock_actual - cantidad_vendida; } } //
+        public decimal stock_actual { get; set; }
+        public decimal stockinicial { get; set; }
+        public decimal stockminimo { get; set; }
         public DateTime f_vencimiento { get; set; }
         public decimal costo { get; set; }
-        public decimal Precio_Venta { get; set; }
+        public decimal precio_venta { get; set; }
         public int createby { get; set; }
-        public int created { get; set; }
+        public DateTime created { get; set; }
 
 
         //Constructor
-        public ProductosEntity(int Id, string Descripcion, int Idfamilia, float Cantidad_vendida)
+        public ProductosEntity(long Idproducto, string Descripcion, int Idfamilia, int Idfrabricante, decimal Stock_actual,decimal Stock_inicial, decimal Stock_minimo, 
+            DateTime F_vencimiento, decimal Costo, decimal Precio_venta, int Createby, DateTime Created )
         {
-            this.id = Id;
+            this.idproducto = Idproducto;
             this.descripcion = Descripcion;
             this.idfamilia = Idfamilia;
-
+            this.idfabricante = Idfrabricante;
+            this.stockinicial = Stock_inicial;
+            this.stockminimo = Stock_minimo;
+            this.f_vencimiento = F_vencimiento;
+            this.costo = Costo;
+            this.precio_venta = Precio_venta;
+            this.createby = Createby;
+            this.created = Created;
         }
 
-        ProductosEntity()
+        public ProductosEntity()
         {
-
         }
     }
 }
