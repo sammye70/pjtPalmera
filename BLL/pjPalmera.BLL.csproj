@@ -46,6 +46,7 @@
     <Compile Include="FacturaBO.cs" />
     <Compile Include="ProductosBO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProveedorBO.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\pjPalmera.DAL.csproj">
