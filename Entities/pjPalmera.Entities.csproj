@@ -47,7 +47,8 @@
     <Compile Include="FacturasVentapEntity.cs" />
     <Compile Include="ProveedorEntity.cs" />
     <Compile Include="ProvinciaEntity.cs" />
-    <Compile Include="VendedorEntity.cs" />
+    <Compile Include="PersonasEntity.cs" />
+    <Compile Include="UsuariosEntity.cs" />
     <Compile Include="VentaEntity.cs" />
     <Compile Include="ProductosEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

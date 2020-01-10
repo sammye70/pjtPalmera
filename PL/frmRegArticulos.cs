@@ -137,5 +137,10 @@ namespace pjPalmera.PL
             this.cmbFamilia.Text = "";
         }
 
+        private void btnAgregarCategoria_Click(object sender, EventArgs e)
+        {
+            frmCategoria categoria = new frmCategoria();
+            categoria.ShowDialog(this);
+        }
     }
 }

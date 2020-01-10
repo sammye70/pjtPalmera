@@ -84,11 +84,9 @@ namespace pjPalmera.Entities
 
         public string Tel_proveedor
         {
-            get
-            { return tel_proveedor; }
+            get { return tel_proveedor; }
 
-            set
-            { tel_proveedor = value; }
+            set { tel_proveedor = value; }
         }
 
         public ProveedorEntity()

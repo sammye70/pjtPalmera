@@ -197,5 +197,17 @@ namespace pjPalmera.PL
             CleanControls();
             this.Close();
         }
+
+        private void btnAgregarCiudad_Click(object sender, EventArgs e)
+        {
+            frmAddCiudad Ciudad = new frmAddCiudad();
+            Ciudad.ShowDialog(this);
+        }
+
+        private void btnAgregarProvincia_Click(object sender, EventArgs e)
+        {
+            frmAddProvincia Pronvicia = new frmAddProvincia();
+            Pronvicia.ShowDialog(this);
+        }
     }
 }

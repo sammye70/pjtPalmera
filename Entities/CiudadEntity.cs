@@ -8,28 +8,48 @@ namespace pjPalmera.Entities
 {
    public  class CiudadEntity
     {
-        //
-        int _idCiudad;
-        string _nombre;
+   
+        private int id_ciudad;
+        private string nombre;
 
-        //
-        public int Idciudad
+
+
+        public int Id_ciudad
         {
-            get { return _idCiudad; }
-            set { _idCiudad = value; }
+            get
+            {
+                return id_ciudad;
+            }
+
+            set
+            {
+                id_ciudad = value;
+            }
         }
 
         public string Nombre
         {
-            get { return _nombre; }
-            set { _nombre = value; }
+            get
+            {
+                return nombre;
+            }
+
+            set
+            {
+                nombre = value;
+            }
         }
 
-        //
-        public CiudadEntity(int Idciudad, string Nombre)
+
+        public CiudadEntity()
         {
-            this._idCiudad = Idciudad;
-            this._nombre = Nombre;
+        }
+
+
+        public CiudadEntity(int Id_ciudad, string Nombre)
+        {
+            this.id_ciudad = Id_ciudad;
+            this.nombre = Nombre;
         }
     }
 }

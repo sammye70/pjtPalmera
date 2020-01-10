@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using pjPalmera.Entities;
 
-namespace pjPamera.PL
+namespace pjPalmera.PL
 {
     public partial class frmCobros : Form
     {

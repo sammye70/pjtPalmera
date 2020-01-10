@@ -54,6 +54,7 @@
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnNuevo = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnAgregarCategoria = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -152,7 +153,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(361, 150);
+            this.label9.Location = new System.Drawing.Point(347, 150);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(39, 13);
             this.label9.TabIndex = 11;
@@ -169,7 +170,7 @@
             // cmbFamilia
             // 
             this.cmbFamilia.FormattingEnabled = true;
-            this.cmbFamilia.Location = new System.Drawing.Point(406, 147);
+            this.cmbFamilia.Location = new System.Drawing.Point(392, 147);
             this.cmbFamilia.Name = "cmbFamilia";
             this.cmbFamilia.Size = new System.Drawing.Size(251, 21);
             this.cmbFamilia.TabIndex = 13;
@@ -256,11 +257,23 @@
             this.groupBox1.TabIndex = 23;
             this.groupBox1.TabStop = false;
             // 
+            // btnAgregarCategoria
+            // 
+            this.btnAgregarCategoria.Image = global::PL.Properties.Resources.add;
+            this.btnAgregarCategoria.Location = new System.Drawing.Point(645, 145);
+            this.btnAgregarCategoria.Name = "btnAgregarCategoria";
+            this.btnAgregarCategoria.Size = new System.Drawing.Size(27, 28);
+            this.btnAgregarCategoria.TabIndex = 24;
+            this.btnAgregarCategoria.Text = "+";
+            this.btnAgregarCategoria.UseVisualStyleBackColor = true;
+            this.btnAgregarCategoria.Click += new System.EventHandler(this.btnAgregarCategoria_Click);
+            // 
             // frmRegArticulos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(678, 292);
+            this.Controls.Add(this.btnAgregarCategoria);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cmbEstanteLocalizacion);
             this.Controls.Add(this.label10);
@@ -321,5 +334,6 @@
         private System.Windows.Forms.ComboBox cmbEstanteLocalizacion;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnAgregarCategoria;
     }
 }

@@ -224,6 +224,7 @@
             this.btnAgregarCiudad.TabIndex = 14;
             this.btnAgregarCiudad.Text = "+";
             this.btnAgregarCiudad.UseVisualStyleBackColor = true;
+            this.btnAgregarCiudad.Click += new System.EventHandler(this.btnAgregarCiudad_Click);
             // 
             // btnAgregarProvincia
             // 
@@ -234,6 +235,7 @@
             this.btnAgregarProvincia.TabIndex = 12;
             this.btnAgregarProvincia.Text = "+";
             this.btnAgregarProvincia.UseVisualStyleBackColor = true;
+            this.btnAgregarProvincia.Click += new System.EventHandler(this.btnAgregarProvincia_Click);
             // 
             // groupBox1
             // 

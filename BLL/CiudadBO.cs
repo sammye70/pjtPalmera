@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using pjPalmera.Entities;
 using pjPalmera.DAL;
+using pjPalmera.Entities;
 
 namespace pjPalmera.BLL
 {
-    public class CategoriaBO
+    public class CiudadBO
     {
         /// <summary>
-        /// Save Category
+        /// 
         /// </summary>
-        /// <param name="Categoria"></param>
+        /// <param name="Ciudad"></param>
         /// <returns></returns>
-        public static CategoriaEntity Save(CategoriaEntity Categoria)
+        public static CiudadEntity Save(CiudadEntity Ciudad)
         {
-            CategoriaDAL.Create(Categoria);
-            return Categoria;
+            return CiudadDAL.Create(Ciudad);
+
         }
     }
 }

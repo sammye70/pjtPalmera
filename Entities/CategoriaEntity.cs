@@ -8,31 +8,43 @@ namespace pjPalmera.Entities
 {
     public class CategoriaEntity
     {
-        private int id;
-        private string nombre;
+        private int category_id;
+        private string category;
 
-        //
-        public int Id
+        public int Category_id
         {
-            get { return id; }
-            set { id = value; }
+            get
+            {
+                return category_id;
+            }
+
+            set
+            {
+                category_id = value;
+            }
         }
 
-        public string Nombre
+        public string Category
         {
-            get { return nombre; }
-            set { nombre = value; }
-        }
+            get
+            {
+                return category;
+            }
 
-        //Constructor
-        public CategoriaEntity(int Id, string Nombre)
-        {
-            this.id = Id;
-            this.nombre = Nombre;
+            set
+            {
+                category = value;
+            }
         }
 
         public CategoriaEntity()
         {
+        }
+
+        public CategoriaEntity(int Category_id, string Category)
+        {
+            this.category_id = Category_id;
+            this.category = Category;
         }
     }
 }

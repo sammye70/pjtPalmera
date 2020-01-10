@@ -1,4 +1,4 @@
-﻿namespace pjPamera.PL
+﻿namespace pjPalmera.PL
 {
     partial class frmCobros
     {
