@@ -9,36 +9,32 @@ namespace pjPalmera.Entities
    public class ProvinciaEntity
     {
         //
-        int _idprovincia;
-        string _nombre;
+        int id_provincia;
+        string nombre;
         
         //
-        public int Idprovincia {
-            get { return _idprovincia; }
-            set { _idprovincia = value; }
+        public int Id_provincia
+        {
+            get { return id_provincia; }
+            set { id_provincia = value; }
         }
 
         public string Nombre
         {
-            get { return _nombre; }
-            set { _nombre = value; }
+            get { return nombre; }
+            set { nombre = value; }
         }
+
 
         //
+        public ProvinciaEntity()
+        {
+        }
+
         public ProvinciaEntity(int IdProvincia, string Nombre)
         {
-            this._idprovincia = IdProvincia;
-            this._nombre = Nombre;
-        }
-
-        public ProvinciaEntity(int IdProvincia)
-        {
-            this._idprovincia = IdProvincia;
-        }
-
-        public ProvinciaEntity( string nombre)
-        {
-            this._nombre = nombre;
+            this.id_provincia = IdProvincia;
+            this.nombre = Nombre;
         }
     }
 }

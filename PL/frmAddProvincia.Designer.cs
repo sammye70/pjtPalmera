@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtNomProvincia = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnCancelar = new System.Windows.Forms.Button();
@@ -36,12 +36,12 @@
             this.btnNuevo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox1
+            // txtNomProvincia
             // 
-            this.textBox1.Location = new System.Drawing.Point(62, 30);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(283, 20);
-            this.textBox1.TabIndex = 10;
+            this.txtNomProvincia.Location = new System.Drawing.Point(62, 30);
+            this.txtNomProvincia.Name = "txtNomProvincia";
+            this.txtNomProvincia.Size = new System.Drawing.Size(283, 20);
+            this.txtNomProvincia.TabIndex = 10;
             // 
             // label2
             // 
@@ -77,6 +77,7 @@
             this.btnGuardar.Size = new System.Drawing.Size(75, 40);
             this.btnGuardar.TabIndex = 29;
             this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // btnNuevo
             // 
@@ -86,6 +87,7 @@
             this.btnNuevo.Size = new System.Drawing.Size(75, 40);
             this.btnNuevo.TabIndex = 28;
             this.btnNuevo.UseVisualStyleBackColor = true;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
             // frmAddProvincia
             // 
@@ -96,11 +98,12 @@
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnNuevo);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtNomProvincia);
             this.Controls.Add(this.label2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmAddProvincia";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Registrar Provincia";
             this.Load += new System.EventHandler(this.frmAddProvincia_Load);
             this.ResumeLayout(false);
@@ -110,7 +113,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtNomProvincia;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnCancelar;

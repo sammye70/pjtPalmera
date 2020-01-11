@@ -52,6 +52,7 @@
     <Compile Include="ClientesDAL.cs" />
     <Compile Include="ProductosDAL.cs" />
     <Compile Include="ProveedorDAL.cs" />
+    <Compile Include="ProvinciaDAL.cs" />
     <Compile Include="SettingDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
