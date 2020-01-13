@@ -20,25 +20,51 @@ namespace pjPalmera.PL
             InitializeComponent();
         }
 
+
+        private const int CP_NOCLOSE_BUTTON = 0x200;
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams myCp = base.CreateParams;
+                myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
+                return myCp;
+            }
+        }
+
+
         private void frmRegArticulos_Load(object sender, EventArgs e)
         {
             InitializeControls();
             DesableContros();
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
-                NewProduct();
-                CleanControls();
-                DesableContros();
-                MessageBox.Show("Guardado Satisfactoriamente","Mensaje del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                if (Validator() == true)
+                {
+                    NewProduct();
+                    CleanControls();
+                    DesableContros();
+                    this.errorProvider1.Clear();
+                    MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Proporcionar los campos indicados ", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message,"Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            finally
+            {
+                producto = null;
             }
 
         }
@@ -105,16 +131,16 @@ namespace pjPalmera.PL
             {
                 producto = new ProductosEntity();
 
-                producto.idproducto = Convert.ToInt64(this.txtCodigo.Text);
-                producto.idfabricante = Convert.ToInt32(this.cmbFabrincante.Text);
-                producto.descripcion = this.txtDescripcion.Text;
-                producto.idfamilia = Convert.ToInt32(this.cmbFamilia.Text);
-                producto.stockinicial = Convert.ToInt32(txtStockInicial.Text);
-                producto.stockminimo = Convert.ToInt32(this.txtStockMinimo.Text);
-                producto.f_vencimiento = Convert.ToDateTime(dateTimePicker1.Value.Date.ToShortDateString());
-                producto.costo = Convert.ToDecimal(this.txtCosto.Text);
-                producto.precio_venta = Convert.ToDecimal(txtPrecioVenta.Text);
-                producto.created = DateTime.Now.Date;
+                producto.Idproducto = Convert.ToInt64(this.txtCodigo.Text);
+                producto.Idfabricante = Convert.ToInt32(this.cmbFabrincante.Text);
+                producto.Descripcion = this.txtDescripcion.Text;
+                producto.Idfamilia = Convert.ToInt32(this.cmbFamilia.Text);
+                producto.Stockinicial = Convert.ToInt32(txtStockInicial.Text);
+                producto.Stockminimo = Convert.ToInt32(this.txtStockMinimo.Text);
+                producto.F_vencimiento = Convert.ToDateTime(dateTimePicker1.Value.Date.ToShortDateString());
+                producto.Costo = Convert.ToDecimal(this.txtCosto.Text);
+                producto.Precio_venta = Convert.ToDecimal(txtPrecioVenta.Text);
+                producto.Created = DateTime.Now.Date;
 
                 ProductosBO.Save(producto);
             }
@@ -135,6 +161,71 @@ namespace pjPalmera.PL
             this.cmbEstanteLocalizacion.Text = "";
             this.cmbFabrincante.Text = "";
             this.cmbFamilia.Text = "";
+        }
+
+        /// <summary>
+        /// Validator all controls
+        /// </summary>
+        /// <returns>It is return true if all controls are diferent than Empty</returns>
+        public bool Validator()
+        {
+            bool result = true;
+
+            if (string.IsNullOrEmpty(this.txtCodigo.Text))
+            {
+                this.errorProvider1.SetError(this.txtCodigo,"Indicar Codigo del Articulo");
+                result =false;
+            }
+
+            if (string.IsNullOrEmpty(this.txtDescripcion.Text))
+            {
+                this.errorProvider1.SetError(this.txtDescripcion, "Indicar Descripcion del Articulo");
+                result = false;
+            }
+
+            if (string.IsNullOrEmpty(this.txtCosto.Text))
+            {
+                this.errorProvider1.SetError(this.txtCosto, "Indicar Costo del Articulo");
+                result = false;
+            }
+
+            if (string.IsNullOrEmpty(this.txtPrecioVenta.Text))
+            {
+                this.errorProvider1.SetError(this.txtPrecioVenta, "Indicar Precio de Venta del Articulo");
+                result = false;
+            }
+
+            if (string.IsNullOrEmpty(this.txtStockInicial.Text))
+            {
+                this.errorProvider1.SetError(this.txtStockInicial, "Indicar Stock Inicial del Articulo");
+                result = false;
+            }
+
+            if (string.IsNullOrEmpty(this.txtStockMinimo.Text))
+            {
+                this.errorProvider1.SetError(this.txtStockMinimo, "Indicar Stock Minimo del Articulo");
+                result = false;
+            }
+
+            if (string.IsNullOrEmpty(this.cmbEstanteLocalizacion.Text))
+            {
+                this.errorProvider1.SetError(this.cmbEstanteLocalizacion, "Indicar Estante donde se localizara el Articulo");
+                result = false;
+            }
+
+            if (string.IsNullOrEmpty(this.cmbFabrincante.Text))
+            {
+                this.errorProvider1.SetError(this.cmbFabrincante, "Indicar fabricante del Articulo");
+                result = false;
+            }
+
+            if (string.IsNullOrEmpty(this.cmbFamilia.Text))
+            {
+                this.errorProvider1.SetError(this.cmbFamilia, "Indicar Categoria  a la cual pertenece el Articulo");
+                result = false;
+            }
+
+            return result;
         }
 
         private void btnAgregarCategoria_Click(object sender, EventArgs e)

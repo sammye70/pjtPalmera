@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data;
+using System.Data;
 using MySql.Data.MySqlClient;
 using pjPalmera.Entities;
 
@@ -74,12 +75,12 @@ namespace pjPalmera.DAL
         {
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
+                con.Open();
                 string sql = @"UPDATE clientes SET
                                 cedula = @cedula,
                                 nombre = @nombre, apellidos = @apellidos, telefono = @telefono,
                                 direccion = @direccion, ciudad = @ciudad, limitecredito = @limitecredito
                                 idclientes = @idclientes                                
-
                                 ";
 
                 MySqlCommand cmd = new MySqlCommand(sql, con);
@@ -87,6 +88,30 @@ namespace pjPalmera.DAL
             }
 
             return costumer;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static ClientesEntity GetAllCostumer(ClientesEntity Clientes)
+        {
+
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string sql = @"SELECT idclientes, nombre, apellidos, telefono, provincia, ciudad FROM clientes";
+
+                //MySqlCommand cmd = new MySqlCommand(sql, con);
+                // Clientes.idclientes = Convert.ToInt32(cmd.ExecuteScalar());
+                MySqlDataAdapter da = new MySqlDataAdapter(sql, con);
+                DataSet ds = new DataSet();
+                da.Fill(ds, "clientes");
+              
+            }
+            return Clientes;
+
         }
     }
 }

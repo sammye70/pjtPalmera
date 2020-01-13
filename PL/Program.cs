@@ -16,7 +16,7 @@ namespace pjPalmera.PL
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmAddProvincia());
+            Application.Run( new frmRegUsers());
         }
     }
 }

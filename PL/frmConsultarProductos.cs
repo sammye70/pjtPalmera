@@ -31,5 +31,15 @@ namespace pjPalmera.PL
             this.dgvProdConsultar.DataSource = null;
             this.txtCriterioBusqueda.Focus();
         }
+
+        private void txtCriterioBusqueda_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCancelar_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

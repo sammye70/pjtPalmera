@@ -103,5 +103,17 @@ namespace pjPalmera.PL
             login.ShowDialog();
 
         }
+
+        private void registroDePersonasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmRegPersonas Personas = new frmRegPersonas();
+            Personas.ShowDialog(this);
+        }
+
+        private void consultarArticulosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmConsultarProductos productos = new PL.frmConsultarProductos();
+            productos.ShowDialog(this);
+        }
     }
 }

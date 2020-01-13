@@ -48,8 +48,8 @@ namespace pjPalmera.Entities
 
         public CiudadEntity(int Id_ciudad, string Nombre)
         {
-            this.id_ciudad = Id_ciudad;
-            this.nombre = Nombre;
+            this.Id_ciudad = id_ciudad;
+            this.Nombre = nombre;
         }
     }
 }

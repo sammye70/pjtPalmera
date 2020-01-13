@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ventasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.facturarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,11 +61,11 @@
             this.generarPedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reporteDePedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ajustesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registroDePersonasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -246,6 +245,7 @@
             this.consultarArticulosToolStripMenuItem.Name = "consultarArticulosToolStripMenuItem";
             this.consultarArticulosToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
             this.consultarArticulosToolStripMenuItem.Text = "Consultar Articulos";
+            this.consultarArticulosToolStripMenuItem.Click += new System.EventHandler(this.consultarArticulosToolStripMenuItem_Click);
             // 
             // reporteDeArticulosToolStripMenuItem
             // 
@@ -318,9 +318,18 @@
             // 
             // ajustesToolStripMenuItem
             // 
+            this.ajustesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.registroDePersonasToolStripMenuItem});
             this.ajustesToolStripMenuItem.Name = "ajustesToolStripMenuItem";
             this.ajustesToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.ajustesToolStripMenuItem.Text = "Ajustes";
+            // 
+            // registroDePersonasToolStripMenuItem
+            // 
+            this.registroDePersonasToolStripMenuItem.Name = "registroDePersonasToolStripMenuItem";
+            this.registroDePersonasToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.registroDePersonasToolStripMenuItem.Text = "Registro de Personas";
+            this.registroDePersonasToolStripMenuItem.Click += new System.EventHandler(this.registroDePersonasToolStripMenuItem_Click);
             // 
             // ayudaToolStripMenuItem
             // 
@@ -353,11 +362,6 @@
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(96, 17);
             this.toolStripStatusLabel1.Text = "By EBG Solutions";
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // pictureBox1
             // 
@@ -433,7 +437,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripMenuItem acercaDeToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripMenuItem registroDePersonasToolStripMenuItem;
     }
 }

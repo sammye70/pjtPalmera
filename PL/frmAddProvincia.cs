@@ -102,6 +102,15 @@ namespace pjPalmera.PL
             this.btnGuardar.Enabled = true;
         }
 
+        /// <summary>
+        /// Set Detail About Control
+        /// </summary>
+        private void SetTooltipControls()
+        {
+            toolTip1.SetToolTip(btnNuevo, "Nuevo Registro");
+            toolTip1.SetToolTip(btnGuardar, "Guardar Registro");
+            toolTip1.SetToolTip(btnCancelar, "Limpiar Campos");
+        }
         private void btnNuevo_Click(object sender, EventArgs e)
         {
             provincia = null;

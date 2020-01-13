@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Reporting.WinForms;
+using pjPalmera.BLL;
 
 namespace pjPalmera.PL
 {
@@ -20,7 +22,14 @@ namespace pjPalmera.PL
         private void frmRepClientes_Load(object sender, EventArgs e)
         {
 
-            this.reportViewer1.RefreshReport();
+            this.reportViewer1.Refresh();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ReportDataSource fuente;
+            fuente = new ReportDataSource("clientes");
+
         }
     }
 }

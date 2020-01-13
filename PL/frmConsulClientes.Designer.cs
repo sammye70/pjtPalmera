@@ -1,6 +1,6 @@
 ﻿namespace pjPalmera.PL
 {
-    partial class frmConsultarProductos
+    partial class frmConsulClientes
     {
         /// <summary>
         /// Required designer variable.
@@ -46,10 +46,10 @@
             // 
             this.dgvProdConsultar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvProdConsultar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProdConsultar.Location = new System.Drawing.Point(7, 75);
+            this.dgvProdConsultar.Location = new System.Drawing.Point(12, 74);
             this.dgvProdConsultar.Name = "dgvProdConsultar";
-            this.dgvProdConsultar.Size = new System.Drawing.Size(1003, 383);
-            this.dgvProdConsultar.TabIndex = 0;
+            this.dgvProdConsultar.Size = new System.Drawing.Size(970, 383);
+            this.dgvProdConsultar.TabIndex = 2;
             // 
             // errorProvider1
             // 
@@ -62,10 +62,10 @@
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.txtCriterioBusqueda);
-            this.panel1.Location = new System.Drawing.Point(7, 12);
+            this.panel1.Location = new System.Drawing.Point(-4, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1003, 56);
-            this.panel1.TabIndex = 1;
+            this.panel1.TabIndex = 3;
             // 
             // btnCancelar
             // 
@@ -75,7 +75,6 @@
             this.btnCancelar.Size = new System.Drawing.Size(56, 43);
             this.btnCancelar.TabIndex = 8;
             this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click_1);
             // 
             // button1
             // 
@@ -102,18 +101,15 @@
             this.txtCriterioBusqueda.Size = new System.Drawing.Size(267, 20);
             this.txtCriterioBusqueda.TabIndex = 5;
             // 
-            // frmConsultarProductos
+            // frmConsulClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1022, 470);
-            this.ControlBox = false;
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(994, 495);
             this.Controls.Add(this.dgvProdConsultar);
-            this.Name = "frmConsultarProductos";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Consultar Productos";
-            this.Load += new System.EventHandler(this.frmConsultarProductos_Load);
+            this.Controls.Add(this.panel1);
+            this.Name = "frmConsulClientes";
+            this.Text = "Consultar Clientes";
             ((System.ComponentModel.ISupportInitialize)(this.dgvProdConsultar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.panel1.ResumeLayout(false);

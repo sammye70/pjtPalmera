@@ -8,7 +8,7 @@ namespace pjPalmera.Entities
 {
    public class ClientesEntity
     {
-        //Properties
+        //Field
         public int idclientes;
         public int cedula;
         public string nombre;
@@ -21,7 +21,27 @@ namespace pjPalmera.Entities
         public int createby;
         public DateTime created;
 
-        //Methods
+        //Constructor
+        public ClientesEntity()
+        {
+        }
+
+        public ClientesEntity(int idclientes, int cedula, string nombre, string apellidos, string telefono, string direccion, string provincia, string ciudad, decimal limitecredito, int createby, DateTime created)
+        {
+            this.idclientes = idclientes;
+            this.cedula = cedula;
+            this.nombre = nombre;
+            this.apellidos = apellidos;
+            this.telefono = telefono;
+            this.direccion = direccion;
+            this.provincia = provincia;
+            this.ciudad = ciudad;
+            this.limitecredito = limitecredito;
+            this.createby = createby;
+            this.created = created;
+        }
+
+        //Properties
         public int Idclientes
         {
             get { return idclientes; }
@@ -88,27 +108,5 @@ namespace pjPalmera.Entities
             get { return created; }
             set {  created=value; }
         }
-
-        //Construtor
-        public ClientesEntity(int Idclientes, int Cedula, string Nombre, string Apellidos, string Telefono, string Direccion, string Provincia, string Ciudad,
-            decimal Limitecredito, int Createby, DateTime Created)
-        {
-            this.idclientes = Idclientes;
-            this.cedula = Cedula;
-            this.nombre = Nombre;
-            this.apellidos = Apellidos;
-            this.telefono = Telefono;
-            this.direccion = Direccion;
-            this.provincia = Provincia;
-            this.ciudad = Ciudad;
-            this.limitecredito = Limitecredito;
-            this.createby = Createby;
-            this.created = Created;
-        }
-
-        public ClientesEntity()
-        {
-        }
-
     }
 }

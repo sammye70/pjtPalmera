@@ -89,13 +89,17 @@ namespace pjPalmera.PL
             this.chbDescuento.Enabled = false;
             this.txtRecibidoEfectivo.Enabled = false;
             this.txtDevueltaEfectivo.Enabled = false;
+            this.btnBuscarProducto.Enabled = false;
+            this.btnBuscarClientes.Enabled = false;
             if (dgvDetalle == null)
             {
                 this.chbDescuento.Enabled = false;
             }
         }
 
-        //Habilita TextBox, Buttons
+        /// <summary>
+        /// Enable TextBox, Buttons
+        /// </summary>
         private void Habilitar()
         {
             this.txtClientes.Enabled = true;
@@ -113,14 +117,18 @@ namespace pjPalmera.PL
             this.btnCancelar.Enabled = true;
             this.txtRecibidoEfectivo.Enabled = true;
             this.txtDevueltaEfectivo.Enabled = true;
+            this.btnBuscarProducto.Enabled = true;
+            this.btnBuscarClientes.Enabled = true;
             if (dgvDetalle != null)
             {
                 this.chbDescuento.Enabled = true;
             }
 
         }
-        
-        //Change ReadOnly TextBox
+
+        /// <summary>
+        /// Change ReadOnly TextBox
+        /// </summary>
         private void OnlyRead()
         {
             this.txtSubtotal.ReadOnly = true;
@@ -130,7 +138,9 @@ namespace pjPalmera.PL
             this.txtDevueltaEfectivo.ReadOnly = true;
         }
 
-        //Pay Process 
+        /// <summary>
+        /// Pay Process 
+        /// </summary>
         private void Pagar()
         {
             Limpiar();
@@ -454,6 +464,12 @@ namespace pjPalmera.PL
                 item = this.dgvDetalle.CurrentRow.Index;
                 MessageBox.Show("Selecciono el Item:"+item);
             }
+        }
+
+        private void btnBuscarClientes_Click_1(object sender, EventArgs e)
+        {
+            frmConsulClientes Consul_Clientes = new PL.frmConsulClientes();
+            Consul_Clientes.ShowDialog(this);
         }
     }
 

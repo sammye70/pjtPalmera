@@ -16,20 +16,44 @@ namespace pjPalmera.PL
             InitializeComponent();
         }
 
+        private const int CP_NOCLOSE_BUTTON = 0x200;
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams myCp = base.CreateParams;
+                myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
+                return myCp;
+            }
+        }
+
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            //
+            //validator controls
             try
             {
-                Validator();
-                NewCostumer();
-                CleanControls();
-                DesableControls();
-                this.btnNuevo.Focus();
+                if (Validator() == true)
+                {
+                    NewCostumer();
+                    CleanControls();
+                    this.errorProvider1.Clear();
+                    DesableControls();
+                    this.btnNuevo.Focus();
+                    MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Proporcionar los campos indicados ", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show("Error:"+ ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error:" + ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                clientes = null;
             }
         }
 
@@ -77,8 +101,8 @@ namespace pjPalmera.PL
         /// <summary>
         /// Validator all controls
         /// </summary>
-        /// <returns></returns>
-        private bool Validator()
+        /// <returns>It is return true if all controls are diferent than Empty</returns>
+        public bool Validator()
         {
             
             bool result= true;
@@ -180,6 +204,7 @@ namespace pjPalmera.PL
             this.cmbProvincia.Text = "";
             clientes = null;
         }
+
 
 
         private void frmRegClientes_Load(object sender, EventArgs e)

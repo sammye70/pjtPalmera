@@ -43,8 +43,8 @@ namespace pjPalmera.Entities
 
         public CategoriaEntity(int Category_id, string Category)
         {
-            this.category_id = Category_id;
-            this.category = Category;
+            this.Category_id = category_id;
+            this.Category = category;
         }
     }
 }

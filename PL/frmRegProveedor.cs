@@ -24,6 +24,7 @@ namespace pjPalmera.PL
 
         private void frmRegProveedor_Load(object sender, EventArgs e)
         {
+            SetTooltipControls();
             CleanControls();
             DesableControls();
             this.btnNuevo.Focus();
@@ -111,6 +112,15 @@ namespace pjPalmera.PL
           //  this.btnCancelar.Enabled = true;
         }
 
+        /// <summary>
+        /// Set Detail About Control
+        /// </summary>
+        private void SetTooltipControls()
+        {
+            toolTip1.SetToolTip(btnNuevo, "Nuevo Registro");
+            toolTip1.SetToolTip(btnGuardar, "Guardar Registro");
+            toolTip1.SetToolTip(btnCancelar, "Limpiar Campos");
+        }
 
         /// <summary>
         /// Create new Proveedor

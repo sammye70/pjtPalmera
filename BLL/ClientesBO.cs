@@ -31,5 +31,18 @@ namespace pjPalmera.BLL
             //}
             #endregion
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static ClientesEntity GetAllCostumer( ClientesEntity costumer)
+        {
+           return ClientesDAL.GetAllCostumer(costumer);
+
+        }
+
+
+
     }
 }

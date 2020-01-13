@@ -8,41 +8,187 @@ namespace pjPalmera.Entities
 {
     public class ProductosEntity
     {
-        //Properties
-        public long idproducto { get; set; }
-        public string descripcion { get; set; }
-        public int idfamilia { get; set; }
-        public int idfabricante { get; set; }
-       // public float cantidad_vendida { get { return stock_actual - cantidad_vendida; } } //
-      //  public float stock_actual { get; set; }
-        public float stockinicial { get; set; }
-        public float stockminimo { get; set; }
-        public DateTime f_vencimiento { get; set; }
-        public decimal costo { get; set; }
-        public decimal precio_venta { get; set; }
-        public int createby { get; set; }
-        public DateTime created { get; set; }
 
 
-        //Constructor
-        public ProductosEntity(long Idproducto, string Descripcion, int Idfamilia, int Idfrabricante, float Stock_actual, float Stock_inicial, float Stock_minimo, 
-            DateTime F_vencimiento, decimal Costo, decimal Precio_venta, int Createby, DateTime Created )
-        {
-            this.idproducto = Idproducto;
-            this.descripcion = Descripcion;
-            this.idfamilia = Idfamilia;
-            this.idfabricante = Idfrabricante;
-            this.stockinicial = Stock_inicial;
-            this.stockminimo = Stock_minimo;
-            this.f_vencimiento = F_vencimiento;
-            this.costo = Costo;
-            this.precio_venta = Precio_venta;
-            this.createby = Createby;
-            this.created = Created;
-        }
+        //Field
+        private long idproducto;
+        private string descripcion;
+        private int idfamilia;
+        private int idfabricante;
+        // public float cantidad_vendida { get { return stock_actual - cantidad_vendida; } } //
+        //  public float stock_actual { get; set; }
+        private float stockinicial;
+        private float stockminimo;
+        private DateTime f_vencimiento;
+        private decimal costo;
+        private decimal precio_venta;
+        private int createby;
+        private DateTime created;
+
+
 
         public ProductosEntity()
         {
+        }
+
+        //Constructor
+        public ProductosEntity(long idproducto, string descripcion, int idfamilia, int idfrabricante, float stock_actual, float stock_inicial, float stock_minimo,
+            DateTime f_vencimiento, decimal costo, decimal precio_venta, int createby, DateTime created)
+        {
+            this.Idproducto = idproducto;
+            this.Descripcion = descripcion;
+            this.Idfamilia = idfamilia;
+            this.Idfabricante = idfrabricante;
+            this.Stockinicial = stock_inicial;
+            this.Stockminimo = stock_minimo;
+            this.F_vencimiento = f_vencimiento;
+            this.Costo = Costo;
+            this.Precio_venta = precio_venta;
+            this.Createby = createby;
+            this.Created = created;
+        }
+
+        public long Idproducto
+        {
+            get
+            {
+                return idproducto;
+            }
+
+            set
+            {
+                idproducto = value;
+            }
+        }
+
+        public string Descripcion
+        {
+            get
+            {
+                return descripcion;
+            }
+
+            set
+            {
+                descripcion = value;
+            }
+        }
+
+        public int Idfamilia
+        {
+            get
+            {
+                return idfamilia;
+            }
+
+            set
+            {
+                idfamilia = value;
+            }
+        }
+
+        public int Idfabricante
+        {
+            get
+            {
+                return idfabricante;
+            }
+
+            set
+            {
+                idfabricante = value;
+            }
+        }
+
+        public float Stockinicial
+        {
+            get
+            {
+                return stockinicial;
+            }
+
+            set
+            {
+                stockinicial = value;
+            }
+        }
+
+        public float Stockminimo
+        {
+            get
+            {
+                return stockminimo;
+            }
+
+            set
+            {
+                stockminimo = value;
+            }
+        }
+
+        public DateTime F_vencimiento
+        {
+            get
+            {
+                return f_vencimiento;
+            }
+
+            set
+            {
+                f_vencimiento = value;
+            }
+        }
+
+        public decimal Costo
+        {
+            get
+            {
+                return costo;
+            }
+
+            set
+            {
+                costo = value;
+            }
+        }
+
+        public decimal Precio_venta
+        {
+            get
+            {
+                return precio_venta;
+            }
+
+            set
+            {
+                precio_venta = value;
+            }
+        }
+
+        public int Createby
+        {
+            get
+            {
+                return createby;
+            }
+
+            set
+            {
+                createby = value;
+            }
+        }
+
+        public DateTime Created
+        {
+            get
+            {
+                return created;
+            }
+
+            set
+            {
+                created = value;
+            }
         }
     }
 }

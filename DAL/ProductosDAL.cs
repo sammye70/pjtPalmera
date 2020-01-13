@@ -28,19 +28,19 @@ namespace pjPalmera.DAL
 
                 MySqlCommand cmd = new MySqlCommand(sql,con);
 
-                cmd.Parameters.AddWithValue("@idproducto", Producto.idproducto);
-                cmd.Parameters.AddWithValue("@idfabricante", Producto.idfabricante);
-                cmd.Parameters.AddWithValue("@descripcion", Producto.descripcion);
-                cmd.Parameters.AddWithValue("@idfamilia", Producto.idfamilia);
-                cmd.Parameters.AddWithValue("@stockinicial", Producto.stockinicial);
-                cmd.Parameters.AddWithValue("@stockminimo", Producto.stockminimo);
-                cmd.Parameters.AddWithValue("@f_vencimiento", Producto.f_vencimiento);
-                cmd.Parameters.AddWithValue("@costo", Producto.costo);
-                cmd.Parameters.AddWithValue("@p_venta", Producto.precio_venta);
-                cmd.Parameters.AddWithValue("@createby", Producto.createby);
-                cmd.Parameters.AddWithValue("@created", Producto.created);
+                cmd.Parameters.AddWithValue("@idproducto", Producto.Idproducto);
+                cmd.Parameters.AddWithValue("@idfabricante", Producto.Idfabricante);
+                cmd.Parameters.AddWithValue("@descripcion", Producto.Descripcion);
+                cmd.Parameters.AddWithValue("@idfamilia", Producto.Idfamilia);
+                cmd.Parameters.AddWithValue("@stockinicial", Producto.Stockinicial);
+                cmd.Parameters.AddWithValue("@stockminimo", Producto.Stockminimo);
+                cmd.Parameters.AddWithValue("@f_vencimiento", Producto.F_vencimiento);
+                cmd.Parameters.AddWithValue("@costo", Producto.Costo);
+                cmd.Parameters.AddWithValue("@p_venta", Producto.Precio_venta);
+                cmd.Parameters.AddWithValue("@createby", Producto.Createby);
+                cmd.Parameters.AddWithValue("@created", Producto.Created);
 
-                Producto.idproducto=Convert.ToInt32(cmd.ExecuteScalar());
+                Producto.Idproducto=Convert.ToInt32(cmd.ExecuteScalar());
             }
           return Producto;
         }

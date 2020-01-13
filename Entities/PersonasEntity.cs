@@ -9,16 +9,18 @@ namespace pjPalmera.Entities
     public class PersonasEntity
     {
         private int id_persona;
-        private long cedula;
+        private string cedula;
         private string nombre;
         private string apellidos;
         private string direccion;
         private int edad;
         private DateTime f_nacimiento;
         private string telefono;
+        private string posicion;
+        private decimal sueldo;
 
 
-        public long Cedula
+        public string Cedula
         {
             get { return cedula; }
             set { cedula = value; }
@@ -66,20 +68,49 @@ namespace pjPalmera.Entities
             set { telefono = value; }
         }
 
-       public PersonasEntity()
-       {
-       }
-
-        public PersonasEntity(int Id_persona, long Cedula, string Nombre, string Apellidos, string Direccion, int Edad, DateTime F_nacimiento, string Telefono )
+        public string Posicion
         {
-            this.id_persona = Id_persona;
-            this.cedula = Cedula;
-            this.nombre = Nombre;
-            this.apellidos = Apellidos;
-            this.direccion = Direccion;
-            this.edad = Edad;
-            this.f_nacimiento = F_nacimiento;
-            this.telefono = Telefono;
+            get
+            {
+                return posicion;
+            }
+
+            set
+            {
+                posicion = value;
+            }
+        }
+
+        public decimal Sueldo
+        {
+            get
+            {
+                return sueldo;
+            }
+
+            set
+            {
+                sueldo = value;
+            }
+        }
+
+        public PersonasEntity()
+        {
+        }
+
+        public PersonasEntity(int id_persona, string cedula, string nombre, string apellidos, string direccion, int edad, DateTime f_nacimiento, string telefono,
+            string posicion, decimal sueldo)
+        {
+            this.Id_persona = id_persona;
+            this.Cedula = cedula;
+            this.Nombre = nombre;
+            this.Apellidos = apellidos;
+            this.Direccion = direccion;
+            this.Edad = edad;
+            this.F_nacimiento = f_nacimiento;
+            this.Telefono = telefono;
+            this.Posicion = posicion;
+            this.Sueldo = sueldo;
         }
 
     }
