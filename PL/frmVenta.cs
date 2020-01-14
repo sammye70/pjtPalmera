@@ -500,6 +500,11 @@ namespace pjPalmera.PL
             frmConsulClientes Consul_Clientes = new PL.frmConsulClientes();
             Consul_Clientes.ShowDialog(this);
         }
+
+        private void txtApClientes_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
  }

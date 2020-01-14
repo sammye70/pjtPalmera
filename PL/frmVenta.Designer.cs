@@ -69,6 +69,7 @@
             this.txtApClientes = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.chbDescuento = new System.Windows.Forms.CheckBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btnBuscarClientes = new System.Windows.Forms.Button();
             this.btnBuscarProducto = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
@@ -76,7 +77,6 @@
             this.btnNuevo = new System.Windows.Forms.Button();
             this.btnPagar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -520,6 +520,7 @@
             this.txtApClientes.Name = "txtApClientes";
             this.txtApClientes.Size = new System.Drawing.Size(264, 22);
             this.txtApClientes.TabIndex = 57;
+            this.txtApClientes.TextChanged += new System.EventHandler(this.txtApClientes_TextChanged);
             // 
             // label18
             // 
