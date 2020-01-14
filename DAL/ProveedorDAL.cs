@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data;
+using System.Data;
 using MySql.Data.MySqlClient;
 using pjPalmera.Entities;
 
@@ -38,6 +39,55 @@ namespace pjPalmera.DAL
                 Proveedor.Idproveedor = Convert.ToInt32(cmd.ExecuteScalar());
             }
            return Proveedor;
+        }
+
+
+        /// <summary>
+        /// Get All
+        /// </summary>
+        /// <returns></returns>
+        public static List<ProveedorEntity> GetAll()
+        {
+            List<ProveedorEntity> list = new List<ProveedorEntity>();
+
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string sql = @"SELECT * FROM fabricante";
+
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    list.Add(LoadProveedor(reader));
+                }
+
+            }
+
+             return list;
+        }
+
+
+
+
+        /// <summary>
+        /// Load proveedor
+        /// </summary>
+        /// <returns></returns>
+        private static ProveedorEntity LoadProveedor(IDataReader Reader)
+        {
+            ProveedorEntity Proveedor = new ProveedorEntity();
+
+            Proveedor.Idproveedor = Convert.ToInt32(Reader["idfabricante"]);
+            Proveedor.Nombre_proveedor = Convert.ToString(Reader["nombre_fab"]);
+            Proveedor.Nombre_contacto = Convert.ToString(Reader["nom_contacto"]);
+            Proveedor.Tel_contacto = Convert.ToString(Reader["tel_contacto"]);
+            Proveedor.Direccion_fab = Convert.ToString(Reader["direccion_fab"]);
+            Proveedor.Rnc = Convert.ToString(Reader["rnc"]);
+            Proveedor.Limitecredito = Convert.ToDecimal(Reader["limitecredito"]);
+
+            return Proveedor;
         }
 
     }

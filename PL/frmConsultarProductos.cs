@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using pjPalmera.Entities;
+using pjPalmera.BLL;
 
 namespace pjPalmera.PL
 {
@@ -27,9 +29,10 @@ namespace pjPalmera.PL
 
         private void frmConsultarProductos_Load(object sender, EventArgs e)
         {
-            this.txtCriterioBusqueda.Clear();
-            this.dgvProdConsultar.DataSource = null;
+
+            this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
             this.txtCriterioBusqueda.Focus();
+
         }
 
         private void txtCriterioBusqueda_TextChanged(object sender, EventArgs e)

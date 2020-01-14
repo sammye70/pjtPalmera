@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using pjPalmera.Entities;
@@ -50,19 +52,47 @@ namespace pjPalmera.DAL
         /// </summary>
         /// <param name="GetAllProd"></param>
         /// <returns></returns>
-        public static ProductosEntity GetAllProductos(ProductosEntity GetAllProd)
+        public static List<ProductosEntity> GetAll()
         {
+            List<ProductosEntity> list = new List<ProductosEntity>();
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
                 string sql = @"SELECT * FROM productos";
 
                 MySqlCommand cmd = new MySqlCommand(sql, con);
+                MySqlDataReader reader = cmd.ExecuteReader();
 
-                cmd.ExecuteNonQuery();
+                while (reader.Read())
+                {
+                    list.Add(LoadProduct(reader));
+                }
 
             }
-          return GetAllProd;
+          return list;
+        }
+
+        /// <summary>
+        /// LoadProduct
+        /// </summary>
+        /// <param name="Reader"></param>
+        /// <returns></returns>
+        private static ProductosEntity LoadProduct(IDataReader Reader)
+        {
+            ProductosEntity Productos = new ProductosEntity();
+
+            Productos.Idproducto = Convert.ToUInt32(Reader["idproducto"]);
+            Productos.Idfabricante = Convert.ToString(Reader["idfabricante"]);
+            Productos.Idfamilia= Convert.ToString(Reader["idfamilia"]);
+            Productos.Descripcion = Convert.ToString(Reader["descripcion"]);
+            Productos.Stockinicial = Convert.ToInt32(Reader["stockinicial"]);
+            Productos.Stockminimo = Convert.ToInt32(Reader["stockminimo"]);
+            Productos.F_vencimiento = Convert.ToDateTime(Reader["f_vencimiento"]);
+            Productos.Costo = Convert.ToDecimal(Reader["costo"]);
+            Productos.Precio_venta = Convert.ToDecimal(Reader["p_venta"]);
+
+            return Productos;
+
         }
     }
 }

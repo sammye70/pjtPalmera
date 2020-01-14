@@ -19,5 +19,14 @@ namespace pjPalmera.BLL
         {
             return ProveedorDAL.Create(Proveedor);
         }
+
+        /// <summary>
+        /// Get all proveedores
+        /// </summary>
+        /// <returns></returns>
+        public static List<ProveedorEntity> GetAllProveedor()
+        {
+            return ProveedorDAL.GetAll();
+        }
     }
 }

@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using pjPalmera.Entities;
+using pjPalmera.BLL;
 
 namespace pjPalmera.PL
 {
@@ -15,6 +17,11 @@ namespace pjPalmera.PL
         public frmConsultarProveedor()
         {
             InitializeComponent();
+        }
+
+        private void frmConsultarProveedor_Load(object sender, EventArgs e)
+        {
+            this.dgvContProveedor.DataSource =ProveedorBO.GetAllProveedor();
         }
     }
 }

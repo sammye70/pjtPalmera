@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using System.Windows.Forms;
 using pjPalmera.Entities;
 using pjPalmera.DAL;
 
@@ -18,7 +19,16 @@ namespace pjPalmera.BLL
         /// <returns></returns>
         public static ClientesEntity Save(ClientesEntity costumer)
         {
-            return ClientesDAL.Create(costumer);
+            try
+            {
+                return ClientesDAL.Create(costumer);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
             #region
             //Find Costumer
             //if (ClientesDAL.Exits(costumer.idclientes))
@@ -33,14 +43,33 @@ namespace pjPalmera.BLL
         }
 
         /// <summary>
-        /// 
+        ///Get all Costumers 
         /// </summary>
         /// <returns></returns>
-        public static ClientesEntity GetAllCostumer( ClientesEntity costumer)
+        public static List<ClientesEntity> GetAll()
         {
-           return ClientesDAL.GetAllCostumer(costumer);
+            try
+            {
+                return ClientesDAL.GetAll();
+            }
+            catch (Exception ex)
+            {
 
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
         }
+
+        /// <summary>
+        /// Get Users by Id
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public static ClientesEntity GetbyId(int Id)
+        {
+            return ClientesDAL.GetbyId(Id);
+        }
+
 
 
 

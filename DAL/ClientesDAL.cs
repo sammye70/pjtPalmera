@@ -8,6 +8,7 @@ using System.Data;
 using MySql.Data.MySqlClient;
 using pjPalmera.Entities;
 
+
 namespace pjPalmera.DAL
 {
     public class ClientesDAL
@@ -92,26 +93,78 @@ namespace pjPalmera.DAL
 
 
         /// <summary>
-        /// 
+        /// Get All Costumer Order by LastName
         /// </summary>
         /// <returns></returns>
-        public static ClientesEntity GetAllCostumer(ClientesEntity Clientes)
+        public static List<ClientesEntity> GetAll()
         {
+            List<ClientesEntity> list = new List<ClientesEntity>();
 
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql = @"SELECT idclientes, nombre, apellidos, telefono, provincia, ciudad FROM clientes";
+                string sql = @"SELECT idclientes, cedula, nombre, apellidos, telefono, direccion, ciudad 
+                                FROM clientes";
 
-                //MySqlCommand cmd = new MySqlCommand(sql, con);
-                // Clientes.idclientes = Convert.ToInt32(cmd.ExecuteScalar());
-                MySqlDataAdapter da = new MySqlDataAdapter(sql, con);
-                DataSet ds = new DataSet();
-                da.Fill(ds, "clientes");
-              
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+
+                MySqlDataReader Reader = cmd.ExecuteReader();
+
+                while (Reader.Read())
+                {
+                    list.Add(LoadCostumer(Reader));
+                }
             }
-            return Clientes;
-
+            return list;
         }
+
+        /// <summary>
+        /// Get User by Id
+        /// </summary>
+        /// <returns></returns>
+        public static ClientesEntity GetbyId(int Id)
+        {
+            ClientesEntity Clientes = null;
+
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string sql = @"SELECT idclientes, cedula, nombre, apellidos, telefono, direccion, ciudad
+                                FROM clientes
+                                WHERE idclientes = @idclientes";
+
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+                cmd.Parameters.AddWithValue("idclientes", Id);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    Clientes = LoadCostumer(reader);
+                }
+            }
+                return Clientes;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Reader"></param>
+        /// <returns></returns>
+        private static ClientesEntity LoadCostumer(IDataRecord Reader)
+        {
+            ClientesEntity costumer = new ClientesEntity();
+
+            costumer.Idclientes = Convert.ToInt32(Reader["idclientes"]);
+            costumer.Cedula = Convert.ToInt32(Reader["cedula"]);
+            costumer.Nombre = Convert.ToString(Reader["nombre"]);
+            costumer.Apellidos = Convert.ToString(Reader["apellidos"]);
+            costumer.Telefono = Convert.ToString(Reader["telefono"]);
+            costumer.Direccion = Convert.ToString(Reader["direccion"]);
+            costumer.Ciudad = Convert.ToString(Reader["ciudad"]);
+
+            return costumer;
+        } 
     }
 }

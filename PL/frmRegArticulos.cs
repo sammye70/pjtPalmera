@@ -132,9 +132,9 @@ namespace pjPalmera.PL
                 producto = new ProductosEntity();
 
                 producto.Idproducto = Convert.ToInt64(this.txtCodigo.Text);
-                producto.Idfabricante = Convert.ToInt32(this.cmbFabrincante.Text);
+                producto.Idfabricante = this.cmbFabrincante.Text;
                 producto.Descripcion = this.txtDescripcion.Text;
-                producto.Idfamilia = Convert.ToInt32(this.cmbFamilia.Text);
+                producto.Idfamilia = this.cmbFamilia.Text;
                 producto.Stockinicial = Convert.ToInt32(txtStockInicial.Text);
                 producto.Stockminimo = Convert.ToInt32(this.txtStockMinimo.Text);
                 producto.F_vencimiento = Convert.ToDateTime(dateTimePicker1.Value.Date.ToShortDateString());

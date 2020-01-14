@@ -391,6 +391,39 @@
   <ItemGroup>
     <None Include="Resources\search.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shopping cart full.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\money.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shopping cart.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trash.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cashier-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\web_connect.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cashier.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delivery-cart-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cart-3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\up.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cart-13.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -12,6 +12,18 @@ namespace pjPalmera.PL
 {
     public partial class frmPrincipal : Form
     {
+
+        private const int CP_NOCLOSE_BUTTON = 0x200;
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams myCp = base.CreateParams;
+                myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
+                return myCp;
+            }
+        }
+
         public frmPrincipal()
         {
             InitializeComponent();
@@ -114,6 +126,36 @@ namespace pjPalmera.PL
         {
             frmConsultarProductos productos = new PL.frmConsultarProductos();
             productos.ShowDialog(this);
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            frmVenta Venta = new PL.frmVenta();
+            Venta.Show();
+        }
+
+        /// <summary>
+        /// Ask question 
+        /// </summary>
+        private void AppExit()
+        {
+            
+           DialogResult result = MessageBox.Show("Seguro que desea salir","Mensaje del Sistema",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button1);
+            if (result == DialogResult.Yes)
+            {
+                this.Close();
+            }
+            else if( result == DialogResult.No)
+            {
+
+                
+               
+            }
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            AppExit();
         }
     }
 }

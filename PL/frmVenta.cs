@@ -29,6 +29,7 @@ namespace pjPalmera.PL
             Deshabilitar();
             this.chbDescuento.Visible = false;
             this.btnNuevo.Focus();
+            SetToolControls();
         }
 
         private void btnBuscarClientes_Click(object sender, EventArgs e)
@@ -44,7 +45,10 @@ namespace pjPalmera.PL
             dgvDetalle.DataSource = venta.Productos;
         }
 
-        //Load DataGrid Header
+        /// <summary>
+        /// Load DataGrid Header
+        /// </summary>
+        
         private void LoadDataGridView()
         {
             dgvDetalle.ColumnCount = 6;
@@ -56,7 +60,9 @@ namespace pjPalmera.PL
             dgvDetalle.Columns[5].Name= "IMPORTE";
         }
 
-        //Clear Textbox
+        /// <summary>
+        /// Clear Textbox
+        /// </summary>
         private void Limpiar()
         {
 
@@ -69,8 +75,10 @@ namespace pjPalmera.PL
             //this.txtTotalPagar.Clear();
             // this.txtItbis.Clear();
         }
-        
-        //Deshabilita TextBox, Buttons
+
+        /// <summary>
+        /// Deshabilita TextBox, Buttons
+        /// </summary>
         private void Deshabilitar()
         {
             this.txtClientes.Enabled = false;
@@ -91,6 +99,8 @@ namespace pjPalmera.PL
             this.txtDevueltaEfectivo.Enabled = false;
             this.btnBuscarProducto.Enabled = false;
             this.btnBuscarClientes.Enabled = false;
+            this.btnEliminar.Enabled = false;
+            this.txtApClientes.Enabled = false;
             if (dgvDetalle == null)
             {
                 this.chbDescuento.Enabled = false;
@@ -119,6 +129,8 @@ namespace pjPalmera.PL
             this.txtDevueltaEfectivo.Enabled = true;
             this.btnBuscarProducto.Enabled = true;
             this.btnBuscarClientes.Enabled = true;
+            this.btnEliminar.Enabled = true;
+            this.txtApClientes.Enabled = true;
             if (dgvDetalle != null)
             {
                 this.chbDescuento.Enabled = true;
@@ -154,7 +166,9 @@ namespace pjPalmera.PL
             this.txtDevueltaEfectivo.Text = "0.00";
         }
 
-        //Remove Items from the Grid  ---> Pendding
+        /// <summary>
+        /// Remove Items from the Grid  ---> Pendding
+        /// </summary>
         private void RemoveItems()
         {
 
@@ -359,6 +373,21 @@ namespace pjPalmera.PL
             this.txtSubtotal.Text = "0.00";
            // this.txtRecibidoEfectivo.Text="0.0";
         }
+
+        /// <summary>
+        /// Set Detail about controls
+        /// </summary>
+        private void SetToolControls()
+        {
+            this.toolTip1.SetToolTip(this.btnBuscarClientes,"Buscar Clientes");
+            this.toolTip1.SetToolTip(this.btnBuscarProducto, "Buscar Productos");
+            this.toolTip1.SetToolTip(this.btnCancelar, "Limpia de los campos de cliente, y producto a ser agregados");
+            this.toolTip1.SetToolTip(this.btnEliminar, "Eliminar item del carro de compra");
+            this.toolTip1.SetToolTip(this.btnPagar, "Efectuar pago de la compra ");
+            this.toolTip1.SetToolTip(this.btnAgregar,"Agregar Items a la compra");
+            this.toolTip1.SetToolTip(this.btnNuevo, "Crear Nueva Venta");
+        }
+
         ///private void chbDescuento_CheckedChanged(object sender, EventArgs e)
         //{
         //    try

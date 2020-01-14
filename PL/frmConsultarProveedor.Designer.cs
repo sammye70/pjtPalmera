@@ -32,8 +32,10 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.dgvContProveedor = new System.Windows.Forms.DataGridView();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvContProveedor)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -74,27 +76,50 @@
             this.radioButton2.Text = "Nombre Empresa";
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // dgvContProveedor
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(5, 62);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(542, 262);
-            this.dataGridView1.TabIndex = 4;
+            this.dgvContProveedor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvContProveedor.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvContProveedor.Location = new System.Drawing.Point(5, 62);
+            this.dgvContProveedor.Name = "dgvContProveedor";
+            this.dgvContProveedor.Size = new System.Drawing.Size(694, 356);
+            this.dgvContProveedor.TabIndex = 4;
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Image = global::PL.Properties.Resources.cancel1;
+            this.btnCancelar.Location = new System.Drawing.Point(578, 11);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(56, 43);
+            this.btnCancelar.TabIndex = 10;
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Image = global::PL.Properties.Resources.search;
+            this.button1.Location = new System.Drawing.Point(516, 11);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(56, 43);
+            this.button1.TabIndex = 9;
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // frmConsultarProveedor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(559, 336);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(711, 430);
+            this.Controls.Add(this.btnCancelar);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.dgvContProveedor);
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Name = "frmConsultarProveedor";
             this.Text = "Consultar Proveedor";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.frmConsultarProveedor_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvContProveedor)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -106,6 +131,8 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvContProveedor;
+        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Button button1;
     }
 }
