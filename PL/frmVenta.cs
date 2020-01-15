@@ -27,9 +27,8 @@ namespace pjPalmera.PL
             Limpiar();
             LimpiarEfectivo();
             Deshabilitar();
-            this.chbDescuento.Visible = false;
-            this.btnNuevo.Focus();
             SetToolControls();
+            this.btnNuevo.Focus();
         }
 
         private void btnBuscarClientes_Click(object sender, EventArgs e)
@@ -41,23 +40,8 @@ namespace pjPalmera.PL
                 return;
             }
 
-            venta = new VentaEntity(txtClientes.Text);
+            venta = new VentaEntity(this.txtClientes.Text, txtApClientes.Text);
             dgvDetalle.DataSource = venta.Productos;
-        }
-
-        /// <summary>
-        /// Load DataGrid Header
-        /// </summary>
-        
-        private void LoadDataGridView()
-        {
-            dgvDetalle.ColumnCount = 6;
-            dgvDetalle.Columns[0].Name= "ID";
-            dgvDetalle.Columns[1].Name= "DESCRIPCION";
-            dgvDetalle.Columns[2].Name= "CANTIDAD";
-            dgvDetalle.Columns[3].Name= "PRECIO";
-            dgvDetalle.Columns[4].Name= "ITBIS";
-            dgvDetalle.Columns[5].Name= "IMPORTE";
         }
 
         /// <summary>
@@ -101,6 +85,7 @@ namespace pjPalmera.PL
             this.btnBuscarClientes.Enabled = false;
             this.btnEliminar.Enabled = false;
             this.txtApClientes.Enabled = false;
+            this.btnGuardar.Enabled = false;
             if (dgvDetalle == null)
             {
                 this.chbDescuento.Enabled = false;
@@ -131,6 +116,7 @@ namespace pjPalmera.PL
             this.btnBuscarClientes.Enabled = true;
             this.btnEliminar.Enabled = true;
             this.txtApClientes.Enabled = true;
+            this.btnGuardar.Enabled = true;
             if (dgvDetalle != null)
             {
                 this.chbDescuento.Enabled = true;
@@ -148,6 +134,8 @@ namespace pjPalmera.PL
             this.txtItbis.ReadOnly = true;
             this.txtDescuento.ReadOnly = true;
             this.txtDevueltaEfectivo.ReadOnly = true;
+            this.txtApClientes.ReadOnly = true;
+            this.txtClientes.ReadOnly = true;
         }
 
         /// <summary>
@@ -182,44 +170,30 @@ namespace pjPalmera.PL
             //}
         }
 
-
-
-        private void btnNuevo_Click(object sender, EventArgs e)
+        #region New Invoice
+        /// <summary>
+        /// Prepare for New Invoice
+        /// </summary>
+        private void NewInvoice()
         {
             Habilitar();
             Limpiar();
             LimpiarEfectivo();
             OnlyRead();
-            this.txtClientes.Clear();
-            this.cmbTipoVenta.Text = "";
+            this.txtClientes.Text = "CONTADO";
+            this.txtApClientes.Text = "CONTADO";
+            venta = new VentaEntity(this.txtClientes.Text, this.txtApClientes.Text); //Head invoice
             this.dgvDetalle.DataSource = null;
-            this.cmbTipoVenta.Focus();
-            //this.txtRecibidoEfectivo.Text = "0.00";
+            this.txtProductos.Focus();
+        } 
+        #endregion
 
-        }
-
-        private void cmbTipoVenta_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnNuevo_Click(object sender, EventArgs e)
         {
-            if (this.cmbTipoVenta.Text == "CONTADO")
-            {
-                this.txtClientes.Text = "CONTADO";
-                venta = new VentaEntity(this.txtClientes.Text, this.txtApClientes.Text);
-                //dgvDetalle.DataSource = venta.Productos;
-                LoadDataGridView();
-                this.txtProductos.Focus();
-            }
-            if (this.cmbTipoVenta.Text == "CREDITO")
-            {
-                this.txtClientes.Clear();
-                this.btnBuscarClientes.Focus();
-                dgvDetalle.DataSource = null;
-            }
-
-            if ((this.cmbTipoVenta.Text != "CONTADO") && (this.cmbTipoVenta.Text != "CREDITO"))
-            {
-                MessageBox.Show("Debe indicar un tipo de Venta (Contado o Credito)", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
+            NewInvoice();
         }
+
+     
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
@@ -320,6 +294,8 @@ namespace pjPalmera.PL
             SetPagar();
             Limpiar();
             this.txtProductos.Focus();
+
+           
         }
 
         private void btnBuscarProducto_Click(object sender, EventArgs e)
@@ -361,32 +337,39 @@ namespace pjPalmera.PL
             this.txtDescuento.Text = string.Format("{0:C2}", descuento);
         }
 
+        #region Clean Labels
         /// <summary>
-        /// 
+        /// Clean labels
         /// </summary>
         private void LimpiarEfectivo()
         {
-            this.txtDevueltaEfectivo.Text="0.00";
+            this.txtDevueltaEfectivo.Text = "0.00";
             this.txtDescuento.Text = "0.00";
-            this.txtTotalPagar.Text ="0.00";
+            this.txtTotalPagar.Text = "0.00";
             this.txtItbis.Text = "0.00";
             this.txtSubtotal.Text = "0.00";
-           // this.txtRecibidoEfectivo.Text="0.0";
+            // this.txtRecibidoEfectivo.Text="0.0";
         }
+        #endregion
 
+        #region Set Detail of Controls
         /// <summary>
         /// Set Detail about controls
         /// </summary>
         private void SetToolControls()
         {
-            this.toolTip1.SetToolTip(this.btnBuscarClientes,"Buscar Clientes");
+            this.toolTip1.SetToolTip(this.btnBuscarClientes, "Buscar Clientes");
             this.toolTip1.SetToolTip(this.btnBuscarProducto, "Buscar Productos");
             this.toolTip1.SetToolTip(this.btnCancelar, "Limpia de los campos de cliente, y producto a ser agregados");
             this.toolTip1.SetToolTip(this.btnEliminar, "Eliminar item del carro de compra");
             this.toolTip1.SetToolTip(this.btnPagar, "Efectuar pago de la compra ");
-            this.toolTip1.SetToolTip(this.btnAgregar,"Agregar Items a la compra");
+            this.toolTip1.SetToolTip(this.btnAgregar, "Agregar Items a la compra");
             this.toolTip1.SetToolTip(this.btnNuevo, "Crear Nueva Venta");
-        }
+            this.toolTip1.SetToolTip(this.btnGuardar, "Guardar Compra");
+        } 
+        #endregion
+
+        #region Descuento
 
         ///private void chbDescuento_CheckedChanged(object sender, EventArgs e)
         //{
@@ -424,12 +407,12 @@ namespace pjPalmera.PL
         //        return;
         //    }
 
-        //}
-
-
+        //} 
+        #endregion
 
         private void txtRecibidoEfectivo_TextChanged(object sender, EventArgs e)
         {
+            //check cash delivery to casher and set change
             try
             {
                 decimal itbis, subtotal, cobrar, recibido, devuelta;
@@ -504,6 +487,19 @@ namespace pjPalmera.PL
         private void txtApClientes_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Source, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            
         }
     }
 

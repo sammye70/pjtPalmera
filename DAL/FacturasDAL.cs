@@ -26,20 +26,20 @@ namespace pjPalmera.DAL
 
                 using (MySqlCommand cmd = new MySqlCommand(sql_head, con))
                 {
-                    cmd.Parameters.AddWithValue("@id_cliente",Venta.Id_cliente);
-                    cmd.Parameters.AddWithValue("@nombre",Venta.Clientes);
-                    cmd.Parameters.AddWithValue("@apellidos",Venta.Apellidos);
-                    cmd.Parameters.AddWithValue("@total", 0);
-                    cmd.Parameters.AddWithValue("@created",Venta.Fecha);
-                    cmd.Parameters.AddWithValue("@status",Venta.Status);
-                    cmd.Parameters.AddWithValue("@ncf",Venta.Ncf);
-                    cmd.Parameters.AddWithValue("@tipo",Venta.Tipo);
-                    cmd.Parameters.AddWithValue("@vendedor",Venta.v);
-                    cmd.Parameters.AddWithValue("@descuento", Venta.Descuento);
-                    cmd.Parameters.AddWithValue("@subtotal", Venta.Subtotal);
-                    cmd.Parameters.AddWithValue("@total_itbis", Venta.Total_itbis);
+                    //cmd.Parameters.AddWithValue("@id_cliente",Venta.Id_cliente);
+                    //cmd.Parameters.AddWithValue("@nombre",Venta.Clientes);
+                    //cmd.Parameters.AddWithValue("@apellidos",Venta.Apellidos);
+                    //cmd.Parameters.AddWithValue("@total", 0);
+                    //cmd.Parameters.AddWithValue("@created",Venta.Fecha);
+                    //cmd.Parameters.AddWithValue("@status",Venta.Status);
+                    //cmd.Parameters.AddWithValue("@ncf",Venta.Ncf);
+                    //cmd.Parameters.AddWithValue("@tipo",Venta.Tipo);
+                    //cmd.Parameters.AddWithValue("@vendedor",Venta.v);
+                    //cmd.Parameters.AddWithValue("@descuento", Venta.Descuento);
+                    //cmd.Parameters.AddWithValue("@subtotal", Venta.Subtotal);
+                    //cmd.Parameters.AddWithValue("@total_itbis", Venta.Total_itbis);
 
-                    Venta.Id = Convert.ToInt32(cmd.ExecuteScalar());
+                    //Venta.Id = Convert.ToInt32(cmd.ExecuteScalar());
                 }
                 ///--------------------------------------
                 ///

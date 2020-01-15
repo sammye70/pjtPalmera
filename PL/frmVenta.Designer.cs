@@ -32,17 +32,22 @@
             this.dgvDetalle = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.chbDescuento = new System.Windows.Forms.CheckBox();
+            this.txtApClientes = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.btnBuscarClientes = new System.Windows.Forms.Button();
             this.txtClientes = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtPrecio = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.btnBuscarProducto = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.txtCantidad = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -50,6 +55,12 @@
             this.cmbTipoVenta = new System.Windows.Forms.ComboBox();
             this.txtProductos = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnGuardar = new System.Windows.Forms.Button();
+            this.btnEliminar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnPagar = new System.Windows.Forms.Button();
+            this.btnNuevo = new System.Windows.Forms.Button();
+            this.btnAgregar = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -66,17 +77,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.txtApClientes = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.chbDescuento = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnBuscarClientes = new System.Windows.Forms.Button();
-            this.btnBuscarProducto = new System.Windows.Forms.Button();
-            this.btnEliminar = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnNuevo = new System.Windows.Forms.Button();
-            this.btnPagar = new System.Windows.Forms.Button();
-            this.btnAgregar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -145,11 +146,42 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Venta ";
             // 
+            // chbDescuento
+            // 
+            this.chbDescuento.AutoSize = true;
+            this.chbDescuento.Location = new System.Drawing.Point(1111, 104);
+            this.chbDescuento.Name = "chbDescuento";
+            this.chbDescuento.Size = new System.Drawing.Size(128, 20);
+            this.chbDescuento.TabIndex = 58;
+            this.chbDescuento.Text = "Descuento (%)";
+            this.chbDescuento.UseVisualStyleBackColor = true;
+            this.chbDescuento.Visible = false;
+            // 
+            // txtApClientes
+            // 
+            this.txtApClientes.Location = new System.Drawing.Point(473, 22);
+            this.txtApClientes.Margin = new System.Windows.Forms.Padding(4);
+            this.txtApClientes.Name = "txtApClientes";
+            this.txtApClientes.Size = new System.Drawing.Size(264, 22);
+            this.txtApClientes.TabIndex = 57;
+            this.txtApClientes.TextChanged += new System.EventHandler(this.txtApClientes_TextChanged);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(390, 28);
+            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(76, 18);
+            this.label18.TabIndex = 56;
+            this.label18.Text = "Apellidos";
+            // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(1022, 55);
+            this.label15.Location = new System.Drawing.Point(1046, 56);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(54, 18);
@@ -160,7 +192,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(1022, 88);
+            this.label14.Location = new System.Drawing.Point(1046, 88);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(45, 18);
@@ -199,6 +231,17 @@
             this.label11.Size = new System.Drawing.Size(50, 18);
             this.label11.TabIndex = 51;
             this.label11.Text = "Hora:";
+            // 
+            // btnBuscarClientes
+            // 
+            this.btnBuscarClientes.Image = global::PL.Properties.Resources.search;
+            this.btnBuscarClientes.Location = new System.Drawing.Point(745, 14);
+            this.btnBuscarClientes.Margin = new System.Windows.Forms.Padding(4);
+            this.btnBuscarClientes.Name = "btnBuscarClientes";
+            this.btnBuscarClientes.Size = new System.Drawing.Size(44, 36);
+            this.btnBuscarClientes.TabIndex = 50;
+            this.btnBuscarClientes.UseVisualStyleBackColor = true;
+            this.btnBuscarClientes.Click += new System.EventHandler(this.btnBuscarClientes_Click_1);
             // 
             // txtClientes
             // 
@@ -257,6 +300,17 @@
             this.label6.TabIndex = 43;
             this.label6.Text = "Descripcion";
             // 
+            // btnBuscarProducto
+            // 
+            this.btnBuscarProducto.Image = global::PL.Properties.Resources.search;
+            this.btnBuscarProducto.Location = new System.Drawing.Point(441, 56);
+            this.btnBuscarProducto.Margin = new System.Windows.Forms.Padding(4);
+            this.btnBuscarProducto.Name = "btnBuscarProducto";
+            this.btnBuscarProducto.Size = new System.Drawing.Size(42, 37);
+            this.btnBuscarProducto.TabIndex = 42;
+            this.btnBuscarProducto.UseVisualStyleBackColor = true;
+            this.btnBuscarProducto.Click += new System.EventHandler(this.btnBuscarProducto_Click);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -280,12 +334,13 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(834, 28);
+            this.label3.Location = new System.Drawing.Point(1120, 32);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(111, 18);
             this.label3.TabIndex = 39;
             this.label3.Text = "Tipo de Venta";
+            this.label3.Visible = false;
             // 
             // label2
             // 
@@ -304,12 +359,12 @@
             this.cmbTipoVenta.Items.AddRange(new object[] {
             "CONTADO",
             "CREDITO"});
-            this.cmbTipoVenta.Location = new System.Drawing.Point(822, 53);
+            this.cmbTipoVenta.Location = new System.Drawing.Point(1108, 57);
             this.cmbTipoVenta.Margin = new System.Windows.Forms.Padding(4);
             this.cmbTipoVenta.Name = "cmbTipoVenta";
             this.cmbTipoVenta.Size = new System.Drawing.Size(131, 24);
             this.cmbTipoVenta.TabIndex = 37;
-            this.cmbTipoVenta.SelectedIndexChanged += new System.EventHandler(this.cmbTipoVenta_SelectedIndexChanged);
+            this.cmbTipoVenta.Visible = false;
             // 
             // txtProductos
             // 
@@ -322,10 +377,11 @@
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.btnGuardar);
             this.groupBox2.Controls.Add(this.btnEliminar);
             this.groupBox2.Controls.Add(this.btnCancelar);
-            this.groupBox2.Controls.Add(this.btnNuevo);
             this.groupBox2.Controls.Add(this.btnPagar);
+            this.groupBox2.Controls.Add(this.btnNuevo);
             this.groupBox2.Controls.Add(this.btnAgregar);
             this.groupBox2.Location = new System.Drawing.Point(797, 144);
             this.groupBox2.Name = "groupBox2";
@@ -333,6 +389,78 @@
             this.groupBox2.TabIndex = 33;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Acciones";
+            // 
+            // btnGuardar
+            // 
+            this.btnGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGuardar.Image = global::PL.Properties.Resources.save;
+            this.btnGuardar.Location = new System.Drawing.Point(181, 34);
+            this.btnGuardar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(72, 52);
+            this.btnGuardar.TabIndex = 25;
+            this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEliminar.Image = global::PL.Properties.Resources.trash;
+            this.btnEliminar.Location = new System.Drawing.Point(261, 33);
+            this.btnEliminar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(72, 52);
+            this.btnEliminar.TabIndex = 24;
+            this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancelar.Image = global::PL.Properties.Resources.shopping_cart;
+            this.btnCancelar.Location = new System.Drawing.Point(337, 33);
+            this.btnCancelar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(72, 52);
+            this.btnCancelar.TabIndex = 23;
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // btnPagar
+            // 
+            this.btnPagar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPagar.Image = global::PL.Properties.Resources.money;
+            this.btnPagar.Location = new System.Drawing.Point(417, 33);
+            this.btnPagar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnPagar.Name = "btnPagar";
+            this.btnPagar.Size = new System.Drawing.Size(72, 53);
+            this.btnPagar.TabIndex = 21;
+            this.btnPagar.UseVisualStyleBackColor = true;
+            this.btnPagar.Click += new System.EventHandler(this.btnPagar_Click);
+            // 
+            // btnNuevo
+            // 
+            this.btnNuevo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNuevo.Image = global::PL.Properties.Resources.documents;
+            this.btnNuevo.Location = new System.Drawing.Point(7, 34);
+            this.btnNuevo.Margin = new System.Windows.Forms.Padding(4);
+            this.btnNuevo.Name = "btnNuevo";
+            this.btnNuevo.Size = new System.Drawing.Size(77, 53);
+            this.btnNuevo.TabIndex = 22;
+            this.btnNuevo.UseVisualStyleBackColor = true;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
+            // 
+            // btnAgregar
+            // 
+            this.btnAgregar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAgregar.Image = global::PL.Properties.Resources.shopping_cart_full;
+            this.btnAgregar.Location = new System.Drawing.Point(92, 35);
+            this.btnAgregar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(77, 52);
+            this.btnAgregar.TabIndex = 20;
+            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // groupBox4
             // 
@@ -513,118 +641,6 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(98, 17);
             this.toolStripStatusLabel1.Text = "By EBG-Solutions";
             // 
-            // txtApClientes
-            // 
-            this.txtApClientes.Location = new System.Drawing.Point(473, 22);
-            this.txtApClientes.Margin = new System.Windows.Forms.Padding(4);
-            this.txtApClientes.Name = "txtApClientes";
-            this.txtApClientes.Size = new System.Drawing.Size(264, 22);
-            this.txtApClientes.TabIndex = 57;
-            this.txtApClientes.TextChanged += new System.EventHandler(this.txtApClientes_TextChanged);
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(390, 28);
-            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(76, 18);
-            this.label18.TabIndex = 56;
-            this.label18.Text = "Apellidos";
-            // 
-            // chbDescuento
-            // 
-            this.chbDescuento.AutoSize = true;
-            this.chbDescuento.Location = new System.Drawing.Point(825, 100);
-            this.chbDescuento.Name = "chbDescuento";
-            this.chbDescuento.Size = new System.Drawing.Size(128, 20);
-            this.chbDescuento.TabIndex = 58;
-            this.chbDescuento.Text = "Descuento (%)";
-            this.chbDescuento.UseVisualStyleBackColor = true;
-            // 
-            // btnBuscarClientes
-            // 
-            this.btnBuscarClientes.Image = global::PL.Properties.Resources.search;
-            this.btnBuscarClientes.Location = new System.Drawing.Point(745, 14);
-            this.btnBuscarClientes.Margin = new System.Windows.Forms.Padding(4);
-            this.btnBuscarClientes.Name = "btnBuscarClientes";
-            this.btnBuscarClientes.Size = new System.Drawing.Size(44, 36);
-            this.btnBuscarClientes.TabIndex = 50;
-            this.btnBuscarClientes.UseVisualStyleBackColor = true;
-            this.btnBuscarClientes.Click += new System.EventHandler(this.btnBuscarClientes_Click_1);
-            // 
-            // btnBuscarProducto
-            // 
-            this.btnBuscarProducto.Image = global::PL.Properties.Resources.search;
-            this.btnBuscarProducto.Location = new System.Drawing.Point(441, 56);
-            this.btnBuscarProducto.Margin = new System.Windows.Forms.Padding(4);
-            this.btnBuscarProducto.Name = "btnBuscarProducto";
-            this.btnBuscarProducto.Size = new System.Drawing.Size(42, 37);
-            this.btnBuscarProducto.TabIndex = 42;
-            this.btnBuscarProducto.UseVisualStyleBackColor = true;
-            this.btnBuscarProducto.Click += new System.EventHandler(this.btnBuscarProducto_Click);
-            // 
-            // btnEliminar
-            // 
-            this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEliminar.Image = global::PL.Properties.Resources.trash;
-            this.btnEliminar.Location = new System.Drawing.Point(206, 36);
-            this.btnEliminar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(79, 52);
-            this.btnEliminar.TabIndex = 24;
-            this.btnEliminar.UseVisualStyleBackColor = true;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
-            // 
-            // btnCancelar
-            // 
-            this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancelar.Image = global::PL.Properties.Resources.shopping_cart;
-            this.btnCancelar.Location = new System.Drawing.Point(293, 36);
-            this.btnCancelar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(79, 52);
-            this.btnCancelar.TabIndex = 23;
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
-            // btnNuevo
-            // 
-            this.btnNuevo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNuevo.Image = global::PL.Properties.Resources.documents;
-            this.btnNuevo.Location = new System.Drawing.Point(33, 36);
-            this.btnNuevo.Margin = new System.Windows.Forms.Padding(4);
-            this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(80, 53);
-            this.btnNuevo.TabIndex = 22;
-            this.btnNuevo.UseVisualStyleBackColor = true;
-            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
-            // 
-            // btnPagar
-            // 
-            this.btnPagar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPagar.Image = global::PL.Properties.Resources.money;
-            this.btnPagar.Location = new System.Drawing.Point(380, 36);
-            this.btnPagar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnPagar.Name = "btnPagar";
-            this.btnPagar.Size = new System.Drawing.Size(72, 53);
-            this.btnPagar.TabIndex = 21;
-            this.btnPagar.UseVisualStyleBackColor = true;
-            this.btnPagar.Click += new System.EventHandler(this.btnPagar_Click);
-            // 
-            // btnAgregar
-            // 
-            this.btnAgregar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAgregar.Image = global::PL.Properties.Resources.shopping_cart_full;
-            this.btnAgregar.Location = new System.Drawing.Point(121, 36);
-            this.btnAgregar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(77, 52);
-            this.btnAgregar.TabIndex = 20;
-            this.btnAgregar.UseVisualStyleBackColor = true;
-            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
-            // 
             // frmVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -702,5 +718,6 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.CheckBox chbDescuento;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button btnGuardar;
     }
 }
