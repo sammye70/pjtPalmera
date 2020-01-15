@@ -205,7 +205,7 @@
     <Compile Include="frmVenta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmVenta.Designer.cs">
+    <Compile Include="frmVenta.designer.cs">
       <DependentUpon>frmVenta.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />

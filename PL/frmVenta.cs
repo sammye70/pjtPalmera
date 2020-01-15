@@ -203,7 +203,7 @@ namespace pjPalmera.PL
             if (this.cmbTipoVenta.Text == "CONTADO")
             {
                 this.txtClientes.Text = "CONTADO";
-                venta = new VentaEntity(txtClientes.Text);
+                venta = new VentaEntity(this.txtClientes.Text, this.txtApClientes.Text);
                 //dgvDetalle.DataSource = venta.Productos;
                 LoadDataGridView();
                 this.txtProductos.Focus();

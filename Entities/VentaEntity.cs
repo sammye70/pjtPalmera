@@ -17,126 +17,22 @@ namespace pjPalmera.Entities
         /// Title: Invoice Header y Detail
         /// </summary>
 
-        //Fields
-        private int id;
-        private int id_cliente;
-        private string nombre;
-        private string apellidos;
-        private DateTime f_factura;
-        private decimal total;
-        private decimal subtotal;
-        private int status;
-        private string vendedor;
-        private int ncf;
-        private int tipo;
-        private decimal descuento;
-        private decimal t_itbis;
-        private List<DetalleVentaEntity> _productos;
-      
-     
-
-        //Constructor
-        public VentaEntity()
-        {
-        }
-
-        public VentaEntity (int id_cliente, string nombre, string  apellidos, decimal total, DateTime f_factura, int ncf, int status, decimal descuento, decimal subtotal,
-            decimal t_itbis)
-        {
-            this.Id_cliente = id_cliente;
-            this.Nombre = nombre;
-            this.Apellidos = apellidos;
-            this.Total = total;
-            this.Fecha = f_factura;
-            this.Ncf = ncf;
-            this.Status = status;
-            this.Descuento = descuento;
-            this.Subtotal = subtotal;
-            this.Total_itbis = t_itbis;
-            //
-            this._productos = new List<DetalleVentaEntity>();
-        }
-
-
-        //Properties
-        public int Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
-
-        public int Id_cliente
-        {
-            get { return id_cliente; }
-            set { id_cliente = value; }
-        }
-
-         public string Nombre
-        {
-            get { return nombre; }
-            set { nombre = value; }
-        }
-
-        public string Apellidos
-        {
-            get { return apellidos; }
-            set { apellidos = value; }
-        }
-
-        public decimal Total
-        {
-            get { return total; }
-            set { total = value; }
-        }
-
-        public decimal Total_itbis
-        {
-            get { return t_itbis; }
-            set { t_itbis = value; }
-        }
-
-        public DateTime Fecha
-        {
-            get { return f_factura; }
-            set { f_factura =  value; }
-        }
-
-        public int Ncf
-        {
-            get { return ncf; }
-            set { ncf = value; }
-        }
-
-        public int Status
-        {
-            get { return status; }
-            set { status = value; }
-        }
-
-        public decimal Descuento
-        {
-            get { return descuento; }
-            set { descuento = value; }
-        }
-
-        public decimal Subtotal
-        {
-            get { return subtotal; }
-            set { subtotal = value; }
-        }
-
-        public int Tipo
-        {
-            get { return tipo; }
-            set { tipo = value; }
-        }
-
-        public string Vendedor
-        {
-            get { return vendedor; }
-            set { vendedor = value; }
-        }
-
+        //Fields and Properties
+        private string clientes;
+        private string apellidos { get; set; }
+        private DateTime f_factura { get; set; }
+        private string vendedor { get; set; }
+        private int ncf { get; set; }
+        private string tipo { get; set; } 
+        private int status { get; set; }
+        //private int _nif;
+        //private string _descripcion;
+        //private decimal _p_venta;
+        //private float _cantidad;
+        private List<DetalleVentaEntity> productos;
+       // public decimal precio = 0;
+        public Int64 id;
+        public float cantidad;
         /// <summary>
         /// 
         /// </summary>
@@ -144,11 +40,42 @@ namespace pjPalmera.Entities
         {
             get
             {
-                return _productos;
+                return productos;
             }
         }
 
-        //Method Add Items to list<>
+
+        /// <summary>
+        /// Constructor VentaEntity
+        /// </summary>
+        /// <param name="clientes"></param>
+        /// <param name="apellidos"></param>
+        public VentaEntity (string clientes, string apellidos )
+        {
+          //  this.ncf = ncf;
+            this.Clientes = clientes;
+            this.apellidos = apellidos;
+            this.f_factura = DateTime.Now.Date;
+            //this.vendedor = vendedor;
+
+            this.productos = new List<DetalleVentaEntity>();
+        }
+
+        public VentaEntity()
+        {
+        }
+
+
+        public string Clientes
+        {
+            get { return clientes; } set { clientes = value; }
+        }
+
+
+        /// <summary>
+        /// Add Items to list<DetalleVentaEntity>
+        /// </summary>
+        /// <param name="producto"></param>
         public void addProduct(DetalleVentaEntity producto)
         {
             Productos.Add(producto);
@@ -157,6 +84,7 @@ namespace pjPalmera.Entities
         //
         public void RemoveItem(DetalleVentaEntity producto)
         {
+
             Productos.RemoveAt(1);
         }
 
@@ -194,7 +122,7 @@ namespace pjPalmera.Entities
         /// 
         /// </summary>
         /// <returns></returns>
-        public decimal Descuentos()
+        public decimal Descuento()
         {
             decimal t_descuento = 0, descuento = 10;
             t_descuento = (descuento * SubTotal()) / 100;
@@ -211,7 +139,7 @@ namespace pjPalmera.Entities
         {
             decimal t_pagar, t_pagar_c_descuento;
             t_pagar = itbis + subtotal;
-            t_pagar_c_descuento = t_pagar - Descuentos();
+            t_pagar_c_descuento = t_pagar - Descuento();
             return t_pagar_c_descuento;
         }
 

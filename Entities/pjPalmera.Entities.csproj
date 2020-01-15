@@ -49,9 +49,9 @@
     <Compile Include="ProvinciaEntity.cs" />
     <Compile Include="PersonasEntity.cs" />
     <Compile Include="UsuariosEntity.cs" />
-    <Compile Include="VentaEntity.cs" />
     <Compile Include="ProductosEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VentaEntity.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
