@@ -18,21 +18,26 @@ namespace pjPalmera.Entities
         /// </summary>
 
         //Fields and Properties
-        private string clientes;
-        private string apellidos { get; set; }
-        private DateTime f_factura { get; set; }
-        private string vendedor { get; set; }
-        private int ncf { get; set; }
-        private string tipo { get; set; } 
-        private int status { get; set; }
+        public string clientes { get; set; }
+        public string apellidos { get; set; }
+        public DateTime f_factura { get; set; }
+        public string vendedor { get; set; }
+        public int ncf { get; set; }
+        public string tipo { get; set; } 
+        public int status { get; set; }
+        public decimal total { get; set; }
         //private int _nif;
         //private string _descripcion;
         //private decimal _p_venta;
         //private float _cantidad;
         private List<DetalleVentaEntity> productos;
        // public decimal precio = 0;
-        public Int64 id;
-        public float cantidad;
+        public int id;
+        //public float cantidad;
+       
+        
+        
+        
         /// <summary>
         /// 
         /// </summary>
@@ -45,31 +50,24 @@ namespace pjPalmera.Entities
         }
 
 
-        /// <summary>
-        /// Constructor VentaEntity
-        /// </summary>
-        /// <param name="clientes"></param>
-        /// <param name="apellidos"></param>
-        public VentaEntity (string clientes, string apellidos )
-        {
-          //  this.ncf = ncf;
-            this.Clientes = clientes;
-            this.apellidos = apellidos;
-            this.f_factura = DateTime.Now.Date;
-            //this.vendedor = vendedor;
+        //Contructors
 
+       
+        public VentaEntity()
+        {
             this.productos = new List<DetalleVentaEntity>();
         }
 
-        public VentaEntity()
-        {
-        }
+        //public VentaEntity (string clientes, string apellidos )
+        //{
+        //  //  this.ncf = ncf;
+        //    this.Nombre = clientes;
+        //    this.Apellidos = apellidos;
+        //    this.f_factura = DateTime.Now.Date;
+        //    //this.vendedor = vendedor;
 
-
-        public string Clientes
-        {
-            get { return clientes; } set { clientes = value; }
-        }
+        //    this.productos = new List<DetalleVentaEntity>();
+        //}
 
 
         /// <summary>
@@ -117,7 +115,6 @@ namespace pjPalmera.Entities
             return t_itbis;
         }
 
-      
         /// <summary>
         /// 
         /// </summary>
@@ -138,7 +135,8 @@ namespace pjPalmera.Entities
         public decimal Pagar(decimal itbis, decimal subtotal)
         {
             decimal t_pagar, t_pagar_c_descuento;
-            t_pagar = itbis + subtotal;
+            //t_pagar = itbis + subtotal;
+            t_pagar = subtotal;
             t_pagar_c_descuento = t_pagar - Descuento();
             return t_pagar_c_descuento;
         }

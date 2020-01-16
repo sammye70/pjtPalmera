@@ -38,6 +38,7 @@ namespace pjPalmera.PL
                     CleanControls();
                     this.errorProvider1.Clear();
                     DesableControls();
+                    this.btnCancelar.Enabled = true;
                     this.btnNuevo.Focus();
                     MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -83,7 +84,7 @@ namespace pjPalmera.PL
             if (clientes == null)
             {
                 clientes = new ClientesEntity();
-                clientes.Cedula = Convert.ToInt32(this.mktCedula.Text);
+                clientes.Cedula = Convert.ToInt64(this.mktCedula.Text);
                 clientes.Nombre = this.txtNombre.Text;
                 clientes.Apellidos = this.txtApellidos.Text;
                 clientes.Direccion = this.txtDireccion.Text;

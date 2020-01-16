@@ -20,7 +20,7 @@ namespace pjPalmera.DAL
         /// Modificated: 
         /// </summary>
         static String ConnectionString = @"server=192.168.8.143;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas;";
-       // static String ConnectionString = @"server=192.168.8.163;port=3306;uid=toor;pwd=Abeja30$;database=ebgsolut_abejas;";
+       //   static String ConnectionString = @"server=192.168.8.163;port=3306;uid=toor;pwd=Abeja30$;database=ebgsolut_abejas;";
         /// <summary>
         /// ConnectionString to Databases
         /// </summary>

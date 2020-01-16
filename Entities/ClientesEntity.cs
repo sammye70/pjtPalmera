@@ -9,17 +9,17 @@ namespace pjPalmera.Entities
    public class ClientesEntity
     {
         //Field
-        public int idclientes;
-        public int cedula;
-        public string nombre;
-        public string apellidos;
-        public string telefono;
-        public string direccion;
-        public string provincia;
-        public string ciudad;
-        public decimal limitecredito;
-        public int createby;
-        public DateTime created;
+        private int idclientes;
+        private long cedula;
+        private string nombre;
+        private string apellidos;
+        private string telefono;
+        private string direccion;
+        private string provincia;
+        private string ciudad;
+        private decimal limitecredito;
+        private int createby;
+        private DateTime created;
 
         //Constructor
         public ClientesEntity()
@@ -48,7 +48,7 @@ namespace pjPalmera.Entities
             set { idclientes = value; }
         }
 
-        public int Cedula
+        public long Cedula
         {
             get { return cedula; }
             set { cedula = value; }

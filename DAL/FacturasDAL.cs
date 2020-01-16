@@ -17,63 +17,56 @@ namespace pjPalmera.DAL
         {
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
-                ///
-                ///
-                ///
+                 
                 con.Open();
-                string sql_head = @"INSER INTO venta (id_cliente, nombre, apellidos, total, created, status, ncf, tipo, vendedor, descuento, subtotal, total_itbis) 
-                                        VALUES(@id_cliente, @nombre, @apellidos, @total, @created, @status, @ncf, @tipo, @vendedor, @descuento, @subtotal, @total_itbis)";
+                string sql_head = @"INSERT INTO venta (nombre, apellidos, total, created, status, tipo) 
+                                        VALUES(@nombre, @apellidos, @total, @created, @status, @tipo)";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql_head, con))
                 {
-                    //cmd.Parameters.AddWithValue("@id_cliente",Venta.Id_cliente);
-                    //cmd.Parameters.AddWithValue("@nombre",Venta.Clientes);
-                    //cmd.Parameters.AddWithValue("@apellidos",Venta.Apellidos);
-                    //cmd.Parameters.AddWithValue("@total", 0);
-                    //cmd.Parameters.AddWithValue("@created",Venta.Fecha);
-                    //cmd.Parameters.AddWithValue("@status",Venta.Status);
-                    //cmd.Parameters.AddWithValue("@ncf",Venta.Ncf);
-                    //cmd.Parameters.AddWithValue("@tipo",Venta.Tipo);
-                    //cmd.Parameters.AddWithValue("@vendedor",Venta.v);
-                    //cmd.Parameters.AddWithValue("@descuento", Venta.Descuento);
-                    //cmd.Parameters.AddWithValue("@subtotal", Venta.Subtotal);
-                    //cmd.Parameters.AddWithValue("@total_itbis", Venta.Total_itbis);
+                    cmd.Parameters.AddWithValue("@nombre", Venta.clientes);
+                    cmd.Parameters.AddWithValue("@apellidos", Venta.apellidos);
+                    cmd.Parameters.AddWithValue("@total",Venta.total);
+                    cmd.Parameters.AddWithValue("@created",Venta.f_factura);
+                    cmd.Parameters.AddWithValue("@status", Venta.status);
+                    cmd.Parameters.AddWithValue("@tipo",Venta.tipo);
 
-                    //Venta.Id = Convert.ToInt32(cmd.ExecuteScalar());
+                    cmd.ExecuteNonQuery();
+                  
                 }
                 ///--------------------------------------
                 ///
                 ///
                 ///
-                string sql_detail = @"INSERT INTO (id_producto, descripcion, cantidad, precio, itbis, importe)
-                                        VALUES(@id_producto, @descripcion, @cantidad, @precio, @itbis, @importe)";
+                //string sql_detail = @"INSERT INTO (id_producto, descripcion, cantidad, precio, itbis, importe)
+                //                        VALUES(@id_producto, @descripcion, @cantidad, @precio, @itbis, @importe)";
 
-                using (MySqlCommand cmd = new MySqlCommand(sql_detail, con))
-                {
+                //using (MySqlCommand cmd = new MySqlCommand(sql_detail, con))
+                //{
 
-                    foreach (DetalleVentaEntity dvental in Venta.Productos)
-                    {
-                        //
-                        //Remove old parameters
-                        //
-                        cmd.Parameters.Clear();
+                //    foreach (DetalleVentaEntity dvental in Venta.Productos)
+                //    {
+                //        //
+                //        //Remove old parameters
+                //        //
+                //        cmd.Parameters.Clear();
 
-                        //
-                        cmd.Parameters.AddWithValue("@", Venta);
-                        cmd.Parameters.AddWithValue("@", Venta);
-                        cmd.Parameters.AddWithValue("@", Venta);
-                        cmd.Parameters.AddWithValue("@", Venta);
-                        cmd.Parameters.AddWithValue("@", Venta);
-                        cmd.Parameters.AddWithValue("@", Venta);
-                        cmd.Parameters.AddWithValue("@", Venta);
+                //        //
+                //        cmd.Parameters.AddWithValue("@", Venta);
+                //        cmd.Parameters.AddWithValue("@", Venta);
+                //        cmd.Parameters.AddWithValue("@", Venta);
+                //        cmd.Parameters.AddWithValue("@", Venta);
+                //        cmd.Parameters.AddWithValue("@", Venta);
+                //        cmd.Parameters.AddWithValue("@", Venta);
+                //        cmd.Parameters.AddWithValue("@", Venta);
 
-                        ///
-                        ///
-                        dvental.ID = Convert.ToInt32(cmd.ExecuteScalar());
+                //        ///
+                //        ///
+                //        dvental.ID = Convert.ToInt32(cmd.ExecuteScalar());
 
-                    }
+                //    }
 
-                }
+                //}
             }
 
             

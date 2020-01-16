@@ -78,6 +78,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.txtpagar = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -117,6 +118,7 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.txtpagar);
             this.groupBox3.Controls.Add(this.chbDescuento);
             this.groupBox3.Controls.Add(this.txtApClientes);
             this.groupBox3.Controls.Add(this.label18);
@@ -533,6 +535,7 @@
             // 
             // txtTotalPagar
             // 
+            this.txtTotalPagar.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.txtTotalPagar.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtTotalPagar.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTotalPagar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -544,9 +547,10 @@
             // 
             // txtSubtotal
             // 
+            this.txtSubtotal.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.txtSubtotal.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtSubtotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSubtotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtSubtotal.ForeColor = System.Drawing.Color.Green;
             this.txtSubtotal.Location = new System.Drawing.Point(351, 19);
             this.txtSubtotal.Margin = new System.Windows.Forms.Padding(4);
             this.txtSubtotal.Multiline = true;
@@ -556,9 +560,10 @@
             // 
             // txtItbis
             // 
+            this.txtItbis.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.txtItbis.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtItbis.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtItbis.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtItbis.ForeColor = System.Drawing.Color.Green;
             this.txtItbis.Location = new System.Drawing.Point(71, 67);
             this.txtItbis.Margin = new System.Windows.Forms.Padding(4);
             this.txtItbis.Name = "txtItbis";
@@ -567,9 +572,10 @@
             // 
             // txtDescuento
             // 
+            this.txtDescuento.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.txtDescuento.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDescuento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtDescuento.ForeColor = System.Drawing.Color.Green;
             this.txtDescuento.Location = new System.Drawing.Point(96, 20);
             this.txtDescuento.Margin = new System.Windows.Forms.Padding(4);
             this.txtDescuento.Name = "txtDescuento";
@@ -640,6 +646,13 @@
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(98, 17);
             this.toolStripStatusLabel1.Text = "By EBG-Solutions";
+            // 
+            // txtpagar
+            // 
+            this.txtpagar.Location = new System.Drawing.Point(829, 27);
+            this.txtpagar.Name = "txtpagar";
+            this.txtpagar.Size = new System.Drawing.Size(100, 22);
+            this.txtpagar.TabIndex = 59;
             // 
             // frmVenta
             // 
@@ -719,5 +732,6 @@
         private System.Windows.Forms.CheckBox chbDescuento;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button btnGuardar;
+        private System.Windows.Forms.TextBox txtpagar;
     }
 }

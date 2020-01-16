@@ -6,14 +6,21 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 using pjPalmera.Entities;
+using pjPalmera.BLL;
+//using pjPalmera.DAL;
 
 namespace pjPalmera.PL
 {
     public partial class frmVenta : Form
     {
         public VentaEntity venta = null;
+        public decimal precio = 0;
+        public float cantidad = 0;
+        public long id;
+        public Decimal t_pagar=0;
 
         public frmVenta()
         {
@@ -40,7 +47,7 @@ namespace pjPalmera.PL
                 return;
             }
 
-            venta = new VentaEntity(this.txtClientes.Text, txtApClientes.Text);
+            venta = new VentaEntity();
             dgvDetalle.DataSource = venta.Productos;
         }
 
@@ -182,7 +189,7 @@ namespace pjPalmera.PL
             OnlyRead();
             this.txtClientes.Text = "CONTADO";
             this.txtApClientes.Text = "CONTADO";
-            venta = new VentaEntity(this.txtClientes.Text, this.txtApClientes.Text); //Head invoice
+            venta = new VentaEntity(); //Head invoice
             this.dgvDetalle.DataSource = null;
             this.txtProductos.Focus();
         } 
@@ -197,105 +204,7 @@ namespace pjPalmera.PL
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-
-            if (venta == null)
-            {
-                MessageBox.Show("Debe ingresar un cliente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                this.txtClientes.Focus();
-                return;
-            }
-
-            if (this.txtProductos.Text == string.Empty)
-            {
-                MessageBox.Show("Debe ingresar un Producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                this.txtProductos.Focus();
-                return;
-            }
-
-            long id;
-            if (!long.TryParse(txtProductos.Text, out id))
-            {
-                MessageBox.Show("Debe ingresar un Codigo numerico", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                this.txtProductos.Focus();
-                return;
-            }
-
-            if (id <= 0)
-            {
-                MessageBox.Show("Debe ingresar un Codigo Valido", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                this.txtProductos.Focus();
-                return;
-            }
-
-
-            if (this.txtDescripcion.Text == string.Empty)
-            {
-                MessageBox.Show("Debe ingresar una Descripcion", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                this.txtDescripcion.Focus();
-                return;
-            }
-
-            if (this.txtCantidad.Text == string.Empty)
-            {
-                MessageBox.Show("Debe ingresar una cantidad", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                this.txtCantidad.Focus();
-                return;
-            }
-
-            float cantidad = 0;
-            if (!float.TryParse(txtCantidad.Text, out cantidad))
-            {
-                MessageBox.Show("Debe ingresar una cantidad numerica", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                this.txtCantidad.Focus();
-                return;
-            }
-
-            if (cantidad <= 0)
-            {
-                MessageBox.Show("Debe ingresar una cantidad mayor que 0", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                this.txtCantidad.Focus();
-                return;
-            }
-
-            if (this.txtPrecio.Text == string.Empty)
-            {
-                MessageBox.Show("Debe ingresar un precio", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                this.txtPrecio.Focus();
-                return;
-            }
-
-            decimal precio = 0;
-            if (!decimal.TryParse(txtPrecio.Text, out precio))
-            {
-                MessageBox.Show("Debe ingresar un precio valido", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                this.txtCantidad.Focus();
-                return;
-            }
-
-            if (precio <= 0)
-            {
-                MessageBox.Show("Debe ingresar un precio mayor que 0", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                this.txtPrecio.Focus();
-                return;
-            }
-
-            //add products to Gridview
-
-            //var producto = new BindingList<clsDetalleVenta>();
-            DetalleVentaEntity ObjectDetail = new DetalleVentaEntity();
-
-            ObjectDetail.ID = id;
-            ObjectDetail.DESCRIPCION = txtDescripcion.Text;
-            ObjectDetail.CANTIDAD = cantidad;
-            ObjectDetail.PRECIO = precio;
-            dgvDetalle.DataSource = null;
-            venta.addProduct(ObjectDetail);
-            dgvDetalle.DataSource = venta.Productos;  //Data from List to DataGridView
-            SetPagar();
-            Limpiar();
-            this.txtProductos.Focus();
-
-           
+            InsertItem();
         }
 
         private void btnBuscarProducto_Click(object sender, EventArgs e)
@@ -321,20 +230,21 @@ namespace pjPalmera.PL
         }
 
         /// <summary>
-        /// 
+        /// Total Pagar
         /// </summary>
         private void SetPagar()
         {
             decimal subtotal, itbis, t_pagar, descuento;
             subtotal = venta.SubTotal();
-            itbis = venta.Itbis();
+            // itbis = venta.Itbis();
+            itbis=0;
             descuento = venta.Descuento();
             t_pagar = venta.Pagar(itbis, subtotal);
-
-            this.txtSubtotal.Text = string.Format("{0:C2}", subtotal);
-            this.txtItbis.Text = string.Format("{0:C2}", itbis);
-            this.txtTotalPagar.Text = string.Format("{0:C2}", t_pagar);
-            this.txtDescuento.Text = string.Format("{0:C2}", descuento);
+            
+            this.txtSubtotal.Text = Convert.ToString(subtotal);
+            this.txtItbis.Text = Convert.ToString(itbis);
+            this.txtTotalPagar.Text = string.Format( "{0}",t_pagar);
+            this.txtDescuento.Text = Convert.ToString(descuento);
         }
 
         #region Clean Labels
@@ -491,19 +401,171 @@ namespace pjPalmera.PL
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            SaveHeadInvoice();
+
+
+        }
+
+        #region Validator content in Controls
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public bool Validator()
+        {
+            bool result = true;
+
+            if (venta == null)
+            {
+                MessageBox.Show("Debe ingresar un cliente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.txtClientes.Focus();
+                result = false;
+            }
+
+            if (this.txtProductos.Text == string.Empty)
+            {
+                MessageBox.Show("Debe ingresar un Producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.txtProductos.Focus();
+                result = false;
+            }
+
+
+            if (!long.TryParse(txtProductos.Text, out id))
+            {
+                MessageBox.Show("Debe ingresar un Codigo numerico", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.txtProductos.Focus();
+                result = false;
+            }
+
+            if (id <= 0)
+            {
+                MessageBox.Show("Debe ingresar un Codigo Valido", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.txtProductos.Focus();
+                result = false;
+            }
+
+
+            if (this.txtDescripcion.Text == string.Empty)
+            {
+                MessageBox.Show("Debe ingresar una Descripcion", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.txtDescripcion.Focus();
+                result = false;
+            }
+
+            if (this.txtCantidad.Text == string.Empty)
+            {
+                MessageBox.Show("Debe ingresar una cantidad", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.txtCantidad.Focus();
+                result = false;
+            }
+
+
+            if (!float.TryParse(txtCantidad.Text, out cantidad))
+            {
+                MessageBox.Show("Debe ingresar una cantidad numerica", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.txtCantidad.Focus();
+                result = false;
+            }
+
+            if (cantidad <= 0)
+            {
+                MessageBox.Show("Debe ingresar una cantidad mayor que 0", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.txtCantidad.Focus();
+                result = false;
+            }
+
+            if (this.txtPrecio.Text == string.Empty)
+            {
+                MessageBox.Show("Debe ingresar un precio", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.txtPrecio.Focus();
+                result = false;
+            }
+
+
+            if (!decimal.TryParse(txtPrecio.Text, out precio))
+            {
+                MessageBox.Show("Debe ingresar un precio valido", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.txtCantidad.Focus();
+                result = false;
+            }
+
+            if (precio <= 0)
+            {
+                MessageBox.Show("Debe ingresar un precio mayor que 0", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.txtPrecio.Focus();
+                result = false;
+            }
+
+            return result;
+        }
+        #endregion
+
+
+        #region Insert item the list
+            /// <summary>
+            /// Insert Item to list
+            /// </summary>
+            public void InsertItem()
+            {
+            if (!Validator())
+                return;
+                
+                    //add products to Gridview
+                    DetalleVentaEntity Detail = new DetalleVentaEntity();
+
+                    Detail.ID = int.Parse(txtProductos.Text);
+                    Detail.DESCRIPCION = txtDescripcion.Text;
+                    Detail.CANTIDAD = Int32.Parse(this.txtCantidad.Text);
+                    Detail.PRECIO = decimal.Parse(this.txtPrecio.Text);
+                    dgvDetalle.DataSource = null;
+                    venta.addProduct(Detail);
+
+                    dgvDetalle.DataSource = venta.Productos;  //Data from List to DataGridView
+
+                    SetPagar();
+                    Limpiar();
+                    this.txtProductos.Focus();
+                
+             }
+        #endregion
+
+
+        /// <summary>
+        /// Save head invoice
+        /// </summary>
+        public void SaveHeadInvoice()
+        {
             try
             {
-                MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                venta = new VentaEntity();
+                venta.clientes = this.txtClientes.Text;
+                venta.apellidos = this.txtApClientes.Text;
+                venta.total= decimal.Parse(this.txtTotalPagar.Text);
+                venta.status = 1;
+                if ((this.txtClientes.Text == "CONTADO") && (this.txtApClientes.Text == "CONTADO"))
+                {
+                    venta.tipo = "1";
+                }
+                else
+                {
+                    venta.tipo = "2";
+                }
+
+                FacturaBO.Create(venta);
+                MessageBox.Show("Guardado Exitosamente","Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Source, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                MessageBox.Show(ex.Message);
             }
-            
+
         }
     }
 
- }
+}
 
 
 

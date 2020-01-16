@@ -37,7 +37,7 @@ namespace pjPalmera.DAL
                 cmd.Parameters.AddWithValue("@createby",Costumer.Createby);
                 cmd.Parameters.AddWithValue("@created",Costumer.Created);
 
-                Costumer.idclientes = Convert.ToInt32(cmd.ExecuteScalar());
+                Costumer.Idclientes = Convert.ToInt32(cmd.ExecuteScalar());
 
             }
                 return Costumer;
