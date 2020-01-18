@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace pjPalmera.PL
     public partial class frmVenta : Form
     {
         public VentaEntity venta = null;
+        public ClientesEntity clientes = new ClientesEntity();
         public decimal precio = 0;
         public float cantidad = 0;
         public long id;
@@ -390,20 +392,111 @@ namespace pjPalmera.PL
 
         private void btnBuscarClientes_Click_1(object sender, EventArgs e)
         {
-            frmConsulClientes Consul_Clientes = new PL.frmConsulClientes();
-            Consul_Clientes.ShowDialog(this);
+            frmConsulClientes Con_Clientes = new PL.frmConsulClientes();
+
+            if (Con_Clientes.ShowDialog() == DialogResult.OK)
+            {
+
+                this.txtIdCliente.Text = Convert.ToString(ClientesBO.GetbyId(clientes.Id));
+                this.txtClientes.Text = clientes.Nombre;
+                this.txtApClientes.Text = clientes.Apellidos;
+
+            }
         }
 
-        private void txtApClientes_TextChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Ticket print Setting
+        /// </summary>
+        private void PrintTicket()
         {
+            
+            PrintDocument pd = new PrintDocument();
+            PaperSize pz = new PaperSize("",420,520);
+            pd.PrintPage += Pd_PrintPage;
 
+            pd.PrintController = new StandardPrintController();
+
+            pd.DefaultPageSettings.Margins.Left = 0;
+
+            pd.DefaultPageSettings.Margins.Right = 0;
+
+            pd.DefaultPageSettings.Margins.Top = 0;
+
+            pd.DefaultPageSettings.Margins.Bottom = 0;
+            
+            
+            try
+            {
+                pd.Print();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message,"Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        /// <summary>
+        /// Ticket Header, Detail
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Pd_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            //TicketVentaEntity tk = new TicketVentaEntity();
+            //Parameters
+            Font fBody = new Font("Lucida Console", 8,FontStyle.Regular);// Format Font for Body
+            Font ffTitle = new Font("Lucida Console", 11, FontStyle.Bold); // Format Font for Title Company Name
+            Font fTitle = new Font("Lucida Console", 9,FontStyle.Bold); // Format Font for Title
+            Font fdpTitle = new Font("Lucida Console", 8, FontStyle.Bold); // Format Font Detail Products
+            Font fdTitle = new Font("Lucida Console", 7, FontStyle.Bold);//Format Font for Detail Title (Address,Telephone, etc.. About Company Information)
+            Graphics g = e.Graphics;
+            SolidBrush sb = new SolidBrush(Color.Black); // Set Brush color for Drawing Charaters
+            string Type="FACTURA AL CONTADO"; //Type of invoice
+
+            RawPrinterHelper j = new RawPrinterHelper(); //
+            
+            //Header invoice
+            g.DrawString("Farmacia CRM",ffTitle,sb,75,120);
+            g.DrawString("Donde tu Salud es Nuestra Prioridad",fTitle,sb,10,133);
+            g.DrawString("C/9, #5, Las Escobas, Jima Arriba", fdTitle,sb,50,145);
+            g.DrawString("RNC:80700148433", fdTitle,sb,80,156);
+            g.DrawString("Tel: 809-954-9952", fdTitle, sb, 80, 170);
+            g.DrawString("Whatsapp:809-851-2775", fdTitle,sb,70,179);
+
+            g.DrawString("FECHA:",fTitle,sb,10,210);
+            g.DrawString(DateTime.Now.ToString(),fBody,sb,80,210);
+            g.DrawString("CLIENTE:",fTitle,sb,10,220);
+            g.DrawString(this.txtClientes.Text,fBody,sb,80,220);
+            g.DrawString(this.txtApClientes.Text,fBody,sb,180,220);
+            g.DrawString("NCF:",fTitle,sb,10,232);
+            g.DrawString("NIF:",fTitle,sb,10,244);
+
+            if ((this.txtClientes.Text != "CONTADO") && (this.txtApClientes.Text != "CONTADO"))
+            {
+                Type = "FACTURA A CREDITO";
+            }
+            
+
+            g.DrawString(Type,fTitle,sb,75,255);
+
+            //Detail Invoice
+            g.DrawString("----------------------------------------------",fBody,sb,5,280);
+            g.DrawString("CODIGO   DESCRIPCION    CANT PRECIO  IMPORTE", fdpTitle, sb,11,290);
+            g.DrawString("----------------------------------------------",fBody,sb,5,298);
+
+            //foreach (DataGridView item in dgvDetalle.Columns)
+            //{
+            //    g.DrawString(this.dgvDetalle.Columns[0].ToString(),fdpTitle,sb,5,305);
+            //}
+            //g.DrawString("",fTitle,sb, 5, 134);
+            
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            SaveHeadInvoice();
-
-
+            //SaveHeadInvoice();
+            PrintTicket();
         }
 
         #region Validator content in Controls
@@ -525,7 +618,6 @@ namespace pjPalmera.PL
                     SetPagar();
                     Limpiar();
                     this.txtProductos.Focus();
-                
              }
         #endregion
 
@@ -537,12 +629,15 @@ namespace pjPalmera.PL
         {
             try
             {
-
+                int status = 1;
                 venta = new VentaEntity();
                 venta.clientes = this.txtClientes.Text;
                 venta.apellidos = this.txtApClientes.Text;
-                venta.total= decimal.Parse(this.txtTotalPagar.Text);
-                venta.status = 1;
+                venta.total = decimal.Parse(this.txtTotalPagar.Text);
+                venta.status = status;
+                venta.descuento = decimal.Parse(this.txtDescuento.Text);
+                venta.subtotal = decimal.Parse(this.txtSubtotal.Text);
+                venta.total_itbis = decimal.Parse(this.txtItbis.Text);
                 if ((this.txtClientes.Text == "CONTADO") && (this.txtApClientes.Text == "CONTADO"))
                 {
                     venta.tipo = "1";
@@ -553,14 +648,19 @@ namespace pjPalmera.PL
                 }
 
                 FacturaBO.Create(venta);
-                MessageBox.Show("Guardado Exitosamente","Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
+                MessageBox.Show("Guardado Exitosamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             }
             catch (Exception ex)
             {
 
                 MessageBox.Show(ex.Message);
             }
+
+        }
+
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
 
         }
     }

@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 
 namespace pjPalmera.Entities
 {
-    public class facturas_puntoVenta
+    public class TicketVentaEntity
     {
 
         StringBuilder linea = new StringBuilder();

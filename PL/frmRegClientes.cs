@@ -98,6 +98,7 @@ namespace pjPalmera.PL
 
             }
         }
+        #region Validator Controls
 
         /// <summary>
         /// Validator all controls
@@ -105,12 +106,12 @@ namespace pjPalmera.PL
         /// <returns>It is return true if all controls are diferent than Empty</returns>
         public bool Validator()
         {
-            
-            bool result= true;
+
+            bool result = true;
 
             if (string.IsNullOrEmpty(txtNombre.Text))
             {
-                errorProvider1.SetError(this.txtNombre,"Ingresar Nombre");
+                errorProvider1.SetError(this.txtNombre, "Ingresar Nombre");
                 result = false;
                 this.txtNombre.Focus();
             }
@@ -121,9 +122,9 @@ namespace pjPalmera.PL
             }
             if (string.IsNullOrEmpty(this.txtDireccion.Text))
             {
-                errorProvider1.SetError(this.txtDireccion,"Indicar la Direccion");
+                errorProvider1.SetError(this.txtDireccion, "Indicar la Direccion");
                 result = false;
-                
+
             }
             if (string.IsNullOrEmpty(this.cmbProvincia.Text))
             {
@@ -133,26 +134,27 @@ namespace pjPalmera.PL
 
             if (string.IsNullOrEmpty(this.cmbCiudad.Text))
             {
-                errorProvider1.SetError(this.cmbCiudad,"Indicar la Ciudad");
+                errorProvider1.SetError(this.cmbCiudad, "Indicar la Ciudad");
                 result = false;
             }
 
             if (string.IsNullOrEmpty(this.mktCedula.Text))
             {
-                errorProvider1.SetError(this.mktCedula,"Indicar la Cedula");
+                errorProvider1.SetError(this.mktCedula, "Indicar la Cedula");
                 result = false;
             }
 
             if (string.IsNullOrEmpty(this.mktTelefono.Text))
             {
-                errorProvider1.SetError(this.mktTelefono,"Indicar le Telefono");
+                errorProvider1.SetError(this.mktTelefono, "Indicar le Telefono");
                 result = false;
             }
 
             return result;
 
-            
-        }
+
+        } 
+        #endregion
 
 
         /// <summary>
@@ -206,15 +208,23 @@ namespace pjPalmera.PL
             clientes = null;
         }
 
-
+        /// <summary>
+        /// Uppcase Textbox
+        /// </summary>
+        private void UpperText()
+        {
+            this.txtNombre.CharacterCasing = CharacterCasing.Upper;
+            this.txtDireccion.CharacterCasing = CharacterCasing.Upper;
+            this.txtApellidos.CharacterCasing = CharacterCasing.Upper;
+        }
 
         private void frmRegClientes_Load(object sender, EventArgs e)
-        {
-
+        {            
             SetTooltipControls();
             DesableControls();
             this.errorProvider1.Clear();
             this.btnNuevo.Focus();
+            UpperText();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -235,5 +245,7 @@ namespace pjPalmera.PL
             frmAddProvincia Pronvicia = new frmAddProvincia();
             Pronvicia.ShowDialog(this);
         }
+
+
     }
 }

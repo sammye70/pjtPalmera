@@ -12,9 +12,20 @@ namespace pjPalmera.BLL
 {
     public class FacturaBO
     {
+        /// <summary>
+        /// Save Head invoice
+        /// </summary>
+        /// <param name="venta"></param>
         public static void Create(VentaEntity venta)
         {
+            try
+            {
                 FacturasDAL.Create(venta);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

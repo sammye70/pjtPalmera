@@ -49,8 +49,10 @@
             this.dgvClientConsultar.Location = new System.Drawing.Point(12, 74);
             this.dgvClientConsultar.Name = "dgvClientConsultar";
             this.dgvClientConsultar.ReadOnly = true;
+            this.dgvClientConsultar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvClientConsultar.Size = new System.Drawing.Size(1055, 383);
             this.dgvClientConsultar.TabIndex = 2;
+            this.dgvClientConsultar.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClientConsultar_CellContentDoubleClick);
             // 
             // errorProvider1
             // 

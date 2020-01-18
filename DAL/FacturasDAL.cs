@@ -19,8 +19,8 @@ namespace pjPalmera.DAL
             {
                  
                 con.Open();
-                string sql_head = @"INSERT INTO venta (nombre, apellidos, total, created, status, tipo) 
-                                        VALUES(@nombre, @apellidos, @total, @created, @status, @tipo)";
+                string sql_head = @"INSERT INTO venta (nombre, apellidos, total, created, status, tipo, descuento, subtotal, total_itbis) 
+                                        VALUES(@nombre, @apellidos, @total, @created, @status, @tipo, @descuento, @subtotal, @total_itbis)";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql_head, con))
                 {
@@ -30,43 +30,45 @@ namespace pjPalmera.DAL
                     cmd.Parameters.AddWithValue("@created",Venta.f_factura);
                     cmd.Parameters.AddWithValue("@status", Venta.status);
                     cmd.Parameters.AddWithValue("@tipo",Venta.tipo);
+                    cmd.Parameters.AddWithValue("@descuento", Venta.descuento);
+                    cmd.Parameters.AddWithValue("@subtotal", Venta.subtotal);
+                    cmd.Parameters.AddWithValue("@total_itbis", Venta.total_itbis);
 
                     cmd.ExecuteNonQuery();
                   
                 }
-                ///--------------------------------------
-                ///
-                ///
-                ///
-                //string sql_detail = @"INSERT INTO (id_producto, descripcion, cantidad, precio, itbis, importe)
-                //                        VALUES(@id_producto, @descripcion, @cantidad, @precio, @itbis, @importe)";
+                //--------------------------------------
+                //
+                //
+                //
+                string sql_detail = @"INSERT INTO detail_venta (id_producto, descripcion, cantidad, precio, itbis, importe)
+                                        VALUES(@id_producto, @descripcion, @cantidad, @precio, @itbis, @importe)";
 
-                //using (MySqlCommand cmd = new MySqlCommand(sql_detail, con))
-                //{
+                using (MySqlCommand cmd = new MySqlCommand(sql_detail, con))
+                {
 
-                //    foreach (DetalleVentaEntity dvental in Venta.Productos)
-                //    {
-                //        //
-                //        //Remove old parameters
-                //        //
-                //        cmd.Parameters.Clear();
+                    foreach (DetalleVentaEntity dvental in Venta.Productos)
+                    {
+                        //
+                        //Remove old parameters
+                        //
+                        cmd.Parameters.Clear();
 
-                //        //
-                //        cmd.Parameters.AddWithValue("@", Venta);
-                //        cmd.Parameters.AddWithValue("@", Venta);
-                //        cmd.Parameters.AddWithValue("@", Venta);
-                //        cmd.Parameters.AddWithValue("@", Venta);
-                //        cmd.Parameters.AddWithValue("@", Venta);
-                //        cmd.Parameters.AddWithValue("@", Venta);
-                //        cmd.Parameters.AddWithValue("@", Venta);
+                        //
+                        cmd.Parameters.AddWithValue("@id_producto", dvental.ID);
+                        cmd.Parameters.AddWithValue("@descripcion", dvental.DESCRIPCION);
+                        cmd.Parameters.AddWithValue("@cantidad", dvental.CANTIDAD);
+                        cmd.Parameters.AddWithValue("@precio", dvental.PRECIO);
+                        cmd.Parameters.AddWithValue("@itbis", dvental.ITBIS);
+                        cmd.Parameters.AddWithValue("@importe", dvental.IMPORTE);
 
-                //        ///
-                //        ///
-                //        dvental.ID = Convert.ToInt32(cmd.ExecuteScalar());
+                        ///
+                        ///
+                        cmd.ExecuteNonQuery();
 
-                //    }
+                    }
 
-                //}
+                }
             }
 
             

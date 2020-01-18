@@ -9,7 +9,7 @@ namespace pjPalmera.Entities
    public class ClientesEntity
     {
         //Field
-        private int idclientes;
+        private int idcliente;
         private long cedula;
         private string nombre;
         private string apellidos;
@@ -26,9 +26,9 @@ namespace pjPalmera.Entities
         {
         }
 
-        public ClientesEntity(int idclientes, int cedula, string nombre, string apellidos, string telefono, string direccion, string provincia, string ciudad, decimal limitecredito, int createby, DateTime created)
+        public ClientesEntity(int id, int cedula, string nombre, string apellidos, string telefono, string direccion, string provincia, string ciudad, decimal limitecredito, int createby, DateTime created)
         {
-            this.idclientes = idclientes;
+            this.idcliente = id;
             this.cedula = cedula;
             this.nombre = nombre;
             this.apellidos = apellidos;
@@ -42,10 +42,10 @@ namespace pjPalmera.Entities
         }
 
         //Properties
-        public int Idclientes
+        public int Id
         {
-            get { return idclientes; }
-            set { idclientes = value; }
+            get { return idcliente; }
+            set { idcliente = value; }
         }
 
         public long Cedula

@@ -37,7 +37,7 @@ namespace pjPalmera.DAL
                 cmd.Parameters.AddWithValue("@createby",Costumer.Createby);
                 cmd.Parameters.AddWithValue("@created",Costumer.Created);
 
-                Costumer.Idclientes = Convert.ToInt32(cmd.ExecuteScalar());
+                Costumer.Id = Convert.ToInt32(cmd.ExecuteScalar());
 
             }
                 return Costumer;
@@ -54,9 +54,9 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql= @"SELECT idclientes, cedula, nombre, apellidos
+                string sql= @"SELECT id, cedula, nombre, apellidos
                             FROM clientes 
-                            WHERE idclientes=@idclientes";
+                            WHERE id=@id";
                 MySqlCommand cmd = new MySqlCommand(sql,con);
 
                 cmd.Parameters.AddWithValue("@idclientes",id);
@@ -103,7 +103,7 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql = @"SELECT idclientes, cedula, nombre, apellidos, telefono, direccion, ciudad 
+                string sql = @"SELECT id, cedula, nombre, apellidos, telefono, direccion, ciudad 
                                 FROM clientes";
 
                 MySqlCommand cmd = new MySqlCommand(sql, con);
@@ -129,12 +129,12 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql = @"SELECT idclientes, cedula, nombre, apellidos, telefono, direccion, ciudad
+                string sql = @"SELECT id, nombre, apellidos
                                 FROM clientes
-                                WHERE idclientes = @idclientes";
+                                WHERE id = @idcliente";
 
                 MySqlCommand cmd = new MySqlCommand(sql, con);
-                cmd.Parameters.AddWithValue("idclientes", Id);
+                cmd.Parameters.AddWithValue("idcliente", Id);
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -156,7 +156,7 @@ namespace pjPalmera.DAL
         {
             ClientesEntity costumer = new ClientesEntity();
 
-            costumer.Idclientes = Convert.ToInt32(Reader["idclientes"]);
+            costumer.Id = Convert.ToInt32(Reader["id"]);
             costumer.Cedula = Convert.ToInt32(Reader["cedula"]);
             costumer.Nombre = Convert.ToString(Reader["nombre"]);
             costumer.Apellidos = Convert.ToString(Reader["apellidos"]);

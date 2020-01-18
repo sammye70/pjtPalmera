@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 using pjPalmera.BLL;
 using pjPalmera.Entities;
 
@@ -15,8 +14,9 @@ namespace pjPalmera.PL
 {
     public partial class frmConsulClientes : Form
     {
-        private int _idcliente;
+        private int id;
 
+        frmVenta cliente = new frmVenta();
         public frmConsulClientes()
         {
             InitializeComponent();
@@ -24,7 +24,7 @@ namespace pjPalmera.PL
 
         public int Idcliente
         {
-            get { return _idcliente; }
+            get { return id; }
         }
 
         private void frmConsulClientes_Load(object sender, EventArgs e)
@@ -35,5 +35,15 @@ namespace pjPalmera.PL
             this.dgvClientConsultar.DataSource = ClientesBO.GetAll();
         }
 
+ 
+
+        private void dgvClientConsultar_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1)
+                return;
+            id = Convert.ToInt32( this.dgvClientConsultar.Rows[e.RowIndex].Cells["id"].Value);
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
     }
 }

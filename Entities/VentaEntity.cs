@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace pjPalmera.Entities
 
 {
@@ -26,18 +27,22 @@ namespace pjPalmera.Entities
         public string tipo { get; set; } 
         public int status { get; set; }
         public decimal total { get; set; }
-        //private int _nif;
-        //private string _descripcion;
-        //private decimal _p_venta;
-        //private float _cantidad;
+        public decimal descuento { get; set; }
+        public decimal subtotal { get; set; }
+        public int id_cliente { get; set; }
+        public decimal total_itbis { get; set; }
         private List<DetalleVentaEntity> productos;
-       // public decimal precio = 0;
-        public int id;
-        //public float cantidad;
        
         
-        
-        
+
+        //Contructors
+       
+        public VentaEntity()
+        {
+            this.productos = new List<DetalleVentaEntity>();
+        }
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -49,14 +54,6 @@ namespace pjPalmera.Entities
             }
         }
 
-
-        //Contructors
-
-       
-        public VentaEntity()
-        {
-            this.productos = new List<DetalleVentaEntity>();
-        }
 
         //public VentaEntity (string clientes, string apellidos )
         //{
