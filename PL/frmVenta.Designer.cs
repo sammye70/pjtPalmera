@@ -67,7 +67,6 @@
             this.label16 = new System.Windows.Forms.Label();
             this.txtDevueltaEfectivo = new System.Windows.Forms.TextBox();
             this.txtRecibidoEfectivo = new System.Windows.Forms.TextBox();
-            this.txtTotalPagar = new System.Windows.Forms.TextBox();
             this.txtSubtotal = new System.Windows.Forms.TextBox();
             this.txtItbis = new System.Windows.Forms.TextBox();
             this.txtDescuento = new System.Windows.Forms.TextBox();
@@ -79,6 +78,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.txtTotalPagar = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -542,18 +542,6 @@
             this.txtRecibidoEfectivo.TabIndex = 56;
             this.txtRecibidoEfectivo.TextChanged += new System.EventHandler(this.txtRecibidoEfectivo_TextChanged);
             // 
-            // txtTotalPagar
-            // 
-            this.txtTotalPagar.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.txtTotalPagar.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtTotalPagar.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalPagar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.txtTotalPagar.Location = new System.Drawing.Point(374, 71);
-            this.txtTotalPagar.Margin = new System.Windows.Forms.Padding(4);
-            this.txtTotalPagar.Name = "txtTotalPagar";
-            this.txtTotalPagar.Size = new System.Drawing.Size(148, 33);
-            this.txtTotalPagar.TabIndex = 55;
-            // 
             // txtSubtotal
             // 
             this.txtSubtotal.BackColor = System.Drawing.SystemColors.ButtonFace;
@@ -656,6 +644,18 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(98, 17);
             this.toolStripStatusLabel1.Text = "By EBG-Solutions";
             // 
+            // txtTotalPagar
+            // 
+            this.txtTotalPagar.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.txtTotalPagar.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtTotalPagar.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalPagar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtTotalPagar.Location = new System.Drawing.Point(374, 71);
+            this.txtTotalPagar.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTotalPagar.Name = "txtTotalPagar";
+            this.txtTotalPagar.Size = new System.Drawing.Size(148, 33);
+            this.txtTotalPagar.TabIndex = 55;
+            // 
             // frmVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -707,7 +707,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox txtTotalPagar;
         private System.Windows.Forms.TextBox txtSubtotal;
         private System.Windows.Forms.TextBox txtItbis;
         private System.Windows.Forms.TextBox txtDescuento;
@@ -735,5 +734,6 @@
         public System.Windows.Forms.TextBox txtDescripcion;
         public System.Windows.Forms.TextBox txtProductos;
         public System.Windows.Forms.TextBox txtIdCliente;
+        private System.Windows.Forms.TextBox txtTotalPagar;
     }
 }

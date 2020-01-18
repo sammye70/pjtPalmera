@@ -380,8 +380,6 @@ namespace pjPalmera.PL
         private void dgvDetalle_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // RemoveItems();
-
-
             int item;
             if (this.dgvDetalle.SelectedRows.Count > 0)
             {
@@ -396,22 +394,25 @@ namespace pjPalmera.PL
 
             if (Con_Clientes.ShowDialog() == DialogResult.OK)
             {
-
                 this.txtIdCliente.Text = Convert.ToString(ClientesBO.GetbyId(clientes.Id));
                 this.txtClientes.Text = clientes.Nombre;
                 this.txtApClientes.Text = clientes.Apellidos;
-
             }
         }
 
+        #region Invoice paid cash
         /// <summary>
-        /// Ticket print Setting
+        /// Print Bill
         /// </summary>
+        /// Bill print Setting
+        /// Author: Samuel Estrella
+        /// Date: 17/01/2020
         private void PrintTicket()
         {
-            
+
+            //Parameters
             PrintDocument pd = new PrintDocument();
-            PaperSize pz = new PaperSize("",420,520);
+            PaperSize pz = new PaperSize("", 420, 520);
             pd.PrintPage += Pd_PrintPage;
 
             pd.PrintController = new StandardPrintController();
@@ -423,8 +424,8 @@ namespace pjPalmera.PL
             pd.DefaultPageSettings.Margins.Top = 0;
 
             pd.DefaultPageSettings.Margins.Bottom = 0;
-            
-            
+
+
             try
             {
                 pd.Print();
@@ -432,12 +433,12 @@ namespace pjPalmera.PL
             catch (Exception ex)
             {
 
-                MessageBox.Show(ex.Message,"Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
         /// <summary>
-        /// Ticket Header, Detail
+        /// Bill Cash Header, Detail
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -445,53 +446,70 @@ namespace pjPalmera.PL
         {
             //TicketVentaEntity tk = new TicketVentaEntity();
             //Parameters
-            Font fBody = new Font("Lucida Console", 8,FontStyle.Regular);// Format Font for Body
+            Font fBody = new Font("Lucida Console", 8, FontStyle.Regular);// Format Font for Body
             Font ffTitle = new Font("Lucida Console", 11, FontStyle.Bold); // Format Font for Title Company Name
-            Font fTitle = new Font("Lucida Console", 9,FontStyle.Bold); // Format Font for Title
+            Font fTitle = new Font("Lucida Console", 9, FontStyle.Bold); // Format Font for Title
             Font fdpTitle = new Font("Lucida Console", 8, FontStyle.Bold); // Format Font Detail Products
             Font fdTitle = new Font("Lucida Console", 7, FontStyle.Bold);//Format Font for Detail Title (Address,Telephone, etc.. About Company Information)
             Graphics g = e.Graphics;
             SolidBrush sb = new SolidBrush(Color.Black); // Set Brush color for Drawing Charaters
-            string Type="FACTURA AL CONTADO"; //Type of invoice
+            string Type = "FACTURA AL CONTADO"; //Type of invoice
 
             RawPrinterHelper j = new RawPrinterHelper(); //
-            
-            //Header invoice
-            g.DrawString("Farmacia CRM",ffTitle,sb,75,120);
-            g.DrawString("Donde tu Salud es Nuestra Prioridad",fTitle,sb,10,133);
-            g.DrawString("C/9, #5, Las Escobas, Jima Arriba", fdTitle,sb,50,145);
-            g.DrawString("RNC:80700148433", fdTitle,sb,80,156);
-            g.DrawString("Tel: 809-954-9952", fdTitle, sb, 80, 170);
-            g.DrawString("Whatsapp:809-851-2775", fdTitle,sb,70,179);
 
-            g.DrawString("FECHA:",fTitle,sb,10,210);
-            g.DrawString(DateTime.Now.ToString(),fBody,sb,80,210);
-            g.DrawString("CLIENTE:",fTitle,sb,10,220);
-            g.DrawString(this.txtClientes.Text,fBody,sb,80,220);
-            g.DrawString(this.txtApClientes.Text,fBody,sb,180,220);
-            g.DrawString("NCF:",fTitle,sb,10,232);
-            g.DrawString("NIF:",fTitle,sb,10,244);
+            //Header invoice
+            g.DrawString("Farmacia CRM", ffTitle, sb, 75, 120);
+            g.DrawString("Donde tu Salud es Nuestra Prioridad", fTitle, sb, 10, 133);
+            g.DrawString("C/9, #5, Las Escobas, Jima Arriba", fdTitle, sb, 50, 148);
+            g.DrawString("RNC:80700148433", fdTitle, sb, 80, 160);
+            g.DrawString("Tel: 809-954-9952", fdTitle, sb, 80, 175);
+            g.DrawString("Whatsapp:809-851-2775", fdTitle, sb, 70, 185);
+
+            g.DrawString("FECHA:", fTitle, sb, 10, 210);
+            g.DrawString(DateTime.Now.ToShortDateString(), fBody, sb, 80, 210);
+            g.DrawString("CLIENTE:", fTitle, sb, 10, 220);
+            g.DrawString(this.txtClientes.Text, fBody, sb, 80, 220);
+            g.DrawString(this.txtApClientes.Text, fBody, sb, 180, 220);
+            g.DrawString("NCF:", fTitle, sb, 10, 232);
+            g.DrawString("NIF:", fTitle, sb, 10, 244);
 
             if ((this.txtClientes.Text != "CONTADO") && (this.txtApClientes.Text != "CONTADO"))
             {
                 Type = "FACTURA A CREDITO";
             }
-            
+            if ((this.txtClientes.Text == "CONTADO") && (this.txtApClientes.Text == "CONTADO"))
+            {
+                this.txtApClientes.Text = "";
+            }
 
-            g.DrawString(Type,fTitle,sb,75,255);
+            g.DrawString(Type, fTitle, sb, 75, 255);
 
             //Detail Invoice
-            g.DrawString("----------------------------------------------",fBody,sb,5,280);
-            g.DrawString("CODIGO   DESCRIPCION    CANT PRECIO  IMPORTE", fdpTitle, sb,11,290);
-            g.DrawString("----------------------------------------------",fBody,sb,5,298);
+            g.DrawString("----------------------------------------------", fBody, sb, 5, 280);
+            g.DrawString("CODIGO   DESCRIPCION    CANT PRECIO  IMPORTE", fdpTitle, sb, 11, 290);
+            g.DrawString("----------------------------------------------", fBody, sb, 5, 298);
+            int AutoScrollOffset = +14;
+            int a = this.dgvDetalle.Rows.Count;
+            for (int i = 0; i < a; i++)
+            {
+                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[0].Value), fdpTitle, sb, 5, 305 + AutoScrollOffset);
+                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[1].Value), fdpTitle, sb, 74, 305 + AutoScrollOffset);
+                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[2].Value), fdpTitle, sb, 180, 305 + AutoScrollOffset);
+                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[3].Value), fdpTitle, sb, 220, 305 + AutoScrollOffset);
+                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[5].Value), fdpTitle, sb, 280, 305 + AutoScrollOffset);
+                AutoScrollOffset = AutoScrollOffset + 12;
+            }
 
-            //foreach (DataGridView item in dgvDetalle.Columns)
-            //{
-            //    g.DrawString(this.dgvDetalle.Columns[0].ToString(),fdpTitle,sb,5,305);
-            //}
-            //g.DrawString("",fTitle,sb, 5, 134);
-            
-        }
+            AutoScrollOffset = AutoScrollOffset + 12;
+            g.DrawString("SubTotal", fdpTitle, sb, 100, 330 + AutoScrollOffset);
+            g.DrawString(this.txtSubtotal.Text, fBody, sb, 250, 330 + AutoScrollOffset);
+            g.DrawString("Total a Pagar", fdpTitle, sb, 100, 350 + AutoScrollOffset);
+            g.DrawString(this.txtTotalPagar.Text, fBody, sb, 250, 350 + AutoScrollOffset);
+            g.DrawString("Descuento", fdpTitle, sb, 100, 365 + AutoScrollOffset);
+            g.DrawString(this.txtDescuento.Text, fBody, sb, 250, 365 + AutoScrollOffset);
+
+        } 
+        #endregion
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
@@ -600,24 +618,32 @@ namespace pjPalmera.PL
             /// </summary>
             public void InsertItem()
             {
-            if (!Validator())
-                return;
-                
-                    //add products to Gridview
-                    DetalleVentaEntity Detail = new DetalleVentaEntity();
+            try
+            {
+                if (!Validator())
+                    return;
 
-                    Detail.ID = int.Parse(txtProductos.Text);
-                    Detail.DESCRIPCION = txtDescripcion.Text;
-                    Detail.CANTIDAD = Int32.Parse(this.txtCantidad.Text);
-                    Detail.PRECIO = decimal.Parse(this.txtPrecio.Text);
-                    dgvDetalle.DataSource = null;
-                    venta.addProduct(Detail);
+                //add products to Gridview
+                DetalleVentaEntity Detail = new DetalleVentaEntity();
 
-                    dgvDetalle.DataSource = venta.Productos;  //Data from List to DataGridView
+                Detail.ID = int.Parse(txtProductos.Text);
+                Detail.DESCRIPCION = txtDescripcion.Text;
+                Detail.CANTIDAD = Int32.Parse(this.txtCantidad.Text);
+                Detail.PRECIO = decimal.Parse(this.txtPrecio.Text);
+                dgvDetalle.DataSource = null;
+                venta.addProduct(Detail);
 
-                    SetPagar();
-                    Limpiar();
-                    this.txtProductos.Focus();
+                dgvDetalle.DataSource = venta.Productos;  //Data from List to DataGridView
+
+                SetPagar();
+                Limpiar();
+                this.txtProductos.Focus();
+            }
+            catch ( Exception ex)
+            {
+
+                MessageBox.Show(ex.Message,"Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
              }
         #endregion
 
