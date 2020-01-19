@@ -40,18 +40,18 @@
             // 
             // btnProcesarPagos
             // 
-            this.btnProcesarPagos.Location = new System.Drawing.Point(135, 270);
+            this.btnProcesarPagos.Location = new System.Drawing.Point(135, 252);
             this.btnProcesarPagos.Name = "btnProcesarPagos";
-            this.btnProcesarPagos.Size = new System.Drawing.Size(75, 23);
+            this.btnProcesarPagos.Size = new System.Drawing.Size(75, 41);
             this.btnProcesarPagos.TabIndex = 0;
             this.btnProcesarPagos.Text = "Procesar";
             this.btnProcesarPagos.UseVisualStyleBackColor = true;
             // 
             // btnCancelarPago
             // 
-            this.btnCancelarPago.Location = new System.Drawing.Point(231, 270);
+            this.btnCancelarPago.Location = new System.Drawing.Point(231, 252);
             this.btnCancelarPago.Name = "btnCancelarPago";
-            this.btnCancelarPago.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelarPago.Size = new System.Drawing.Size(75, 41);
             this.btnCancelarPago.TabIndex = 1;
             this.btnCancelarPago.Text = "Cancelar";
             this.btnCancelarPago.UseVisualStyleBackColor = true;

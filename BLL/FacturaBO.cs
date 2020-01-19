@@ -21,9 +21,27 @@ namespace pjPalmera.BLL
             try
             {
                 FacturasDAL.Create(venta);
+                
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        /// <summary>
+        /// Save Detail invoice
+        /// </summary>
+        /// <param name="detail"></param>
+        public static void Create_detail(VentaEntity detail)
+        {
+            try
+            {
+                FacturasDAL.Created_Detail(detail);
+            }
+            catch (Exception ex)
+            {
+
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }

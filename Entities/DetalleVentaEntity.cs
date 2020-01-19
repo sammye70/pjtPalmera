@@ -19,8 +19,8 @@ namespace pjPalmera.Entities
         public string DESCRIPCION { get; set; }
         public float CANTIDAD { get; set; }
         public decimal PRECIO { get; set; }
-        public decimal ITBIS { get { return (IMPORTE * 18) / 100; } }
-        public decimal IMPORTE { get { return PRECIO * (decimal)CANTIDAD; } }
+        public decimal ITBIS { get { return (IMPORTE * 18) / 100; } set { } }
+        public decimal IMPORTE { get { return PRECIO * (decimal)CANTIDAD; } set { } }
         //public int idfamilia { get; set; }
         //public float stockmax { get; set; }
         //public float stockmin { get; set; }

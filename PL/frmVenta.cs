@@ -18,11 +18,13 @@ namespace pjPalmera.PL
     public partial class frmVenta : Form
     {
         public VentaEntity venta = null;
+       // public VentaEntity detail = null;
+        VentaEntity detail = new VentaEntity();
         public ClientesEntity clientes = new ClientesEntity();
         public decimal precio = 0;
         public float cantidad = 0;
         public long id;
-        public Decimal t_pagar=0;
+        public Decimal t_pagar = 0;
 
         public frmVenta()
         {
@@ -169,8 +171,8 @@ namespace pjPalmera.PL
         private void RemoveItems()
         {
 
-           int  item = this.dgvDetalle.CurrentRow.Index;
-           MessageBox.Show("Selecciono el Item:" + item.ToString());
+            int item = this.dgvDetalle.CurrentRow.Index;
+            MessageBox.Show("Selecciono el Item:" + item.ToString());
 
             //if (this.dgvDetalle.CurrentRow.Index != -1)
             //{
@@ -179,7 +181,20 @@ namespace pjPalmera.PL
             //}
         }
 
-        #region New Invoice
+        /// <summary>
+        /// Clean labels
+        /// </summary>
+        private void LimpiarEfectivo()
+        {
+            this.txtDevueltaEfectivo.Text = "0.00";
+            this.txtDescuento.Text = "0.00";
+            this.txtTotalPagar.Text = "0.00";
+            this.txtItbis.Text = "0.00";
+            this.txtSubtotal.Text = "0.00";
+            // this.txtRecibidoEfectivo.Text="0.0";
+        }
+
+
         /// <summary>
         /// Prepare for New Invoice
         /// </summary>
@@ -194,15 +209,14 @@ namespace pjPalmera.PL
             venta = new VentaEntity(); //Head invoice
             this.dgvDetalle.DataSource = null;
             this.txtProductos.Focus();
-        } 
-        #endregion
+        }
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
             NewInvoice();
         }
 
-     
+
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
@@ -239,88 +253,17 @@ namespace pjPalmera.PL
             decimal subtotal, itbis, t_pagar, descuento;
             subtotal = venta.SubTotal();
             // itbis = venta.Itbis();
-            itbis=0;
+            itbis = 0;
             descuento = venta.Descuento();
             t_pagar = venta.Pagar(itbis, subtotal);
-            
+
             this.txtSubtotal.Text = Convert.ToString(subtotal);
             this.txtItbis.Text = Convert.ToString(itbis);
-            this.txtTotalPagar.Text = string.Format( "{0}",t_pagar);
+            this.txtTotalPagar.Text = string.Format("{0}", t_pagar);
             this.txtDescuento.Text = Convert.ToString(descuento);
         }
 
-        #region Clean Labels
-        /// <summary>
-        /// Clean labels
-        /// </summary>
-        private void LimpiarEfectivo()
-        {
-            this.txtDevueltaEfectivo.Text = "0.00";
-            this.txtDescuento.Text = "0.00";
-            this.txtTotalPagar.Text = "0.00";
-            this.txtItbis.Text = "0.00";
-            this.txtSubtotal.Text = "0.00";
-            // this.txtRecibidoEfectivo.Text="0.0";
-        }
-        #endregion
 
-        #region Set Detail of Controls
-        /// <summary>
-        /// Set Detail about controls
-        /// </summary>
-        private void SetToolControls()
-        {
-            this.toolTip1.SetToolTip(this.btnBuscarClientes, "Buscar Clientes");
-            this.toolTip1.SetToolTip(this.btnBuscarProducto, "Buscar Productos");
-            this.toolTip1.SetToolTip(this.btnCancelar, "Limpia de los campos de cliente, y producto a ser agregados");
-            this.toolTip1.SetToolTip(this.btnEliminar, "Eliminar item del carro de compra");
-            this.toolTip1.SetToolTip(this.btnPagar, "Efectuar pago de la compra ");
-            this.toolTip1.SetToolTip(this.btnAgregar, "Agregar Items a la compra");
-            this.toolTip1.SetToolTip(this.btnNuevo, "Crear Nueva Venta");
-            this.toolTip1.SetToolTip(this.btnGuardar, "Guardar Compra");
-        } 
-        #endregion
-
-        #region Descuento
-
-        ///private void chbDescuento_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        decimal descuento, td_pagar, tpagar;
-        //        decimal total_pagar, t_itbis, t_itbis_c_pagar;
-
-        //        total_pagar = venta.Pagar(itbis, );
-        //        t_itbis = venta.Itbis();
-        //        tpagar = venta.SubTotal();
-
-        //        if (this.chbDescuento.Checked == true)
-        //        {
-        //            descuento = venta.Descuento();
-        //            t_itbis_c_pagar = total_pagar + t_itbis;
-        //            td_pagar = t_itbis_c_pagar - descuento;
-        //            this.txtDescuento.Text = string.Format("{0:C2}", descuento);
-        //            this.txtTotalPagar.Text = string.Format("{0:C2}", td_pagar);
-        //        }
-        //        else
-        //        {
-        //            t_itbis_c_pagar = t_itbis + total_pagar;
-        //            this.txtTotalPagar.Text = string.Format("{0:C2}", t_itbis_c_pagar);
-        //            txtDescuento.Clear();
-        //            return;
-        //        }
-        //    }
-
-        //    catch (Exception)
-        //    {
-        //        MessageBox.Show("Debe indicar un Total a Pagar, asi poder aplicar Descuento", "Mensaje del Sistema", 
-        //        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-        //        this.txtProductos.Focus();
-        //        return;
-        //    }
-
-        //} 
-        #endregion
 
         private void txtRecibidoEfectivo_TextChanged(object sender, EventArgs e)
         {
@@ -351,16 +294,21 @@ namespace pjPalmera.PL
         private void btnPagar_Click(object sender, EventArgs e)
         {
 
-            if (this.txtRecibidoEfectivo.Text == string.Empty)
-            {
-                MessageBox.Show("Debe ingresar efectivo que recibio", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                this.txtRecibidoEfectivo.Focus();
-            }
-            else
-            {
-                Pagar();
-                MessageBox.Show("Pago realizado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
+
+
+            frmCobros pay = new frmCobros();
+            pay.ShowDialog(this);
+
+            //if (this.txtRecibidoEfectivo.Text == string.Empty)
+            //{
+            //    MessageBox.Show("Debe ingresar efectivo que recibio", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //    this.txtRecibidoEfectivo.Focus();
+            //}
+            //else
+            //{
+            //    Pagar();
+            //    MessageBox.Show("Pago realizado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //}
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -384,7 +332,7 @@ namespace pjPalmera.PL
             if (this.dgvDetalle.SelectedRows.Count > 0)
             {
                 item = this.dgvDetalle.CurrentRow.Index;
-                MessageBox.Show("Selecciono el Item:"+item);
+                MessageBox.Show("Selecciono el Item:" + item);
             }
         }
 
@@ -508,13 +456,14 @@ namespace pjPalmera.PL
             g.DrawString("Descuento", fdpTitle, sb, 100, 365 + AutoScrollOffset);
             g.DrawString(this.txtDescuento.Text, fBody, sb, 250, 365 + AutoScrollOffset);
 
-        } 
+        }
         #endregion
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            //SaveHeadInvoice();
+            Save_Invoices();
             PrintTicket();
+           
         }
 
         #region Validator content in Controls
@@ -611,13 +560,12 @@ namespace pjPalmera.PL
         }
         #endregion
 
-
         #region Insert item the list
-            /// <summary>
-            /// Insert Item to list
-            /// </summary>
-            public void InsertItem()
-            {
+        /// <summary>
+        /// Insert Item to list
+        /// </summary>
+        public void InsertItem()
+        {
             try
             {
                 if (!Validator())
@@ -632,66 +580,158 @@ namespace pjPalmera.PL
                 Detail.PRECIO = decimal.Parse(this.txtPrecio.Text);
                 dgvDetalle.DataSource = null;
                 venta.addProduct(Detail);
-
                 dgvDetalle.DataSource = venta.Productos;  //Data from List to DataGridView
 
                 SetPagar();
                 Limpiar();
                 this.txtProductos.Focus();
             }
-            catch ( Exception ex)
-            {
-
-                MessageBox.Show(ex.Message,"Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-             }
-        #endregion
-
-
-        /// <summary>
-        /// Save head invoice
-        /// </summary>
-        public void SaveHeadInvoice()
-        {
-            try
-            {
-                int status = 1;
-                venta = new VentaEntity();
-                venta.clientes = this.txtClientes.Text;
-                venta.apellidos = this.txtApClientes.Text;
-                venta.total = decimal.Parse(this.txtTotalPagar.Text);
-                venta.status = status;
-                venta.descuento = decimal.Parse(this.txtDescuento.Text);
-                venta.subtotal = decimal.Parse(this.txtSubtotal.Text);
-                venta.total_itbis = decimal.Parse(this.txtItbis.Text);
-                if ((this.txtClientes.Text == "CONTADO") && (this.txtApClientes.Text == "CONTADO"))
-                {
-                    venta.tipo = "1";
-                }
-                else
-                {
-                    venta.tipo = "2";
-                }
-
-                FacturaBO.Create(venta);
-                MessageBox.Show("Guardado Exitosamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            }
             catch (Exception ex)
             {
 
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-
         }
+        #endregion
 
-        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        #region Save Invoice
+
+        /// <summary>
+        /// Save Invoices Head and Detail
+        /// </summary>
+        public void Save_Invoices()
         {
 
+            try
+            {
+
+                Save_Detail();
+                Save_Head();
+
+                MessageBox.Show("Guardado Exitosamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
+
+        /// <summary>
+        ///  Head Generate from Textbox
+        /// </summary>
+        private void Save_Head()
+        {
+           
+
+            int status = 1;
+
+            venta = new VentaEntity();
+
+            venta.clientes = this.txtClientes.Text; //
+            venta.apellidos = this.txtApClientes.Text; //
+            venta.total = decimal.Parse(this.txtTotalPagar.Text); //
+            venta.status = status; //
+            venta.descuento = decimal.Parse(this.txtDescuento.Text); //
+            venta.subtotal = decimal.Parse(this.txtSubtotal.Text); //
+            venta.total_itbis = decimal.Parse(this.txtItbis.Text); //
+
+            if ((this.txtClientes.Text == "CONTADO") && (this.txtApClientes.Text == "CONTADO"))
+            {
+                venta.tipo = "1";
+            }
+            else
+            {
+                venta.tipo = "2";
+            }
+            FacturaBO.Create(venta);
+        }
+
+        /// <summary>
+        /// Detail Generate from DataGridView for Save
+        /// </summary>
+        public void Save_Detail()
+        {
+            int x = this.dgvDetalle.Rows.Count;
+
+            DetalleVentaEntity Detail = new DetalleVentaEntity();
+
+            for (int i = 0; i < x; i++)
+            {
+                Detail.ID = Convert.ToInt64(this.dgvDetalle.Rows[i].Cells[0].Value.ToString()); //Id
+                Detail.DESCRIPCION = this.dgvDetalle.Rows[i].Cells[1].Value.ToString(); //Description
+                Detail.CANTIDAD = Convert.ToInt32(this.dgvDetalle.Rows[i].Cells[2].Value.ToString()); //Quality
+                Detail.PRECIO = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[3].Value.ToString()); //Price
+                Detail.ITBIS = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[4].Value.ToString()); //Itbis
+                Detail.IMPORTE = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[5].Value.ToString()); //amount 
+            }
+            FacturaBO.Create_detail(venta);
+
+        }
+
+        #endregion
+
+        #region Set Detail of Controls
+        /// <summary>
+        /// Set Detail about controls
+        /// </summary>
+        private void SetToolControls()
+        {
+            this.toolTip1.SetToolTip(this.btnBuscarClientes, "Buscar Clientes");
+            this.toolTip1.SetToolTip(this.btnBuscarProducto, "Buscar Productos");
+            this.toolTip1.SetToolTip(this.btnCancelar, "Limpia de los campos de cliente, y producto a ser agregados");
+            this.toolTip1.SetToolTip(this.btnEliminar, "Eliminar item del carro de compra");
+            this.toolTip1.SetToolTip(this.btnPagar, "Efectuar pago de la compra ");
+            this.toolTip1.SetToolTip(this.btnAgregar, "Agregar Items a la compra");
+            this.toolTip1.SetToolTip(this.btnNuevo, "Crear Nueva Venta");
+            this.toolTip1.SetToolTip(this.btnGuardar, "Guardar Compra");
+        }
+        #endregion
+
+        #region Descuento
+
+        ///private void chbDescuento_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        decimal descuento, td_pagar, tpagar;
+        //        decimal total_pagar, t_itbis, t_itbis_c_pagar;
+
+        //        total_pagar = venta.Pagar(itbis, );
+        //        t_itbis = venta.Itbis();
+        //        tpagar = venta.SubTotal();
+
+        //        if (this.chbDescuento.Checked == true)
+        //        {
+        //            descuento = venta.Descuento();
+        //            t_itbis_c_pagar = total_pagar + t_itbis;
+        //            td_pagar = t_itbis_c_pagar - descuento;
+        //            this.txtDescuento.Text = string.Format("{0:C2}", descuento);
+        //            this.txtTotalPagar.Text = string.Format("{0:C2}", td_pagar);
+        //        }
+        //        else
+        //        {
+        //            t_itbis_c_pagar = t_itbis + total_pagar;
+        //            this.txtTotalPagar.Text = string.Format("{0:C2}", t_itbis_c_pagar);
+        //            txtDescuento.Clear();
+        //            return;
+        //        }
+        //    }
+
+        //    catch (Exception)
+        //    {
+        //        MessageBox.Show("Debe indicar un Total a Pagar, asi poder aplicar Descuento", "Mensaje del Sistema", 
+        //        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        //        this.txtProductos.Focus();
+        //        return;
+        //    }
+
+        //} 
+        #endregion
     }
 
 }
+
+
 
 
 
