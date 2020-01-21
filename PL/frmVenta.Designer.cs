@@ -528,7 +528,7 @@
             this.txtDevueltaEfectivo.Name = "txtDevueltaEfectivo";
             this.txtDevueltaEfectivo.Size = new System.Drawing.Size(149, 38);
             this.txtDevueltaEfectivo.TabIndex = 57;
-            this.txtDevueltaEfectivo.TextChanged += new System.EventHandler(this.txtDevueltaEfectivo_TextChanged);
+
             // 
             // txtRecibidoEfectivo
             // 

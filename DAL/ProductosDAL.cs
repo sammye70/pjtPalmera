@@ -36,7 +36,7 @@ namespace pjPalmera.DAL
                 cmd.Parameters.AddWithValue("@idfamilia", Producto.Idfamilia);
                 cmd.Parameters.AddWithValue("@stockinicial", Producto.Stock);
                 cmd.Parameters.AddWithValue("@stockminimo", Producto.Stockminimo);
-                cmd.Parameters.AddWithValue("@f_vencimiento", Producto.F_vencimiento);
+                cmd.Parameters.AddWithValue("@f_vencimiento", Producto.Vencimiento);
                 cmd.Parameters.AddWithValue("@costo", Producto.Costo);
                 cmd.Parameters.AddWithValue("@p_venta", Producto.Precio_venta);
                 cmd.Parameters.AddWithValue("@createby", Producto.Createby);
@@ -44,6 +44,7 @@ namespace pjPalmera.DAL
 
                 //Producto.Id=Convert.ToInt32(cmd.ExecuteScalar());
                 cmd.ExecuteNonQuery();
+                con.Close();
             }
           return Producto;
         }
@@ -68,7 +69,7 @@ namespace pjPalmera.DAL
                 {
                     list.Add(LoadProduct(reader));
                 }
-
+                con.Close();
             }
           return list;
         }
@@ -77,7 +78,12 @@ namespace pjPalmera.DAL
         /// <summary>
         /// Update Stock on table productos
         /// </summary>
-        public static void Decreace_Stock(VentaEntity venta)
+        /// 
+        /// Author: Samuel Estrella
+        /// Created: 21/01/2020
+        /// Modificated: 21/01/2020
+        /// Modificated by:
+        public static void Decrease_Stock(VentaEntity venta)
         {
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
@@ -100,7 +106,7 @@ namespace pjPalmera.DAL
 
                 product.Idproducto = Convert.ToInt64(cmd.ExecuteScalar());
 
-                con.Open();
+                con.Close();
             }
         }
 
@@ -108,17 +114,24 @@ namespace pjPalmera.DAL
         /// <summary>
         /// Update Increment Stock
         /// </summary>
+        /// 
+        /// Author: Samuel Estrella
+        /// Created: 21/01/2020
+        /// Modificated: 21/01/2020
+        /// Modificated by:
         public static void Increment_Stock(ProductosEntity producto)
         {
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string update_stock = @"UPDATE productos SET productos.stock=productos.stock+@cantidad WHERE idproducto = @idproducto";
+                string update_stock = @"UPDATE productos SET productos.stock=productos.stock+@cantidad, productos.modificated=@modificated  
+                                        WHERE idproducto = @idproducto";
 
                 MySqlCommand cmd = new MySqlCommand(update_stock, con);
 
                 cmd.Parameters.AddWithValue("@idproducto",producto.Idproducto);
                 cmd.Parameters.AddWithValue("@cantidad", producto.Stock);
+                cmd.Parameters.AddWithValue("@modificated", DateTime.Now);
 
                 producto.Idproducto = Convert.ToInt64(cmd.ExecuteScalar());
                 con.Close();   
@@ -141,7 +154,7 @@ namespace pjPalmera.DAL
             Productos.Descripcion = Convert.ToString(Reader["descripcion"]);
             Productos.Stock = Convert.ToInt32(Reader["stock"]);
             Productos.Stockminimo = Convert.ToInt32(Reader["stockminimo"]);
-            Productos.F_vencimiento = Convert.ToDateTime(Reader["f_vencimiento"]);
+            Productos.Vencimiento = Convert.ToDateTime(Reader["f_vencimiento"]);
             Productos.Costo = Convert.ToDecimal(Reader["costo"]);
             Productos.Precio_venta = Convert.ToDecimal(Reader["p_venta"]);
             Productos.Created = Convert.ToDateTime(Reader["created"]);

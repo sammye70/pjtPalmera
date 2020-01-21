@@ -47,6 +47,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>folder_summer_13091.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
@@ -85,6 +88,12 @@
     </Compile>
     <Compile Include="frmAddProvincia.Designer.cs">
       <DependentUpon>frmAddProvincia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAjustarProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAjustarProductos.Designer.cs">
+      <DependentUpon>frmAjustarProductos.cs</DependentUpon>
     </Compile>
     <Compile Include="frmCategoria.cs">
       <SubType>Form</SubType>
@@ -225,6 +234,9 @@
     <EmbeddedResource Include="frmAddProvincia.resx">
       <DependentUpon>frmAddProvincia.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmAjustarProductos.resx">
+      <DependentUpon>frmAjustarProductos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCategoria.resx">
       <DependentUpon>frmCategoria.cs</DependentUpon>
     </EmbeddedResource>
@@ -313,10 +325,6 @@
     <ProjectReference Include="..\BLL\pjPalmera.BLL.csproj">
       <Project>{e3ec5f0a-cd53-40cb-a68c-58b40abd40fa}</Project>
       <Name>pjPalmera.BLL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DAL\pjPalmera.DAL.csproj">
-      <Project>{4f1593fc-47f7-4b98-8afe-395a39d47367}</Project>
-      <Name>pjPalmera.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Entities\pjPalmera.Entities.csproj">
       <Project>{65164c5b-b7e9-483a-966a-e5dc9aaee214}</Project>
@@ -434,6 +442,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\cart-13.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="folder_summer_13091.ico" />
+    <None Include="Resources\56-512.png" />
+    <Content Include="system_applications_address_book_13034.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -11,6 +11,14 @@ namespace pjPalmera.DAL
 {
     public class UsuariosDAL
     {
+
+        UsuariosEntity user = new UsuariosEntity();
+
+        /// <summary>
+        /// Create New Account User
+        /// </summary>
+        /// <param name="Usuarios"></param>
+        /// <returns></returns>
         public static UsuariosEntity Create(UsuariosEntity Usuarios)
         {
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
@@ -33,6 +41,36 @@ namespace pjPalmera.DAL
                 con.Close();
             }
            return Usuarios;
+        }
+
+        /// <summary>
+        /// Search user and password. Then they are true allow to login, else not allow to login.
+        /// </summary>
+        public static void Login_User(UsuariosEntity user)
+        {
+           // UsuariosEntity user = new UsuariosEntity();
+
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string query = @"select * from users where users.username=@username and users.password=@password";
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@username",user.User_name);
+                cmd.Parameters.AddWithValue("@password",user.Password);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        user.User_name = reader.GetString(1);
+                        user.Password = reader.GetString(3);
+                    }
+                }
+            }
         }
     }
 }

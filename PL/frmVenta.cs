@@ -18,9 +18,8 @@ namespace pjPalmera.PL
     public partial class frmVenta : Form
     {
         public VentaEntity venta = null;
-       // public VentaEntity detail = null;
         VentaEntity detail = new VentaEntity();
-        ProductosEntity producto = new ProductosEntity();
+       // ProductosEntity producto = new ProductosEntity();
         public ClientesEntity clientes = new ClientesEntity();
         public decimal precio = 0;
         public float cantidad = 0;
@@ -287,10 +286,6 @@ namespace pjPalmera.PL
             }
         }
 
-        private void txtDevueltaEfectivo_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnPagar_Click(object sender, EventArgs e)
         {
@@ -675,9 +670,9 @@ namespace pjPalmera.PL
         }
 
         /// <summary>
-        /// 
+        /// Update Decrease
         /// </summary>
-
+        /// 
         public void UpdateStock()
         {
             int x = this.dgvDetalle.Rows.Count;
@@ -686,10 +681,10 @@ namespace pjPalmera.PL
 
             for (int i = 0; i < x; i++)
             {
-                Detail.ID =Convert.ToInt64(this.dgvDetalle.Rows[i].Cells[0].Value.ToString());
+                Detail.ID =Convert.ToInt64(this.dgvDetalle.Rows[i].Cells[0].Value.ToString()); //Id_product
                 Detail.CANTIDAD = Convert.ToInt32(this.dgvDetalle.Rows[i].Cells[2].Value.ToString()); //Quality
             }
-            ProductosBO.Discrement_Stock(detail);
+            ProductosBO.Decrease_Stock(venta);
         }
 
         #endregion

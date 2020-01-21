@@ -41,7 +41,6 @@ namespace pjPalmera.DAL
                     //cmd.Parameters.AddWithValue("@created",DateTime.Now);
 
                     cmd.ExecuteNonQuery();
-
                 }
 
                 con.Close();

@@ -7,11 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using pjPalmera.Entities;
+using pjPalmera.BLL;
 
 namespace pjPalmera.PL
 {
     public partial class frmlogin : Form
     {
+        UsuariosEntity usuario = new UsuariosEntity();
+
         public frmlogin()
         {
             InitializeComponent();
@@ -38,7 +42,26 @@ namespace pjPalmera.PL
 
         private void btnIniciar_Click(object sender, EventArgs e)
         {
-            this.Close();
+            //try
+            //{
+            //    UsuariosBO.Login_User(usuario);
+
+            //    if ((usuario.User_name == this.txtUserName.Text) && (usuario.Password == this.txtPassword.Text))
+            //    {
+            //        MessageBox.Show("Puede Iniciar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                      this.Close();
+            //    }
+            //    else
+            //    {
+            //       MessageBox.Show("Indicar Usuario y Contraseña sean Validos!", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                   
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //}
+            
         }
     }
 }

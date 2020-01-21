@@ -28,15 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ventasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.facturarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.efectuarVentaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.notaDeCreditoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.operacionesDeCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.abrirCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cerrarCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.consultarFacturasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.facturasAnuladasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,15 +65,16 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pbExitApp = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbExitApp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -99,7 +98,6 @@
             // 
             this.ventasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.facturarToolStripMenuItem,
-            this.operacionesDeCajaToolStripMenuItem,
             this.toolStripMenuItem3,
             this.consultarFacturasToolStripMenuItem,
             this.reporteDeFacturasToolStripMenuItem,
@@ -137,27 +135,6 @@
             this.notaDeCreditoToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.notaDeCreditoToolStripMenuItem.Text = "Nota de Credito";
             this.notaDeCreditoToolStripMenuItem.Click += new System.EventHandler(this.notaDeCreditoToolStripMenuItem_Click);
-            // 
-            // operacionesDeCajaToolStripMenuItem
-            // 
-            this.operacionesDeCajaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.abrirCajaToolStripMenuItem,
-            this.cerrarCajaToolStripMenuItem});
-            this.operacionesDeCajaToolStripMenuItem.Name = "operacionesDeCajaToolStripMenuItem";
-            this.operacionesDeCajaToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-            this.operacionesDeCajaToolStripMenuItem.Text = "Ajuste de Caja";
-            // 
-            // abrirCajaToolStripMenuItem
-            // 
-            this.abrirCajaToolStripMenuItem.Name = "abrirCajaToolStripMenuItem";
-            this.abrirCajaToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.abrirCajaToolStripMenuItem.Text = "Abrir Caja";
-            // 
-            // cerrarCajaToolStripMenuItem
-            // 
-            this.cerrarCajaToolStripMenuItem.Name = "cerrarCajaToolStripMenuItem";
-            this.cerrarCajaToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.cerrarCajaToolStripMenuItem.Text = "Cerrar Caja";
             // 
             // toolStripMenuItem3
             // 
@@ -377,7 +354,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.pictureBox4);
-            this.panel1.Controls.Add(this.pictureBox3);
+            this.panel1.Controls.Add(this.pbExitApp);
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
@@ -393,18 +370,19 @@
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox4.TabIndex = 2;
             this.pictureBox4.TabStop = false;
+            this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
             // 
-            // pictureBox3
+            // pbExitApp
             // 
-            this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureBox3.Image = global::PL.Properties.Resources.up;
-            this.pictureBox3.Location = new System.Drawing.Point(926, 0);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(63, 82);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 1;
-            this.pictureBox3.TabStop = false;
-            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
+            this.pbExitApp.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pbExitApp.Image = global::PL.Properties.Resources._56_512;
+            this.pbExitApp.Location = new System.Drawing.Point(931, 0);
+            this.pbExitApp.Name = "pbExitApp";
+            this.pbExitApp.Size = new System.Drawing.Size(58, 82);
+            this.pbExitApp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbExitApp.TabIndex = 1;
+            this.pbExitApp.TabStop = false;
+            this.pbExitApp.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
             // pictureBox2
             // 
@@ -449,7 +427,7 @@
             this.statusStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbExitApp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -488,9 +466,6 @@
         private System.Windows.Forms.ToolStripMenuItem efectuarVentaToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem notaDeCreditoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem operacionesDeCajaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem abrirCajaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cerrarCajaToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
         private System.Windows.Forms.StatusStrip statusStrip1;
@@ -500,7 +475,8 @@
         private System.Windows.Forms.ToolStripMenuItem registroDePersonasToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pbExitApp;
         private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

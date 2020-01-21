@@ -56,7 +56,7 @@ namespace pjPalmera.DAL
                 con.Open();
                 string sql= @"SELECT id, cedula, nombre, apellidos
                             FROM clientes 
-                            WHERE id=@id";
+                            WHERE id=@idcliente";
                 MySqlCommand cmd = new MySqlCommand(sql,con);
 
                 cmd.Parameters.AddWithValue("@idclientes",id);

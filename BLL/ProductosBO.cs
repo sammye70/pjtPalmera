@@ -49,13 +49,30 @@ namespace pjPalmera.BLL
         }
 
         /// <summary>
-        /// 
+        ///Update Decrease Stock on Databases
         /// </summary>
-        public static void Discrement_Stock(VentaEntity producto)
+        public static void Decrease_Stock(VentaEntity producto)
         {
             try
             {
-                ProductosDAL.Update_Stock(producto);
+                ProductosDAL.Decrease_Stock(producto);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+        }
+
+        /// <summary>
+        /// Increment Stock in product
+        /// </summary>
+        /// <param name="producto"></param>
+        public static void Increment_Stock(ProductosEntity producto)
+        {
+            try
+            {
+                ProductosDAL.Increment_Stock(producto);
             }
             catch (Exception ex)
             {

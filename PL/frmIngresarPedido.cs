@@ -7,8 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using pjPalmera.Entities;
+using pjPalmera.BLL;
 
-namespace PL
+
+namespace pjPalmera.PL
 {
     public partial class frmIngresarPedido : Form
     {

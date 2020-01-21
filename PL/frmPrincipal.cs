@@ -113,7 +113,7 @@ namespace pjPalmera.PL
         {
             frmlogin login = new frmlogin();
             login.ShowDialog();
-
+            DetailControls();
         }
 
         private void registroDePersonasToolStripMenuItem_Click(object sender, EventArgs e)
@@ -135,20 +135,25 @@ namespace pjPalmera.PL
         }
 
         /// <summary>
+        /// Description about Controls
+        /// </summary>
+        private void DetailControls()
+        {
+            this.toolTip1.SetToolTip(this.pbExitApp,"Salir del Sistema");
+        }
+
+        /// <summary>
         /// Ask question 
         /// </summary>
         private void AppExit()
         {
-            
            DialogResult result = MessageBox.Show("Seguro que desea salir","Mensaje del Sistema",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button1);
             if (result == DialogResult.Yes)
             {
                 this.Close();
             }
             else if( result == DialogResult.No)
-            {
-
-                
+            {        
                
             }
         }
@@ -160,7 +165,14 @@ namespace pjPalmera.PL
 
         private void ingresarPedidosToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            frmAjustarProductos Pedido = new frmAjustarProductos();
+            Pedido.ShowDialog(this);
+        }
 
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+            frmAjustarProductos Pedido = new frmAjustarProductos();
+            Pedido.ShowDialog(this);
         }
     }
 }

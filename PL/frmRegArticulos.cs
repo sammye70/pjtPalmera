@@ -139,7 +139,7 @@ namespace pjPalmera.PL
                 producto.Idfamilia = this.cmbFamilia.Text;
                 producto.Stock = Convert.ToInt32(txtStockInicial.Text);
                 producto.Stockminimo = Convert.ToInt32(this.txtStockMinimo.Text);
-                producto.F_vencimiento = Convert.ToDateTime(dateTimePicker1.Value.Date.ToShortDateString());
+                producto.Vencimiento = Convert.ToDateTime(dateTimePicker1.Value.Date.ToShortDateString());
                 producto.Costo = Convert.ToDecimal(this.txtCosto.Text);
                 producto.Precio_venta = Convert.ToDecimal(txtPrecioVenta.Text);
                 producto.Created = DateTime.Now.Date;

@@ -14,7 +14,8 @@ namespace pjPalmera.PL
 {
     public partial class frmConsultarProductos : Form
     {
-        
+        ProductosEntity productos = new ProductosEntity();
+
         public frmConsultarProductos()
         {
             InitializeComponent();
@@ -29,10 +30,9 @@ namespace pjPalmera.PL
 
         private void frmConsultarProductos_Load(object sender, EventArgs e)
         {
-
+            DesableControls();
             this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
             this.txtCriterioBusqueda.Focus();
-
         }
 
         private void txtCriterioBusqueda_TextChanged(object sender, EventArgs e)
@@ -42,7 +42,21 @@ namespace pjPalmera.PL
 
         private void btnCancelar_Click_1(object sender, EventArgs e)
         {
-            this.Close();
+            this.txtCriterioBusqueda.Text = "";
+            productos = null;
+            this.dgvProdConsultar.DataSource = null;
+            this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+            this.txtCriterioBusqueda.Focus();
+        }
+
+        /// <summary>
+        /// Desable all Controls 
+        /// </summary>
+        private void DesableControls()
+        {
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.dgvProdConsultar.ReadOnly = true;
         }
     }
 }
