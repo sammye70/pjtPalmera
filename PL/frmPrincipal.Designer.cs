@@ -271,6 +271,7 @@
             this.ingresarPedidosToolStripMenuItem.Name = "ingresarPedidosToolStripMenuItem";
             this.ingresarPedidosToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
             this.ingresarPedidosToolStripMenuItem.Text = "Ingresar Pedidos";
+            this.ingresarPedidosToolStripMenuItem.Click += new System.EventHandler(this.ingresarPedidosToolStripMenuItem_Click);
             // 
             // proveedorToolStripMenuItem
             // 

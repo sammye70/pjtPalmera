@@ -59,8 +59,8 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql_detail = @"INSERT INTO detail_venta (id_producto, descripcion, cantidad, precio, itbis, importe, created)
-                                        VALUES(@id_producto, @descripcion, @cantidad, @precio, @itbis, @importe, @created)";
+                string sql_detail = @"INSERT INTO detail_venta (idproducto, descripcion, cantidad, precio, itbis, importe, created)
+                                        VALUES(@idproducto, @descripcion, @cantidad, @precio, @itbis, @importe, @created)";
 
                 MySqlCommand cmd = new MySqlCommand(sql_detail, con);
 
@@ -71,7 +71,7 @@ namespace pjPalmera.DAL
                     //
                     cmd.Parameters.Clear();
                     //
-                    cmd.Parameters.AddWithValue("@id_producto", dvental.ID);
+                    cmd.Parameters.AddWithValue("@idproducto", dvental.ID);
                     cmd.Parameters.AddWithValue("@descripcion", dvental.DESCRIPCION);
                     cmd.Parameters.AddWithValue("@cantidad", dvental.CANTIDAD);
                     cmd.Parameters.AddWithValue("@precio", dvental.PRECIO);
@@ -84,7 +84,6 @@ namespace pjPalmera.DAL
                 }
                 con.Close();
             }
-
         }
     }
 }

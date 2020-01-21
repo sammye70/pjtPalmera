@@ -73,6 +73,8 @@ namespace pjPalmera.PL
         {
             EnableControls();
             producto = null;
+            this.txtCodigo.Focus();
+            
         }
 
         /// <summary>
@@ -135,7 +137,7 @@ namespace pjPalmera.PL
                 producto.Idfabricante = this.cmbFabrincante.Text;
                 producto.Descripcion = this.txtDescripcion.Text;
                 producto.Idfamilia = this.cmbFamilia.Text;
-                producto.Stockinicial = Convert.ToInt32(txtStockInicial.Text);
+                producto.Stock = Convert.ToInt32(txtStockInicial.Text);
                 producto.Stockminimo = Convert.ToInt32(this.txtStockMinimo.Text);
                 producto.F_vencimiento = Convert.ToDateTime(dateTimePicker1.Value.Date.ToShortDateString());
                 producto.Costo = Convert.ToDecimal(this.txtCosto.Text);
@@ -232,6 +234,11 @@ namespace pjPalmera.PL
         {
             frmCategoria categoria = new frmCategoria();
             categoria.ShowDialog(this);
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

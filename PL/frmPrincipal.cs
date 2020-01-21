@@ -51,7 +51,7 @@ namespace pjPalmera.PL
         private void crearClientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmRegClientes RegistrarClientes = new frmRegClientes();
-            RegistrarClientes.Show();
+            RegistrarClientes.ShowDialog(this);
 
         }
 
@@ -88,7 +88,7 @@ namespace pjPalmera.PL
         private void crearArticuloToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmRegArticulos RegArt = new frmRegArticulos();
-            RegArt.Show();
+            RegArt.ShowDialog(this);
         }
 
         private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -156,6 +156,11 @@ namespace pjPalmera.PL
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             AppExit();
+        }
+
+        private void ingresarPedidosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

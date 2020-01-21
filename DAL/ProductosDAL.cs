@@ -34,15 +34,16 @@ namespace pjPalmera.DAL
                 cmd.Parameters.AddWithValue("@idfabricante", Producto.Idfabricante);
                 cmd.Parameters.AddWithValue("@descripcion", Producto.Descripcion);
                 cmd.Parameters.AddWithValue("@idfamilia", Producto.Idfamilia);
-                cmd.Parameters.AddWithValue("@stockinicial", Producto.Stockinicial);
+                cmd.Parameters.AddWithValue("@stockinicial", Producto.Stock);
                 cmd.Parameters.AddWithValue("@stockminimo", Producto.Stockminimo);
                 cmd.Parameters.AddWithValue("@f_vencimiento", Producto.F_vencimiento);
                 cmd.Parameters.AddWithValue("@costo", Producto.Costo);
                 cmd.Parameters.AddWithValue("@p_venta", Producto.Precio_venta);
                 cmd.Parameters.AddWithValue("@createby", Producto.Createby);
-                cmd.Parameters.AddWithValue("@created", Producto.Created);
+                cmd.Parameters.AddWithValue("@created", DateTime.Now);
 
-                Producto.Idproducto=Convert.ToInt32(cmd.ExecuteScalar());
+                //Producto.Id=Convert.ToInt32(cmd.ExecuteScalar());
+                cmd.ExecuteNonQuery();
             }
           return Producto;
         }
@@ -72,6 +73,59 @@ namespace pjPalmera.DAL
           return list;
         }
 
+
+        /// <summary>
+        /// Update Stock on table productos
+        /// </summary>
+        public static void Decreace_Stock(VentaEntity venta)
+        {
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+
+                ProductosEntity product = new ProductosEntity();
+
+               string update_stock = @"UPDATE productos SET productos.stock=productos.stock-@cantidad WHERE idproducto = @idproducto";
+                //string update_stock = @"update productos set stock = stock - @cantidad where idproducto = @idproducto";
+
+                MySqlCommand cmd = new MySqlCommand(update_stock, con);
+
+                cmd.Parameters.Clear();
+
+                foreach (DetalleVentaEntity producto in venta.Productos)
+                {
+                    cmd.Parameters.AddWithValue("@idproducto",producto.ID);
+                    cmd.Parameters.AddWithValue("@cantidad", producto.CANTIDAD); 
+                }
+
+                product.Idproducto = Convert.ToInt64(cmd.ExecuteScalar());
+
+                con.Open();
+            }
+        }
+
+
+        /// <summary>
+        /// Update Increment Stock
+        /// </summary>
+        public static void Increment_Stock(ProductosEntity producto)
+        {
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string update_stock = @"UPDATE productos SET productos.stock=productos.stock+@cantidad WHERE idproducto = @idproducto";
+
+                MySqlCommand cmd = new MySqlCommand(update_stock, con);
+
+                cmd.Parameters.AddWithValue("@idproducto",producto.Idproducto);
+                cmd.Parameters.AddWithValue("@cantidad", producto.Stock);
+
+                producto.Idproducto = Convert.ToInt64(cmd.ExecuteScalar());
+                con.Close();   
+            }
+        }
+
+
         /// <summary>
         /// LoadProduct
         /// </summary>
@@ -81,18 +135,18 @@ namespace pjPalmera.DAL
         {
             ProductosEntity Productos = new ProductosEntity();
 
-            Productos.Idproducto = Convert.ToUInt32(Reader["idproducto"]);
+            Productos.Idproducto = Convert.ToInt64(Reader["idproducto"]);
             Productos.Idfabricante = Convert.ToString(Reader["idfabricante"]);
             Productos.Idfamilia= Convert.ToString(Reader["idfamilia"]);
             Productos.Descripcion = Convert.ToString(Reader["descripcion"]);
-            Productos.Stockinicial = Convert.ToInt32(Reader["stockinicial"]);
+            Productos.Stock = Convert.ToInt32(Reader["stock"]);
             Productos.Stockminimo = Convert.ToInt32(Reader["stockminimo"]);
             Productos.F_vencimiento = Convert.ToDateTime(Reader["f_vencimiento"]);
             Productos.Costo = Convert.ToDecimal(Reader["costo"]);
             Productos.Precio_venta = Convert.ToDecimal(Reader["p_venta"]);
+            Productos.Created = Convert.ToDateTime(Reader["created"]);
 
             return Productos;
-
         }
     }
 }

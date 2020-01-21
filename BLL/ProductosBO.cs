@@ -47,5 +47,21 @@ namespace pjPalmera.BLL
                 return null;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void Discrement_Stock(VentaEntity producto)
+        {
+            try
+            {
+                ProductosDAL.Update_Stock(producto);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+        }
     }
 }

@@ -49,6 +49,7 @@
     <Compile Include="CiudadDAL.cs" />
     <Compile Include="ClientesDAL.cs" />
     <Compile Include="FacturasDAL.cs" />
+    <Compile Include="InventarioEntity.cs" />
     <Compile Include="PersonasDAL.cs" />
     <Compile Include="ProductosDAL.cs" />
     <Compile Include="ProveedorDAL.cs" />

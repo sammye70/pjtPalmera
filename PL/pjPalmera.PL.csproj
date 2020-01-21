@@ -134,6 +134,12 @@
     <Compile Include="frmFactAnuladas.Designer.cs">
       <DependentUpon>frmFactAnuladas.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmIngresarPedido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmIngresarPedido.Designer.cs">
+      <DependentUpon>frmIngresarPedido.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmlogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -242,6 +248,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmFactAnuladas.resx">
       <DependentUpon>frmFactAnuladas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmIngresarPedido.resx">
+      <DependentUpon>frmIngresarPedido.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmlogin.resx">
       <DependentUpon>frmlogin.cs</DependentUpon>

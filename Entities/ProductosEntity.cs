@@ -17,7 +17,7 @@ namespace pjPalmera.Entities
         private string idfabricante;
         // public float cantidad_vendida { get { return stock_actual - cantidad_vendida; } } //
         //  public float stock_actual { get; set; }
-        private float stockinicial;
+        private float stock;
         private float stockminimo;
         private DateTime f_vencimiento;
         private decimal costo;
@@ -32,14 +32,14 @@ namespace pjPalmera.Entities
         }
 
         //Constructor
-        public ProductosEntity(long idproducto, string descripcion, string idfamilia, string idfabricante, float stock_actual, float stock_inicial, float stock_minimo,
+        public ProductosEntity(long idproducto, string descripcion, string idfamilia, string idfabricante, float stock_actual, float stock, float stock_minimo,
             DateTime f_vencimiento, decimal costo, decimal precio_venta, int createby, DateTime created)
         {
             this.Idproducto = idproducto;
             this.Descripcion = descripcion;
             this.Idfamilia = idfamilia;
             this.Idfabricante = idfabricante;
-            this.Stockinicial = stock_inicial;
+            this.Stock = stock;
             this.Stockminimo = stock_minimo;
             this.F_vencimiento = f_vencimiento;
             this.Costo = Costo;
@@ -48,6 +48,7 @@ namespace pjPalmera.Entities
             this.Created = created;
         }
 
+ 
         public long Idproducto
         {
             get
@@ -100,16 +101,16 @@ namespace pjPalmera.Entities
             }
         }
 
-        public float Stockinicial
+        public float Stock
         {
             get
             {
-                return stockinicial;
+                return stock;
             }
 
             set
             {
-                stockinicial = value;
+                stock = value;
             }
         }
 

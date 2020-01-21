@@ -20,6 +20,7 @@ namespace pjPalmera.PL
         public VentaEntity venta = null;
        // public VentaEntity detail = null;
         VentaEntity detail = new VentaEntity();
+        ProductosEntity producto = new ProductosEntity();
         public ClientesEntity clientes = new ClientesEntity();
         public decimal precio = 0;
         public float cantidad = 0;
@@ -348,6 +349,16 @@ namespace pjPalmera.PL
             }
         }
 
+        
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            Save_Invoices();
+           // PrintTicket();
+           
+        }
+
+
         #region Invoice paid cash
         /// <summary>
         /// Print Bill
@@ -459,13 +470,6 @@ namespace pjPalmera.PL
         }
         #endregion
 
-        private void btnGuardar_Click(object sender, EventArgs e)
-        {
-            Save_Invoices();
-            PrintTicket();
-           
-        }
-
         #region Validator content in Controls
         /// <summary>
         /// 
@@ -574,7 +578,7 @@ namespace pjPalmera.PL
                 //add products to Gridview
                 DetalleVentaEntity Detail = new DetalleVentaEntity();
 
-                Detail.ID = int.Parse(txtProductos.Text);
+                Detail.ID = Convert.ToInt64(txtProductos.Text);
                 Detail.DESCRIPCION = txtDescripcion.Text;
                 Detail.CANTIDAD = Int32.Parse(this.txtCantidad.Text);
                 Detail.PRECIO = decimal.Parse(this.txtPrecio.Text);
@@ -606,7 +610,9 @@ namespace pjPalmera.PL
             {
 
                 Save_Detail();
+                UpdateStock();
                 Save_Head();
+                
 
                 MessageBox.Show("Guardado Exitosamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -666,6 +672,24 @@ namespace pjPalmera.PL
             }
             FacturaBO.Create_detail(venta);
 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+
+        public void UpdateStock()
+        {
+            int x = this.dgvDetalle.Rows.Count;
+
+            DetalleVentaEntity Detail = new DetalleVentaEntity();
+
+            for (int i = 0; i < x; i++)
+            {
+                Detail.ID =Convert.ToInt64(this.dgvDetalle.Rows[i].Cells[0].Value.ToString());
+                Detail.CANTIDAD = Convert.ToInt32(this.dgvDetalle.Rows[i].Cells[2].Value.ToString()); //Quality
+            }
+            ProductosBO.Discrement_Stock(detail);
         }
 
         #endregion
