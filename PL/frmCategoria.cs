@@ -37,18 +37,28 @@ namespace pjPalmera.PL
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            try
+
+            if (this.txtNombreFamilia.Text == string.Empty)
             {
-                NewCategory();
-                CleanControls();
-                DesableControls();
-                MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.btnNuevo.Focus();
+                MessageBox.Show("Por favor introducir una catogiria Valida", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.txtNombreFamilia.Focus();
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                try
+                {
+                    NewCategory();
+                    CleanControls();
+                    DesableControls();
+                    MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.btnNuevo.Focus();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
+
         }
 
 
@@ -96,18 +106,24 @@ namespace pjPalmera.PL
         }
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private const int CP_NOCLOSE_BUTTON = 0x200;
-        protected override CreateParams CreateParams
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //private const int CP_NOCLOSE_BUTTON = 0x200;
+        //protected override CreateParams CreateParams
+        //{
+        //    get
+        //    {
+        //        CreateParams myCp = base.CreateParams;
+        //        myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
+        //        return myCp;
+        //    }
+        //}
+
+        private void btnCancelar_Click(object sender, EventArgs e)
         {
-            get
-            {
-                CreateParams myCp = base.CreateParams;
-                myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
-                return myCp;
-            }
+            CleanControls();
+            this.txtNombreFamilia.Focus();
         }
     }
 }

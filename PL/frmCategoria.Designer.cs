@@ -44,6 +44,7 @@
             this.btnCancelar.Size = new System.Drawing.Size(75, 40);
             this.btnCancelar.TabIndex = 24;
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnGuardar
             // 
@@ -104,7 +105,7 @@
             this.MinimizeBox = false;
             this.Name = "frmCategoria";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Crear Familia";
+            this.Text = "Crear Categoria";
             this.Load += new System.EventHandler(this.frmCategoria_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

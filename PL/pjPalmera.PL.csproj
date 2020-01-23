@@ -137,6 +137,12 @@
     <Compile Include="frmConsultarProveedor.Designer.cs">
       <DependentUpon>frmConsultarProveedor.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmEditarProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEditarProductos.Designer.cs">
+      <DependentUpon>frmEditarProductos.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmFactAnuladas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,6 +160,12 @@
     </Compile>
     <Compile Include="frmlogin.Designer.cs">
       <DependentUpon>frmlogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMetodoPago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMetodoPago.Designer.cs">
+      <DependentUpon>frmMetodoPago.cs</DependentUpon>
     </Compile>
     <Compile Include="frmNotasCredito.cs">
       <SubType>Form</SubType>
@@ -196,24 +208,6 @@
     </Compile>
     <Compile Include="frmRegUsers.Designer.cs">
       <DependentUpon>frmRegUsers.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmRepClientes.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmRepClientes.Designer.cs">
-      <DependentUpon>frmRepClientes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmRepFacturas.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmRepFacturas.Designer.cs">
-      <DependentUpon>frmRepFacturas.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmRepProveedor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmRepProveedor.Designer.cs">
-      <DependentUpon>frmRepProveedor.cs</DependentUpon>
     </Compile>
     <Compile Include="frmVenta.cs">
       <SubType>Form</SubType>
@@ -258,6 +252,9 @@
     <EmbeddedResource Include="frmConsultarProveedor.resx">
       <DependentUpon>frmConsultarProveedor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmEditarProductos.resx">
+      <DependentUpon>frmEditarProductos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmFactAnuladas.resx">
       <DependentUpon>frmFactAnuladas.cs</DependentUpon>
     </EmbeddedResource>
@@ -266,6 +263,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmlogin.resx">
       <DependentUpon>frmlogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMetodoPago.resx">
+      <DependentUpon>frmMetodoPago.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPrincipal.resx">
       <DependentUpon>frmPrincipal.cs</DependentUpon>
@@ -284,15 +284,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmRegUsers.resx">
       <DependentUpon>frmRegUsers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmRepClientes.resx">
-      <DependentUpon>frmRepClientes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmRepFacturas.resx">
-      <DependentUpon>frmRepFacturas.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmRepProveedor.resx">
-      <DependentUpon>frmRepProveedor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmVenta.resx">
       <DependentUpon>frmVenta.cs</DependentUpon>
@@ -445,8 +436,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="folder_summer_13091.ico" />
+    <None Include="Resources\refresh.ico" />
+    <None Include="Resources\apply.ico" />
     <None Include="Resources\56-512.png" />
-    <Content Include="system_applications_address_book_13034.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

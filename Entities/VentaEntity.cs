@@ -19,6 +19,7 @@ namespace pjPalmera.Entities
         /// </summary>
 
         //Fields and Properties
+        public Int64 id { get; set; }
         public string clientes { get; set; }
         public string apellidos { get; set; }
         public DateTime f_factura { get; set; }
@@ -31,6 +32,8 @@ namespace pjPalmera.Entities
         public decimal subtotal { get; set; }
         public int id_cliente { get; set; }
         public decimal total_itbis { get; set; }
+        public decimal recibido { get; set; }
+        public decimal devuelta { get; set; }
         private List<DetalleVentaEntity> productos;
        
         

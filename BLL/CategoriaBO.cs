@@ -20,5 +20,14 @@ namespace pjPalmera.BLL
             CategoriaDAL.Create(Categoria);
             return Categoria;
         }
+
+        /// <summary>
+        /// Get All Categories
+        /// </summary>
+        /// <returns></returns>
+        public static List<CategoriaEntity> GetAll()
+        {
+            return CategoriaDAL.GetAll_();
+        }
     }
 }

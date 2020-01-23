@@ -8,19 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace pjPalmera.PL
+
+namespace PL
 {
-    public partial class frmRepProveedor : Form
+    public partial class frmMetodoPago : Form
     {
-        public frmRepProveedor()
+        public frmMetodoPago()
         {
             InitializeComponent();
-        }
-
-        private void frmRepProveedor_Load(object sender, EventArgs e)
-        {
-
-            this.reportViewer1.RefreshReport();
         }
     }
 }

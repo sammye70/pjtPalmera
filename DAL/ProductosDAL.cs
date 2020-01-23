@@ -23,18 +23,18 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql = @"INSERT INTO productos (idproducto, idfabricante, descripcion,idfamilia, stockinicial, stockminimo, 
+                string sql = @"INSERT INTO productos (idproducto, idfabricante, descripcion,idfamilia, stock, stockminimo, 
                                 f_vencimiento, costo, p_venta, createby, created)
-                                VALUES(@idproducto, @idfabricante, @descripcion, @idfamilia, @stockinicial, @stockminimo, 
+                                VALUES(@idproducto, @idfabricante, @descripcion, @idfamilia, @stock, @stockminimo, 
                                 @f_vencimiento, @costo, @p_venta, @createby, @created)";
 
                 MySqlCommand cmd = new MySqlCommand(sql,con);
 
                 cmd.Parameters.AddWithValue("@idproducto", Producto.Idproducto);
-                cmd.Parameters.AddWithValue("@idfabricante", Producto.Idfabricante);
+                cmd.Parameters.AddWithValue("@idfabricante", Producto.Fabricante);
                 cmd.Parameters.AddWithValue("@descripcion", Producto.Descripcion);
-                cmd.Parameters.AddWithValue("@idfamilia", Producto.Idfamilia);
-                cmd.Parameters.AddWithValue("@stockinicial", Producto.Stock);
+                cmd.Parameters.AddWithValue("@idfamilia", Producto.Categoria);
+                cmd.Parameters.AddWithValue("@stock", Producto.Stock);
                 cmd.Parameters.AddWithValue("@stockminimo", Producto.Stockminimo);
                 cmd.Parameters.AddWithValue("@f_vencimiento", Producto.Vencimiento);
                 cmd.Parameters.AddWithValue("@costo", Producto.Costo);
@@ -138,6 +138,38 @@ namespace pjPalmera.DAL
             }
         }
 
+        /// <summary>
+        /// Search Products by Code
+        /// </summary>
+        public static ProductosEntity Search_Code(Int64 id)
+        {
+            // List<ProductosEntity> list = new List<ProductosEntity>();
+            ProductosEntity productos = null;
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+               
+               // ProductosEntity productos = new ProductosEntity();
+                string search_code = @"select * from productos where productos.idproducto=@idproducto";
+
+                MySqlCommand cmd = new MySqlCommand(search_code, con);
+
+                cmd.Parameters.AddWithValue("idproducto", id);
+                
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    productos=(LoadProduct(reader));
+                }
+                con.Close();
+            }
+
+            return productos;
+
+        }
+
 
         /// <summary>
         /// LoadProduct
@@ -149,8 +181,8 @@ namespace pjPalmera.DAL
             ProductosEntity Productos = new ProductosEntity();
 
             Productos.Idproducto = Convert.ToInt64(Reader["idproducto"]);
-            Productos.Idfabricante = Convert.ToString(Reader["idfabricante"]);
-            Productos.Idfamilia= Convert.ToString(Reader["idfamilia"]);
+            Productos.Fabricante = Convert.ToString(Reader["idfabricante"]);
+            Productos.Categoria= Convert.ToString(Reader["idfamilia"]);
             Productos.Descripcion = Convert.ToString(Reader["descripcion"]);
             Productos.Stock = Convert.ToInt32(Reader["stock"]);
             Productos.Stockminimo = Convert.ToInt32(Reader["stockminimo"]);

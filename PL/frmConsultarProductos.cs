@@ -14,12 +14,21 @@ namespace pjPalmera.PL
 {
     public partial class frmConsultarProductos : Form
     {
+
+        private Int64 _idproducto;
+
         ProductosEntity productos = new ProductosEntity();
 
         public frmConsultarProductos()
         {
             InitializeComponent();
         }
+
+        public Int64 Idproducto
+        {
+            get { return _idproducto; }
+        }
+
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -30,6 +39,7 @@ namespace pjPalmera.PL
 
         private void frmConsultarProductos_Load(object sender, EventArgs e)
         {
+            
             DesableControls();
             this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
             this.txtCriterioBusqueda.Focus();
@@ -57,6 +67,18 @@ namespace pjPalmera.PL
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.dgvProdConsultar.ReadOnly = true;
+        }
+
+
+        private void dgvProdConsultar_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1)
+                return;
+
+            _idproducto =Convert.ToInt64(dgvProdConsultar.Rows[e.RowIndex].Cells["Idproducto"].Value);
+
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }

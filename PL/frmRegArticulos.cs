@@ -35,8 +35,11 @@ namespace pjPalmera.PL
 
         private void frmRegArticulos_Load(object sender, EventArgs e)
         {
+            LoadProveedor();
+            Categories();
             InitializeControls();
             DesableContros();
+            CleanControls();
             this.MaximizeBox = false;
             this.MinimizeBox = false;
         }
@@ -75,6 +78,24 @@ namespace pjPalmera.PL
             producto = null;
             this.txtCodigo.Focus();
             
+        }
+
+        /// <summary>
+        /// Load Categories
+        /// </summary>
+        private void Categories()
+        {
+            this.cmbFamilia.DisplayMember = "category";
+            this.cmbFamilia.DataSource = CategoriaBO.GetAll();
+        }
+
+        /// <summary>
+        /// Load Provider
+        /// </summary>
+        private void LoadProveedor()
+        {
+            this.cmbFabrincante.DisplayMember = "nombre_proveedor";
+            this.cmbFabrincante.DataSource=ProveedorBO.GetAllProveedor_();
         }
 
         /// <summary>
@@ -134,9 +155,9 @@ namespace pjPalmera.PL
                 producto = new ProductosEntity();
 
                 producto.Idproducto = Convert.ToInt64(this.txtCodigo.Text);
-                producto.Idfabricante = this.cmbFabrincante.Text;
+                producto.Fabricante = this.cmbFabrincante.Text;
                 producto.Descripcion = this.txtDescripcion.Text;
-                producto.Idfamilia = this.cmbFamilia.Text;
+                producto.Categoria = this.cmbFamilia.Text;
                 producto.Stock = Convert.ToInt32(txtStockInicial.Text);
                 producto.Stockminimo = Convert.ToInt32(this.txtStockMinimo.Text);
                 producto.Vencimiento = Convert.ToDateTime(dateTimePicker1.Value.Date.ToShortDateString());
@@ -238,7 +259,40 @@ namespace pjPalmera.PL
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            producto = null;
             this.Close();
+        }
+
+        private void txtCosto_TextChanged(object sender, EventArgs e)
+        {
+            if (this.txtCosto.Text == string.Empty)
+            {
+                this.txtPrecioVenta.Text = "";
+                return;
+            }
+            else
+            {
+                try
+                {
+                    decimal c, pg, pv;
+                    c = Convert.ToDecimal(this.txtCosto.Text);
+                    pg = (c * 30) / 100;
+                    pv = c + pg;
+                    this.txtPrecioVenta.Text = Convert.ToString(pv);
+
+                }
+                catch
+                {
+                    this.txtCosto.Focus();
+                    return;
+                }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            frmRegProveedor proveedor = new frmRegProveedor();
+            proveedor.ShowDialog(this);
         }
     }
 }

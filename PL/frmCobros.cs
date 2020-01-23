@@ -13,7 +13,11 @@ namespace pjPalmera.PL
 {
     public partial class frmCobros : Form
     {
-       private VentaEntity  venta=null;
+       
+
+        
+
+        public decimal cobrar, efectivo;
 
         public frmCobros()
         {
@@ -22,50 +26,98 @@ namespace pjPalmera.PL
 
         private void btnCancelarPago_Click(object sender, EventArgs e)
         {
+            CleanControls();
+            this.txtTotalCobrar.Focus();
             this.Close();
         }
 
         private void frmCobros_Load(object sender, EventArgs e)
         {
-            OnlyRead();
-            Operacion();
 
+            DesableControls();
+            this.txtTotalCobrar.Focus();
+           
         }
 
-        //
-        private void OnlyRead()
+
+        /// <summary>
+        /// Desable All Controls
+        /// </summary>
+        private void DesableControls()
         {
-            this.txtMontoCobrar.ReadOnly = true;
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
             this.txtDevueltaEfectivo.ReadOnly = true;
-
         }
 
-        //
-        private void Operacion()
+        /// <summary>
+        /// Clean Content of Controls 
+        /// </summary>
+        private void CleanControls()
         {
-            
-            decimal subtotal, t_pagar;
-            decimal t_itbis;
-            subtotal = venta.SubTotal();
-            t_itbis = venta.Itbis();
-            t_pagar = venta.Pagar(t_itbis, subtotal);
-            this.txtMontoCobrar.Text = string.Format("{0:C2}",t_pagar);
+            this.txtDevueltaEfectivo.Text = "";
+            this.txtEfectivoRecibido.Text = "";
+            this.txtTotalCobrar.Text = "";
         }
 
-        private void txtEfectivoRecibido_TextChanged(object sender, EventArgs e)
+        private const int CP_NOCLOSE_BUTTON = 0x200;
+        protected override CreateParams CreateParams
         {
-            if (this.txtEfectivoRecibido.Text != "")
+            get
             {
-                decimal efectivo,recibido;
-                decimal subtotal, t_pagar;
-                decimal t_itbis;
-                recibido= Convert.ToDecimal (this.txtEfectivoRecibido.Text);
-                subtotal = venta.SubTotal();
-                t_itbis = venta.Itbis();
-                t_pagar = venta.Pagar(t_itbis, subtotal);
-                efectivo = venta.Cambio_Compras(t_pagar,recibido);
-                this.txtDevueltaEfectivo.Text = string.Format("{0:C2}",efectivo);
+                CreateParams myCp = base.CreateParams;
+                myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
+                return myCp;
             }
         }
+
+        //    
+        private void txtEfectivoRecibido_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                cobrar = decimal.Parse(this.txtTotalCobrar.Text);
+                efectivo = decimal.Parse(this.txtEfectivoRecibido.Text);
+                this.txtDevueltaEfectivo.Text = Convert.ToString(efectivo - cobrar);
+            }
+            catch
+            {
+                this.txtDevueltaEfectivo.Text = "";
+                this.txtEfectivoRecibido.Focus();
+            }
+        }
+
+        // 
+        private void btnProcesarPagos_Click(object sender, EventArgs e)
+        {
+            frmVenta fventa = new frmVenta();
+
+            if ((this.txtTotalCobrar.Text == string.Empty) || (this.txtEfectivoRecibido.Text == string.Empty))
+            {
+                MessageBox.Show("Verificar los valor indicados de la Venta", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.txtTotalCobrar.Focus();
+                return;
+            }
+            else
+
+                try
+                {            
+                    fventa.Save_Invoices();
+                    fventa.PrintTicket();
+                    fventa.NewInvoice();
+                    CleanControls();
+                    this.Close();
+                    MessageBox.Show("Venta Efectuada Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    this.txtTotalCobrar.Focus();
+                    return;
+                   
+                }
+        }
+
     }
 }

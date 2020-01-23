@@ -42,11 +42,7 @@ namespace pjPalmera.PL
             ConsultaProv.Show();
         }
 
-        private void generarReporteDeProveedoresToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmRepProveedor ReporteProv = new frmRepProveedor();
-            ReporteProv.Show();
-        }
+       
 
         private void crearClientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -55,17 +51,7 @@ namespace pjPalmera.PL
 
         }
 
-        private void generarReporteDeClientesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmRepClientes ReporteClientes = new frmRepClientes();
-            ReporteClientes.Show();
-        }
 
-        private void reporteDeFacturasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmRepFacturas ReporteFact = new frmRepFacturas();
-            ReporteFact.Show();
-        }
 
         private void facturasAnuladasToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -111,8 +97,8 @@ namespace pjPalmera.PL
 
         private void frmPrincipal_Load(object sender, EventArgs e)
         {
-            frmlogin login = new frmlogin();
-            login.ShowDialog();
+            //frmlogin login = new frmlogin();
+            //login.ShowDialog();
             DetailControls();
         }
 
@@ -173,6 +159,12 @@ namespace pjPalmera.PL
         {
             frmAjustarProductos Pedido = new frmAjustarProductos();
             Pedido.ShowDialog(this);
+        }
+
+        private void reporteDeArticulosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmEditarProductos EditProductos = new frmEditarProductos();
+            EditProductos.ShowDialog(this);
         }
     }
 }

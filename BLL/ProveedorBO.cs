@@ -28,5 +28,10 @@ namespace pjPalmera.BLL
         {
             return ProveedorDAL.GetAll();
         }
+
+        public static List<ProveedorEntity> GetAllProveedor_()
+        {
+            return ProveedorDAL.GetAll_();
+        }
     }
 }

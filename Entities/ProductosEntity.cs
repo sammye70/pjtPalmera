@@ -13,8 +13,8 @@ namespace pjPalmera.Entities
         //Field
         private long idproducto;
         private string descripcion;
-        private string idfamilia;
-        private string idfabricante;
+        private string categoria;
+        private string fabricante;
         // public float cantidad_vendida { get { return stock_actual - cantidad_vendida; } } //
         //  public float stock_actual { get; set; }
         private float stock;
@@ -32,13 +32,13 @@ namespace pjPalmera.Entities
         }
 
         //Constructor
-        public ProductosEntity(long idproducto, string descripcion, string idfamilia, string idfabricante, float stock_actual, float stock, float stock_minimo,
+        public ProductosEntity(long idproducto, string descripcion, string categoria, string fabricante, float stock_actual, float stock, float stock_minimo,
             DateTime vencimiento, decimal costo, decimal precio_venta, int createby, DateTime created)
         {
             this.Idproducto = idproducto;
             this.Descripcion = descripcion;
-            this.Idfamilia = idfamilia;
-            this.Idfabricante = idfabricante;
+            this.Categoria = categoria;
+            this.Fabricante = fabricante;
             this.Stock = stock;
             this.Stockminimo = stock_minimo;
             this.Vencimiento = vencimiento;
@@ -75,29 +75,29 @@ namespace pjPalmera.Entities
             }
         }
 
-        public string Idfamilia
+        public string Categoria
         {
             get
             {
-                return idfamilia;
+                return categoria;
             }
 
             set
             {
-                idfamilia = value;
+                categoria = value;
             }
         }
 
-        public string Idfabricante
+        public string Fabricante
         {
             get
             {
-                return idfabricante;
+                return fabricante;
             }
 
             set
             {
-                idfabricante = value;
+                fabricante = value;
             }
         }
 
@@ -190,6 +190,21 @@ namespace pjPalmera.Entities
             {
                 created = value;
             }
+        }
+
+        /// <summary>
+        /// Calculo Precio Venta
+        /// </summary>
+        /// <param name="costo"></param>
+        /// <returns></returns>
+        public decimal PrecioVenta(decimal costo)
+        {
+            decimal preciog, pv;
+
+            preciog = (costo * 30) / 100;
+            pv = costo + preciog;
+
+            return pv;
         }
     }
 }

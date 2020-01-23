@@ -56,6 +56,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnAgregarCategoria = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -155,7 +156,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(337, 152);
+            this.label9.Location = new System.Drawing.Point(364, 150);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(52, 13);
             this.label9.TabIndex = 11;
@@ -172,9 +173,9 @@
             // cmbFamilia
             // 
             this.cmbFamilia.FormattingEnabled = true;
-            this.cmbFamilia.Location = new System.Drawing.Point(392, 147);
+            this.cmbFamilia.Location = new System.Drawing.Point(422, 147);
             this.cmbFamilia.Name = "cmbFamilia";
-            this.cmbFamilia.Size = new System.Drawing.Size(251, 21);
+            this.cmbFamilia.Size = new System.Drawing.Size(221, 21);
             this.cmbFamilia.TabIndex = 13;
             // 
             // txtCosto
@@ -183,6 +184,7 @@
             this.txtCosto.Name = "txtCosto";
             this.txtCosto.Size = new System.Drawing.Size(89, 20);
             this.txtCosto.TabIndex = 14;
+            this.txtCosto.TextChanged += new System.EventHandler(this.txtCosto_TextChanged);
             // 
             // txtPrecioVenta
             // 
@@ -275,11 +277,23 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // button1
+            // 
+            this.button1.Image = global::PL.Properties.Resources.add;
+            this.button1.Location = new System.Drawing.Point(314, 145);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(27, 28);
+            this.button1.TabIndex = 25;
+            this.button1.Text = "+";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // frmRegArticulos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(678, 292);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnAgregarCategoria);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cmbEstanteLocalizacion);
@@ -344,5 +358,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnAgregarCategoria;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Button button1;
     }
 }

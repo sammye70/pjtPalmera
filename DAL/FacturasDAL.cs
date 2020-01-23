@@ -24,8 +24,8 @@ namespace pjPalmera.DAL
             {
 
                 con.Open();
-                string sql_head = @"INSERT INTO venta (nombre, apellidos, total, created, status, tipo, descuento, subtotal, total_itbis) 
-                                        VALUES(@nombre, @apellidos, @total, @created, @status, @tipo, @descuento, @subtotal, @total_itbis)";
+                string sql_head = @"INSERT INTO venta (nombre, apellidos, total, created, status, tipo, descuento, subtotal, total_itbis, recibido, devuelta) 
+                                        VALUES(@nombre, @apellidos, @total, @created, @status, @tipo, @descuento, @subtotal, @total_itbis, @recibido, @devuelta)";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql_head, con))
                 {
@@ -38,6 +38,8 @@ namespace pjPalmera.DAL
                     cmd.Parameters.AddWithValue("@descuento", Venta.descuento);
                     cmd.Parameters.AddWithValue("@subtotal", Venta.subtotal);
                     cmd.Parameters.AddWithValue("@total_itbis", Venta.total_itbis);
+                    cmd.Parameters.AddWithValue("devuelta", Venta.devuelta);
+                    cmd.Parameters.AddWithValue("recibido", Venta.recibido);
                     //cmd.Parameters.AddWithValue("@created",DateTime.Now);
 
                     cmd.ExecuteNonQuery();

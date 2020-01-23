@@ -48,6 +48,25 @@ namespace pjPalmera.BLL
             }
         }
 
+
+        /// <summary>
+        /// Search Product by Id
+        /// </summary>
+        /// <returns></returns>
+        public static ProductosEntity Searh_Code(Int64 id)
+        {
+            try
+            {
+                return ProductosDAL.Search_Code(id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
+        }
+
+
         /// <summary>
         ///Update Decrease Stock on Databases
         /// </summary>

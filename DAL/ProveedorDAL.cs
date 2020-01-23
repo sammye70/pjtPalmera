@@ -70,6 +70,46 @@ namespace pjPalmera.DAL
 
 
 
+        /// <summary>
+        /// Get All only: nombre
+        /// </summary>
+        /// <returns></returns>
+        public static List<ProveedorEntity> GetAll_()
+        {
+            List<ProveedorEntity> list = new List<ProveedorEntity>();
+
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string sql = @"SELECT nombre_fab FROM fabricante";
+
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    list.Add(LoadProveed(reader));
+                }
+
+            }
+
+            return list;
+        }
+
+
+        /// <summary>
+        /// Load proveedor
+        /// </summary>
+        /// <returns></returns>
+        private static ProveedorEntity LoadProveed(IDataReader Reader)
+        {
+            ProveedorEntity Proveedor = new ProveedorEntity();
+            Proveedor.Nombre_proveedor = Convert.ToString(Reader["nombre_fab"]);
+
+            return Proveedor;
+        }
+
+
 
         /// <summary>
         /// Load proveedor
