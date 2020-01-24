@@ -80,5 +80,10 @@ namespace pjPalmera.PL
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

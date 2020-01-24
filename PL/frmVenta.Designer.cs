@@ -98,9 +98,9 @@
             this.dgvDetalle.Location = new System.Drawing.Point(13, 342);
             this.dgvDetalle.Margin = new System.Windows.Forms.Padding(4);
             this.dgvDetalle.Name = "dgvDetalle";
+            this.dgvDetalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDetalle.Size = new System.Drawing.Size(1305, 239);
             this.dgvDetalle.TabIndex = 8;
-            this.dgvDetalle.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetalle_CellContentClick);
             // 
             // groupBox1
             // 

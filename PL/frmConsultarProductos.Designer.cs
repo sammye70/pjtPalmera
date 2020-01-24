@@ -34,7 +34,6 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtCriterioBusqueda = new System.Windows.Forms.TextBox();
@@ -63,7 +62,6 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.btnCancelar);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.txtCriterioBusqueda);
@@ -81,16 +79,6 @@
             this.button2.TabIndex = 9;
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // btnCancelar
-            // 
-            this.btnCancelar.Image = global::PL.Properties.Resources.cancel1;
-            this.btnCancelar.Location = new System.Drawing.Point(517, 10);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(56, 43);
-            this.btnCancelar.TabIndex = 8;
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click_1);
-            // 
             // button1
             // 
             this.button1.Image = global::PL.Properties.Resources.search;
@@ -99,6 +87,7 @@
             this.button1.Size = new System.Drawing.Size(56, 43);
             this.button1.TabIndex = 7;
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
@@ -139,7 +128,6 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtCriterioBusqueda;

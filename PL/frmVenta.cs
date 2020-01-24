@@ -131,17 +131,6 @@ namespace pjPalmera.PL
 
         }
 
-        private void dgvDetalle_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // RemoveItems();
-            int item;
-            if (this.dgvDetalle.SelectedRows.Count > 0)
-            {
-                item = this.dgvDetalle.CurrentRow.Index;
-                MessageBox.Show("Selecciono el Item:" + item);
-            }
-        }
-
         private void btnBuscarClientes_Click_1(object sender, EventArgs e)
         {
             frmConsulClientes Con_Clientes = new PL.frmConsulClientes();
@@ -309,6 +298,7 @@ namespace pjPalmera.PL
             this.txtDevueltaEfectivo.ReadOnly = true;
             this.txtPrecio.ReadOnly = true;
             this.txtDescripcion.ReadOnly = true;
+            this.dgvDetalle.ReadOnly = true;
         }
 
         #region Pagar
@@ -333,14 +323,14 @@ namespace pjPalmera.PL
         private void RemoveItems()
         {
 
-            int item = this.dgvDetalle.CurrentRow.Index;
-            MessageBox.Show("Selecciono el Item:" + item.ToString());
+            List<DetalleVentaEntity> item = new List<DetalleVentaEntity>();
 
-            //if (this.dgvDetalle.CurrentRow.Index != -1)
-            //{
-            //    this.dgvDetalle.Rows.RemoveAt(1);
-            //    MessageBox.Show("Item seleccionado fue Eliminado");
-            //}
+            if (this.dgvDetalle.CurrentCell.RowIndex !=-1 )
+            {
+                item.RemoveAt(this.dgvDetalle.CurrentCell.RowIndex);
+            }
+                
+
         }
 
         /// <summary>
@@ -441,10 +431,12 @@ namespace pjPalmera.PL
         {
             //TicketVentaEntity tk = new TicketVentaEntity();
             //Parameters
-            Font fBody = new Font("Lucida Console", 8, FontStyle.Regular);// Format Font for Body
+            Font fBody = new Font("Lucida Console", 7, FontStyle.Regular);// Format Font for Body
             Font ffTitle = new Font("Lucida Console", 11, FontStyle.Bold); // Format Font for Title Company Name
-            Font fTitle = new Font("Lucida Console", 9, FontStyle.Bold); // Format Font for Title
-            Font fdpTitle = new Font("Lucida Console", 8, FontStyle.Bold); // Format Font Detail Products
+            Font fTitle = new Font("Lucida Console", 7, FontStyle.Bold); // Format Font for Title
+            Font fdpTitle = new Font("Lucida Console", 7, FontStyle.Bold); // Format Font Detail Products
+            Font tbottom = new Font("Lucida Console", 5, FontStyle.Bold); // Format Font Messege Bottom
+            Font tblank = new Font("Lucida Console", 19, FontStyle.Bold); // Format Font  Bottom
             Font fdTitle = new Font("Lucida Console", 7, FontStyle.Bold);//Format Font for Detail Title (Address,Telephone, etc.. About Company Information)
             Graphics g = e.Graphics;
             SolidBrush sb = new SolidBrush(Color.Black); // Set Brush color for Drawing Charaters
@@ -453,9 +445,11 @@ namespace pjPalmera.PL
             RawPrinterHelper j = new RawPrinterHelper(); //
 
             //Header invoice
+            int AutoScrollOffset1= -100;
+            AutoScrollOffset1 = AutoScrollOffset1 -100;
             g.DrawString("Farmacia CRM", ffTitle, sb, 75, 120);
-            g.DrawString("Donde tu Salud es Nuestra Prioridad", fTitle, sb, 10, 133);
-            g.DrawString("C/9, #15, Las Escobas, Jima Arriba", fdTitle, sb, 50, 148);
+            g.DrawString("Donde tu Salud es Nuestra Prioridad", fTitle, sb, 20, 134);
+            g.DrawString("C/9, #15, Las Escobas, Jima Arriba", fdTitle, sb, 27, 148);
             g.DrawString("RNC:80700148433", fdTitle, sb, 80, 160);
             g.DrawString("Tel: 809-954-9952", fdTitle, sb, 80, 175);
             g.DrawString("Whatsapp:809-851-2775", fdTitle, sb, 70, 185);
@@ -480,39 +474,40 @@ namespace pjPalmera.PL
             g.DrawString(Type, fTitle, sb, 75, 255);
 
             //Detail Invoice
-            g.DrawString("----------------------------------------------", fBody, sb, 5, 280);
-            g.DrawString("DESCRIPCION              CANT PRECIO  IMPORTE", fdpTitle, sb, 11, 290);
-            g.DrawString("----------------------------------------------", fBody, sb, 5, 298);
+            g.DrawString("----------------------------------------", fBody, sb, 5, 280);
+            g.DrawString("DESCRIPCION        CANT  PRECIO IMPORTE ", fdpTitle, sb, 10, 290);
+            g.DrawString("----------------------------------------", fBody, sb, 5, 298);
             int AutoScrollOffset = +14;
             int a = this.dgvDetalle.Rows.Count;
             for (int i = 0; i < a; i++)
             {
                 //g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[0].Value), fdpTitle, sb, 5, 305 + AutoScrollOffset);
-                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[1].Value), fdpTitle, sb, 5, 305 + AutoScrollOffset);
-                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[2].Value), fdpTitle, sb, 180, 305 + AutoScrollOffset);
-                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[3].Value), fdpTitle, sb, 220, 305 + AutoScrollOffset);
-                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[5].Value), fdpTitle, sb, 280, 305 + AutoScrollOffset);
+                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[1].Value), fdpTitle, sb, 5, 305 + AutoScrollOffset); //Description
+                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[2].Value), fdpTitle, sb, 135, 305 + AutoScrollOffset); //Quality
+                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[3].Value), fdpTitle, sb, 168, 305 + AutoScrollOffset);// Price
+                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[5].Value), fdpTitle, sb, 210, 305 + AutoScrollOffset); // Total Price x Unit
                 AutoScrollOffset = AutoScrollOffset + 12;
             }
 
             AutoScrollOffset = AutoScrollOffset + 12;
             g.DrawString("SubTotal", fdpTitle, sb, 100, 330 + AutoScrollOffset);
-            g.DrawString(this.txtSubtotal.Text, fBody, sb, 250, 330 + AutoScrollOffset);
+            g.DrawString(this.txtSubtotal.Text, fBody, sb, 195, 330 + AutoScrollOffset);
             g.DrawString("Total a Pagar", fdpTitle, sb, 100, 350 + AutoScrollOffset);
-            g.DrawString(this.txtTotalPagar.Text, fBody, sb, 250, 350 + AutoScrollOffset);
+            g.DrawString(this.txtTotalPagar.Text, fBody, sb, 195, 350 + AutoScrollOffset);
             g.DrawString("Descuento", fdpTitle, sb, 100, 368 + AutoScrollOffset);
-            g.DrawString(this.txtDescuento.Text, fBody, sb, 250, 368 + AutoScrollOffset);
+            g.DrawString(this.txtDescuento.Text, fBody, sb, 195, 368 + AutoScrollOffset);
             g.DrawString("", fdpTitle, sb, 100, 370 + AutoScrollOffset);
             g.DrawString("Recibido", fdpTitle, sb, 100, 389 + AutoScrollOffset);
-            g.DrawString(this.txtEfectivoRecibido.Text, fBody, sb, 250, 389 + AutoScrollOffset);
-            g.DrawString("Devuelta", fdpTitle, sb, 100, 401 + AutoScrollOffset);
-            g.DrawString(this.txtDevueltaEfectivo.Text, fBody, sb, 250, 401 + AutoScrollOffset);
+            g.DrawString(this.txtEfectivoRecibido.Text, fBody, sb, 195, 389 + AutoScrollOffset);
+            g.DrawString("Devuelta", fdpTitle, sb, 100, 405 + AutoScrollOffset);
+            g.DrawString(this.txtDevueltaEfectivo.Text, fBody, sb, 195, 405 + AutoScrollOffset);
 
-            AutoScrollOffset = AutoScrollOffset + 15;
-            g.DrawString("Nota: no hacemos devoluciones después de la 24horas,", fdpTitle, sb, 5, 500 + AutoScrollOffset);
-            g.DrawString("y mucho menos si los medicamentos se encuentran en", fdpTitle, sb, 5, 515 + AutoScrollOffset);
-            g.DrawString("mal estado.", fdpTitle, sb, 5, 520 + AutoScrollOffset);
-
+            AutoScrollOffset = AutoScrollOffset + 8;
+            g.DrawString("Nota: no hacemos devoluciones después de la 24 horas,", tbottom, sb, 5, 440 + AutoScrollOffset);
+            g.DrawString("y mucho menos si los medicamentos se encuentran en", tbottom, sb, 5, 450 + AutoScrollOffset);
+            g.DrawString("mal estado.", tbottom, sb, 5, 460 + AutoScrollOffset);
+            g.DrawString(".", tblank, sb, 5, 500 + AutoScrollOffset);
+            
 
         }
         #endregion
