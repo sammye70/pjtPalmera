@@ -35,8 +35,17 @@ namespace pjPalmera.PL
 
         private void frmRegArticulos_Load(object sender, EventArgs e)
         {
-            LoadProveedor();
-            Categories();
+            try
+            {
+                LoadProveedor();
+                Categories();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,"Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                
+            }
+
             InitializeControls();
             DesableContros();
             CleanControls();

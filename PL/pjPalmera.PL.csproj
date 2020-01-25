@@ -436,6 +436,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="folder_summer_13091.ico" />
+    <None Include="Resources\poor.png" />
+    <None Include="Resources\pack.png" />
     <None Include="Resources\refresh.ico" />
     <None Include="Resources\apply.ico" />
     <None Include="Resources\56-512.png" />

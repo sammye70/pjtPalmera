@@ -126,6 +126,8 @@ namespace pjPalmera.PL
         private void DetailControls()
         {
             this.toolTip1.SetToolTip(this.pbExitApp,"Salir del Sistema");
+            this.toolTip1.SetToolTip(this.pictureBox2, "Realizar Venta");
+            this.toolTip1.SetToolTip(this.pictureBox3,"Crear Nuevos Productos");
         }
 
         /// <summary>
@@ -165,6 +167,12 @@ namespace pjPalmera.PL
         {
             frmEditarProductos EditProductos = new frmEditarProductos();
             EditProductos.ShowDialog(this);
+        }
+
+        private void pictureBox3_Click_1(object sender, EventArgs e)
+        {
+            frmRegArticulos n_productos = new frmRegArticulos();
+            n_productos.ShowDialog(this);
         }
     }
 }

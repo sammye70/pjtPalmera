@@ -147,17 +147,38 @@ namespace pjPalmera.PL
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            
-           if (!ValidatorPost())
-                return;
+            TicketVentaEntity caja = new TicketVentaEntity();
 
-            Save_Invoices();
-            PrintTicket();
-            MessageBox.Show("Venta Procesada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            NewInvoice();
-            LimpiarEfectivo();
-            Limpiar();
-            this.txtProductos.Focus();
+          // if (!ValidatorPost())
+           //     return;
+
+            MessageBox.Show("Imprimir Recibo","Mesnsaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if ( DialogResult == DialogResult.No)
+            {
+
+                //Save_Invoices();
+                //PrintTicket();
+                //PrintTicket();
+                //caja.AbreCajon();
+                MessageBox.Show("Se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Venta Procesada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                NewInvoice();
+                LimpiarEfectivo();
+                Limpiar();
+                this.txtProductos.Focus();
+            }
+            else
+            {
+              //  Save_Invoices();
+                PrintTicket();
+                MessageBox.Show("Se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Venta Procesada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //NewInvoice();
+                LimpiarEfectivo();
+                Limpiar();
+                this.txtProductos.Focus();
+            }
         }
 
 
@@ -445,8 +466,8 @@ namespace pjPalmera.PL
             RawPrinterHelper j = new RawPrinterHelper(); //
 
             //Header invoice
-            int AutoScrollOffset1= -100;
-            AutoScrollOffset1 = AutoScrollOffset1 -100;
+          //  int AutoScrollOffset1= -100;
+         //   AutoScrollOffset1 = AutoScrollOffset1 -100;
             g.DrawString("Farmacia CRM", ffTitle, sb, 75, 120);
             g.DrawString("Donde tu Salud es Nuestra Prioridad", fTitle, sb, 20, 134);
             g.DrawString("C/9, #15, Las Escobas, Jima Arriba", fdTitle, sb, 27, 148);
@@ -506,9 +527,12 @@ namespace pjPalmera.PL
             g.DrawString("Nota: no hacemos devoluciones después de la 24 horas,", tbottom, sb, 5, 440 + AutoScrollOffset);
             g.DrawString("y mucho menos si los medicamentos se encuentran en", tbottom, sb, 5, 450 + AutoScrollOffset);
             g.DrawString("mal estado.", tbottom, sb, 5, 460 + AutoScrollOffset);
-            g.DrawString(".", tblank, sb, 5, 500 + AutoScrollOffset);
-            
 
+            g.DrawString("Tu eres la persona mas linda que Jesus", fTitle, sb, 5, 480 + AutoScrollOffset);
+            g.DrawString("tiene en este mundo Buscale.", fTitle, sb, 5, 495 + AutoScrollOffset);
+
+            g.DrawString(".", tblank, sb, 5, 600 + AutoScrollOffset);
+            // 
         }
         #endregion
 
