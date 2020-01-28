@@ -62,7 +62,7 @@ namespace pjPalmera.PL
         private void facturasEmitidasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmConsulFactEmitidas ConsultFactEmit = new frmConsulFactEmitidas();
-            ConsultFactEmit.Show();
+            ConsultFactEmit.ShowDialog(this);
         }
 
         private void toolStripLabel1_Click(object sender, EventArgs e)
@@ -128,6 +128,7 @@ namespace pjPalmera.PL
             this.toolTip1.SetToolTip(this.pbExitApp,"Salir del Sistema");
             this.toolTip1.SetToolTip(this.pictureBox2, "Realizar Venta");
             this.toolTip1.SetToolTip(this.pictureBox3,"Crear Nuevos Productos");
+            this.toolTip1.SetToolTip(this.pictureBox4,"Ingresar Pedidos");
         }
 
         /// <summary>

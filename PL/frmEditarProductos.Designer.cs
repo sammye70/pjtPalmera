@@ -41,6 +41,7 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtCriterioBusqueda = new System.Windows.Forms.TextBox();
+            this.btnEditarProd = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProdConsultar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -55,9 +56,9 @@
             this.dgvProdConsultar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvProdConsultar.Location = new System.Drawing.Point(6, 110);
             this.dgvProdConsultar.Name = "dgvProdConsultar";
+            this.dgvProdConsultar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvProdConsultar.Size = new System.Drawing.Size(1006, 347);
             this.dgvProdConsultar.TabIndex = 2;
-            this.dgvProdConsultar.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProdConsultar_CellClick);
             // 
             // errorProvider1
             // 
@@ -66,6 +67,7 @@
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.btnEditarProd);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.btnRefrescar);
@@ -114,7 +116,7 @@
             // button2
             // 
             this.button2.Image = global::PL.Properties.Resources.trash;
-            this.button2.Location = new System.Drawing.Point(780, 18);
+            this.button2.Location = new System.Drawing.Point(842, 24);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(56, 43);
             this.button2.TabIndex = 9;
@@ -123,7 +125,7 @@
             // btnRefrescar
             // 
             this.btnRefrescar.Image = global::PL.Properties.Resources.refresh;
-            this.btnRefrescar.Location = new System.Drawing.Point(842, 18);
+            this.btnRefrescar.Location = new System.Drawing.Point(910, 24);
             this.btnRefrescar.Name = "btnRefrescar";
             this.btnRefrescar.Size = new System.Drawing.Size(56, 43);
             this.btnRefrescar.TabIndex = 8;
@@ -156,6 +158,18 @@
             this.txtCriterioBusqueda.Name = "txtCriterioBusqueda";
             this.txtCriterioBusqueda.Size = new System.Drawing.Size(267, 20);
             this.txtCriterioBusqueda.TabIndex = 5;
+            // 
+            // btnEditarProd
+            // 
+            this.btnEditarProd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEditarProd.Image = global::PL.Properties.Resources.edit;
+            this.btnEditarProd.Location = new System.Drawing.Point(771, 24);
+            this.btnEditarProd.Margin = new System.Windows.Forms.Padding(4);
+            this.btnEditarProd.Name = "btnEditarProd";
+            this.btnEditarProd.Size = new System.Drawing.Size(64, 42);
+            this.btnEditarProd.TabIndex = 52;
+            this.btnEditarProd.UseVisualStyleBackColor = true;
+            this.btnEditarProd.Click += new System.EventHandler(this.btnEditarProd_Click);
             // 
             // frmEditarProductos
             // 
@@ -192,5 +206,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
+        public System.Windows.Forms.Button btnEditarProd;
     }
 }

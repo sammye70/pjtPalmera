@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvFacturasEmitidas = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rbFecha = new System.Windows.Forms.RadioButton();
             this.rbNumFact = new System.Windows.Forms.RadioButton();
@@ -36,17 +36,21 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtValorCriterio2 = new System.Windows.Forms.TextBox();
             this.txtValorCriterio1 = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.btnExpExcel = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFacturasEmitidas)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // dgvFacturasEmitidas
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(8, 70);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(656, 330);
-            this.dataGridView1.TabIndex = 13;
+            this.dgvFacturasEmitidas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvFacturasEmitidas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvFacturasEmitidas.Location = new System.Drawing.Point(8, 70);
+            this.dgvFacturasEmitidas.Name = "dgvFacturasEmitidas";
+            this.dgvFacturasEmitidas.Size = new System.Drawing.Size(954, 362);
+            this.dgvFacturasEmitidas.TabIndex = 13;
             // 
             // groupBox1
             // 
@@ -57,7 +61,7 @@
             this.groupBox1.Size = new System.Drawing.Size(258, 52);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Criterio de Filtrado";
+            this.groupBox1.Text = "Filtrado por";
             // 
             // rbFecha
             // 
@@ -115,21 +119,32 @@
             this.txtValorCriterio1.Size = new System.Drawing.Size(100, 20);
             this.txtValorCriterio1.TabIndex = 8;
             // 
+            // btnExpExcel
+            // 
+            this.btnExpExcel.Location = new System.Drawing.Point(678, 15);
+            this.btnExpExcel.Name = "btnExpExcel";
+            this.btnExpExcel.Size = new System.Drawing.Size(110, 31);
+            this.btnExpExcel.TabIndex = 14;
+            this.btnExpExcel.Text = "Exportar a Excel";
+            this.btnExpExcel.UseVisualStyleBackColor = true;
+            // 
             // frmConsulFactEmitidas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(673, 409);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(971, 441);
+            this.Controls.Add(this.btnExpExcel);
+            this.Controls.Add(this.dgvFacturasEmitidas);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtValorCriterio2);
             this.Controls.Add(this.txtValorCriterio1);
             this.Name = "frmConsulFactEmitidas";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Consulta de Facturas Emitidas";
             this.Load += new System.EventHandler(this.frmConsulFactEmitidas_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFacturasEmitidas)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -139,7 +154,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvFacturasEmitidas;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rbFecha;
         private System.Windows.Forms.RadioButton rbNumFact;
@@ -147,5 +162,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtValorCriterio2;
         private System.Windows.Forms.TextBox txtValorCriterio1;
+        private System.Windows.Forms.Button btnExpExcel;
     }
 }

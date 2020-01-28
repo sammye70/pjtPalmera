@@ -99,5 +99,23 @@ namespace pjPalmera.BLL
                 return;
             }
         }
+
+        /// <summary>
+        /// Update Information about some product
+        /// </summary>
+        /// <param name="producto"></param>
+        public static void Update_Info_Product(ProductosEntity producto)
+        {
+            try
+            {
+                ProductosDAL.Update_info_product(producto);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+        }
     }
 }

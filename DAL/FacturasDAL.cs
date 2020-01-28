@@ -86,5 +86,50 @@ namespace pjPalmera.DAL
                 con.Close();
             }
         }
+
+        /// <summary>
+        /// Get All Bills
+        /// </summary>
+        public static List<VentaEntity> GetAll()
+        {
+            List<VentaEntity> list = new List<VentaEntity>();
+
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string query = @"select * from venta";
+
+                MySqlCommand cmd = new MySqlCommand(query,con);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    list.Add(LoadVentas(reader));
+                }
+
+                return list;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private static VentaEntity LoadVentas(IDataReader reader)
+        {
+            VentaEntity venta = new VentaEntity();
+
+            venta.id = Convert.ToInt64(reader["id"]);
+            venta.clientes = Convert.ToString(reader["nombre"]);
+            venta.f_factura = Convert.ToDateTime(reader["created"]);
+            venta.total = Convert.ToDecimal(reader["total"]);
+            venta.status = Convert.ToInt32(reader["status"]);
+            venta.descuento = Convert.ToDecimal(reader["descuento"]);
+            //venta.recibido = Convert.ToDecimal(reader["recibido"]);
+            //venta.devuelta = Convert.ToDecimal(reader["devuelta"]);
+
+            return venta;
+        }
     }
 }

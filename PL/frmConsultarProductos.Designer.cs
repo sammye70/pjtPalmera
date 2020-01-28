@@ -33,6 +33,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnExpExcel = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -47,7 +48,7 @@
             this.dgvProdConsultar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvProdConsultar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProdConsultar.Location = new System.Drawing.Point(7, 83);
+            this.dgvProdConsultar.Location = new System.Drawing.Point(12, 91);
             this.dgvProdConsultar.Name = "dgvProdConsultar";
             this.dgvProdConsultar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvProdConsultar.Size = new System.Drawing.Size(1053, 383);
@@ -61,6 +62,7 @@
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.btnExpExcel);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label1);
@@ -69,6 +71,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1053, 56);
             this.panel1.TabIndex = 1;
+            // 
+            // btnExpExcel
+            // 
+            this.btnExpExcel.Location = new System.Drawing.Point(518, 10);
+            this.btnExpExcel.Name = "btnExpExcel";
+            this.btnExpExcel.Size = new System.Drawing.Size(102, 43);
+            this.btnExpExcel.TabIndex = 10;
+            this.btnExpExcel.Text = "Exportar a Excel";
+            this.btnExpExcel.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
@@ -133,5 +144,6 @@
         private System.Windows.Forms.TextBox txtCriterioBusqueda;
         private System.Windows.Forms.Button button2;
         public System.Windows.Forms.DataGridView dgvProdConsultar;
+        public System.Windows.Forms.Button btnExpExcel;
     }
 }

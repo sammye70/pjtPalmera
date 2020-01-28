@@ -76,7 +76,7 @@ namespace pjPalmera.DAL
 
 
         /// <summary>
-        /// Update Stock on table productos
+        /// Update Stock (Decrease) on table productos
         /// </summary>
         /// 
         /// Author: Samuel Estrella
@@ -137,6 +137,36 @@ namespace pjPalmera.DAL
                 con.Close();   
             }
         }
+
+        /// <summary>
+        /// Update Information about some product
+        /// </summary>
+        public static void Update_info_product(ProductosEntity productos)
+        {
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string query = @"UPDATE productos SET productos.idproducto=@idproducto, productos.descripcion=@descripcion, productos.f_vencimiento=@f_vencimiento,
+                                        productos.p_venta=@p_venta, productos.costo=@costo, productos.idfamilia=@idfamilia, productos.idfabricante=@idfabricante    
+                                WHERE idproducto=@idproducto";
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@idproducto", productos.Idproducto);
+                cmd.Parameters.AddWithValue("@descripcion", productos.Descripcion);
+                cmd.Parameters.AddWithValue("@f_vencimiento", productos.Vencimiento);
+                cmd.Parameters.AddWithValue("@p_venta", productos.Precio_venta);
+                cmd.Parameters.AddWithValue("@costo", productos.Costo);
+                cmd.Parameters.AddWithValue("@idfamilia", productos.Categoria);
+                cmd.Parameters.AddWithValue("@idfabricante", productos.Fabricante);
+
+                productos.Idproducto = Convert.ToInt64(cmd.ExecuteScalar());
+                con.Close();
+
+            }
+
+        }
+
 
         /// <summary>
         /// Search Products by Code

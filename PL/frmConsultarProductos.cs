@@ -72,13 +72,43 @@ namespace pjPalmera.PL
 
         private void dgvProdConsultar_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex == -1)
-                return;
+            //Check Stock if < 1 messager
 
-            _idproducto =Convert.ToInt64(dgvProdConsultar.Rows[e.RowIndex].Cells["Idproducto"].Value);
+           decimal cvalor = Convert.ToDecimal (this.dgvProdConsultar.Rows[e.RowIndex].Cells["Stock"].Value);
 
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            try
+            {
+                if (cvalor == 0)
+                {
+                  //  if (e.RowIndex == -1)
+                    //    return;
+
+                    _idproducto = Convert.ToInt64(dgvProdConsultar.Rows[e.RowIndex].Cells["Idproducto"].Value);
+
+                    MessageBox.Show("No hay Stock disponible del producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    this.dgvProdConsultar.DataSource = null;
+                    this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+                    return;
+
+
+                }
+                else
+                {
+                    if (e.RowIndex == -1)
+                        return;
+
+                    _idproducto = Convert.ToInt64(dgvProdConsultar.Rows[e.RowIndex].Cells["Idproducto"].Value);
+
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void button1_Click(object sender, EventArgs e)

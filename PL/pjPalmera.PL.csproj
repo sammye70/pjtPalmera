@@ -436,6 +436,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="folder_summer_13091.ico" />
+    <None Include="Resources\office-excel.ico" />
+    <None Include="Resources\excel.png" />
+    <None Include="Resources\calendar.ico" />
+    <None Include="Resources\edit.ico" />
     <None Include="Resources\poor.png" />
     <None Include="Resources\pack.png" />
     <None Include="Resources\refresh.ico" />

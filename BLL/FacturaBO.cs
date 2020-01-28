@@ -47,5 +47,10 @@ namespace pjPalmera.BLL
             }
         }
 
+        public static List<VentaEntity> GetAll()
+        {
+            return FacturasDAL.GetAll();
+        }
+
     }
 }

@@ -15,6 +15,8 @@ namespace pjPalmera.PL
     public partial class frmRegArticulos : Form
     {
         ProductosEntity producto = null;
+        frmConsultarProductos cproductos = new frmConsultarProductos();
+
         public frmRegArticulos()
         {
             InitializeComponent();
@@ -35,16 +37,6 @@ namespace pjPalmera.PL
 
         private void frmRegArticulos_Load(object sender, EventArgs e)
         {
-            try
-            {
-                LoadProveedor();
-                Categories();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message,"Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                
-            }
 
             InitializeControls();
             DesableContros();
@@ -83,16 +75,27 @@ namespace pjPalmera.PL
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
+            try
+            {
+                LoadProveedor();
+                Categories();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+            }
+
             EnableControls();
+            CleanControls();
             producto = null;
             this.txtCodigo.Focus();
-            
         }
 
         /// <summary>
         /// Load Categories
         /// </summary>
-        private void Categories()
+        public void Categories()
         {
             this.cmbFamilia.DisplayMember = "category";
             this.cmbFamilia.DataSource = CategoriaBO.GetAll();
@@ -101,7 +104,7 @@ namespace pjPalmera.PL
         /// <summary>
         /// Load Provider
         /// </summary>
-        private void LoadProveedor()
+        public void LoadProveedor()
         {
             this.cmbFabrincante.DisplayMember = "nombre_proveedor";
             this.cmbFabrincante.DataSource=ProveedorBO.GetAllProveedor_();
@@ -123,12 +126,13 @@ namespace pjPalmera.PL
             this.cmbFamilia.Enabled = false;
             this.dateTimePicker1.Enabled = false;
             this.cmbEstanteLocalizacion.Enabled = false;
+            this.btnUpdateFields.Visible = false;
         }
 
         /// <summary>
-        /// Enable all Controls from form
+        /// Enable all Controls from RegArticulos
         /// </summary>
-        private void EnableControls()
+        public void EnableControls()
         {
             this.txtCodigo.Enabled = true;
             this.txtCosto.Enabled = true;
@@ -141,6 +145,7 @@ namespace pjPalmera.PL
             this.cmbFamilia.Enabled = true;
             this.dateTimePicker1.Enabled = true;
             this.cmbEstanteLocalizacion.Enabled = true;
+           
         }
 
         /// <summary>
@@ -151,6 +156,7 @@ namespace pjPalmera.PL
             this.toolTip1.SetToolTip(btnNuevo, "Nuevo Registro");
             this.toolTip1.SetToolTip(btnGuardar, "Guardar Registro");
             this.toolTip1.SetToolTip(btnCancelar, "Limpiar Campos");
+            this.toolTip1.SetToolTip(btnUpdateFields, "Guardar Registro");
             this.dateTimePicker1.Format = DateTimePickerFormat.Short;
         }
 
@@ -178,6 +184,30 @@ namespace pjPalmera.PL
             }
 
         }
+
+
+
+        /// <summary>
+        /// Update Fields Product
+        /// </summary>
+        private void UpdateFields()
+        {
+
+            producto = new ProductosEntity();
+
+            producto.Idproducto = Convert.ToInt64(this.txtCodigo.Text);
+            producto.Fabricante = this.cmbFabrincante.Text;
+            producto.Descripcion = this.txtDescripcion.Text;
+            producto.Categoria = this.cmbFamilia.Text;
+            producto.Vencimiento = Convert.ToDateTime(dateTimePicker1.Value.Date.ToShortDateString());
+            producto.Costo = Convert.ToDecimal(this.txtCosto.Text);
+            producto.Precio_venta = Convert.ToDecimal(txtPrecioVenta.Text);
+
+            ProductosBO.Update_Info_Product(producto);
+
+            MessageBox.Show("Guardado Satisfactoriamente","Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
 
         /// <summary>
         /// Clean Content to all Controls
@@ -288,7 +318,6 @@ namespace pjPalmera.PL
                     pg = (c * 30) / 100;
                     pv = c + pg;
                     this.txtPrecioVenta.Text = Convert.ToString(pv);
-
                 }
                 catch
                 {
@@ -302,6 +331,23 @@ namespace pjPalmera.PL
         {
             frmRegProveedor proveedor = new frmRegProveedor();
             proveedor.ShowDialog(this);
+        }
+
+        private void btnUpdateFields_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                UpdateFields();
+                MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                cproductos.dgvProdConsultar.DataSource = null;
+                cproductos.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
     }
 }

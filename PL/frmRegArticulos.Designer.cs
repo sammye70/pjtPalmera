@@ -36,10 +36,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblStockInicial = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.lblStockMinimo = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.cmbFabrincante = new System.Windows.Forms.ComboBox();
             this.cmbFamilia = new System.Windows.Forms.ComboBox();
@@ -57,6 +57,7 @@
             this.btnAgregarCategoria = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.button1 = new System.Windows.Forms.Button();
+            this.btnUpdateFields = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -117,14 +118,14 @@
             this.txtDescripcion.Size = new System.Drawing.Size(426, 20);
             this.txtDescripcion.TabIndex = 6;
             // 
-            // label5
+            // lblStockInicial
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(373, 188);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 13);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Stock Inicial";
+            this.lblStockInicial.AutoSize = true;
+            this.lblStockInicial.Location = new System.Drawing.Point(373, 185);
+            this.lblStockInicial.Name = "lblStockInicial";
+            this.lblStockInicial.Size = new System.Drawing.Size(65, 13);
+            this.lblStockInicial.TabIndex = 7;
+            this.lblStockInicial.Text = "Stock Inicial";
             // 
             // label6
             // 
@@ -144,14 +145,14 @@
             this.label7.TabIndex = 9;
             this.label7.Text = "Precio Venta";
             // 
-            // label8
+            // lblStockMinimo
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(505, 188);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(71, 13);
-            this.label8.TabIndex = 10;
-            this.label8.Text = "Stock Minimo";
+            this.lblStockMinimo.AutoSize = true;
+            this.lblStockMinimo.Location = new System.Drawing.Point(502, 185);
+            this.lblStockMinimo.Name = "lblStockMinimo";
+            this.lblStockMinimo.Size = new System.Drawing.Size(71, 13);
+            this.lblStockMinimo.TabIndex = 10;
+            this.lblStockMinimo.Text = "Stock Minimo";
             // 
             // label9
             // 
@@ -195,14 +196,14 @@
             // 
             // txtStockInicial
             // 
-            this.txtStockInicial.Location = new System.Drawing.Point(444, 185);
+            this.txtStockInicial.Location = new System.Drawing.Point(444, 182);
             this.txtStockInicial.Name = "txtStockInicial";
             this.txtStockInicial.Size = new System.Drawing.Size(55, 20);
             this.txtStockInicial.TabIndex = 16;
             // 
             // txtStockMinimo
             // 
-            this.txtStockMinimo.Location = new System.Drawing.Point(576, 185);
+            this.txtStockMinimo.Location = new System.Drawing.Point(576, 182);
             this.txtStockMinimo.Name = "txtStockMinimo";
             this.txtStockMinimo.Size = new System.Drawing.Size(55, 20);
             this.txtStockMinimo.TabIndex = 17;
@@ -215,6 +216,7 @@
             this.label10.Size = new System.Drawing.Size(131, 13);
             this.label10.TabIndex = 21;
             this.label10.Text = "Localizacion en el Estante";
+            this.label10.Visible = false;
             // 
             // cmbEstanteLocalizacion
             // 
@@ -223,6 +225,7 @@
             this.cmbEstanteLocalizacion.Name = "cmbEstanteLocalizacion";
             this.cmbEstanteLocalizacion.Size = new System.Drawing.Size(77, 21);
             this.cmbEstanteLocalizacion.TabIndex = 22;
+            this.cmbEstanteLocalizacion.Visible = false;
             // 
             // btnCancelar
             // 
@@ -288,11 +291,22 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // btnUpdateFields
+            // 
+            this.btnUpdateFields.Image = global::PL.Properties.Resources.save;
+            this.btnUpdateFields.Location = new System.Drawing.Point(500, 230);
+            this.btnUpdateFields.Name = "btnUpdateFields";
+            this.btnUpdateFields.Size = new System.Drawing.Size(75, 51);
+            this.btnUpdateFields.TabIndex = 26;
+            this.btnUpdateFields.UseVisualStyleBackColor = true;
+            this.btnUpdateFields.Click += new System.EventHandler(this.btnUpdateFields_Click);
+            // 
             // frmRegArticulos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(678, 292);
+            this.Controls.Add(this.btnUpdateFields);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnAgregarCategoria);
             this.Controls.Add(this.groupBox1);
@@ -308,10 +322,10 @@
             this.Controls.Add(this.cmbFamilia);
             this.Controls.Add(this.cmbFabrincante);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.label8);
+            this.Controls.Add(this.lblStockMinimo);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.lblStockInicial);
             this.Controls.Add(this.txtDescripcion);
             this.Controls.Add(this.txtCodigo);
             this.Controls.Add(this.label4);
@@ -334,30 +348,31 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtCodigo;
-        private System.Windows.Forms.TextBox txtDescripcion;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox cmbFabrincante;
-        private System.Windows.Forms.ComboBox cmbFamilia;
-        private System.Windows.Forms.TextBox txtCosto;
-        private System.Windows.Forms.TextBox txtPrecioVenta;
-        private System.Windows.Forms.TextBox txtStockInicial;
-        private System.Windows.Forms.TextBox txtStockMinimo;
-        private System.Windows.Forms.Button btnNuevo;
-        private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.ComboBox cmbEstanteLocalizacion;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnAgregarCategoria;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Button button1;
+        public System.Windows.Forms.Label lblStockInicial;
+        public System.Windows.Forms.Label lblStockMinimo;
+        public System.Windows.Forms.TextBox txtStockInicial;
+        public System.Windows.Forms.TextBox txtStockMinimo;
+        public System.Windows.Forms.Button btnUpdateFields;
+        public System.Windows.Forms.Button btnNuevo;
+        public System.Windows.Forms.Button btnGuardar;
+        public System.Windows.Forms.TextBox txtCodigo;
+        public System.Windows.Forms.DateTimePicker dateTimePicker1;
+        public System.Windows.Forms.TextBox txtDescripcion;
+        public System.Windows.Forms.ComboBox cmbFabrincante;
+        public System.Windows.Forms.ComboBox cmbFamilia;
+        public System.Windows.Forms.TextBox txtCosto;
+        public System.Windows.Forms.TextBox txtPrecioVenta;
+        public System.Windows.Forms.ComboBox cmbEstanteLocalizacion;
     }
 }

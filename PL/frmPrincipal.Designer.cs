@@ -65,12 +65,16 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pbExitApp = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.operacionesDeCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
+            this.abrirCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cierreDeCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -146,8 +150,8 @@
             // consultarFacturasToolStripMenuItem
             // 
             this.consultarFacturasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.facturasAnuladasToolStripMenuItem,
-            this.facturasEmitidasToolStripMenuItem});
+            this.facturasEmitidasToolStripMenuItem,
+            this.facturasAnuladasToolStripMenuItem});
             this.consultarFacturasToolStripMenuItem.Name = "consultarFacturasToolStripMenuItem";
             this.consultarFacturasToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.consultarFacturasToolStripMenuItem.Text = "Consultar Facturas";
@@ -305,7 +309,9 @@
             // ajustesToolStripMenuItem
             // 
             this.ajustesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.registroDePersonasToolStripMenuItem});
+            this.registroDePersonasToolStripMenuItem,
+            this.toolStripMenuItem5,
+            this.operacionesDeCajaToolStripMenuItem});
             this.ajustesToolStripMenuItem.Name = "ajustesToolStripMenuItem";
             this.ajustesToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.ajustesToolStripMenuItem.Text = "Ajustes";
@@ -418,6 +424,32 @@
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             // 
+            // operacionesDeCajaToolStripMenuItem
+            // 
+            this.operacionesDeCajaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.abrirCajaToolStripMenuItem,
+            this.cierreDeCajaToolStripMenuItem});
+            this.operacionesDeCajaToolStripMenuItem.Name = "operacionesDeCajaToolStripMenuItem";
+            this.operacionesDeCajaToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.operacionesDeCajaToolStripMenuItem.Text = "Operaciones de Caja";
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(180, 6);
+            // 
+            // abrirCajaToolStripMenuItem
+            // 
+            this.abrirCajaToolStripMenuItem.Name = "abrirCajaToolStripMenuItem";
+            this.abrirCajaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.abrirCajaToolStripMenuItem.Text = "Abrir Caja";
+            // 
+            // cierreDeCajaToolStripMenuItem
+            // 
+            this.cierreDeCajaToolStripMenuItem.Name = "cierreDeCajaToolStripMenuItem";
+            this.cierreDeCajaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cierreDeCajaToolStripMenuItem.Text = "Cierre de Caja";
+            // 
             // frmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -492,5 +524,9 @@
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem operacionesDeCajaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem abrirCajaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cierreDeCajaToolStripMenuItem;
     }
 }

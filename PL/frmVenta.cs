@@ -7,11 +7,10 @@ using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 using pjPalmera.Entities;
 using pjPalmera.BLL;
-//using pjPalmera.DAL;
+
 
 namespace pjPalmera.PL
 {
@@ -133,6 +132,7 @@ namespace pjPalmera.PL
 
         private void btnBuscarClientes_Click_1(object sender, EventArgs e)
         {
+
             frmConsulClientes Con_Clientes = new PL.frmConsulClientes();
 
             if (Con_Clientes.ShowDialog() == DialogResult.OK)
@@ -147,22 +147,22 @@ namespace pjPalmera.PL
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            TicketVentaEntity caja = new TicketVentaEntity();
+          //  TicketVentaEntity caja = new TicketVentaEntity();
 
-          // if (!ValidatorPost())
-           //     return;
+           if (!ValidatorPost())
+               return;
 
-            MessageBox.Show("Imprimir Recibo","Mesnsaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            MessageBox.Show("Imprimir Recibo","Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if ( DialogResult == DialogResult.No)
             {
 
-                //Save_Invoices();
+                Save_Invoices();
                 //PrintTicket();
                 //PrintTicket();
                 //caja.AbreCajon();
-                MessageBox.Show("Se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //MessageBox.Show("Venta Procesada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Venta Procesada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 NewInvoice();
                 LimpiarEfectivo();
                 Limpiar();
@@ -170,11 +170,11 @@ namespace pjPalmera.PL
             }
             else
             {
-              //  Save_Invoices();
+                Save_Invoices();
                 PrintTicket();
-                MessageBox.Show("Se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MessageBox.Show("Venta Procesada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //NewInvoice();
+                NewInvoice();
                 LimpiarEfectivo();
                 Limpiar();
                 this.txtProductos.Focus();
@@ -391,12 +391,15 @@ namespace pjPalmera.PL
         /// <summary>
         /// Search Product by Id
         /// </summary>
-        private void SearchProduct()
+        public void SearchProduct()
         {
             frmConsultarProductos consulProductos = new frmConsultarProductos();
+            //  consulProductos.btnEditarProd.Visible = false;
+            consulProductos.btnExpExcel.Visible = false;
 
             if (consulProductos.ShowDialog() == DialogResult.OK)
             {
+                
 
                 producto = ProductosBO.Searh_Code(consulProductos.Idproducto);
 
@@ -455,10 +458,10 @@ namespace pjPalmera.PL
             Font fBody = new Font("Lucida Console", 7, FontStyle.Regular);// Format Font for Body
             Font ffTitle = new Font("Lucida Console", 11, FontStyle.Bold); // Format Font for Title Company Name
             Font fTitle = new Font("Lucida Console", 7, FontStyle.Bold); // Format Font for Title
-            Font fdpTitle = new Font("Lucida Console", 7, FontStyle.Bold); // Format Font Detail Products
-            Font tbottom = new Font("Lucida Console", 5, FontStyle.Bold); // Format Font Messege Bottom
+            Font fdpTitle = new Font("Lucida Console", 7, FontStyle.Regular); // Format Font Detail Products
+            Font tbottom = new Font("Lucida Console", 5, FontStyle.Regular); // Format Font Messege Bottom
             Font tblank = new Font("Lucida Console", 19, FontStyle.Bold); // Format Font  Bottom
-            Font fdTitle = new Font("Lucida Console", 7, FontStyle.Bold);//Format Font for Detail Title (Address,Telephone, etc.. About Company Information)
+            Font fdTitle = new Font("Lucida Console", 7, FontStyle.Regular);//Format Font for Detail Title (Address,Telephone, etc.. About Company Information)
             Graphics g = e.Graphics;
             SolidBrush sb = new SolidBrush(Color.Black); // Set Brush color for Drawing Charaters
             string Type = "FACTURA AL CONTADO"; //Type of invoice
@@ -487,7 +490,7 @@ namespace pjPalmera.PL
             {
                 Type = "FACTURA A CREDITO";
             }
-            if ((this.txtClientes.Text == "CONTADO") && (this.txtApClientes.Text == "CONTADO"))
+            if (this.txtClientes.Text == "CONTADO")
             {
                 this.txtApClientes.Text = "";
             }

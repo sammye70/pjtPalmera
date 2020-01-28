@@ -6,15 +6,20 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using pjPalmera.Entities;
+using pjPalmera.BLL;
 using System.Windows.Forms;
 
 namespace pjPalmera.PL
 {
     public partial class frmConsulFactEmitidas : Form
     {
+        VentaEntity venta = new VentaEntity();
+
         public frmConsulFactEmitidas()
         {
             InitializeComponent();
+            LoadInvoices();
         }
 
         private void rbNumFact_CheckedChanged(object sender, EventArgs e)
@@ -30,13 +35,16 @@ namespace pjPalmera.PL
             }
         }
 
-
+        ///
         private void Limpiar()
         {
             this.txtValorCriterio1.Clear();
             this.txtValorCriterio2.Clear();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void Deshabilitar()
         {
             this.label1.Visible = false;
@@ -46,11 +54,22 @@ namespace pjPalmera.PL
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void Habilitar()
         {
-
             this.label1.Visible = true;
             this.txtValorCriterio1.Visible = true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void LoadInvoices()
+        {
+            this.dgvFacturasEmitidas.DataSource = null;
+          this.dgvFacturasEmitidas.DataSource= FacturaBO.GetAll();
         }
 
         private void rbFecha_CheckedChanged(object sender, EventArgs e)
@@ -63,7 +82,6 @@ namespace pjPalmera.PL
             Limpiar();
             this.txtValorCriterio1.Focus();
         }
-
 
 
         private void frmConsulFactEmitidas_Load(object sender, EventArgs e)

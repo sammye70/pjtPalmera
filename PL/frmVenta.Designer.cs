@@ -42,14 +42,12 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.btnBuscarClientes = new System.Windows.Forms.Button();
             this.txtClientes = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtPrecio = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.btnBuscarProducto = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.txtCantidad = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -57,13 +55,7 @@
             this.cmbTipoVenta = new System.Windows.Forms.ComboBox();
             this.txtProductos = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnGuardar = new System.Windows.Forms.Button();
-            this.btnEliminar = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnNuevo = new System.Windows.Forms.Button();
-            this.btnAgregar = new System.Windows.Forms.Button();
             this.txtItbis = new System.Windows.Forms.TextBox();
-            this.btnPagar = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.txtDevueltaEfectivo = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -80,6 +72,14 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnBuscarClientes = new System.Windows.Forms.Button();
+            this.btnBuscarProducto = new System.Windows.Forms.Button();
+            this.btnGuardar = new System.Windows.Forms.Button();
+            this.btnEliminar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnNuevo = new System.Windows.Forms.Button();
+            this.btnAgregar = new System.Windows.Forms.Button();
+            this.btnPagar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -106,6 +106,8 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.txtValor);
+            this.groupBox1.Controls.Add(this.txtIdCliente);
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.txtItbis);
@@ -122,8 +124,6 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.txtValor);
-            this.groupBox3.Controls.Add(this.txtIdCliente);
             this.groupBox3.Controls.Add(this.chbDescuento);
             this.groupBox3.Controls.Add(this.txtApClientes);
             this.groupBox3.Controls.Add(this.label18);
@@ -156,17 +156,17 @@
             // 
             // txtValor
             // 
-            this.txtValor.Location = new System.Drawing.Point(843, 28);
+            this.txtValor.Location = new System.Drawing.Point(900, 245);
             this.txtValor.Name = "txtValor";
-            this.txtValor.Size = new System.Drawing.Size(100, 24);
+            this.txtValor.Size = new System.Drawing.Size(100, 22);
             this.txtValor.TabIndex = 60;
             this.txtValor.Visible = false;
             // 
             // txtIdCliente
             // 
-            this.txtIdCliente.Location = new System.Drawing.Point(843, 62);
+            this.txtIdCliente.Location = new System.Drawing.Point(900, 279);
             this.txtIdCliente.Name = "txtIdCliente";
-            this.txtIdCliente.Size = new System.Drawing.Size(100, 24);
+            this.txtIdCliente.Size = new System.Drawing.Size(100, 22);
             this.txtIdCliente.TabIndex = 59;
             this.txtIdCliente.Visible = false;
             // 
@@ -204,7 +204,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(1046, 56);
+            this.label15.Location = new System.Drawing.Point(974, 56);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(54, 18);
@@ -215,7 +215,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(1046, 88);
+            this.label14.Location = new System.Drawing.Point(974, 88);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(45, 18);
@@ -226,7 +226,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(972, 28);
+            this.label13.Location = new System.Drawing.Point(900, 28);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(84, 18);
@@ -237,7 +237,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(972, 56);
+            this.label12.Location = new System.Drawing.Point(900, 56);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(59, 18);
@@ -248,23 +248,12 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(972, 88);
+            this.label11.Location = new System.Drawing.Point(900, 88);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(50, 18);
             this.label11.TabIndex = 51;
             this.label11.Text = "Hora:";
-            // 
-            // btnBuscarClientes
-            // 
-            this.btnBuscarClientes.Image = global::PL.Properties.Resources.search;
-            this.btnBuscarClientes.Location = new System.Drawing.Point(745, 14);
-            this.btnBuscarClientes.Margin = new System.Windows.Forms.Padding(4);
-            this.btnBuscarClientes.Name = "btnBuscarClientes";
-            this.btnBuscarClientes.Size = new System.Drawing.Size(44, 36);
-            this.btnBuscarClientes.TabIndex = 50;
-            this.btnBuscarClientes.UseVisualStyleBackColor = true;
-            this.btnBuscarClientes.Click += new System.EventHandler(this.btnBuscarClientes_Click_1);
             // 
             // txtClientes
             // 
@@ -287,7 +276,7 @@
             // 
             // txtPrecio
             // 
-            this.txtPrecio.Location = new System.Drawing.Point(641, 98);
+            this.txtPrecio.Location = new System.Drawing.Point(642, 104);
             this.txtPrecio.Margin = new System.Windows.Forms.Padding(4);
             this.txtPrecio.Name = "txtPrecio";
             this.txtPrecio.Size = new System.Drawing.Size(148, 24);
@@ -323,18 +312,6 @@
             this.label6.TabIndex = 43;
             this.label6.Text = "Descripcion";
             // 
-            // btnBuscarProducto
-            // 
-            this.btnBuscarProducto.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnBuscarProducto.Image = global::PL.Properties.Resources.search;
-            this.btnBuscarProducto.Location = new System.Drawing.Point(441, 56);
-            this.btnBuscarProducto.Margin = new System.Windows.Forms.Padding(4);
-            this.btnBuscarProducto.Name = "btnBuscarProducto";
-            this.btnBuscarProducto.Size = new System.Drawing.Size(42, 37);
-            this.btnBuscarProducto.TabIndex = 42;
-            this.btnBuscarProducto.UseVisualStyleBackColor = true;
-            this.btnBuscarProducto.Click += new System.EventHandler(this.btnBuscarProducto_Click);
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -358,7 +335,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(1120, 32);
+            this.label3.Location = new System.Drawing.Point(1048, 32);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(111, 18);
@@ -383,7 +360,7 @@
             this.cmbTipoVenta.Items.AddRange(new object[] {
             "CONTADO",
             "CREDITO"});
-            this.cmbTipoVenta.Location = new System.Drawing.Point(1108, 57);
+            this.cmbTipoVenta.Location = new System.Drawing.Point(1036, 57);
             this.cmbTipoVenta.Margin = new System.Windows.Forms.Padding(4);
             this.cmbTipoVenta.Name = "cmbTipoVenta";
             this.cmbTipoVenta.Size = new System.Drawing.Size(131, 26);
@@ -415,66 +392,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Acciones";
             // 
-            // btnGuardar
-            // 
-            this.btnGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGuardar.Image = global::PL.Properties.Resources.apply;
-            this.btnGuardar.Location = new System.Drawing.Point(189, 25);
-            this.btnGuardar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(72, 52);
-            this.btnGuardar.TabIndex = 25;
-            this.btnGuardar.UseVisualStyleBackColor = true;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
-            // 
-            // btnEliminar
-            // 
-            this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEliminar.Image = global::PL.Properties.Resources.trash;
-            this.btnEliminar.Location = new System.Drawing.Point(269, 24);
-            this.btnEliminar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(72, 52);
-            this.btnEliminar.TabIndex = 24;
-            this.btnEliminar.UseVisualStyleBackColor = true;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
-            // 
-            // btnCancelar
-            // 
-            this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancelar.Image = global::PL.Properties.Resources.shopping_cart;
-            this.btnCancelar.Location = new System.Drawing.Point(345, 24);
-            this.btnCancelar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(72, 52);
-            this.btnCancelar.TabIndex = 23;
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
-            // btnNuevo
-            // 
-            this.btnNuevo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNuevo.Image = global::PL.Properties.Resources.documents;
-            this.btnNuevo.Location = new System.Drawing.Point(15, 28);
-            this.btnNuevo.Margin = new System.Windows.Forms.Padding(4);
-            this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(77, 53);
-            this.btnNuevo.TabIndex = 22;
-            this.btnNuevo.UseVisualStyleBackColor = true;
-            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
-            // 
-            // btnAgregar
-            // 
-            this.btnAgregar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAgregar.Image = global::PL.Properties.Resources.shopping_cart_full;
-            this.btnAgregar.Location = new System.Drawing.Point(100, 26);
-            this.btnAgregar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(77, 52);
-            this.btnAgregar.TabIndex = 20;
-            this.btnAgregar.UseVisualStyleBackColor = true;
-            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
-            // 
             // txtItbis
             // 
             this.txtItbis.BackColor = System.Drawing.SystemColors.ButtonFace;
@@ -486,19 +403,6 @@
             this.txtItbis.Name = "txtItbis";
             this.txtItbis.Size = new System.Drawing.Size(129, 33);
             this.txtItbis.TabIndex = 53;
-            // 
-            // btnPagar
-            // 
-            this.btnPagar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPagar.Image = global::PL.Properties.Resources.money;
-            this.btnPagar.Location = new System.Drawing.Point(1028, 240);
-            this.btnPagar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnPagar.Name = "btnPagar";
-            this.btnPagar.Size = new System.Drawing.Size(72, 53);
-            this.btnPagar.TabIndex = 21;
-            this.btnPagar.UseVisualStyleBackColor = true;
-            this.btnPagar.Visible = false;
-            this.btnPagar.Click += new System.EventHandler(this.btnPagar_Click);
             // 
             // groupBox4
             // 
@@ -664,6 +568,102 @@
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(98, 17);
             this.toolStripStatusLabel1.Text = "By EBG-Solutions";
+            // 
+            // btnBuscarClientes
+            // 
+            this.btnBuscarClientes.Image = global::PL.Properties.Resources.search;
+            this.btnBuscarClientes.Location = new System.Drawing.Point(745, 14);
+            this.btnBuscarClientes.Margin = new System.Windows.Forms.Padding(4);
+            this.btnBuscarClientes.Name = "btnBuscarClientes";
+            this.btnBuscarClientes.Size = new System.Drawing.Size(44, 36);
+            this.btnBuscarClientes.TabIndex = 50;
+            this.btnBuscarClientes.UseVisualStyleBackColor = true;
+            this.btnBuscarClientes.Click += new System.EventHandler(this.btnBuscarClientes_Click_1);
+            // 
+            // btnBuscarProducto
+            // 
+            this.btnBuscarProducto.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnBuscarProducto.Image = global::PL.Properties.Resources.search;
+            this.btnBuscarProducto.Location = new System.Drawing.Point(441, 56);
+            this.btnBuscarProducto.Margin = new System.Windows.Forms.Padding(4);
+            this.btnBuscarProducto.Name = "btnBuscarProducto";
+            this.btnBuscarProducto.Size = new System.Drawing.Size(42, 37);
+            this.btnBuscarProducto.TabIndex = 42;
+            this.btnBuscarProducto.UseVisualStyleBackColor = true;
+            this.btnBuscarProducto.Click += new System.EventHandler(this.btnBuscarProducto_Click);
+            // 
+            // btnGuardar
+            // 
+            this.btnGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGuardar.Image = global::PL.Properties.Resources.apply;
+            this.btnGuardar.Location = new System.Drawing.Point(189, 25);
+            this.btnGuardar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(72, 52);
+            this.btnGuardar.TabIndex = 25;
+            this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEliminar.Image = global::PL.Properties.Resources.trash;
+            this.btnEliminar.Location = new System.Drawing.Point(269, 24);
+            this.btnEliminar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(72, 52);
+            this.btnEliminar.TabIndex = 24;
+            this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancelar.Image = global::PL.Properties.Resources.shopping_cart;
+            this.btnCancelar.Location = new System.Drawing.Point(345, 24);
+            this.btnCancelar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(72, 52);
+            this.btnCancelar.TabIndex = 23;
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // btnNuevo
+            // 
+            this.btnNuevo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNuevo.Image = global::PL.Properties.Resources.documents;
+            this.btnNuevo.Location = new System.Drawing.Point(15, 28);
+            this.btnNuevo.Margin = new System.Windows.Forms.Padding(4);
+            this.btnNuevo.Name = "btnNuevo";
+            this.btnNuevo.Size = new System.Drawing.Size(77, 53);
+            this.btnNuevo.TabIndex = 22;
+            this.btnNuevo.UseVisualStyleBackColor = true;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
+            // 
+            // btnAgregar
+            // 
+            this.btnAgregar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAgregar.Image = global::PL.Properties.Resources.shopping_cart_full;
+            this.btnAgregar.Location = new System.Drawing.Point(100, 26);
+            this.btnAgregar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(77, 52);
+            this.btnAgregar.TabIndex = 20;
+            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
+            // 
+            // btnPagar
+            // 
+            this.btnPagar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPagar.Image = global::PL.Properties.Resources.money;
+            this.btnPagar.Location = new System.Drawing.Point(1028, 240);
+            this.btnPagar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnPagar.Name = "btnPagar";
+            this.btnPagar.Size = new System.Drawing.Size(72, 53);
+            this.btnPagar.TabIndex = 21;
+            this.btnPagar.UseVisualStyleBackColor = true;
+            this.btnPagar.Visible = false;
+            this.btnPagar.Click += new System.EventHandler(this.btnPagar_Click);
             // 
             // frmVenta
             // 
