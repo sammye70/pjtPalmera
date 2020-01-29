@@ -197,7 +197,7 @@ namespace pjPalmera.Entities
         /// </summary>
         /// <param name="costo"></param>
         /// <returns></returns>
-        public decimal PrecioVenta(decimal costo)
+        public decimal PrecioVenta()
         {
             decimal preciog, pv;
 
@@ -206,5 +206,18 @@ namespace pjPalmera.Entities
 
             return pv;
         }
+
+
+        /// <summary>
+        /// Generator Code Number for product
+        /// </summary>
+        public string NumberGeneratorCode()
+        {
+            long NumberRandom1 = new Random().Next(123456789, 987654321);
+            long NumberRandom2 = new Random().Next(1234, 4321);
+            string NumberRandom = Convert.ToString(NumberRandom1) + Convert.ToString(NumberRandom2);
+            return NumberRandom;
+        }
+
     }
 }

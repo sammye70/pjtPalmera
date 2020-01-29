@@ -175,5 +175,11 @@ namespace pjPalmera.PL
             frmRegArticulos n_productos = new frmRegArticulos();
             n_productos.ShowDialog(this);
         }
+
+        private void cierreDeCajaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmCierreCaja CerrarCaja = new PL.frmCierreCaja();
+            CerrarCaja.ShowDialog(this);
+        }
     }
 }

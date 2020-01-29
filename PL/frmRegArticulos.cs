@@ -14,12 +14,13 @@ namespace pjPalmera.PL
 {
     public partial class frmRegArticulos : Form
     {
-        ProductosEntity producto = null;
+        ProductosEntity producto = new ProductosEntity();
         frmConsultarProductos cproductos = new frmConsultarProductos();
 
         public frmRegArticulos()
         {
             InitializeComponent();
+           
         }
 
 
@@ -77,6 +78,7 @@ namespace pjPalmera.PL
         {
             try
             {
+                porcentaje();
                 LoadProveedor();
                 Categories();
             }
@@ -126,7 +128,11 @@ namespace pjPalmera.PL
             this.cmbFamilia.Enabled = false;
             this.dateTimePicker1.Enabled = false;
             this.cmbEstanteLocalizacion.Enabled = false;
+            this.cmbGanancia.Enabled = false;
             this.btnUpdateFields.Visible = false;
+            this.btnGenerarCodigo.Enabled = false;
+            this.btnAddCategoria.Enabled = false;
+            this.btnAddFabricante.Enabled = false;
         }
 
         /// <summary>
@@ -145,7 +151,10 @@ namespace pjPalmera.PL
             this.cmbFamilia.Enabled = true;
             this.dateTimePicker1.Enabled = true;
             this.cmbEstanteLocalizacion.Enabled = true;
-           
+            this.cmbGanancia.Enabled = true;
+            this.btnGenerarCodigo.Enabled = true;
+            this.btnAddCategoria.Enabled = true;
+            this.btnAddFabricante.Enabled = true;
         }
 
         /// <summary>
@@ -157,6 +166,7 @@ namespace pjPalmera.PL
             this.toolTip1.SetToolTip(btnGuardar, "Guardar Registro");
             this.toolTip1.SetToolTip(btnCancelar, "Limpiar Campos");
             this.toolTip1.SetToolTip(btnUpdateFields, "Guardar Registro");
+            this.toolTip1.SetToolTip(btnGenerarCodigo, "Generar Código para Productos");
             this.dateTimePicker1.Format = DateTimePickerFormat.Short;
         }
 
@@ -223,6 +233,7 @@ namespace pjPalmera.PL
             this.cmbEstanteLocalizacion.Text = "";
             this.cmbFabrincante.Text = "";
             this.cmbFamilia.Text = "";
+            this.cmbGanancia.Text = "";
         }
 
         /// <summary>
@@ -302,7 +313,23 @@ namespace pjPalmera.PL
             this.Close();
         }
 
-        private void txtCosto_TextChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Loop until x value, and average ganance
+        /// </summary>
+        private void porcentaje()
+        {
+            int x = 101;
+            for (int i = 0; i < x; i++)
+            {
+                this.cmbGanancia.Items.Add(i);
+            }
+           
+        }
+
+        /// <summary>
+        /// Calculate Price for Product
+        /// </summary>
+        private void Price_Sold()
         {
             if (this.txtCosto.Text == string.Empty)
             {
@@ -313,9 +340,11 @@ namespace pjPalmera.PL
             {
                 try
                 {
-                    decimal c, pg, pv;
+                    decimal c, pg, pv, p;
+
                     c = Convert.ToDecimal(this.txtCosto.Text);
-                    pg = (c * 30) / 100;
+                    p = Convert.ToDecimal(this.cmbGanancia.Text);
+                    pg = (c * p) / 100;
                     pv = c + pg;
                     this.txtPrecioVenta.Text = Convert.ToString(pv);
                 }
@@ -326,6 +355,7 @@ namespace pjPalmera.PL
                 }
             }
         }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -348,6 +378,17 @@ namespace pjPalmera.PL
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Price_Sold();
+         }
+
+        private void btnGenerarCodigo_Click(object sender, EventArgs e)
+        {
+            ProductosEntity productos = new ProductosEntity();
+            this.txtCodigo.Text=Convert.ToString(productos.NumberGeneratorCode());
         }
     }
 }

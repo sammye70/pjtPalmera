@@ -54,17 +54,20 @@
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnNuevo = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnAgregarCategoria = new System.Windows.Forms.Button();
+            this.btnAddCategoria = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnAddFabricante = new System.Windows.Forms.Button();
             this.btnUpdateFields = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cmbGanancia = new System.Windows.Forms.ComboBox();
+            this.btnGenerarCodigo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 84);
+            this.label1.Location = new System.Drawing.Point(7, 84);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 0;
@@ -73,7 +76,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 119);
+            this.label2.Location = new System.Drawing.Point(7, 119);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(63, 13);
             this.label2.TabIndex = 1;
@@ -82,7 +85,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 155);
+            this.label3.Location = new System.Drawing.Point(7, 155);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 13);
             this.label3.TabIndex = 2;
@@ -90,7 +93,7 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(475, 30);
+            this.dateTimePicker1.Location = new System.Drawing.Point(465, 30);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(183, 20);
             this.dateTimePicker1.TabIndex = 3;
@@ -98,7 +101,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(403, 36);
+            this.label4.Location = new System.Drawing.Point(393, 36);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 13);
             this.label4.TabIndex = 4;
@@ -106,14 +109,14 @@
             // 
             // txtCodigo
             // 
-            this.txtCodigo.Location = new System.Drawing.Point(87, 77);
+            this.txtCodigo.Location = new System.Drawing.Point(77, 77);
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.Size = new System.Drawing.Size(207, 20);
             this.txtCodigo.TabIndex = 5;
             // 
             // txtDescripcion
             // 
-            this.txtDescripcion.Location = new System.Drawing.Point(87, 116);
+            this.txtDescripcion.Location = new System.Drawing.Point(77, 116);
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(426, 20);
             this.txtDescripcion.TabIndex = 6;
@@ -121,7 +124,7 @@
             // lblStockInicial
             // 
             this.lblStockInicial.AutoSize = true;
-            this.lblStockInicial.Location = new System.Drawing.Point(373, 185);
+            this.lblStockInicial.Location = new System.Drawing.Point(419, 188);
             this.lblStockInicial.Name = "lblStockInicial";
             this.lblStockInicial.Size = new System.Drawing.Size(65, 13);
             this.lblStockInicial.TabIndex = 7;
@@ -130,7 +133,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(17, 188);
+            this.label6.Location = new System.Drawing.Point(7, 188);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(34, 13);
             this.label6.TabIndex = 8;
@@ -139,7 +142,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(182, 188);
+            this.label7.Location = new System.Drawing.Point(273, 188);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(68, 13);
             this.label7.TabIndex = 9;
@@ -148,7 +151,7 @@
             // lblStockMinimo
             // 
             this.lblStockMinimo.AutoSize = true;
-            this.lblStockMinimo.Location = new System.Drawing.Point(502, 185);
+            this.lblStockMinimo.Location = new System.Drawing.Point(543, 188);
             this.lblStockMinimo.Name = "lblStockMinimo";
             this.lblStockMinimo.Size = new System.Drawing.Size(71, 13);
             this.lblStockMinimo.TabIndex = 10;
@@ -157,7 +160,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(364, 150);
+            this.label9.Location = new System.Drawing.Point(354, 150);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(52, 13);
             this.label9.TabIndex = 11;
@@ -166,7 +169,7 @@
             // cmbFabrincante
             // 
             this.cmbFabrincante.FormattingEnabled = true;
-            this.cmbFabrincante.Location = new System.Drawing.Point(87, 147);
+            this.cmbFabrincante.Location = new System.Drawing.Point(77, 147);
             this.cmbFabrincante.Name = "cmbFabrincante";
             this.cmbFabrincante.Size = new System.Drawing.Size(226, 21);
             this.cmbFabrincante.TabIndex = 12;
@@ -174,44 +177,43 @@
             // cmbFamilia
             // 
             this.cmbFamilia.FormattingEnabled = true;
-            this.cmbFamilia.Location = new System.Drawing.Point(422, 147);
+            this.cmbFamilia.Location = new System.Drawing.Point(412, 147);
             this.cmbFamilia.Name = "cmbFamilia";
             this.cmbFamilia.Size = new System.Drawing.Size(221, 21);
             this.cmbFamilia.TabIndex = 13;
             // 
             // txtCosto
             // 
-            this.txtCosto.Location = new System.Drawing.Point(87, 185);
+            this.txtCosto.Location = new System.Drawing.Point(77, 185);
             this.txtCosto.Name = "txtCosto";
-            this.txtCosto.Size = new System.Drawing.Size(89, 20);
+            this.txtCosto.Size = new System.Drawing.Size(71, 20);
             this.txtCosto.TabIndex = 14;
-            this.txtCosto.TextChanged += new System.EventHandler(this.txtCosto_TextChanged);
             // 
             // txtPrecioVenta
             // 
-            this.txtPrecioVenta.Location = new System.Drawing.Point(256, 185);
+            this.txtPrecioVenta.Location = new System.Drawing.Point(344, 185);
             this.txtPrecioVenta.Name = "txtPrecioVenta";
-            this.txtPrecioVenta.Size = new System.Drawing.Size(95, 20);
+            this.txtPrecioVenta.Size = new System.Drawing.Size(71, 20);
             this.txtPrecioVenta.TabIndex = 15;
             // 
             // txtStockInicial
             // 
-            this.txtStockInicial.Location = new System.Drawing.Point(444, 182);
+            this.txtStockInicial.Location = new System.Drawing.Point(490, 185);
             this.txtStockInicial.Name = "txtStockInicial";
-            this.txtStockInicial.Size = new System.Drawing.Size(55, 20);
+            this.txtStockInicial.Size = new System.Drawing.Size(43, 20);
             this.txtStockInicial.TabIndex = 16;
             // 
             // txtStockMinimo
             // 
-            this.txtStockMinimo.Location = new System.Drawing.Point(576, 182);
+            this.txtStockMinimo.Location = new System.Drawing.Point(615, 185);
             this.txtStockMinimo.Name = "txtStockMinimo";
-            this.txtStockMinimo.Size = new System.Drawing.Size(55, 20);
+            this.txtStockMinimo.Size = new System.Drawing.Size(44, 20);
             this.txtStockMinimo.TabIndex = 17;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(311, 80);
+            this.label10.Location = new System.Drawing.Point(434, 77);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(131, 13);
             this.label10.TabIndex = 21;
@@ -221,7 +223,7 @@
             // cmbEstanteLocalizacion
             // 
             this.cmbEstanteLocalizacion.FormattingEnabled = true;
-            this.cmbEstanteLocalizacion.Location = new System.Drawing.Point(448, 76);
+            this.cmbEstanteLocalizacion.Location = new System.Drawing.Point(571, 73);
             this.cmbEstanteLocalizacion.Name = "cmbEstanteLocalizacion";
             this.cmbEstanteLocalizacion.Size = new System.Drawing.Size(77, 21);
             this.cmbEstanteLocalizacion.TabIndex = 22;
@@ -265,31 +267,31 @@
             this.groupBox1.TabIndex = 23;
             this.groupBox1.TabStop = false;
             // 
-            // btnAgregarCategoria
+            // btnAddCategoria
             // 
-            this.btnAgregarCategoria.Image = global::PL.Properties.Resources.add;
-            this.btnAgregarCategoria.Location = new System.Drawing.Point(645, 145);
-            this.btnAgregarCategoria.Name = "btnAgregarCategoria";
-            this.btnAgregarCategoria.Size = new System.Drawing.Size(27, 28);
-            this.btnAgregarCategoria.TabIndex = 24;
-            this.btnAgregarCategoria.Text = "+";
-            this.btnAgregarCategoria.UseVisualStyleBackColor = true;
-            this.btnAgregarCategoria.Click += new System.EventHandler(this.btnAgregarCategoria_Click);
+            this.btnAddCategoria.Image = global::PL.Properties.Resources.add;
+            this.btnAddCategoria.Location = new System.Drawing.Point(635, 145);
+            this.btnAddCategoria.Name = "btnAddCategoria";
+            this.btnAddCategoria.Size = new System.Drawing.Size(27, 28);
+            this.btnAddCategoria.TabIndex = 24;
+            this.btnAddCategoria.Text = "+";
+            this.btnAddCategoria.UseVisualStyleBackColor = true;
+            this.btnAddCategoria.Click += new System.EventHandler(this.btnAgregarCategoria_Click);
             // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // button1
+            // btnAddFabricante
             // 
-            this.button1.Image = global::PL.Properties.Resources.add;
-            this.button1.Location = new System.Drawing.Point(314, 145);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(27, 28);
-            this.button1.TabIndex = 25;
-            this.button1.Text = "+";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnAddFabricante.Image = global::PL.Properties.Resources.add;
+            this.btnAddFabricante.Location = new System.Drawing.Point(304, 145);
+            this.btnAddFabricante.Name = "btnAddFabricante";
+            this.btnAddFabricante.Size = new System.Drawing.Size(27, 28);
+            this.btnAddFabricante.TabIndex = 25;
+            this.btnAddFabricante.Text = "+";
+            this.btnAddFabricante.UseVisualStyleBackColor = true;
+            this.btnAddFabricante.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnUpdateFields
             // 
@@ -301,14 +303,45 @@
             this.btnUpdateFields.UseVisualStyleBackColor = true;
             this.btnUpdateFields.Click += new System.EventHandler(this.btnUpdateFields_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(155, 187);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(70, 13);
+            this.label5.TabIndex = 27;
+            this.label5.Text = "Ganancia (%)";
+            // 
+            // cmbGanancia
+            // 
+            this.cmbGanancia.FormattingEnabled = true;
+            this.cmbGanancia.Location = new System.Drawing.Point(223, 184);
+            this.cmbGanancia.Name = "cmbGanancia";
+            this.cmbGanancia.Size = new System.Drawing.Size(44, 21);
+            this.cmbGanancia.TabIndex = 28;
+            this.cmbGanancia.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // btnGenerarCodigo
+            // 
+            this.btnGenerarCodigo.Location = new System.Drawing.Point(290, 77);
+            this.btnGenerarCodigo.Name = "btnGenerarCodigo";
+            this.btnGenerarCodigo.Size = new System.Drawing.Size(95, 23);
+            this.btnGenerarCodigo.TabIndex = 29;
+            this.btnGenerarCodigo.Text = "Generar Código";
+            this.btnGenerarCodigo.UseVisualStyleBackColor = true;
+            this.btnGenerarCodigo.Click += new System.EventHandler(this.btnGenerarCodigo_Click);
+            // 
             // frmRegArticulos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(678, 292);
+            this.Controls.Add(this.btnGenerarCodigo);
+            this.Controls.Add(this.cmbGanancia);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.btnUpdateFields);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.btnAgregarCategoria);
+            this.Controls.Add(this.btnAddFabricante);
+            this.Controls.Add(this.btnAddCategoria);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cmbEstanteLocalizacion);
             this.Controls.Add(this.label10);
@@ -356,9 +389,9 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btnAgregarCategoria;
+        private System.Windows.Forms.Button btnAddCategoria;
         private System.Windows.Forms.ErrorProvider errorProvider1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnAddFabricante;
         public System.Windows.Forms.Label lblStockInicial;
         public System.Windows.Forms.Label lblStockMinimo;
         public System.Windows.Forms.TextBox txtStockInicial;
@@ -374,5 +407,8 @@
         public System.Windows.Forms.TextBox txtCosto;
         public System.Windows.Forms.TextBox txtPrecioVenta;
         public System.Windows.Forms.ComboBox cmbEstanteLocalizacion;
+        private System.Windows.Forms.ComboBox cmbGanancia;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnGenerarCodigo;
     }
 }

@@ -62,6 +62,7 @@ namespace pjPalmera.PL
         private void btnNuevo_Click(object sender, EventArgs e)
         {
             NewInvoice();
+            LimpiarEfectivo();
         }
 
 
@@ -396,11 +397,10 @@ namespace pjPalmera.PL
             frmConsultarProductos consulProductos = new frmConsultarProductos();
             //  consulProductos.btnEditarProd.Visible = false;
             consulProductos.btnExpExcel.Visible = false;
+            consulProductos.lblMensaje.Visible = true;
 
             if (consulProductos.ShowDialog() == DialogResult.OK)
             {
-                
-
                 producto = ProductosBO.Searh_Code(consulProductos.Idproducto);
 
                 this.txtProductos.Text = Convert.ToString(producto.Idproducto);
@@ -455,13 +455,13 @@ namespace pjPalmera.PL
         {
             //TicketVentaEntity tk = new TicketVentaEntity();
             //Parameters
-            Font fBody = new Font("Lucida Console", 7, FontStyle.Regular);// Format Font for Body
+            Font fBody = new Font("Lucida Console", 8, FontStyle.Regular);// Format Font for Body
             Font ffTitle = new Font("Lucida Console", 11, FontStyle.Bold); // Format Font for Title Company Name
-            Font fTitle = new Font("Lucida Console", 7, FontStyle.Bold); // Format Font for Title
-            Font fdpTitle = new Font("Lucida Console", 7, FontStyle.Regular); // Format Font Detail Products
-            Font tbottom = new Font("Lucida Console", 5, FontStyle.Regular); // Format Font Messege Bottom
+            Font fTitle = new Font("Lucida Console", 8, FontStyle.Bold); // Format Font for Title
+            Font fdpTitle = new Font("Lucida Console", 8, FontStyle.Regular); // Format Font Detail Products
+            Font tbottom = new Font("Lucida Console", 6, FontStyle.Regular); // Format Font Messege Bottom
             Font tblank = new Font("Lucida Console", 19, FontStyle.Bold); // Format Font  Bottom
-            Font fdTitle = new Font("Lucida Console", 7, FontStyle.Regular);//Format Font for Detail Title (Address,Telephone, etc.. About Company Information)
+            Font fdTitle = new Font("Lucida Console", 8, FontStyle.Regular);//Format Font for Detail Title (Address,Telephone, etc.. About Company Information)
             Graphics g = e.Graphics;
             SolidBrush sb = new SolidBrush(Color.Black); // Set Brush color for Drawing Charaters
             string Type = "FACTURA AL CONTADO"; //Type of invoice
@@ -507,9 +507,9 @@ namespace pjPalmera.PL
             {
                 //g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[0].Value), fdpTitle, sb, 5, 305 + AutoScrollOffset);
                 g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[1].Value), fdpTitle, sb, 5, 305 + AutoScrollOffset); //Description
-                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[2].Value), fdpTitle, sb, 135, 305 + AutoScrollOffset); //Quality
-                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[3].Value), fdpTitle, sb, 168, 305 + AutoScrollOffset);// Price
-                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[5].Value), fdpTitle, sb, 210, 305 + AutoScrollOffset); // Total Price x Unit
+                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[2].Value), fdpTitle, sb, 145, 305 + AutoScrollOffset); //Quality
+                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[3].Value), fdpTitle, sb, 178, 305 + AutoScrollOffset);// Price
+                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[5].Value), fdpTitle, sb, 225, 305 + AutoScrollOffset); // Total Price x Unit
                 AutoScrollOffset = AutoScrollOffset + 12;
             }
 
@@ -534,7 +534,7 @@ namespace pjPalmera.PL
             g.DrawString("Tu eres la persona mas linda que Jesus", fTitle, sb, 5, 480 + AutoScrollOffset);
             g.DrawString("tiene en este mundo Buscale.", fTitle, sb, 5, 495 + AutoScrollOffset);
 
-            g.DrawString(".", tblank, sb, 5, 600 + AutoScrollOffset);
+            g.DrawString(".", tblank, sb, 5, 505 + AutoScrollOffset);
             // 
         }
         #endregion
@@ -825,10 +825,7 @@ namespace pjPalmera.PL
         #endregion
 
 
-        private void txtProductos_TextChanged_1(object sender, EventArgs e)
-        {
-            //SearchProduct();
-        }
+
     }
 
 }
