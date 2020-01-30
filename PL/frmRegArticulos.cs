@@ -280,11 +280,11 @@ namespace pjPalmera.PL
                 result = false;
             }
 
-            if (string.IsNullOrEmpty(this.cmbEstanteLocalizacion.Text))
-            {
-                this.errorProvider1.SetError(this.cmbEstanteLocalizacion, "Indicar Estante donde se localizara el Articulo");
-                result = false;
-            }
+            //if (string.IsNullOrEmpty(this.cmbEstanteLocalizacion.Text))
+            //{
+            //    this.errorProvider1.SetError(this.cmbEstanteLocalizacion, "Indicar Estante donde se localizara el Articulo");
+            //    result = false;
+            //}
 
             if (string.IsNullOrEmpty(this.cmbFabrincante.Text))
             {

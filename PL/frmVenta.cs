@@ -19,12 +19,21 @@ namespace pjPalmera.PL
         public VentaEntity venta = null;
         VentaEntity detail = new VentaEntity();
         ProductosEntity producto = new ProductosEntity();
-       // frmCobros cobrar = new frmCobros();
+        TransactionsEntity Transactions = new TransactionsEntity();
         public ClientesEntity clientes = new ClientesEntity();
         public decimal precio = 0;
         public float cantidad = 0;
         public long id;
         public Decimal t_pagar = 0;
+
+        public Int64 _idproducto;
+
+
+        public Int64 idproducto
+        {
+            get { return _idproducto; }
+            set { value = _idproducto; }
+        }
 
         public frmVenta()
         {
@@ -42,6 +51,7 @@ namespace pjPalmera.PL
             this.txtItbis.Visible = false;
             this.label9.Visible = false;
             SetToolControls();
+            DiscountAverageInvoice();
             this.btnNuevo.Focus();
         }
 
@@ -155,11 +165,11 @@ namespace pjPalmera.PL
 
             MessageBox.Show("Imprimir Recibo","Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if ( DialogResult == DialogResult.No)
+            if ( DialogResult == DialogResult.Yes)
             {
 
                 Save_Invoices();
-                //PrintTicket();
+                PrintTicket();
                 //PrintTicket();
                 //caja.AbreCajon();
                 //MessageBox.Show("Se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -172,7 +182,7 @@ namespace pjPalmera.PL
             else
             {
                 Save_Invoices();
-                PrintTicket();
+                //PrintTicket();
                 //MessageBox.Show("Se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MessageBox.Show("Venta Procesada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 NewInvoice();
@@ -199,6 +209,39 @@ namespace pjPalmera.PL
             }
         }
 
+
+
+        private void cmbDescuentoPostVenta_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                SetDescountInvoice();
+            }
+            catch
+            {
+                return;
+              
+            }
+        }
+
+
+        /// <summary>
+        /// Apply Descount producto's price after submit
+        /// </summary>
+        private void SetDescountInvoice()
+        {
+            decimal p, dc, fp, pd;
+            p = Convert.ToDecimal(this.txtPrecio.Text);
+            dc = Convert.ToDecimal(this.cmbDescuentoPostVenta.Text);
+            pd = (p * dc) / 100;
+            fp = p - dc;
+            this.txtPrecio.Text = Convert.ToString(fp);
+
+            if (Convert.ToInt32(this.cmbDescuentoPostVenta.Text) == 0)
+            {
+                this.txtPrecio.Text = Convert.ToString(p);
+            }
+        }
 
         /// <summary>
         /// Validator Post Pay
@@ -237,6 +280,7 @@ namespace pjPalmera.PL
             this.txtDescripcion.Clear();
             this.txtPrecio.Clear();
             this.txtCantidad.Clear();
+            this.cmbDescuentoPostVenta.Text = "";
             //this.txtSubtotal.Clear();
             //this.txtTotalPagar.Clear();
             // this.txtItbis.Clear();
@@ -268,10 +312,7 @@ namespace pjPalmera.PL
             this.btnGuardar.Enabled = false;
             this.txtEfectivoRecibido.Enabled = false;
             this.txtDevueltaEfectivo.Enabled = false;
-            if (dgvDetalle == null)
-            {
-                this.chbDescuento.Enabled = false;
-            }
+            this.cmbDescuentoPostVenta.Enabled = false;
         }
 
         /// <summary>
@@ -299,11 +340,19 @@ namespace pjPalmera.PL
             this.btnGuardar.Enabled = true;
             this.txtEfectivoRecibido.Enabled = true;
             this.txtDevueltaEfectivo.Enabled = true;
-            if (dgvDetalle != null)
-            {
-                this.chbDescuento.Enabled = true;
-            }
+            this.cmbDescuentoPostVenta.Enabled = true;
+        }
 
+        /// <summary>
+        /// Loop until x value, and average discount
+        /// </summary>
+        private void DiscountAverageInvoice()
+        {
+            int x = 101;
+            for (int i = 0; i < x; i++)
+            {
+                this.cmbDescuentoPostVenta.Items.Add(i);
+            }
         }
 
         /// <summary>
@@ -363,6 +412,7 @@ namespace pjPalmera.PL
 
             this.txtDevueltaEfectivo.Text = "";
             this.txtEfectivoRecibido.Text = "";
+            this.cmbDescuentoPostVenta.Text = "";
             //this.txtRecibidoEfectivo.Text = "";
             this.txtDescuento.Text = "0.00";
             this.txtTotalPagar.Text = "0.00";
@@ -390,7 +440,7 @@ namespace pjPalmera.PL
 
 
         /// <summary>
-        /// Search Product by Id
+        /// Search Product from ConsulProductos by Id
         /// </summary>
         public void SearchProduct()
         {
@@ -407,6 +457,26 @@ namespace pjPalmera.PL
                 this.txtDescripcion.Text = producto.Descripcion;
                 this.txtPrecio.Text = Convert.ToString(producto.Precio_venta);
             }
+        }
+
+        /// <summary>
+        /// Searh Product from Ventas by Id
+        /// </summary>
+        public void SearchProductById()
+        {
+           ProductosEntity producto = new ProductosEntity();
+
+            this.idproducto = Convert.ToInt64(this.txtProductos.Text);
+
+            if (this.idproducto == Convert.ToInt64(this.txtProductos.Text))
+            {
+                producto = ProductosBO.Searh_Code(this.idproducto);
+
+                this.txtDescripcion.Text = producto.Descripcion;
+                this.txtPrecio.Text = Convert.ToString(producto.Precio_venta);
+            }
+
+
         }
 
         #region Invoice paid cash
@@ -677,11 +747,10 @@ namespace pjPalmera.PL
 
             try
             {
-
                 Save_Detail();
                 UpdateStock();
                 Save_Head();
-                
+                Save_Transactions();
 
                // MessageBox.Show("Guardado Exitosamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -694,7 +763,7 @@ namespace pjPalmera.PL
         /// <summary>
         ///  Head Generate from Textbox
         /// </summary>
-        private void Save_Head()
+        public void Save_Head()
         {
            
 
@@ -764,6 +833,32 @@ namespace pjPalmera.PL
             ProductosBO.Decrease_Stock(venta);
         }
 
+        /// <summary>
+        /// Save Transactions in Invoices
+        /// </summary>
+        public void Save_Transactions()
+        {
+            int status = 1;
+            Transactions = new TransactionsEntity();
+
+            Transactions.Status = status;
+            Transactions.Total = Convert.ToDecimal(this.txtTotalPagar.Text);
+            Transactions.Descuento = Convert.ToDecimal(this.txtDescuento.Text);
+            Transactions.Devuelta = Convert.ToDecimal(this.txtDevueltaEfectivo.Text);
+            Transactions.Recibido =Convert.ToDecimal (this.txtEfectivoRecibido.Text);
+
+            if ((this.txtClientes.Text == "CONTADO") && (this.txtApClientes.Text == "CONTADO"))
+            {
+                venta.tipo = "1";
+            }
+            else
+            {
+                venta.tipo = "2";
+            }
+
+            TransactionsBO.CreateTranst(Transactions);
+        }
+
         #endregion
 
         #region Set Detail of Controls
@@ -781,6 +876,8 @@ namespace pjPalmera.PL
             this.toolTip1.SetToolTip(this.btnNuevo, "Crear Nueva Venta");
             this.toolTip1.SetToolTip(this.btnGuardar, "Guardar Compra");
         }
+
+
         #endregion
 
         #region Descuento
@@ -823,7 +920,6 @@ namespace pjPalmera.PL
 
         //} 
         #endregion
-
 
 
     }

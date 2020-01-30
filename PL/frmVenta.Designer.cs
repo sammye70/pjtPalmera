@@ -34,6 +34,8 @@
             this.txtValor = new System.Windows.Forms.TextBox();
             this.txtIdCliente = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.cmbDescuentoPostVenta = new System.Windows.Forms.ComboBox();
             this.chbDescuento = new System.Windows.Forms.CheckBox();
             this.txtApClientes = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -140,6 +142,8 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.label16);
+            this.groupBox3.Controls.Add(this.cmbDescuentoPostVenta);
             this.groupBox3.Controls.Add(this.chbDescuento);
             this.groupBox3.Controls.Add(this.txtApClientes);
             this.groupBox3.Controls.Add(this.label18);
@@ -170,10 +174,30 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Informaciones de la Venta ";
             // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(815, 104);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(120, 18);
+            this.label16.TabIndex = 60;
+            this.label16.Text = "Descuento (%)";
+            // 
+            // cmbDescuentoPostVenta
+            // 
+            this.cmbDescuentoPostVenta.FormattingEnabled = true;
+            this.cmbDescuentoPostVenta.Location = new System.Drawing.Point(940, 101);
+            this.cmbDescuentoPostVenta.Name = "cmbDescuentoPostVenta";
+            this.cmbDescuentoPostVenta.Size = new System.Drawing.Size(69, 26);
+            this.cmbDescuentoPostVenta.TabIndex = 59;
+            this.cmbDescuentoPostVenta.TextChanged += new System.EventHandler(this.cmbDescuentoPostVenta_TextChanged);
+            // 
             // chbDescuento
             // 
             this.chbDescuento.AutoSize = true;
-            this.chbDescuento.Location = new System.Drawing.Point(1023, 97);
+            this.chbDescuento.Location = new System.Drawing.Point(1023, 89);
             this.chbDescuento.Name = "chbDescuento";
             this.chbDescuento.Size = new System.Drawing.Size(139, 22);
             this.chbDescuento.TabIndex = 58;
@@ -204,7 +228,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(886, 49);
+            this.label15.Location = new System.Drawing.Point(886, 41);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(54, 18);
@@ -215,7 +239,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(886, 81);
+            this.label14.Location = new System.Drawing.Point(886, 73);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(45, 18);
@@ -226,7 +250,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(812, 21);
+            this.label13.Location = new System.Drawing.Point(812, 13);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(84, 18);
@@ -237,7 +261,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(812, 49);
+            this.label12.Location = new System.Drawing.Point(812, 41);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(59, 18);
@@ -248,7 +272,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(812, 81);
+            this.label11.Location = new System.Drawing.Point(812, 73);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(50, 18);
@@ -358,7 +382,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(960, 25);
+            this.label3.Location = new System.Drawing.Point(960, 17);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(111, 18);
@@ -383,7 +407,7 @@
             this.cmbTipoVenta.Items.AddRange(new object[] {
             "CONTADO",
             "CREDITO"});
-            this.cmbTipoVenta.Location = new System.Drawing.Point(948, 50);
+            this.cmbTipoVenta.Location = new System.Drawing.Point(948, 42);
             this.cmbTipoVenta.Margin = new System.Windows.Forms.Padding(4);
             this.cmbTipoVenta.Name = "cmbTipoVenta";
             this.cmbTipoVenta.Size = new System.Drawing.Size(131, 26);
@@ -745,5 +769,7 @@
         private System.Windows.Forms.Label label17;
         public System.Windows.Forms.TextBox txtEfectivoRecibido;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.ComboBox cmbDescuentoPostVenta;
     }
 }

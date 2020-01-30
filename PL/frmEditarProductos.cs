@@ -90,6 +90,16 @@ namespace pjPalmera.PL
             }
         }
 
+        /// <summary>
+        /// Initialitation frmRegArticulos Controls
+        /// </summary>
+        private void InitControl()
+        {
+            fproductos.btnUpdateFields.Visible = true;
+            fproductos.cmbEstado.Visible = true;
+            fproductos.lblEstado.Visible = true;
+            fproductos.txtCodigo.Focus();
+        }
 
         /// <summary>
         /// Hide controls in frmRegArticulos when current form to call this.
@@ -110,7 +120,6 @@ namespace pjPalmera.PL
         /// </summary>
         private void EditProduct()
         {
-
             try
             {
                 DataGridViewRow x = dgvProdConsultar.CurrentRow;
@@ -124,10 +133,8 @@ namespace pjPalmera.PL
                 HideControls();
                 fproductos.Text = "Actualizar Información del Articulo";
                 fproductos.EnableControls();
-                fproductos.btnUpdateFields.Visible = true;
-                fproductos.txtCodigo.Focus();
+                InitControl();
 
-                
                 productos = ProductosBO.Searh_Code(this.Idproducto);
 
                 fproductos.txtCodigo.Text = Convert.ToString(productos.Idproducto);
@@ -138,13 +145,14 @@ namespace pjPalmera.PL
                 fproductos.txtCosto.Text = Convert.ToString(productos.Costo);
                 fproductos.txtPrecioVenta.Text = Convert.ToString(productos.Precio_venta);
 
-
                 //fproductos.LoadProveedor();
                 //fproductos.Categories();
                
             }
             catch
             {
+                productos = null;
+                this.txtCriterioBusqueda.Focus();
                 return;
                 
             }

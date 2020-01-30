@@ -27,11 +27,13 @@ namespace pjPalmera.Entities
 
 
 
+
+        //Constructor
+
         public ProductosEntity()
         {
         }
 
-        //Constructor
         public ProductosEntity(long idproducto, string descripcion, string categoria, string fabricante, float stock_actual, float stock, float stock_minimo,
             DateTime vencimiento, decimal costo, decimal precio_venta, int createby, DateTime created)
         {
@@ -48,7 +50,7 @@ namespace pjPalmera.Entities
             this.Created = created;
         }
 
- 
+        //Properties
         public long Idproducto
         {
             get
@@ -209,13 +211,15 @@ namespace pjPalmera.Entities
 
 
         /// <summary>
-        /// Generator Code Number for product
+        ///Product Generator Code Number
         /// </summary>
         public string NumberGeneratorCode()
         {
-            long NumberRandom1 = new Random().Next(123456789, 987654321);
+            //long NumberRandom1 = new Random().Next(123456789, 987654321);
+            long NumberRandom1 = new Random().Next(123456, 654321);
             long NumberRandom2 = new Random().Next(1234, 4321);
-            string NumberRandom = Convert.ToString(NumberRandom1) + Convert.ToString(NumberRandom2);
+            //string NumberRandom = Convert.ToString(NumberRandom1) + Convert.ToString(NumberRandom2);
+            string NumberRandom = Convert.ToString(NumberRandom1);
             return NumberRandom;
         }
 

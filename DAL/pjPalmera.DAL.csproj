@@ -49,13 +49,14 @@
     <Compile Include="CiudadDAL.cs" />
     <Compile Include="ClientesDAL.cs" />
     <Compile Include="FacturasDAL.cs" />
-    <Compile Include="InventarioEntity.cs" />
+    <Compile Include="InventarioDAL.cs" />
     <Compile Include="PersonasDAL.cs" />
     <Compile Include="ProductosDAL.cs" />
     <Compile Include="ProveedorDAL.cs" />
     <Compile Include="ProvinciaDAL.cs" />
     <Compile Include="SettingDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransactionsDAL.cs" />
     <Compile Include="UsuariosDAL.cs" />
   </ItemGroup>
   <ItemGroup>

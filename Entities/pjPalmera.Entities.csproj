@@ -44,10 +44,12 @@
     <Compile Include="CiudadEntity.cs" />
     <Compile Include="ClientesEntity.cs" />
     <Compile Include="DetalleVentaEntity.cs" />
+    <Compile Include="InventarioEntity.cs" />
     <Compile Include="TicketVentaEntity.cs" />
     <Compile Include="ProveedorEntity.cs" />
     <Compile Include="ProvinciaEntity.cs" />
     <Compile Include="PersonasEntity.cs" />
+    <Compile Include="TransactionsEntity.cs" />
     <Compile Include="UsuariosEntity.cs" />
     <Compile Include="ProductosEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
