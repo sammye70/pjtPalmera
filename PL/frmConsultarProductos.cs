@@ -70,11 +70,29 @@ namespace pjPalmera.PL
         }
 
 
+        /// <summary>
+        /// Filter product by code
+        /// </summary>
+        private void FilterProduct()
+        {
+            if (this.txtCriterioBusqueda.Text != string.Empty)
+            {
+                productos.Idproducto = Convert.ToInt64(this.txtCriterioBusqueda.Text);
+
+                this.dgvProdConsultar.DataSource = ProductosBO.FilterProductbyCode(productos.Idproducto);
+            }
+            else
+            {
+                this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+                this.txtCriterioBusqueda.Focus();
+            }
+        }
+
         private void dgvProdConsultar_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             //Check Stock if < 1 messager
 
-           decimal cvalor = Convert.ToDecimal (this.dgvProdConsultar.Rows[e.RowIndex].Cells["Stock"].Value);
+            decimal cvalor = Convert.ToDecimal (this.dgvProdConsultar.Rows[e.RowIndex].Cells["Stock"].Value);
 
             try
             {
@@ -111,9 +129,16 @@ namespace pjPalmera.PL
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
 
+
+        private void txtCriterioBusqueda_TextChanged_1(object sender, EventArgs e)
+        {
+            FilterProduct();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+           
         }
     }
 }

@@ -176,6 +176,7 @@
             this.cmbFabrincante.Name = "cmbFabrincante";
             this.cmbFabrincante.Size = new System.Drawing.Size(226, 21);
             this.cmbFabrincante.TabIndex = 12;
+            this.cmbFabrincante.DropDown += new System.EventHandler(this.cmbFabrincante_DropDown);
             // 
             // cmbFamilia
             // 
@@ -184,6 +185,7 @@
             this.cmbFamilia.Name = "cmbFamilia";
             this.cmbFamilia.Size = new System.Drawing.Size(221, 21);
             this.cmbFamilia.TabIndex = 13;
+            this.cmbFamilia.DropDown += new System.EventHandler(this.cmbFamilia_DropDown);
             // 
             // txtCosto
             // 
@@ -356,6 +358,9 @@
             // cmbEstado
             // 
             this.cmbEstado.FormattingEnabled = true;
+            this.cmbEstado.Items.AddRange(new object[] {
+            "Activo",
+            "Inactivo"});
             this.cmbEstado.Location = new System.Drawing.Point(475, 77);
             this.cmbEstado.Name = "cmbEstado";
             this.cmbEstado.Size = new System.Drawing.Size(121, 21);
@@ -416,8 +421,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label label10;
@@ -441,11 +444,13 @@
         public System.Windows.Forms.TextBox txtCosto;
         public System.Windows.Forms.TextBox txtPrecioVenta;
         public System.Windows.Forms.ComboBox cmbEstanteLocalizacion;
-        private System.Windows.Forms.ComboBox cmbGanancia;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnGenerarCodigo;
         public System.Windows.Forms.ComboBox cmbEstado;
         public System.Windows.Forms.Label lblEstado;
         private System.Windows.Forms.Label label8;
+        public System.Windows.Forms.Label label6;
+        public System.Windows.Forms.Label label7;
+        public System.Windows.Forms.ComboBox cmbGanancia;
+        public System.Windows.Forms.Label label5;
     }
 }

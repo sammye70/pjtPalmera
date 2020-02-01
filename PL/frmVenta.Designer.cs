@@ -82,6 +82,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -142,6 +143,7 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Controls.Add(this.label16);
             this.groupBox3.Controls.Add(this.cmbDescuentoPostVenta);
             this.groupBox3.Controls.Add(this.chbDescuento);
@@ -688,6 +690,18 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(98, 17);
             this.toolStripStatusLabel1.Text = "By EBG-Solutions";
             // 
+            // button1
+            // 
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.button1.Image = global::PL.Properties.Resources.search;
+            this.button1.Location = new System.Drawing.Point(499, 55);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(42, 37);
+            this.button1.TabIndex = 61;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // frmVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -771,5 +785,6 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.ComboBox cmbDescuentoPostVenta;
+        private System.Windows.Forms.Button button1;
     }
 }

@@ -24,6 +24,7 @@ namespace pjPalmera.Entities
         private decimal precio_venta;
         private int createby;
         private DateTime created;
+        private string status;
 
 
 
@@ -35,7 +36,7 @@ namespace pjPalmera.Entities
         }
 
         public ProductosEntity(long idproducto, string descripcion, string categoria, string fabricante, float stock_actual, float stock, float stock_minimo,
-            DateTime vencimiento, decimal costo, decimal precio_venta, int createby, DateTime created)
+            DateTime vencimiento, decimal costo, decimal precio_venta, int createby, DateTime created, string status)
         {
             this.Idproducto = idproducto;
             this.Descripcion = descripcion;
@@ -48,6 +49,7 @@ namespace pjPalmera.Entities
             this.Precio_venta = precio_venta;
             this.Createby = createby;
             this.Created = created;
+            this.Status = status;
         }
 
         //Properties
@@ -192,6 +194,12 @@ namespace pjPalmera.Entities
             {
                 created = value;
             }
+        }
+
+        public String Status
+        {
+            get { return status; }
+            set { status = value; }
         }
 
         /// <summary>

@@ -25,15 +25,14 @@ namespace pjPalmera.PL
         public float cantidad = 0;
         public long id;
         public Decimal t_pagar = 0;
+        //public Int64 _idproducto;
 
-        public Int64 _idproducto;
 
-
-        public Int64 idproducto
-        {
-            get { return _idproducto; }
-            set { value = _idproducto; }
-        }
+        //public Int64 idproducto
+        //{
+        //    get { return _idproducto; }
+        //    set { value = _idproducto; }
+        //}
 
         public frmVenta()
         {
@@ -466,16 +465,12 @@ namespace pjPalmera.PL
         {
            ProductosEntity producto = new ProductosEntity();
 
-            this.idproducto = Convert.ToInt64(this.txtProductos.Text);
+            producto.Idproducto = Convert.ToInt64(this.txtProductos.Text);
 
-            if (this.idproducto == Convert.ToInt64(this.txtProductos.Text))
-            {
-                producto = ProductosBO.Searh_Code(this.idproducto);
+             ProductosBO.Searh_Code(producto.Idproducto);
 
-                this.txtDescripcion.Text = producto.Descripcion;
-                this.txtPrecio.Text = Convert.ToString(producto.Precio_venta);
-            }
-
+            this.txtDescripcion.Text = producto.Descripcion;
+            this.txtPrecio.Text = Convert.ToString(producto.Precio_venta);
 
         }
 
@@ -878,6 +873,7 @@ namespace pjPalmera.PL
         }
 
 
+
         #endregion
 
         #region Descuento
@@ -921,7 +917,10 @@ namespace pjPalmera.PL
         //} 
         #endregion
 
-
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SearchProductById();
+        }
     }
 
 }

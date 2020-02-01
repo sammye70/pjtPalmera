@@ -79,8 +79,6 @@ namespace pjPalmera.PL
             try
             {
                 porcentaje();
-                LoadProveedor();
-                Categories();
             }
             catch (Exception ex)
             {
@@ -164,7 +162,7 @@ namespace pjPalmera.PL
         {
             this.toolTip1.SetToolTip(btnNuevo, "Nuevo Registro");
             this.toolTip1.SetToolTip(btnGuardar, "Guardar Registro");
-            this.toolTip1.SetToolTip(btnCancelar, "Limpiar Campos");
+            this.toolTip1.SetToolTip(btnCancelar, "Cerrar");
             this.toolTip1.SetToolTip(btnUpdateFields, "Guardar Registro");
             this.toolTip1.SetToolTip(btnGenerarCodigo, "Generar Código para Productos");
             this.dateTimePicker1.Format = DateTimePickerFormat.Short;
@@ -189,6 +187,7 @@ namespace pjPalmera.PL
                 producto.Costo = Convert.ToDecimal(this.txtCosto.Text);
                 producto.Precio_venta = Convert.ToDecimal(txtPrecioVenta.Text);
                 producto.Created = DateTime.Now.Date;
+                producto.Status = "Activido";
 
                 ProductosBO.Save(producto);
             }
@@ -211,11 +210,14 @@ namespace pjPalmera.PL
             producto.Categoria = this.cmbFamilia.Text;
             producto.Vencimiento = Convert.ToDateTime(dateTimePicker1.Value.Date.ToShortDateString());
             producto.Costo = Convert.ToDecimal(this.txtCosto.Text);
-            producto.Precio_venta = Convert.ToDecimal(txtPrecioVenta.Text);
+            producto.Precio_venta = Convert.ToDecimal(this.txtPrecioVenta.Text);
+            producto.Stock = Convert.ToInt32(this.txtStockInicial.Text);
+            producto.Stockminimo = Convert.ToInt32(this.txtStockMinimo.Text);
 
             ProductosBO.Update_Info_Product(producto);
 
-            MessageBox.Show("Guardado Satisfactoriamente","Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //    MessageBox.Show("Guardado Satisfactoriamente","Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
         }
 
 
@@ -316,7 +318,7 @@ namespace pjPalmera.PL
         /// <summary>
         /// Loop until x value, and average ganance
         /// </summary>
-        private void porcentaje()
+        public void porcentaje()
         {
             int x = 101;
             for (int i = 0; i < x; i++)
@@ -389,6 +391,16 @@ namespace pjPalmera.PL
         {
             ProductosEntity productos = new ProductosEntity();
             this.txtCodigo.Text=Convert.ToString(productos.NumberGeneratorCode());
+        }
+
+        private void cmbFabrincante_DropDown(object sender, EventArgs e)
+        {
+            LoadProveedor();
+        }
+
+        private void cmbFamilia_DropDown(object sender, EventArgs e)
+        {
+            Categories();
         }
     }
 }

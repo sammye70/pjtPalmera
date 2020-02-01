@@ -23,6 +23,7 @@ namespace pjPalmera.PL
         {
             InitializeComponent();
             DesableControls();
+            DetailControls();
         }
 
         public Int64 Idproducto
@@ -35,14 +36,14 @@ namespace pjPalmera.PL
         {
             CleanControls();
             this.txtCriterioBusqueda.Focus();
-            this.label1.Text = "CODIGO";
+            this.lblCriterio.Text = "CODIGO";
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             CleanControls();
             this.txtCriterioBusqueda.Focus();
-            this.label1.Text = "DESCRIPCION";
+            this.lblCriterio.Text = "DESCRIPCION";
 
         }
 
@@ -51,7 +52,7 @@ namespace pjPalmera.PL
         /// </summary>
         private void CleanControls()
         {
-            this.txtCriterioBusqueda.Text = "";
+            this.txtCriterioBusqueda.Clear();
         }
 
         /// <summary>
@@ -61,7 +62,11 @@ namespace pjPalmera.PL
         {
             this.MinimizeBox = false;
             this.MaximizeBox = false;
+            this.lblCriterio.Text = "";
             this.dgvProdConsultar.ReadOnly = true;
+            this.radioButton1.Checked = false;
+            this.radioButton2.Checked = false;
+           
         }
 
         private void frmEditarProductos_Load(object sender, EventArgs e)
@@ -71,23 +76,14 @@ namespace pjPalmera.PL
 
         private void btnRefrescar_Click(object sender, EventArgs e)
         {
-              this.dgvProdConsultar.DataSource = null;
-              this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+            DesableControls();
+            this.dgvProdConsultar.DataSource = null;
+            this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if (this.radioButton1.Checked == true)
-            {
-                ProductosEntity producto = new ProductosEntity();
-                producto.Idproducto = Convert.ToInt64(txtCriterioBusqueda.Text);
-              // this.dgvProdConsultar.DataSource= ProductosBO.Searh_Code();
-            }
-
-            if (this.radioButton2.Checked == true)
-            {
-
-            }
+         
         }
 
         /// <summary>
@@ -106,10 +102,10 @@ namespace pjPalmera.PL
         /// </summary>
         private void HideControls()
         { 
-            fproductos.txtStockInicial.Visible = false;
-            fproductos.txtStockMinimo.Visible = false;
-            fproductos.lblStockInicial.Visible = false;
-            fproductos.lblStockMinimo.Visible = false;
+            //fproductos.txtStockInicial.Visible = false;
+            //fproductos.txtStockMinimo.Visible = false;
+            //fproductos.lblStockInicial.Visible = false;
+            //fproductos.lblStockMinimo.Visible = false;
             fproductos.btnGuardar.Visible = false;
             fproductos.btnNuevo.Visible = false;
         }
@@ -133,6 +129,7 @@ namespace pjPalmera.PL
                 HideControls();
                 fproductos.Text = "Actualizar Información del Articulo";
                 fproductos.EnableControls();
+                fproductos.porcentaje();
                 InitControl();
 
                 productos = ProductosBO.Searh_Code(this.Idproducto);
@@ -144,6 +141,9 @@ namespace pjPalmera.PL
                 fproductos.dateTimePicker1.Text = Convert.ToString(productos.Vencimiento);
                 fproductos.txtCosto.Text = Convert.ToString(productos.Costo);
                 fproductos.txtPrecioVenta.Text = Convert.ToString(productos.Precio_venta);
+                fproductos.txtStockInicial.Text = Convert.ToString(productos.Stock);
+                fproductos.txtStockMinimo.Text = Convert.ToString(productos.Stockminimo);
+                fproductos.cmbEstado.Text = productos.Status;
 
                 //fproductos.LoadProveedor();
                 //fproductos.Categories();
@@ -159,9 +159,68 @@ namespace pjPalmera.PL
 
         }
 
+        /// <summary>
+        /// Filter Product by Code
+        /// </summary>
+        private void SearchByCode()
+        {
+            if ((txtCriterioBusqueda.Text != string.Empty))
+            {
+                productos.Idproducto = Convert.ToInt64(this.txtCriterioBusqueda.Text);
+                this.dgvProdConsultar.DataSource = ProductosBO.FilterProductbyCode(productos.Idproducto);
+            }
+            else
+            {
+                this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+                this.txtCriterioBusqueda.Focus();
+            }
+        }
+
+        /// <summary>
+        /// Filter Product by Description
+        /// </summary>
+        private void SearchByDescrip()
+        {
+            if ((this.txtCriterioBusqueda.Text != string.Empty))
+            {
+                productos.Descripcion = this.txtCriterioBusqueda.Text;
+
+                this.dgvProdConsultar.DataSource = ProductosBO.FilterProductbyDescp(productos.Descripcion);
+            }
+            else
+            {
+                this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+                this.txtCriterioBusqueda.Focus();
+            }
+        }
+
+        /// <summary>
+        /// Controls Descriptions
+        /// </summary>
+        private void DetailControls()
+        {
+            this.toolTip1.SetToolTip(this.btnEditarProd,"Editar Articulos Seleccionado");
+            this.toolTip1.SetToolTip(this.btnRefrescar, "Actualizar");
+            this.toolTip1.SetToolTip(this.btnEliminar, "Desactivar Articulo");
+        }
+
+
         private void btnEditarProd_Click(object sender, EventArgs e)
         {
             EditProduct();
+        }
+
+        private void txtCriterioBusqueda_TextChanged(object sender, EventArgs e)
+        {
+            if (this.radioButton1.Checked == true)
+            {
+                SearchByCode();
+            }
+
+            if (this.radioButton2.Checked == true)
+            {
+                SearchByDescrip();
+            }
         }
     }
 }

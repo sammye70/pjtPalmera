@@ -24,9 +24,9 @@ namespace pjPalmera.DAL
             {
                 con.Open();
                 string sql = @"INSERT INTO productos (idproducto, idfabricante, descripcion,idfamilia, stock, stockminimo, 
-                                f_vencimiento, costo, p_venta, createby, created)
+                                                      f_vencimiento, costo, p_venta, createby, created)
                                 VALUES(@idproducto, @idfabricante, @descripcion, @idfamilia, @stock, @stockminimo, 
-                                @f_vencimiento, @costo, @p_venta, @createby, @created)";
+                                       @f_vencimiento, @costo, @p_venta, @createby, @created)";
 
                 MySqlCommand cmd = new MySqlCommand(sql,con);
 
@@ -60,7 +60,8 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql = @"SELECT * FROM productos";
+                string sql = @"SELECT * FROM productos 
+                                     ORDER BY descripcion ASC";
 
                 MySqlCommand cmd = new MySqlCommand(sql, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -147,7 +148,8 @@ namespace pjPalmera.DAL
             {
                 con.Open();
                 string query = @"UPDATE productos SET productos.idproducto=@idproducto, productos.descripcion=@descripcion, productos.f_vencimiento=@f_vencimiento,
-                                        productos.p_venta=@p_venta, productos.costo=@costo, productos.idfamilia=@idfamilia, productos.idfabricante=@idfabricante    
+                                        productos.p_venta=@p_venta, productos.costo=@costo, productos.idfamilia=@idfamilia, productos.idfabricante=@idfabricante,
+                                        productos.stock=@stock, productos.stockminimo=@stockminimo   
                                 WHERE idproducto=@idproducto";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
@@ -159,6 +161,9 @@ namespace pjPalmera.DAL
                 cmd.Parameters.AddWithValue("@costo", productos.Costo);
                 cmd.Parameters.AddWithValue("@idfamilia", productos.Categoria);
                 cmd.Parameters.AddWithValue("@idfabricante", productos.Fabricante);
+                cmd.Parameters.AddWithValue("@stock",productos.Stock);
+                cmd.Parameters.AddWithValue("@stockminimo", productos.Stockminimo);
+                cmd.Parameters.AddWithValue("@status",productos.Status);
 
                 productos.Idproducto = Convert.ToInt64(cmd.ExecuteScalar());
                 con.Close();
@@ -173,8 +178,8 @@ namespace pjPalmera.DAL
         /// </summary>
         public static ProductosEntity Search_Code(Int64 id)
         {
-            // List<ProductosEntity> list = new List<ProductosEntity>();
-            ProductosEntity productos = null;
+            //List<ProductosEntity> productos = new List<ProductosEntity>();
+            ProductosEntity productos = new ProductosEntity();
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
@@ -184,7 +189,7 @@ namespace pjPalmera.DAL
 
                 MySqlCommand cmd = new MySqlCommand(search_code, con);
 
-                cmd.Parameters.AddWithValue("idproducto", id);
+                cmd.Parameters.AddWithValue("@idproducto", id);
                 
 
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -195,11 +200,64 @@ namespace pjPalmera.DAL
                 }
                 con.Close();
             }
-
             return productos;
+        }
+        // Leer aqui: http://ltuttini.blogspot.com/2009/11/c-adonet-ejemplo-practico-recuperar.html
 
+
+        /// <summary>
+        /// Filter Products by Code
+        /// </summary>
+        /// <returns></returns>
+        public static List<ProductosEntity> FilterProductbyCode(Int64 id)
+        {
+           List<ProductosEntity> productos = new List<ProductosEntity>();
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+
+                string query = @"select * from productos where productos.idproducto=@idproducto";
+
+                MySqlCommand cmd = new MySqlCommand(query,con);
+
+                cmd.Parameters.AddWithValue("@idproducto", id);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    productos.Add(LoadProduct(reader));
+                }
+            }
+                return productos;
         }
 
+        /// <summary>
+        /// Filter Products by Code
+        /// </summary>
+        /// <returns></returns>
+        public static List<ProductosEntity> FilterProductbyDescp(string descripcion)
+        {
+            List<ProductosEntity> productos = new List<ProductosEntity>();
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+
+                string query = @"SELECT * FROM productos WHERE productos.descripcion LIKE '@descripcion'";
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@descripcion", descripcion);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    productos.Add(LoadProduct(reader));
+                }
+            }
+            return productos;
+        }
 
         /// <summary>
         /// LoadProduct
@@ -220,6 +278,7 @@ namespace pjPalmera.DAL
             Productos.Costo = Convert.ToDecimal(Reader["costo"]);
             Productos.Precio_venta = Convert.ToDecimal(Reader["p_venta"]);
             Productos.Created = Convert.ToDateTime(Reader["created"]);
+            Productos.Status = Convert.ToString(Reader["status"]);
 
             return Productos;
         }

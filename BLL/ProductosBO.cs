@@ -27,7 +27,6 @@ namespace pjPalmera.BLL
             
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return null;
-
             }
         }
 
@@ -115,6 +114,40 @@ namespace pjPalmera.BLL
 
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
+            }
+        }
+
+        /// <summary>
+        /// Filter Products by Code
+        /// </summary>
+        /// <returns></returns>
+        public static List<ProductosEntity> FilterProductbyCode(Int64 id)
+        {
+            try
+            {
+               return ProductosDAL.FilterProductbyCode(id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Filter Products by Description
+        /// </summary>
+        /// <returns></returns>
+        public static List<ProductosEntity> FilterProductbyDescp(string descripcion)
+        {
+            try
+            {
+                return ProductosDAL.FilterProductbyDescp(descripcion);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
             }
         }
     }

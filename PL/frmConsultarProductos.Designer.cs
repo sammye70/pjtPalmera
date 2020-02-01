@@ -35,7 +35,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnExpExcel = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtCriterioBusqueda = new System.Windows.Forms.TextBox();
             this.lblMensaje = new System.Windows.Forms.Label();
@@ -65,7 +65,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.btnExpExcel);
             this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.btnSearch);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.txtCriterioBusqueda);
             this.panel1.Location = new System.Drawing.Point(7, 26);
@@ -91,24 +91,25 @@
             this.button2.TabIndex = 9;
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnSearch
             // 
-            this.button1.Image = global::PL.Properties.Resources.search;
-            this.button1.Location = new System.Drawing.Point(394, 10);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(56, 43);
-            this.button1.TabIndex = 7;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnSearch.Image = global::PL.Properties.Resources.search;
+            this.btnSearch.Location = new System.Drawing.Point(394, 10);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(56, 43);
+            this.btnSearch.TabIndex = 7;
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Visible = false;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(16, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 6;
-            this.label1.Text = "Descripcion";
+            this.label1.Text = "Codigo";
             // 
             // txtCriterioBusqueda
             // 
@@ -116,6 +117,7 @@
             this.txtCriterioBusqueda.Name = "txtCriterioBusqueda";
             this.txtCriterioBusqueda.Size = new System.Drawing.Size(267, 20);
             this.txtCriterioBusqueda.TabIndex = 5;
+            this.txtCriterioBusqueda.TextChanged += new System.EventHandler(this.txtCriterioBusqueda_TextChanged_1);
             // 
             // lblMensaje
             // 
@@ -154,7 +156,7 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtCriterioBusqueda;
         private System.Windows.Forms.Button button2;
