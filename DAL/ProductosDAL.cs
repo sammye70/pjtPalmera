@@ -147,13 +147,14 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = @"UPDATE productos SET productos.idproducto=@idproducto, productos.descripcion=@descripcion, productos.f_vencimiento=@f_vencimiento,
+                string query = @"UPDATE productos SET productos.numero=@numero, productos.idproducto=@idproducto, productos.descripcion=@descripcion, productos.f_vencimiento=@f_vencimiento,
                                         productos.p_venta=@p_venta, productos.costo=@costo, productos.idfamilia=@idfamilia, productos.idfabricante=@idfabricante,
                                         productos.stock=@stock, productos.stockminimo=@stockminimo   
-                                WHERE idproducto=@idproducto";
+                                WHERE numero=@numero";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
+                cmd.Parameters.AddWithValue("numero", productos.Orden);
                 cmd.Parameters.AddWithValue("@idproducto", productos.Idproducto);
                 cmd.Parameters.AddWithValue("@descripcion", productos.Descripcion);
                 cmd.Parameters.AddWithValue("@f_vencimiento", productos.Vencimiento);
@@ -165,11 +166,9 @@ namespace pjPalmera.DAL
                 cmd.Parameters.AddWithValue("@stockminimo", productos.Stockminimo);
                 cmd.Parameters.AddWithValue("@status",productos.Status);
 
-                productos.Idproducto = Convert.ToInt64(cmd.ExecuteScalar());
+                 productos.Orden = Convert.ToInt64(cmd.ExecuteScalar());
                 con.Close();
-
             }
-
         }
 
 
@@ -185,11 +184,11 @@ namespace pjPalmera.DAL
                 con.Open();
                
                // ProductosEntity productos = new ProductosEntity();
-                string search_code = @"select * from productos where productos.idproducto=@idproducto";
+                string search_code = @"select * from productos where productos.numero=@numero";
 
                 MySqlCommand cmd = new MySqlCommand(search_code, con);
 
-                cmd.Parameters.AddWithValue("@idproducto", id);
+                cmd.Parameters.AddWithValue("@numero", id);
                 
 
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -202,7 +201,7 @@ namespace pjPalmera.DAL
             }
             return productos;
         }
-        // Leer aqui: http://ltuttini.blogspot.com/2009/11/c-adonet-ejemplo-practico-recuperar.html
+        
 
 
         /// <summary>
@@ -243,7 +242,7 @@ namespace pjPalmera.DAL
             {
                 con.Open();
 
-                string query = @"SELECT * FROM productos WHERE productos.descripcion LIKE '@descripcion'";
+                string query = @"SELECT * FROM productos WHERE productos.descripcion LIKE '@descripcion%'";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
@@ -268,6 +267,7 @@ namespace pjPalmera.DAL
         {
             ProductosEntity Productos = new ProductosEntity();
 
+            Productos.Orden = Convert.ToInt64(Reader["numero"]);
             Productos.Idproducto = Convert.ToInt64(Reader["idproducto"]);
             Productos.Fabricante = Convert.ToString(Reader["idfabricante"]);
             Productos.Categoria= Convert.ToString(Reader["idfamilia"]);

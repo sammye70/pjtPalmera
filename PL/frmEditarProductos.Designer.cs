@@ -33,6 +33,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.btnEditarProd = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
@@ -42,7 +43,6 @@
             this.lblCriterio = new System.Windows.Forms.Label();
             this.txtCriterioBusqueda = new System.Windows.Forms.TextBox();
             this.lblMensaje = new System.Windows.Forms.Label();
-            this.btnSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProdConsultar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -79,6 +79,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1006, 93);
             this.panel1.TabIndex = 3;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnSearch.Image = global::PL.Properties.Resources.search;
+            this.btnSearch.Location = new System.Drawing.Point(392, 27);
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(42, 37);
+            this.btnSearch.TabIndex = 62;
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Visible = false;
             // 
             // btnEditarProd
             // 
@@ -175,18 +187,6 @@
             this.lblMensaje.Text = "Indicar como buscar (Codigo, Descripcion). Luego Seleccionar y  despues presinar " +
     "el boton Editar";
             // 
-            // btnSearch
-            // 
-            this.btnSearch.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnSearch.Image = global::PL.Properties.Resources.search;
-            this.btnSearch.Location = new System.Drawing.Point(392, 27);
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(42, 37);
-            this.btnSearch.TabIndex = 62;
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Visible = false;
-            // 
             // frmEditarProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -211,8 +211,6 @@
         }
 
         #endregion
-
-        public System.Windows.Forms.DataGridView dgvProdConsultar;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Panel panel1;
@@ -226,5 +224,6 @@
         public System.Windows.Forms.Button btnEditarProd;
         public System.Windows.Forms.Label lblMensaje;
         private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.DataGridView dgvProdConsultar;
     }
 }

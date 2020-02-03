@@ -15,7 +15,7 @@ namespace pjPalmera.PL
     public partial class frmConsultarProductos : Form
     {
 
-        private Int64 _idproducto;
+        private Int64 _numero;
 
         ProductosEntity productos = new ProductosEntity();
 
@@ -24,9 +24,9 @@ namespace pjPalmera.PL
             InitializeComponent();
         }
 
-        public Int64 Idproducto
+        public Int64 Orden
         {
-            get { return _idproducto; }
+            get { return _numero; }
         }
 
 
@@ -101,7 +101,7 @@ namespace pjPalmera.PL
                   //  if (e.RowIndex == -1)
                     //    return;
 
-                    _idproducto = Convert.ToInt64(dgvProdConsultar.Rows[e.RowIndex].Cells["Idproducto"].Value);
+                    _numero = Convert.ToInt64(dgvProdConsultar.Rows[e.RowIndex].Cells["Idproducto"].Value);
 
                     MessageBox.Show("No hay Stock disponible del producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     this.dgvProdConsultar.DataSource = null;
@@ -115,7 +115,7 @@ namespace pjPalmera.PL
                     if (e.RowIndex == -1)
                         return;
 
-                    _idproducto = Convert.ToInt64(dgvProdConsultar.Rows[e.RowIndex].Cells["Idproducto"].Value);
+                    _numero = Convert.ToInt64(dgvProdConsultar.Rows[e.RowIndex].Cells["Idproducto"].Value);
 
                     this.DialogResult = DialogResult.OK;
                     this.Close();

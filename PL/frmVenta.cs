@@ -450,7 +450,7 @@ namespace pjPalmera.PL
 
             if (consulProductos.ShowDialog() == DialogResult.OK)
             {
-                producto = ProductosBO.Searh_Code(consulProductos.Idproducto);
+                producto = ProductosBO.Searh_Code(consulProductos.Orden);
 
                 this.txtProductos.Text = Convert.ToString(producto.Idproducto);
                 this.txtDescripcion.Text = producto.Descripcion;

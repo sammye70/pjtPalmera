@@ -61,9 +61,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.cmbGanancia = new System.Windows.Forms.ComboBox();
             this.btnGenerarCodigo = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
             this.lblEstado = new System.Windows.Forms.Label();
             this.cmbEstado = new System.Windows.Forms.ComboBox();
+            this.txtOrden = new System.Windows.Forms.TextBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -336,15 +337,6 @@
             this.btnGenerarCodigo.UseVisualStyleBackColor = true;
             this.btnGenerarCodigo.Click += new System.EventHandler(this.btnGenerarCodigo_Click);
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(0, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(35, 13);
-            this.label8.TabIndex = 30;
-            this.label8.Text = "label8";
-            // 
             // lblEstado
             // 
             this.lblEstado.AutoSize = true;
@@ -367,14 +359,27 @@
             this.cmbEstado.TabIndex = 32;
             this.cmbEstado.Visible = false;
             // 
+            // txtOrden
+            // 
+            this.txtOrden.Location = new System.Drawing.Point(273, 36);
+            this.txtOrden.Name = "txtOrden";
+            this.txtOrden.Size = new System.Drawing.Size(100, 20);
+            this.txtOrden.TabIndex = 33;
+            this.txtOrden.Visible = false;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
             // frmRegArticulos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(678, 292);
+            this.Controls.Add(this.txtOrden);
             this.Controls.Add(this.cmbEstado);
             this.Controls.Add(this.lblEstado);
-            this.Controls.Add(this.label8);
             this.Controls.Add(this.btnGenerarCodigo);
             this.Controls.Add(this.cmbGanancia);
             this.Controls.Add(this.label5);
@@ -447,10 +452,11 @@
         private System.Windows.Forms.Button btnGenerarCodigo;
         public System.Windows.Forms.ComboBox cmbEstado;
         public System.Windows.Forms.Label lblEstado;
-        private System.Windows.Forms.Label label8;
         public System.Windows.Forms.Label label6;
         public System.Windows.Forms.Label label7;
         public System.Windows.Forms.ComboBox cmbGanancia;
         public System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        public System.Windows.Forms.TextBox txtOrden;
     }
 }

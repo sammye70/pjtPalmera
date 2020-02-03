@@ -11,6 +11,7 @@ namespace pjPalmera.Entities
 
 
         //Field
+        private long orden;
         private long idproducto;
         private string descripcion;
         private string categoria;
@@ -35,9 +36,10 @@ namespace pjPalmera.Entities
         {
         }
 
-        public ProductosEntity(long idproducto, string descripcion, string categoria, string fabricante, float stock_actual, float stock, float stock_minimo,
+        public ProductosEntity(long orden, long idproducto, string descripcion, string categoria, string fabricante, float stock_actual, float stock, float stock_minimo,
             DateTime vencimiento, decimal costo, decimal precio_venta, int createby, DateTime created, string status)
         {
+            this.Orden = orden;
             this.Idproducto = idproducto;
             this.Descripcion = descripcion;
             this.Categoria = categoria;
@@ -53,6 +55,14 @@ namespace pjPalmera.Entities
         }
 
         //Properties
+
+        public long Orden
+        {
+            get { return orden; }
+            set { orden = value; }
+        }
+
+
         public long Idproducto
         {
             get

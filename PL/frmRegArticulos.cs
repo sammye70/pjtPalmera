@@ -204,6 +204,7 @@ namespace pjPalmera.PL
 
             producto = new ProductosEntity();
 
+            producto.Orden = Convert.ToInt64(this.txtOrden.Text);
             producto.Idproducto = Convert.ToInt64(this.txtCodigo.Text);
             producto.Fabricante = this.cmbFabrincante.Text;
             producto.Descripcion = this.txtDescripcion.Text;
@@ -325,7 +326,6 @@ namespace pjPalmera.PL
             {
                 this.cmbGanancia.Items.Add(i);
             }
-           
         }
 
         /// <summary>

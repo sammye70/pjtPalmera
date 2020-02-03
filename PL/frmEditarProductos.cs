@@ -17,7 +17,7 @@ namespace pjPalmera.PL
         frmRegArticulos fproductos = new frmRegArticulos();
         ProductosEntity productos = new ProductosEntity();
 
-        private Int64 _idproducto;
+        private Int64 _orden;
 
         public frmEditarProductos()
         {
@@ -26,9 +26,9 @@ namespace pjPalmera.PL
             DetailControls();
         }
 
-        public Int64 Idproducto
+        public Int64 Orden
         {
-            get { return _idproducto; }
+            get { return _orden; }
 
         }
 
@@ -66,7 +66,7 @@ namespace pjPalmera.PL
             this.dgvProdConsultar.ReadOnly = true;
             this.radioButton1.Checked = false;
             this.radioButton2.Checked = false;
-           
+            //this.dgvProdConsultar.Columns["Orden"].Visible = false;
         }
 
         private void frmEditarProductos_Load(object sender, EventArgs e)
@@ -121,7 +121,7 @@ namespace pjPalmera.PL
                 DataGridViewRow x = dgvProdConsultar.CurrentRow;
 
 
-                _idproducto = Convert.ToInt64(dgvProdConsultar.Rows[x.Index].Cells["Idproducto"].Value);
+                _orden = Convert.ToInt64(dgvProdConsultar.Rows[x.Index].Cells["Orden"].Value);
 
                 // this.DialogResult = DialogResult.OK;
 
@@ -132,8 +132,9 @@ namespace pjPalmera.PL
                 fproductos.porcentaje();
                 InitControl();
 
-                productos = ProductosBO.Searh_Code(this.Idproducto);
+                productos = ProductosBO.Searh_Code(this.Orden);
 
+                fproductos.txtOrden.Text = Convert.ToString(productos.Orden);
                 fproductos.txtCodigo.Text = Convert.ToString(productos.Idproducto);
                 fproductos.txtDescripcion.Text = productos.Descripcion;
                 fproductos.cmbFabrincante.Text = productos.Fabricante;
@@ -154,7 +155,6 @@ namespace pjPalmera.PL
                 productos = null;
                 this.txtCriterioBusqueda.Focus();
                 return;
-                
             }
 
         }
