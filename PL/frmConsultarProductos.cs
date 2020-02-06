@@ -101,7 +101,7 @@ namespace pjPalmera.PL
                   //  if (e.RowIndex == -1)
                     //    return;
 
-                    _numero = Convert.ToInt64(dgvProdConsultar.Rows[e.RowIndex].Cells["Idproducto"].Value);
+                    _numero = Convert.ToInt64(dgvProdConsultar.Rows[e.RowIndex].Cells["Orden"].Value);
 
                     MessageBox.Show("No hay Stock disponible del producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     this.dgvProdConsultar.DataSource = null;
@@ -115,7 +115,7 @@ namespace pjPalmera.PL
                     if (e.RowIndex == -1)
                         return;
 
-                    _numero = Convert.ToInt64(dgvProdConsultar.Rows[e.RowIndex].Cells["Idproducto"].Value);
+                    _numero = Convert.ToInt64(dgvProdConsultar.Rows[e.RowIndex].Cells["Orden"].Value);
 
                     this.DialogResult = DialogResult.OK;
                     this.Close();

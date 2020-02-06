@@ -33,7 +33,7 @@ namespace pjPalmera.DAL
                 cmd.Parameters.AddWithValue("@direccion_fab", Proveedor.Direccion_fab);
                 cmd.Parameters.AddWithValue("@rnc", Proveedor.Rnc);
                 cmd.Parameters.AddWithValue("@limitecredito", Proveedor.Limitecredito);
-                cmd.Parameters.AddWithValue("@created", Proveedor.Created);
+                cmd.Parameters.AddWithValue("@created", DateTime.Now);
                 cmd.Parameters.AddWithValue("@createby", Proveedor.Createby);
 
                 Proveedor.Idproveedor = Convert.ToInt32(cmd.ExecuteScalar());
@@ -53,7 +53,7 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql = @"SELECT * FROM fabricante";
+                string sql = @"SELECT * FROM fabricante ORDER BY nombre_fab ASC";
 
                 MySqlCommand cmd = new MySqlCommand(sql, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -62,9 +62,7 @@ namespace pjPalmera.DAL
                 {
                     list.Add(LoadProveedor(reader));
                 }
-
             }
-
              return list;
         }
 
@@ -74,14 +72,14 @@ namespace pjPalmera.DAL
         /// Get All only: nombre
         /// </summary>
         /// <returns></returns>
-        public static List<ProveedorEntity> GetAll_()
+        public static List<ProveedorEntity> GetAllByName()
         {
             List<ProveedorEntity> list = new List<ProveedorEntity>();
 
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql = @"SELECT nombre_fab FROM fabricante";
+                string sql = @"SELECT nombre_fab FROM fabricante ORDER BY nombre_fab ASC ";
 
                 MySqlCommand cmd = new MySqlCommand(sql, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -90,7 +88,6 @@ namespace pjPalmera.DAL
                 {
                     list.Add(LoadProveed(reader));
                 }
-
             }
 
             return list;
@@ -98,7 +95,66 @@ namespace pjPalmera.DAL
 
 
         /// <summary>
-        /// Load proveedor
+        ///  Get proveedor by rnc
+        ///  </summary>
+        /// <returns></returns>
+        public static List<ProveedorEntity> SearchByrnc(string rnc)
+        {
+            ProveedorEntity proveedor = new ProveedorEntity();
+            List<ProveedorEntity> list = new List<ProveedorEntity>();
+
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();                
+                string sql = @"SELECT * FROM fabricante WHERE fabricante.rnc=@rnc";
+
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+
+                cmd.Parameters.AddWithValue("@rnc", rnc);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    list.Add(LoadProveed(reader));
+                }
+            }
+            return list;
+        }
+
+        /// <summary>
+        /// Search Proveedor by Name
+        /// </summary>
+        /// <param name="rnc"></param>
+        /// <returns></returns>
+        public static List<ProveedorEntity> SearchByName(string name)
+        {
+            ProveedorEntity proveedor = new ProveedorEntity();
+            List<ProveedorEntity> list = new List<ProveedorEntity>();
+
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string sql = @"SELECT * FROM fabricante WHERE fabricante.nombre_fab LIKE '@nombre_fab%'";
+
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+
+                cmd.Parameters.AddWithValue("@nombre_fab", name);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    list.Add(LoadProveed(reader));
+                }
+            }
+            return list;
+        }
+
+
+
+        /// <summary>
+        /// Load proveedor only name
         /// </summary>
         /// <returns></returns>
         private static ProveedorEntity LoadProveed(IDataReader Reader)
@@ -108,7 +164,6 @@ namespace pjPalmera.DAL
 
             return Proveedor;
         }
-
 
 
         /// <summary>
@@ -126,6 +181,8 @@ namespace pjPalmera.DAL
             Proveedor.Direccion_fab = Convert.ToString(Reader["direccion_fab"]);
             Proveedor.Rnc = Convert.ToString(Reader["rnc"]);
             Proveedor.Limitecredito = Convert.ToDecimal(Reader["limitecredito"]);
+            Proveedor.Created = Convert.ToDateTime(Reader["created"]);
+            //Proveedor.Createby =
 
             return Proveedor;
         }

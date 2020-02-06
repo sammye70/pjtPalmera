@@ -104,7 +104,7 @@ namespace pjPalmera.PL
             this.txtNomProveedor.Enabled = true;
             this.mktTelefRepresentante.Enabled = true;
             this.txtNomRepresentante.Enabled = true;
-            this.mktLimiteCredito.Enabled = true;
+            //this.mktLimiteCredito.Enabled = true;
             this.mktTelefono.Enabled = true;
             this.mktTelefRepresentante.Enabled = true;
             this.cmbCredito.Enabled = true;
@@ -142,6 +142,21 @@ namespace pjPalmera.PL
                 ProveedorBO.Save(proveedor);
             }
 
+        }
+
+        private void cmbCredito_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.cmbCredito.Text == "Si")
+            {
+                this.mktLimiteCredito.Enabled = true;
+                this.mktLimiteCredito.Focus();
+            }
+
+            if (this.cmbCredito.Text == "No")
+            {
+                this.mktLimiteCredito.Enabled = false;
+                return;
+            }
         }
     }
             

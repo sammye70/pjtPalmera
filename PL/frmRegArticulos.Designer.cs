@@ -64,7 +64,6 @@
             this.lblEstado = new System.Windows.Forms.Label();
             this.cmbEstado = new System.Windows.Forms.ComboBox();
             this.txtOrden = new System.Windows.Forms.TextBox();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -89,11 +88,11 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 155);
+            this.label3.Location = new System.Drawing.Point(7, 150);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 13);
+            this.label3.Size = new System.Drawing.Size(59, 13);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Fabricante";
+            this.label3.Text = "Distribuidor";
             // 
             // dateTimePicker1
             // 
@@ -276,7 +275,7 @@
             // btnAddCategoria
             // 
             this.btnAddCategoria.Image = global::PL.Properties.Resources.add;
-            this.btnAddCategoria.Location = new System.Drawing.Point(635, 145);
+            this.btnAddCategoria.Location = new System.Drawing.Point(638, 142);
             this.btnAddCategoria.Name = "btnAddCategoria";
             this.btnAddCategoria.Size = new System.Drawing.Size(27, 28);
             this.btnAddCategoria.TabIndex = 24;
@@ -291,7 +290,7 @@
             // btnAddFabricante
             // 
             this.btnAddFabricante.Image = global::PL.Properties.Resources.add;
-            this.btnAddFabricante.Location = new System.Drawing.Point(304, 145);
+            this.btnAddFabricante.Location = new System.Drawing.Point(306, 144);
             this.btnAddFabricante.Name = "btnAddFabricante";
             this.btnAddFabricante.Size = new System.Drawing.Size(27, 28);
             this.btnAddFabricante.TabIndex = 25;
@@ -366,11 +365,6 @@
             this.txtOrden.Size = new System.Drawing.Size(100, 20);
             this.txtOrden.TabIndex = 33;
             this.txtOrden.Visible = false;
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // frmRegArticulos
             // 
@@ -456,7 +450,6 @@
         public System.Windows.Forms.Label label7;
         public System.Windows.Forms.ComboBox cmbGanancia;
         public System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         public System.Windows.Forms.TextBox txtOrden;
     }
 }

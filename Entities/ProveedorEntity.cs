@@ -8,6 +8,7 @@ namespace pjPalmera.Entities
 {
     public class ProveedorEntity
     {
+        //Field
         private int idproveedor;
         private string nombre_proveedor;
         private string nombre_contacto;
@@ -20,6 +21,27 @@ namespace pjPalmera.Entities
         private int createby;
 
 
+        //Contructor
+        public ProveedorEntity()
+        {
+        }
+
+        public ProveedorEntity(int idproveedor, string nombre_proveedor, string nombre_contacto, string tel_proveedor, string tel_contacto, 
+            string direccion_fab, string rnc, decimal limitecredito, DateTime created, int createby)
+        {
+            this.Idproveedor = idproveedor;
+            this.Nombre_proveedor = nombre_proveedor;
+            this.Nombre_contacto = nombre_contacto;
+            this.Tel_contacto = tel_contacto;
+            this.Tel_proveedor = tel_proveedor;
+            this.Direccion_fab = direccion_fab;
+            this.Rnc = rnc;
+            this.Limitecredito = limitecredito;
+            this.Created = created;
+            this.Createby = createby;
+        }
+
+        //Properties
         public int Idproveedor
         {
             get { return idproveedor; }
@@ -28,7 +50,7 @@ namespace pjPalmera.Entities
 
         public string Nombre_proveedor
         {
-            get { return nombre_proveedor;  }
+            get { return nombre_proveedor; }
 
             set { nombre_proveedor = value; }
         }
@@ -37,21 +59,21 @@ namespace pjPalmera.Entities
         {
             get { return nombre_contacto; }
 
-            set { nombre_contacto = value;}
+            set { nombre_contacto = value; }
         }
 
         public string Tel_contacto
         {
             get { return tel_contacto; }
 
-            set {  tel_contacto = value;}
+            set { tel_contacto = value; }
         }
 
         public string Direccion_fab
         {
-            get { return direccion_fab;}
+            get { return direccion_fab; }
 
-            set{direccion_fab = value; }
+            set { direccion_fab = value; }
         }
 
         public string Rnc
@@ -63,23 +85,23 @@ namespace pjPalmera.Entities
 
         public decimal Limitecredito
         {
-            get { return limitecredito;}
+            get { return limitecredito; }
 
-            set { limitecredito = value;}
+            set { limitecredito = value; }
         }
 
         public DateTime Created
         {
-            get  { return created;}
+            get { return created; }
 
             set { created = value; }
         }
 
         public int Createby
         {
-            get {  return createby;}
+            get { return createby; }
 
-            set { createby = value;}
+            set { createby = value; }
         }
 
         public string Tel_proveedor
@@ -87,25 +109,6 @@ namespace pjPalmera.Entities
             get { return tel_proveedor; }
 
             set { tel_proveedor = value; }
-        }
-
-        public ProveedorEntity()
-        {
-        }
-
-        public ProveedorEntity(int Idproveedor, string Nombre_proveedor, string Nombre_contacto, string Tel_proveedor, string Tel_contacto, 
-            string Direccion_fab, string Rnc, decimal Limitecredito, DateTime Created, int Createby)
-        {
-            this.idproveedor = Idproveedor;
-            this.nombre_proveedor = Nombre_proveedor;
-            this.nombre_contacto = Nombre_contacto;
-            this.tel_contacto = Tel_contacto;
-            this.tel_proveedor = Tel_proveedor;
-            this.direccion_fab = Direccion_fab;
-            this.rnc = Rnc;
-            this.limitecredito = Limitecredito;
-            this.created = Created;
-            this.createby = Createby;
         }
     }
 }

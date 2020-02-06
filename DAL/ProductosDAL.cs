@@ -24,9 +24,9 @@ namespace pjPalmera.DAL
             {
                 con.Open();
                 string sql = @"INSERT INTO productos (idproducto, idfabricante, descripcion,idfamilia, stock, stockminimo, 
-                                                      f_vencimiento, costo, p_venta, createby, created)
+                                                      f_vencimiento, costo, p_venta, createby, created, status)
                                 VALUES(@idproducto, @idfabricante, @descripcion, @idfamilia, @stock, @stockminimo, 
-                                       @f_vencimiento, @costo, @p_venta, @createby, @created)";
+                                       @f_vencimiento, @costo, @p_venta, @createby, @created, @status)";
 
                 MySqlCommand cmd = new MySqlCommand(sql,con);
 
@@ -41,6 +41,7 @@ namespace pjPalmera.DAL
                 cmd.Parameters.AddWithValue("@p_venta", Producto.Precio_venta);
                 cmd.Parameters.AddWithValue("@createby", Producto.Createby);
                 cmd.Parameters.AddWithValue("@created", DateTime.Now);
+                cmd.Parameters.AddWithValue("@status",Producto.Status);
 
                 //Producto.Id=Convert.ToInt32(cmd.ExecuteScalar());
                 cmd.ExecuteNonQuery();
@@ -149,7 +150,7 @@ namespace pjPalmera.DAL
                 con.Open();
                 string query = @"UPDATE productos SET productos.numero=@numero, productos.idproducto=@idproducto, productos.descripcion=@descripcion, productos.f_vencimiento=@f_vencimiento,
                                         productos.p_venta=@p_venta, productos.costo=@costo, productos.idfamilia=@idfamilia, productos.idfabricante=@idfabricante,
-                                        productos.stock=@stock, productos.stockminimo=@stockminimo   
+                                        productos.stock=@stock, productos.stockminimo=@stockminimo, productos.modificated=@modificated   
                                 WHERE numero=@numero";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
@@ -165,6 +166,7 @@ namespace pjPalmera.DAL
                 cmd.Parameters.AddWithValue("@stock",productos.Stock);
                 cmd.Parameters.AddWithValue("@stockminimo", productos.Stockminimo);
                 cmd.Parameters.AddWithValue("@status",productos.Status);
+                cmd.Parameters.AddWithValue("@modificated",DateTime.Now);
 
                  productos.Orden = Convert.ToInt64(cmd.ExecuteScalar());
                 con.Close();
@@ -172,6 +174,20 @@ namespace pjPalmera.DAL
         }
 
 
+        /// <summary>
+        /// Verificate if exist product code
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns></returns>
+        public static bool VerificateCode(Int64 id)
+        {
+
+
+            return true;
+        }
+        
+        
+        
         /// <summary>
         /// Search Products by Code
         /// </summary>
@@ -232,7 +248,7 @@ namespace pjPalmera.DAL
         }
 
         /// <summary>
-        /// Filter Products by Code
+        /// Filter Products by Description
         /// </summary>
         /// <returns></returns>
         public static List<ProductosEntity> FilterProductbyDescp(string descripcion)

@@ -186,6 +186,7 @@
             this.cmbCredito.Name = "cmbCredito";
             this.cmbCredito.Size = new System.Drawing.Size(52, 21);
             this.cmbCredito.TabIndex = 15;
+            this.cmbCredito.SelectedIndexChanged += new System.EventHandler(this.cmbCredito_SelectedIndexChanged);
             // 
             // groupBox1
             // 

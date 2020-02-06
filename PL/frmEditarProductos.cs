@@ -118,12 +118,10 @@ namespace pjPalmera.PL
         {
             try
             {
-                DataGridViewRow x = dgvProdConsultar.CurrentRow;
 
-
-                _orden = Convert.ToInt64(dgvProdConsultar.Rows[x.Index].Cells["Orden"].Value);
-
-                // this.DialogResult = DialogResult.OK;
+                  DataGridViewRow x = dgvProdConsultar.CurrentRow;
+                  _orden = Convert.ToInt64(dgvProdConsultar.Rows[x.Index].Cells["Orden"].Value); 
+       
 
                 fproductos.Show();
                 HideControls();
@@ -166,8 +164,15 @@ namespace pjPalmera.PL
         {
             if ((txtCriterioBusqueda.Text != string.Empty))
             {
-                productos.Idproducto = Convert.ToInt64(this.txtCriterioBusqueda.Text);
-                this.dgvProdConsultar.DataSource = ProductosBO.FilterProductbyCode(productos.Idproducto);
+                try
+                {
+                    productos.Idproducto = Convert.ToInt64(this.txtCriterioBusqueda.Text);
+                    this.dgvProdConsultar.DataSource = ProductosBO.FilterProductbyCode(productos.Idproducto);
+                }
+                catch
+                {
+
+                }
             }
             else
             {
@@ -205,6 +210,21 @@ namespace pjPalmera.PL
         }
 
 
+
+        /// <summary>
+        /// Delete selected product
+        /// </summary>
+        private void DeleteProduct()
+        {
+            DataGridViewRow x = dgvProdConsultar.CurrentRow;
+            _orden = Convert.ToInt64(dgvProdConsultar.Rows[x.Index].Cells["Orden"].Value);
+
+            productos = ProductosBO.Searh_Code(this.Orden);
+
+            this.dgvProdConsultar.DataSource = null;
+            this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+        }
+
         private void btnEditarProd_Click(object sender, EventArgs e)
         {
             EditProduct();
@@ -221,6 +241,11 @@ namespace pjPalmera.PL
             {
                 SearchByDescrip();
             }
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            DeleteProduct();
         }
     }
 }

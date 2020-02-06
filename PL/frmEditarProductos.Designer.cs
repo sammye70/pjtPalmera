@@ -43,6 +43,7 @@
             this.lblCriterio = new System.Windows.Forms.Label();
             this.txtCriterioBusqueda = new System.Windows.Forms.TextBox();
             this.lblMensaje = new System.Windows.Forms.Label();
+            this.btnRemove = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProdConsultar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -55,10 +56,10 @@
             this.dgvProdConsultar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvProdConsultar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProdConsultar.Location = new System.Drawing.Point(6, 116);
+            this.dgvProdConsultar.Location = new System.Drawing.Point(6, 129);
             this.dgvProdConsultar.Name = "dgvProdConsultar";
             this.dgvProdConsultar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvProdConsultar.Size = new System.Drawing.Size(1006, 335);
+            this.dgvProdConsultar.Size = new System.Drawing.Size(1075, 335);
             this.dgvProdConsultar.TabIndex = 2;
             // 
             // errorProvider1
@@ -68,6 +69,7 @@
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.btnRemove);
             this.panel1.Controls.Add(this.btnSearch);
             this.panel1.Controls.Add(this.btnEditarProd);
             this.panel1.Controls.Add(this.groupBox1);
@@ -75,16 +77,16 @@
             this.panel1.Controls.Add(this.btnRefrescar);
             this.panel1.Controls.Add(this.lblCriterio);
             this.panel1.Controls.Add(this.txtCriterioBusqueda);
-            this.panel1.Location = new System.Drawing.Point(6, 14);
+            this.panel1.Location = new System.Drawing.Point(6, 21);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1006, 93);
+            this.panel1.Size = new System.Drawing.Size(1075, 93);
             this.panel1.TabIndex = 3;
             // 
             // btnSearch
             // 
             this.btnSearch.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnSearch.Image = global::PL.Properties.Resources.search;
-            this.btnSearch.Location = new System.Drawing.Point(392, 27);
+            this.btnSearch.Location = new System.Drawing.Point(404, 27);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(42, 37);
@@ -96,7 +98,7 @@
             // 
             this.btnEditarProd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEditarProd.Image = global::PL.Properties.Resources.edit;
-            this.btnEditarProd.Location = new System.Drawing.Point(771, 24);
+            this.btnEditarProd.Location = new System.Drawing.Point(840, 24);
             this.btnEditarProd.Margin = new System.Windows.Forms.Padding(4);
             this.btnEditarProd.Name = "btnEditarProd";
             this.btnEditarProd.Size = new System.Drawing.Size(64, 42);
@@ -109,7 +111,7 @@
             this.groupBox1.Controls.Add(this.radioButton2);
             this.groupBox1.Controls.Add(this.radioButton1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(452, 13);
+            this.groupBox1.Location = new System.Drawing.Point(487, 13);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(298, 54);
             this.groupBox1.TabIndex = 12;
@@ -150,7 +152,7 @@
             // btnRefrescar
             // 
             this.btnRefrescar.Image = global::PL.Properties.Resources.refresh;
-            this.btnRefrescar.Location = new System.Drawing.Point(910, 24);
+            this.btnRefrescar.Location = new System.Drawing.Point(977, 23);
             this.btnRefrescar.Name = "btnRefrescar";
             this.btnRefrescar.Size = new System.Drawing.Size(56, 43);
             this.btnRefrescar.TabIndex = 8;
@@ -161,7 +163,7 @@
             // 
             this.lblCriterio.AutoSize = true;
             this.lblCriterio.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCriterio.Location = new System.Drawing.Point(18, 37);
+            this.lblCriterio.Location = new System.Drawing.Point(20, 39);
             this.lblCriterio.Name = "lblCriterio";
             this.lblCriterio.Size = new System.Drawing.Size(80, 16);
             this.lblCriterio.TabIndex = 6;
@@ -169,7 +171,7 @@
             // 
             // txtCriterioBusqueda
             // 
-            this.txtCriterioBusqueda.Location = new System.Drawing.Point(118, 36);
+            this.txtCriterioBusqueda.Location = new System.Drawing.Point(130, 36);
             this.txtCriterioBusqueda.Name = "txtCriterioBusqueda";
             this.txtCriterioBusqueda.Size = new System.Drawing.Size(267, 20);
             this.txtCriterioBusqueda.TabIndex = 5;
@@ -180,18 +182,28 @@
             this.lblMensaje.AutoSize = true;
             this.lblMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMensaje.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblMensaje.Location = new System.Drawing.Point(3, 454);
+            this.lblMensaje.Location = new System.Drawing.Point(3, 469);
             this.lblMensaje.Name = "lblMensaje";
             this.lblMensaje.Size = new System.Drawing.Size(563, 13);
             this.lblMensaje.TabIndex = 4;
             this.lblMensaje.Text = "Indicar como buscar (Codigo, Descripcion). Luego Seleccionar y  despues presinar " +
     "el boton Editar";
             // 
+            // btnRemove
+            // 
+            this.btnRemove.Image = global::PL.Properties.Resources.trash;
+            this.btnRemove.Location = new System.Drawing.Point(915, 24);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(56, 43);
+            this.btnRemove.TabIndex = 63;
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
             // frmEditarProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1024, 475);
+            this.ClientSize = new System.Drawing.Size(1093, 488);
             this.Controls.Add(this.lblMensaje);
             this.Controls.Add(this.dgvProdConsultar);
             this.Controls.Add(this.panel1);
@@ -224,6 +236,7 @@
         public System.Windows.Forms.Button btnEditarProd;
         public System.Windows.Forms.Label lblMensaje;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.DataGridView dgvProdConsultar;
+        public System.Windows.Forms.DataGridView dgvProdConsultar;
+        private System.Windows.Forms.Button btnRemove;
     }
 }

@@ -15,7 +15,7 @@ namespace pjPalmera.PL
     public partial class frmRegArticulos : Form
     {
         ProductosEntity producto = new ProductosEntity();
-        frmConsultarProductos cproductos = new frmConsultarProductos();
+       // frmEditarProductos cproductos = new frmEditarProductos();
 
         public frmRegArticulos()
         {
@@ -107,7 +107,7 @@ namespace pjPalmera.PL
         public void LoadProveedor()
         {
             this.cmbFabrincante.DisplayMember = "nombre_proveedor";
-            this.cmbFabrincante.DataSource=ProveedorBO.GetAllProveedor_();
+            this.cmbFabrincante.DataSource=ProveedorBO.GetAllByName();
         }
 
         /// <summary>
@@ -187,13 +187,11 @@ namespace pjPalmera.PL
                 producto.Costo = Convert.ToDecimal(this.txtCosto.Text);
                 producto.Precio_venta = Convert.ToDecimal(txtPrecioVenta.Text);
                 producto.Created = DateTime.Now.Date;
-                producto.Status = "Activido";
+                producto.Status = cmbEstado.Text;
 
                 ProductosBO.Save(producto);
             }
-
         }
-
 
 
         /// <summary>
@@ -312,12 +310,14 @@ namespace pjPalmera.PL
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            frmEditarProductos ccproductos = new frmEditarProductos();
             producto = null;
+            ccproductos.dgvProdConsultar = null;
             this.Close();
         }
 
         /// <summary>
-        /// Loop until x value, and average ganance
+        /// Loop until variable x value, and average ganance
         /// </summary>
         public void porcentaje()
         {
@@ -369,10 +369,12 @@ namespace pjPalmera.PL
         {
             try
             {
+               frmEditarProductos cproductos = new frmEditarProductos();
                 UpdateFields();
                 MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 cproductos.dgvProdConsultar.DataSource = null;
                 cproductos.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+                cproductos.dgvProdConsultar = null;
                 this.Close();
             }
             catch (Exception ex)
