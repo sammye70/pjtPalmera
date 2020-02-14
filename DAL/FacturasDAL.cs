@@ -56,7 +56,6 @@ namespace pjPalmera.DAL
         /// <param name="detail"></param>
         public static void Created_Detail(VentaEntity detail)
         {
-
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
@@ -97,7 +96,7 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = @"select * from venta";
+                string query = @"select * from venta ORDER BY created DESC";
 
                 MySqlCommand cmd = new MySqlCommand(query,con);
 
@@ -113,7 +112,63 @@ namespace pjPalmera.DAL
         }
 
         /// <summary>
-        /// 
+        /// Search Invoices by Number
+        /// </summary>
+        /// <returns></returns>
+        public static List<VentaEntity> SearhByNumber(Int64 number)
+        {
+            List<VentaEntity> list = new List<VentaEntity>();
+
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string query = @"SELECT * FROM venta WHERE venta.id=@id";
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@id", number);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    list.Add(LoadVentas(reader));
+                }
+                return list;
+            }
+        }
+
+
+        /// <summary>
+        /// Search Invoices by Date
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static List<VentaEntity> SearhByDate(string DateBegin, string DateUntil)
+        {
+            List<VentaEntity> list = new List<VentaEntity>();
+
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string query = @"SELECT * FROM venta WHERE venta.id=@id";
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@created1", DateBegin);
+                cmd.Parameters.AddWithValue("@created2", DateUntil);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    list.Add(LoadVentas(reader));
+                }
+                return list;
+            }
+        }
+
+
+        /// <summary>
+        /// Load table Ventas
         /// </summary>
         /// <returns></returns>
         private static VentaEntity LoadVentas(IDataReader reader)
@@ -122,12 +177,17 @@ namespace pjPalmera.DAL
 
             venta.id = Convert.ToInt64(reader["id"]);
             venta.clientes = Convert.ToString(reader["nombre"]);
-            venta.f_factura = Convert.ToDateTime(reader["created"]);
+            venta.apellidos = Convert.ToString(reader["apellidos"]);
+            venta.fecha = Convert.ToDateTime(reader["created"]);
             venta.total = Convert.ToDecimal(reader["total"]);
             venta.status = Convert.ToInt32(reader["status"]);
             venta.descuento = Convert.ToDecimal(reader["descuento"]);
-            //venta.recibido = Convert.ToDecimal(reader["recibido"]);
-            //venta.devuelta = Convert.ToDecimal(reader["devuelta"]);
+            venta.tipo = Convert.ToString(reader["tipo"]);
+            venta.recibido = Convert.ToDecimal(reader["recibido"]);
+            venta.devuelta = Convert.ToDecimal(reader["devuelta"]);
+            venta.subtotal = Convert.ToDecimal(reader["subtotal"]);
+            venta.total_itbis = Convert.ToDecimal(reader["total_itbis"]);
+            
 
             return venta;
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel;
 using System.Threading.Tasks;
 
 
@@ -22,7 +23,7 @@ namespace pjPalmera.Entities
         public Int64 id { get; set; }
         public string clientes { get; set; }
         public string apellidos { get; set; }
-        public DateTime f_factura { get; set; }
+        public DateTime fecha { get; set; }
         public string vendedor { get; set; }
         public int ncf { get; set; }
         public string tipo { get; set; } 
@@ -30,7 +31,7 @@ namespace pjPalmera.Entities
         public decimal total { get; set; }
         public decimal descuento { get; set; }
         public decimal subtotal { get; set; }
-        public int id_cliente { get; set; }
+      //  public int id_cliente { get; set; }
         public decimal total_itbis { get; set; }
         public decimal recibido { get; set; }
         public decimal devuelta { get; set; }
@@ -47,7 +48,7 @@ namespace pjPalmera.Entities
 
 
         /// <summary>
-        /// 
+        /// Return Product from List
         /// </summary>
         public List<DetalleVentaEntity> Productos
         {
@@ -79,18 +80,20 @@ namespace pjPalmera.Entities
             Productos.Add(producto);
         }
 
-        //
-        public void RemoveItem(DetalleVentaEntity producto)
+        /// <summary>
+        /// Remove Item from List
+        /// </summary>
+        /// <param name="item"></param>
+        public void RemoveItem(Int32 item)
         {
-
-            Productos.RemoveAt(1);
+            Productos.RemoveAt(item);
         }
 
 
         /// <summary>
-        /// 
+        /// Calculate amount for items
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Importe</returns>
         public decimal SubTotal()
         {
             decimal total = 0;
@@ -103,7 +106,7 @@ namespace pjPalmera.Entities
 
 
         /// <summary>
-        /// 
+        /// Return Itbis value
         /// </summary>
         /// <returns></returns>
         public decimal Itbis()

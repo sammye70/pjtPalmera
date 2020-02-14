@@ -61,7 +61,7 @@ namespace pjPalmera.PL
 
         private void facturasEmitidasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmConsulFactEmitidas ConsultFactEmit = new frmConsulFactEmitidas();
+            frmConsultFacturas ConsultFactEmit = new frmConsultFacturas();
             ConsultFactEmit.ShowDialog(this);
         }
 
@@ -180,6 +180,19 @@ namespace pjPalmera.PL
         {
             frmCierreCaja CerrarCaja = new PL.frmCierreCaja();
             CerrarCaja.ShowDialog(this);
+        }
+
+        private void articulosAVencerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmArticulosVencer ArtVencer = new frmArticulosVencer();
+            ArtVencer.ShowDialog(this);
+        }
+
+        private void consultarClientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmConsulClientes ConsultarClientes = new frmConsulClientes();
+            ConsultarClientes.ShowDialog(this);
+
         }
     }
 }

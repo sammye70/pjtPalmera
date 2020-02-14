@@ -18,12 +18,18 @@ namespace pjPalmera.PL
         ProductosEntity productos = new ProductosEntity();
 
         private Int64 _orden;
+        private Int64 _idproducto;
 
         public frmEditarProductos()
         {
             InitializeComponent();
             DesableControls();
             DetailControls();
+        }
+
+        public Int64 Idproducto
+        {
+            get { return _idproducto; }
         }
 
         public Int64 Orden
@@ -130,7 +136,7 @@ namespace pjPalmera.PL
                 fproductos.porcentaje();
                 InitControl();
 
-                productos = ProductosBO.Searh_Code(this.Orden);
+                productos = ProductosBO.SearchByOrden(this.Orden);
 
                 fproductos.txtOrden.Text = Convert.ToString(productos.Orden);
                 fproductos.txtCodigo.Text = Convert.ToString(productos.Idproducto);
@@ -156,6 +162,8 @@ namespace pjPalmera.PL
             }
 
         }
+
+
 
         /// <summary>
         /// Filter Product by Code
@@ -216,13 +224,16 @@ namespace pjPalmera.PL
         /// </summary>
         private void DeleteProduct()
         {
-            DataGridViewRow x = dgvProdConsultar.CurrentRow;
-            _orden = Convert.ToInt64(dgvProdConsultar.Rows[x.Index].Cells["Orden"].Value);
-
-            productos = ProductosBO.Searh_Code(this.Orden);
-
-            this.dgvProdConsultar.DataSource = null;
-            this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+           try
+             {
+                DataGridViewRow x = dgvProdConsultar.CurrentRow;
+                _idproducto = Convert.ToInt64(dgvProdConsultar.Rows[x.Index].Cells["idproducto"].Value);
+                ProductosBO.DeleteProduct(this.Idproducto);
+                }
+            catch
+            {
+                // MessageBox.Show("Seleccione un Elemento","Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            }
         }
 
         private void btnEditarProd_Click(object sender, EventArgs e)
@@ -245,7 +256,10 @@ namespace pjPalmera.PL
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            DeleteProduct();
+                DeleteProduct();
+                MessageBox.Show("El Producto fue eliminado","Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.dgvProdConsultar.DataSource = null;
+                this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
         }
     }
 }

@@ -372,9 +372,9 @@ namespace pjPalmera.PL
                frmEditarProductos cproductos = new frmEditarProductos();
                 UpdateFields();
                 MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.DialogResult = DialogResult.OK;
                 cproductos.dgvProdConsultar.DataSource = null;
                 cproductos.dgvProdConsultar.DataSource = ProductosBO.GetAll();
-                cproductos.dgvProdConsultar = null;
                 this.Close();
             }
             catch (Exception ex)

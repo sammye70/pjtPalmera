@@ -31,30 +31,38 @@ namespace pjPalmera.PL
         /// <summary>
         /// Not Allow close the form
         /// </summary>
-        private const int CP_NOCLOSE_BUTTON = 0x200;
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams myCp = base.CreateParams;
-                myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
-                return myCp;
-            }
-        }
+        //private const int CP_NOCLOSE_BUTTON = 0x200;
+        //protected override CreateParams CreateParams
+        //{
+        //    get
+        //    {
+        //        CreateParams myCp = base.CreateParams;
+        //        myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
+        //        return myCp;
+        //    }
+        //}
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            try
+            if (this.txtNomProvincia.Text != string.Empty)
             {
-                Newprovincia();
-                CleanControls();
-                DesableControls();
-                MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.btnNuevo.Focus();
+                try
+                {
+                    Newprovincia();
+                    CleanControls();
+                    DesableControls();
+                    MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.btnNuevo.Focus();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Ingrese un Nombre Valido", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.txtNomProvincia.Focus();
             }
 
         }
@@ -109,13 +117,18 @@ namespace pjPalmera.PL
         {
             toolTip1.SetToolTip(btnNuevo, "Nuevo Registro");
             toolTip1.SetToolTip(btnGuardar, "Guardar Registro");
-            toolTip1.SetToolTip(btnCancelar, "Limpiar Campos");
+          //  toolTip1.SetToolTip(btnCancelar, "Limpiar Campos");
         }
         private void btnNuevo_Click(object sender, EventArgs e)
         {
             provincia = null;
             EnableControls();
             this.txtNomProvincia.Focus();
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            CleanControls();
         }
     }
 }

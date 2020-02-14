@@ -16,8 +16,6 @@ namespace pjPalmera.Entities
         private string descripcion;
         private string categoria;
         private string fabricante;
-        // public float cantidad_vendida { get { return stock_actual - cantidad_vendida; } } //
-        //  public float stock_actual { get; set; }
         private float stock;
         private float stockminimo;
         private DateTime vencimiento;
@@ -26,8 +24,6 @@ namespace pjPalmera.Entities
         private int createby;
         private DateTime created;
         private string status;
-
-
 
 
         //Constructor

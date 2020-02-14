@@ -41,17 +41,26 @@ namespace pjPalmera.PL
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            try
+            if (this.txtNombreCiudad.Text != string.Empty)
             {
-                NewCiudad();
-                CleanControls();
-                DesableControls();
-                this.btnNuevo.Focus();
-                MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                try
+                {
+                    NewCiudad();
+                    CleanControls();
+                    DesableControls();
+                    this.btnNuevo.Focus();
+                    MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Mensaje:" + ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Mensaje:" + ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ingresar un Nombre Valido", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.txtNombreCiudad.Focus();
             }
         }
 
@@ -92,6 +101,8 @@ namespace pjPalmera.PL
         {
             this.txtNombreCiudad.Enabled = false;
             this.btnGuardar.Enabled = false;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
         }
 
         /// <summary>
@@ -100,6 +111,11 @@ namespace pjPalmera.PL
         private void CleanControls()
         {
             this.txtNombreCiudad.Text = "";
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

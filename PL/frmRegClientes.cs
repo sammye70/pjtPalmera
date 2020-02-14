@@ -113,7 +113,6 @@ namespace pjPalmera.PL
             {
                 errorProvider1.SetError(this.txtNombre, "Ingresar Nombre");
                 result = false;
-                this.txtNombre.Focus();
             }
             if (string.IsNullOrEmpty(this.txtApellidos.Text))
             {
@@ -142,6 +141,7 @@ namespace pjPalmera.PL
             {
                 errorProvider1.SetError(this.mktCedula, "Indicar la Cedula");
                 result = false;
+                this.mktCedula.Focus();
             }
 
             if (string.IsNullOrEmpty(this.mktTelefono.Text))

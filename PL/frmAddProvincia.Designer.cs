@@ -32,7 +32,6 @@
             this.txtNomProvincia = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnCancelar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnNuevo = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -62,15 +61,6 @@
             this.groupBox1.TabIndex = 31;
             this.groupBox1.TabStop = false;
             // 
-            // btnCancelar
-            // 
-            this.btnCancelar.Image = global::PL.Properties.Resources.cancel;
-            this.btnCancelar.Location = new System.Drawing.Point(282, 101);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 40);
-            this.btnCancelar.TabIndex = 30;
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            // 
             // btnGuardar
             // 
             this.btnGuardar.Image = global::PL.Properties.Resources.save;
@@ -97,7 +87,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(393, 153);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnNuevo);
             this.Controls.Add(this.txtNomProvincia);
@@ -118,7 +107,6 @@
         private System.Windows.Forms.TextBox txtNomProvincia;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.ToolTip toolTip1;

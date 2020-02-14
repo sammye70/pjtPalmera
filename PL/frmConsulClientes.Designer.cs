@@ -65,9 +65,9 @@
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.txtCriterioBusqueda);
-            this.panel1.Location = new System.Drawing.Point(-4, 12);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1088, 56);
+            this.panel1.Size = new System.Drawing.Size(1055, 56);
             this.panel1.TabIndex = 3;
             // 
             // btnCancelar
@@ -93,9 +93,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(16, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 6;
-            this.label1.Text = "Descripcion";
+            this.label1.Text = "Cedula";
             // 
             // txtCriterioBusqueda
             // 
@@ -103,6 +103,7 @@
             this.txtCriterioBusqueda.Name = "txtCriterioBusqueda";
             this.txtCriterioBusqueda.Size = new System.Drawing.Size(267, 20);
             this.txtCriterioBusqueda.TabIndex = 5;
+            this.txtCriterioBusqueda.TextChanged += new System.EventHandler(this.txtCriterioBusqueda_TextChanged);
             // 
             // frmConsulClientes
             // 

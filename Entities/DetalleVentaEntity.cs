@@ -15,6 +15,7 @@ namespace pjPalmera.Entities
         /// Title: Products for Sales
         /// </summary>
 
+        public Int32 No { get; set; }
         public long ID { get; set; }
         public string DESCRIPCION { get; set; }
         public float CANTIDAD { get; set; }

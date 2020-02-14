@@ -11,6 +11,9 @@ namespace pjPalmera.BLL
 {
     public class ProductosBO
     {
+
+        public static bool result = true;
+
         /// <summary>
         /// Save Product
         /// </summary>
@@ -52,11 +55,11 @@ namespace pjPalmera.BLL
         /// Search Product by Id
         /// </summary>
         /// <returns></returns>
-        public static ProductosEntity Searh_Code(Int64 id)
+        public static ProductosEntity SearchByOrden(Int64 id)
         {
             try
             {
-                return ProductosDAL.Search_Code(id);
+                return ProductosDAL.SearchByOrden(id);
             }
             catch (Exception ex)
             {
@@ -134,6 +137,26 @@ namespace pjPalmera.BLL
             }
         }
 
+
+        /// <summary>
+        /// Search Products by Code
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public static ProductosEntity SearchByCode(Int64 code)
+        {
+                try
+                {
+                    return ProductosDAL.SearchByCode(code);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return null;
+                }
+        }
+
+
         /// <summary>
         /// Filter Products by Description
         /// </summary>
@@ -148,6 +171,22 @@ namespace pjPalmera.BLL
             {
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Delete Product from Databases
+        /// </summary>
+        /// <param name="code"></param>
+        public static void DeleteProduct(Int64 code)
+        {        
+            try
+            {
+                    ProductosDAL.DeleteProduct(code);
+            }
+               catch (Exception)
+            {
+                    throw;
             }
         }
     }

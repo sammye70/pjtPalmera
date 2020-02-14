@@ -65,12 +65,36 @@ namespace pjPalmera.BLL
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public static ClientesEntity GetbyId(int Id)
+        public static ClientesEntity GetbyId(Int64 Id)
         {
-            return ClientesDAL.GetbyId(Id);
+            try
+            {
+                return ClientesDAL.GetbyId(Id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
         }
 
-
+        /// <summary>
+        /// Filter Costumer by cedula
+        /// </summary>
+        /// <param name="cedula"></param>
+        /// <returns></returns>
+        public static List<ClientesEntity> GetbyCedula(Int64 cedula)
+        {
+            try
+            {
+                return ClientesDAL.GetbyCedula(cedula);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
+        }
 
 
     }

@@ -174,6 +174,28 @@ namespace pjPalmera.DAL
         }
 
 
+
+        /// <summary>
+        /// Remove Product from DataBases
+        /// </summary>
+        /// <returns></returns>
+        public static void DeleteProduct(Int64 code)
+        {
+           // ProductosEntity productos = new ProductosEntity();
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string query = @"DELETE from productos WHERE productos.idproducto=@idproducto";
+                MySqlCommand cmd = new MySqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@idproducto", code);
+                //  MySqlDataReader reader = cmd.ExecuteReader();
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+
         /// <summary>
         /// Verificate if exist product code
         /// </summary>
@@ -189,9 +211,9 @@ namespace pjPalmera.DAL
         
         
         /// <summary>
-        /// Search Products by Code
+        /// Search Products by Orden
         /// </summary>
-        public static ProductosEntity Search_Code(Int64 id)
+        public static ProductosEntity SearchByOrden(Int64 id)
         {
             //List<ProductosEntity> productos = new List<ProductosEntity>();
             ProductosEntity productos = new ProductosEntity();
@@ -200,9 +222,9 @@ namespace pjPalmera.DAL
                 con.Open();
                
                // ProductosEntity productos = new ProductosEntity();
-                string search_code = @"select * from productos where productos.numero=@numero";
+                string search_number = @"select * from productos where productos.numero=@numero";
 
-                MySqlCommand cmd = new MySqlCommand(search_code, con);
+                MySqlCommand cmd = new MySqlCommand(search_number, con);
 
                 cmd.Parameters.AddWithValue("@numero", id);
                 
@@ -217,7 +239,43 @@ namespace pjPalmera.DAL
             }
             return productos;
         }
-        
+
+
+        /// <summary>
+        /// Search Products by Code
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static ProductosEntity SearchByCode(Int64 code)
+        {
+            //List<ProductosEntity> productos = new List<ProductosEntity>();
+            ProductosEntity productos = new ProductosEntity();
+            productos = null;
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+
+                // ProductosEntity productos = new ProductosEntity();
+                string search_code = @"select * from productos where productos.idproducto=@idproducto";
+
+                MySqlCommand cmd = new MySqlCommand(search_code, con);
+
+                cmd.Parameters.AddWithValue("@idproducto", code);
+
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                   
+                    productos.Idproducto = Convert.ToInt64(reader["idproducto"]);
+                    productos.Descripcion = Convert.ToString(reader["descripcion"]);
+                    productos.Precio_venta = Convert.ToDecimal(reader["p_venta"]);
+
+                }
+            }
+            return productos;
+        }
 
 
         /// <summary>

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using pjPalmera.Entities;
 using pjPalmera.BLL;
-
+using pjPalmera.DAL;
 
 namespace pjPalmera.PL
 {
@@ -25,14 +25,19 @@ namespace pjPalmera.PL
         public float cantidad = 0;
         public long id;
         public Decimal t_pagar = 0;
-        //public Int64 _idproducto;
+        public Int32 _iditem;
+        public decimal _importe;
 
 
-        //public Int64 idproducto
-        //{
-        //    get { return _idproducto; }
-        //    set { value = _idproducto; }
-        //}
+        public Int32 Iditem
+        {
+            get { return _iditem; }
+        }
+
+        public decimal Importe
+        {
+            get { return _importe; }
+        }
 
         public frmVenta()
         {
@@ -83,7 +88,15 @@ namespace pjPalmera.PL
 
         private void btnBuscarProducto_Click(object sender, EventArgs e)
         {
-            SearchProduct();
+            try
+            {
+                SearchProduct();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
         }
 
@@ -128,28 +141,29 @@ namespace pjPalmera.PL
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            try
+            if (this.dgvDetalle.DataSource == null)
             {
-                RemoveItems();
-                MessageBox.Show("Item Eliminado");
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Seleccione el Item  para Eliminar");
+                MessageBox.Show("No hay Productos que Eliminar del Carrito", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.txtProductos.Focus();
+                return;
             }
 
+                RemoveItems();
+                MessageBox.Show("Se Elimino el Producto del Carrito", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.txtProductos.Focus();
         }
 
         private void btnBuscarClientes_Click_1(object sender, EventArgs e)
         {
 
-            frmConsulClientes Con_Clientes = new PL.frmConsulClientes();
-
-            if (Con_Clientes.ShowDialog() == DialogResult.OK)
+            try
             {
-                this.txtIdCliente.Text = Convert.ToString(ClientesBO.GetbyId(clientes.Id));
-                this.txtClientes.Text = clientes.Nombre;
-                this.txtApClientes.Text = clientes.Apellidos;
+                SearchCostumer();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,"Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
         }
 
@@ -169,7 +183,6 @@ namespace pjPalmera.PL
 
                 Save_Invoices();
                 PrintTicket();
-                //PrintTicket();
                 //caja.AbreCajon();
                 //MessageBox.Show("Se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MessageBox.Show("Venta Procesada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -182,7 +195,7 @@ namespace pjPalmera.PL
             {
                 Save_Invoices();
                 //PrintTicket();
-                //MessageBox.Show("Se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("No se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MessageBox.Show("Venta Procesada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 NewInvoice();
                 LimpiarEfectivo();
@@ -249,20 +262,19 @@ namespace pjPalmera.PL
         {
             bool resul = true;
 
-            if (this.txtEfectivoRecibido.Text == string.Empty)
-            {
-                MessageBox.Show("Indicar el efectivo recibido por el cliente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.txtEfectivoRecibido.Focus();
-                resul = false;
-            }
-
-            if (this.txtTotalPagar.Text == string.Empty)
+            if (this.txtTotalPagar.Text == "0.00")
             {
                 MessageBox.Show("No se puede procesar la venta. Debe Efectuar una antes.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.btnNuevo.Focus();
                 resul = false;
             }
 
+            if (this.txtEfectivoRecibido.Text == string.Empty)
+            {
+                MessageBox.Show("Indicar el efectivo recibido por el cliente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.txtEfectivoRecibido.Focus();
+                resul = false;
+            }
 
             return resul;
         }
@@ -273,7 +285,6 @@ namespace pjPalmera.PL
         /// </summary>
         private void Limpiar()
         {
-
             //this.txtClientes.Clear();
             this.txtProductos.Clear();
             this.txtDescripcion.Clear();
@@ -393,13 +404,44 @@ namespace pjPalmera.PL
         private void RemoveItems()
         {
 
-            List<DetalleVentaEntity> item = new List<DetalleVentaEntity>();
+            DataGridViewRow x = this.dgvDetalle.CurrentRow;
+        
+             _iditem = Convert.ToInt32(this.dgvDetalle.Rows[x.Index].Cells["No"].Value);
+            _importe = Convert.ToDecimal(this.dgvDetalle.Rows[x.Index].Cells["IMPORTE"].Value);
+            decimal subtotal, diferencia, descuento, total, tdescuento, rdescuento, pdescuento;
+            total = Convert.ToDecimal(this.txtTotalPagar.Text);
+            subtotal = Convert.ToDecimal(this.txtSubtotal.Text);
+            descuento = Convert.ToDecimal(this.txtDescuento.Text);
 
-            if (this.dgvDetalle.CurrentCell.RowIndex !=-1 )
+            try
             {
-                item.RemoveAt(this.dgvDetalle.CurrentCell.RowIndex);
+                if (this.dgvDetalle.CurrentRow.Index != -1)
+                {
+                    //this.dgvDetalle.Rows.Remove(this.dgvDetalle.CurrentRow);
+                    venta.RemoveItem(this.Iditem);
+                    diferencia = subtotal - this.Importe; // Subtract amount by item in list
+                    tdescuento = total - diferencia;
+                    pdescuento = (diferencia*10)/ 100;
+                    rdescuento = diferencia - pdescuento;
+                    this.txtTotalPagar.Text = Convert.ToString(rdescuento); //Refrest Amount after remove item from the list
+                    this.txtSubtotal.Text = Convert.ToString(diferencia); // Refrest Sub Amount after remove item from the list 
+                    this.txtDescuento.Text = Convert.ToString(pdescuento); // Refrest 
+                    this.dgvDetalle.Parent.Refresh();
+                    this.dgvDetalle.Refresh();
+                    
+                }
+                else
+                {
+                   // MessageBox.Show("Seleccione el Elemento que desea Eliminar del Carrito", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //this.txtProductos.Focus();
+                    return;
+                }
             }
-                
+            catch
+            {
+
+            }
+
 
         }
 
@@ -439,39 +481,68 @@ namespace pjPalmera.PL
 
 
         /// <summary>
-        /// Search Product from ConsulProductos by Id
+        /// Search Costumer from ConsultClientes by Id
         /// </summary>
-        public void SearchProduct()
+        private void SearchCostumer()
         {
-            frmConsultarProductos consulProductos = new frmConsultarProductos();
-            //  consulProductos.btnEditarProd.Visible = false;
-            consulProductos.btnExpExcel.Visible = false;
-            consulProductos.lblMensaje.Visible = true;
+            frmConsulClientes Con_Clientes = new frmConsulClientes();
 
-            if (consulProductos.ShowDialog() == DialogResult.OK)
+            if (Con_Clientes.ShowDialog() == DialogResult.OK)
             {
-                producto = ProductosBO.Searh_Code(consulProductos.Orden);
+                clientes = ClientesBO.GetbyId(Con_Clientes.Orden);
 
-                this.txtProductos.Text = Convert.ToString(producto.Idproducto);
-                this.txtDescripcion.Text = producto.Descripcion;
-                this.txtPrecio.Text = Convert.ToString(producto.Precio_venta);
+                //this.txtIdCliente.Text = Convert.ToString(ClientesBO.GetbyId(clientes.Cedula));
+                this.txtClientes.Text = clientes.Nombre;
+                this.txtApClientes.Text = clientes.Apellidos;
             }
         }
 
         /// <summary>
-        /// Searh Product from Ventas by Id
+        /// Search Product from ConsulProductos by Id
         /// </summary>
-        public void SearchProductById()
+        public void SearchProduct()
+        {
+            try
+            {
+                frmConsultarProductos consulProductos = new frmConsultarProductos();
+                //  consulProductos.btnEditarProd.Visible = false;
+                consulProductos.btnExpExcel.Visible = false;
+                consulProductos.lblMensaje.Visible = true;
+
+                if (consulProductos.ShowDialog() == DialogResult.OK)
+                {
+                    producto = ProductosBO.SearchByOrden(consulProductos.Orden);
+
+                    this.txtProductos.Text = Convert.ToString(producto.Idproducto);
+                    this.txtDescripcion.Text = producto.Descripcion;
+                    this.txtPrecio.Text = Convert.ToString(producto.Precio_venta);
+                    this.txtCantidad.Focus();
+                }
+            }
+            catch
+            {
+
+               
+            }
+        }
+
+        /// <summary>
+        /// Searh Product from Ventas by Code
+        /// </summary>
+        public void SearchProductByCode(Int64 code)
         {
            ProductosEntity producto = new ProductosEntity();
 
-            producto.Idproducto = Convert.ToInt64(this.txtProductos.Text);
+            if (producto != null)
+            {
+                ProductosBO.SearchByCode(code);   //Search Product Code Number become with this.
 
-             ProductosBO.Searh_Code(producto.Idproducto);
-
-            this.txtDescripcion.Text = producto.Descripcion;
-            this.txtPrecio.Text = Convert.ToString(producto.Precio_venta);
-
+                producto.Idproducto = Convert.ToInt64(this.txtProductos.Text);
+                this.txtDescripcion.Text = producto.Descripcion;
+                this.txtPrecio.Text = Convert.ToString(producto.Precio_venta);
+                this.txtCantidad.Focus();
+            }
+            
         }
 
         #region Invoice paid cash
@@ -711,7 +782,8 @@ namespace pjPalmera.PL
 
                 //add products to Gridview
                 DetalleVentaEntity Detail = new DetalleVentaEntity();
-
+               
+                Detail.No = this.dgvDetalle.RowCount; // Index in list
                 Detail.ID = Convert.ToInt64(txtProductos.Text);
                 Detail.DESCRIPCION = txtDescripcion.Text;
                 Detail.CANTIDAD = Int32.Parse(this.txtCantidad.Text);
@@ -720,13 +792,13 @@ namespace pjPalmera.PL
                 venta.addProduct(Detail);
                 dgvDetalle.DataSource = venta.Productos;  //Data from List to DataGridView
 
+
                 SetPagar();
                 Limpiar();
                 this.txtProductos.Focus();
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
@@ -742,16 +814,16 @@ namespace pjPalmera.PL
 
             try
             {
-                Save_Detail();
-                UpdateStock();
-                Save_Head();
-                Save_Transactions();
+                 Save_Detail();
+                 UpdateStock();
+                 Save_Head();
+             //   Save_Transactions();   Will be Create Table on DataBases, this not exits
 
                // MessageBox.Show("Guardado Exitosamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(ex.Source, "Mensaje del Sistema -", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -760,8 +832,6 @@ namespace pjPalmera.PL
         /// </summary>
         public void Save_Head()
         {
-           
-
             int status = 1;
 
             venta = new VentaEntity();
@@ -792,19 +862,19 @@ namespace pjPalmera.PL
         /// </summary>
         public void Save_Detail()
         {
-            int x = this.dgvDetalle.Rows.Count;
+            int x = this.dgvDetalle.Rows.Count; //Rows counter in DataGridView
 
             DetalleVentaEntity Detail = new DetalleVentaEntity();
 
             for (int i = 0; i < x; i++)
             {
-                Detail.ID = Convert.ToInt64(this.dgvDetalle.Rows[i].Cells[0].Value.ToString()); //Id
-                Detail.DESCRIPCION = this.dgvDetalle.Rows[i].Cells[1].Value.ToString(); //Description
-                Detail.CANTIDAD = Convert.ToInt32(this.dgvDetalle.Rows[i].Cells[2].Value.ToString()); //Quality
-                Detail.PRECIO = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[3].Value.ToString()); //Price
-                Detail.ITBIS = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[4].Value.ToString()); //Itbis
-                Detail.IMPORTE = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[5].Value.ToString()); //amount
-                venta.id = id; 
+                Detail.ID = Convert.ToInt64(this.dgvDetalle.Rows[i].Cells[1].Value.ToString()); //Id
+                Detail.DESCRIPCION = this.dgvDetalle.Rows[i].Cells[2].Value.ToString(); //Description
+                Detail.CANTIDAD = Convert.ToInt32(this.dgvDetalle.Rows[i].Cells[3].Value.ToString()); //Quality
+                Detail.PRECIO = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[4].Value.ToString()); //Price
+                Detail.ITBIS = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[5].Value.ToString()); //Itbis
+                Detail.IMPORTE = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[6].Value.ToString()); //amount
+               // venta.id = id; 
             }
             FacturaBO.Create_detail(venta);
 
@@ -822,8 +892,8 @@ namespace pjPalmera.PL
 
             for (int i = 0; i < x; i++)
             {
-                Detail.ID =Convert.ToInt64(this.dgvDetalle.Rows[i].Cells[0].Value.ToString()); //Id_product
-                Detail.CANTIDAD = Convert.ToInt32(this.dgvDetalle.Rows[i].Cells[2].Value.ToString()); //Quality
+                Detail.ID =Convert.ToInt64(this.dgvDetalle.Rows[i].Cells[1].Value.ToString()); //Id_product
+                Detail.CANTIDAD = Convert.ToInt32(this.dgvDetalle.Rows[i].Cells[3].Value.ToString()); //Quality
             }
             ProductosBO.Decrease_Stock(venta);
         }
@@ -919,7 +989,63 @@ namespace pjPalmera.PL
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SearchProductById();
+            if (!String.IsNullOrWhiteSpace(this.txtProductos.Text))
+            {
+                SearchProductByCode(Convert.ToInt64(this.txtProductos.Text)); 
+            }
+        }
+
+        private void txtCantidad_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                InsertItem();
+            }
+        }
+
+        private void btnGuardar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.F11)
+            {
+                //  TicketVentaEntity caja = new TicketVentaEntity();
+
+                if (!ValidatorPost())
+                    return;
+
+                MessageBox.Show("Imprimir Recibo", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (DialogResult == DialogResult.Yes)
+                {
+
+                    Save_Invoices();
+                    PrintTicket();
+                    //PrintTicket();
+                    //caja.AbreCajon();
+                    //MessageBox.Show("Se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Venta Procesada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    NewInvoice();
+                    LimpiarEfectivo();
+                    Limpiar();
+                    this.txtProductos.Focus();
+                }
+                else
+                {
+                    Save_Invoices();
+                    //PrintTicket();
+                    //MessageBox.Show("No se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Venta Procesada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    NewInvoice();
+                    LimpiarEfectivo();
+                    Limpiar();
+                    this.txtProductos.Focus();
+                }
+            }
+        }
+
+        private void dgvDetalle_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            Exception ex = e.Exception;   // Desable Error from DataGridView
+            e.Cancel = false;
         }
     }
 

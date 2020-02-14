@@ -23,8 +23,8 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql = @"INSERT INTO clientes (cedula, nombre, apellidos, telefono, direccion, ciudad, limitecredito,createby, created)
-                                VALUES (@cedula, @nombre, @apellidos, @telefono, @direccion, @ciudad, @limitecredito, @createby, @created)";
+                string sql = @"INSERT INTO clientes (cedula, nombre, apellidos, telefono, direccion, ciudad, provincia limitecredito,createby, created)
+                                VALUES (@cedula, @nombre, @apellidos, @telefono, @direccion, @ciudad, @provincia, @limitecredito, @createby, @created)";
                 MySqlCommand cmd = new MySqlCommand(sql,con);
 
                 cmd.Parameters.AddWithValue("@cedula",Costumer.Cedula);
@@ -33,6 +33,7 @@ namespace pjPalmera.DAL
                 cmd.Parameters.AddWithValue("@telefono",Costumer.Telefono);
                 cmd.Parameters.AddWithValue("@direccion", Costumer.Direccion);
                 cmd.Parameters.AddWithValue("@ciudad", Costumer.Ciudad);
+                cmd.Parameters.AddWithValue("@provincia", Costumer.Provincia);
                 cmd.Parameters.AddWithValue("@limitecredito",Costumer.Limitecredito);
                 cmd.Parameters.AddWithValue("@createby",Costumer.Createby);
                 cmd.Parameters.AddWithValue("@created",Costumer.Created);
@@ -80,7 +81,7 @@ namespace pjPalmera.DAL
                 string sql = @"UPDATE clientes SET
                                 cedula = @cedula,
                                 nombre = @nombre, apellidos = @apellidos, telefono = @telefono,
-                                direccion = @direccion, ciudad = @ciudad, limitecredito = @limitecredito
+                                direccion = @direccion, ciudad = @ciudad, provincia =@provincia, limitecredito = @limitecredito
                                 idclientes = @idclientes                                
                                 ";
 
@@ -103,7 +104,7 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql = @"SELECT id, cedula, nombre, apellidos, telefono, direccion, ciudad 
+                string sql = @"SELECT id, cedula, nombre, apellidos, telefono, direccion, ciudad, provincia 
                                 FROM clientes";
 
                 MySqlCommand cmd = new MySqlCommand(sql, con);
@@ -122,14 +123,14 @@ namespace pjPalmera.DAL
         /// Get User by Id
         /// </summary>
         /// <returns></returns>
-        public static ClientesEntity GetbyId(int Id)
+        public static ClientesEntity GetbyId(Int64 Id)
         {
             ClientesEntity Clientes = null;
 
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql = @"SELECT id, nombre, apellidos
+                string sql = @"SELECT id, cedula, nombre, apellidos
                                 FROM clientes
                                 WHERE id = @idcliente";
 
@@ -140,10 +141,60 @@ namespace pjPalmera.DAL
 
                 if (reader.Read())
                 {
-                    Clientes = LoadCostumer(reader);
+                    Clientes = LoadCostumers(reader);
                 }
             }
                 return Clientes;
+        }
+
+        /// <summary>
+        /// Filter Costumer by cedula
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public static List<ClientesEntity> GetbyCedula(Int64 cedula)
+        {
+            //ClientesEntity Clientes = null;
+            List<ClientesEntity> list = new List<ClientesEntity>();
+
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string sql = @"SELECT *
+                                FROM clientes
+                                WHERE cedula = @cedula";
+
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+                cmd.Parameters.AddWithValue("@cedula", cedula);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    list.Add(LoadCostumer(reader));
+                }
+            }
+            return list;
+        }
+
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Reader"></param>
+        /// <returns></returns>
+        private static ClientesEntity LoadCostumers(IDataRecord Reader)
+        {
+            ClientesEntity costumer = new ClientesEntity();
+
+            costumer.Id = Convert.ToInt32(Reader["id"]);
+            costumer.Cedula = Convert.ToInt32(Reader["cedula"]);
+            costumer.Nombre = Convert.ToString(Reader["nombre"]);
+            costumer.Apellidos = Convert.ToString(Reader["apellidos"]);
+
+            return costumer;
         }
 
 
@@ -163,6 +214,7 @@ namespace pjPalmera.DAL
             costumer.Telefono = Convert.ToString(Reader["telefono"]);
             costumer.Direccion = Convert.ToString(Reader["direccion"]);
             costumer.Ciudad = Convert.ToString(Reader["ciudad"]);
+            costumer.Provincia = Convert.ToString(Reader["provincia"]);
 
             return costumer;
         } 
