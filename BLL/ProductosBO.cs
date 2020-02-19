@@ -184,9 +184,63 @@ namespace pjPalmera.BLL
             {
                     ProductosDAL.DeleteProduct(code);
             }
-               catch (Exception)
+               catch (Exception ex)
             {
-                    throw;
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+        }
+
+        /// <summary>
+        /// Filter Product near to expire date
+        /// </summary>
+        /// <param name="DateNow"></param>
+        /// <param name="DateExpire"></param>
+        /// <returns></returns>
+        public static List<ProductosEntity> ProductExpire()
+        {
+            try
+            {
+                return ProductosDAL.ProductExpire();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Filter product by Expire Date (Month and Year)
+        /// </summary>
+        public static List<ProductosEntity> ExpireDate(Int32 month, Int32 year)
+        {
+            try
+            {
+                return ProductosDAL.ExpireDate(month, year);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Filter product Expire Date by Year
+        /// </summary>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        public static List<ProductosEntity> ExpireYear(Int32 year)
+        {
+            try
+            {
+                return ProductosDAL.ExpireYear(year);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
             }
         }
     }

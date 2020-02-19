@@ -15,6 +15,7 @@ namespace pjPalmera.PL
     public partial class frmRegProveedor : Form
     {
         ProveedorEntity proveedor = null;
+        frmConsultarProveedor cProveedor = new frmConsultarProveedor();
 
         public frmRegProveedor()
         {
@@ -60,6 +61,18 @@ namespace pjPalmera.PL
             this.Close();
         }
 
+
+        /// <summary>
+        /// Hide Controls from EditProveedor
+        /// </summary>
+        public void IniControls()
+        {
+            this.btnNuevo.Visible = false;
+            this.btnGuardar.Visible = false;
+            this.btnUpdate.Visible = true;
+        }
+
+
         /// <summary>
         /// Clean Content in the Controls
         /// </summary>
@@ -91,13 +104,14 @@ namespace pjPalmera.PL
             this.mktTelefRepresentante.Enabled = false;
             this.cmbCredito.Enabled = false;
             this.btnGuardar.Enabled = false;
+            this.btnUpdate.Visible = false;
            // this.btnCancelar.Enabled = false;
         }
 
         /// <summary>
         /// Enable all Controls
         /// </summary>
-        private void EnableControls()
+        public void EnableControls()
         {
             this.txtRnc.Enabled = true;
             this.txtDirProveedor.Enabled = true;
@@ -117,9 +131,10 @@ namespace pjPalmera.PL
         /// </summary>
         private void SetTooltipControls()
         {
-            toolTip1.SetToolTip(btnNuevo, "Nuevo Registro");
-            toolTip1.SetToolTip(btnGuardar, "Guardar Registro");
-            toolTip1.SetToolTip(btnCancelar, "Limpiar Campos");
+            this.toolTip1.SetToolTip(this.btnNuevo, "Nuevo Registro");
+            this.toolTip1.SetToolTip(this.btnGuardar, "Guardar Registro");
+            this.toolTip1.SetToolTip(this.btnCancelar, "Limpiar Campos");
+            this.toolTip1.SetToolTip(this.btnUpdate,"Actualizar Registro");
         }
 
         /// <summary>
@@ -131,7 +146,7 @@ namespace pjPalmera.PL
             {
                 proveedor = new ProveedorEntity();
 
-                proveedor.Rnc = this.txtRnc.Text;
+                proveedor.Rnc = Convert.ToInt64(this.txtRnc.Text);
                 proveedor.Nombre_proveedor = this.txtNomProveedor.Text;
                 proveedor.Nombre_contacto = this.txtNomRepresentante.Text;
                 proveedor.Tel_contacto = this.mktTelefRepresentante.Text;
@@ -141,6 +156,39 @@ namespace pjPalmera.PL
 
                 ProveedorBO.Save(proveedor);
             }
+
+        }
+
+        /// <summary>
+        /// Update Proveedor Information
+        /// </summary>
+        private void UpdateProveedor()
+        {
+            try
+            {
+                proveedor = new ProveedorEntity();
+
+                proveedor.Rnc = Convert.ToInt64(this.txtRnc.Text);
+                proveedor.Nombre_proveedor = this.txtNomProveedor.Text;
+                proveedor.Nombre_contacto = this.txtNomRepresentante.Text;
+                proveedor.Tel_contacto = this.mktTelefRepresentante.Text;
+                proveedor.Direccion_fab = this.txtDirProveedor.Text;
+                proveedor.Limitecredito = Convert.ToDecimal(this.mktLimiteCredito.Text);
+                proveedor.Tel_proveedor = this.mktTelefono.Text;
+
+                ProveedorBO.Update(proveedor);
+
+                MessageBox.Show("Actualizado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               
+                this.Close();
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+           
 
         }
 
@@ -157,6 +205,29 @@ namespace pjPalmera.PL
                 this.mktLimiteCredito.Enabled = false;
                 return;
             }
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            DialogResult Question = new DialogResult();
+
+            Question = MessageBox.Show("Seguro desea Guardar los Cambios Realizados", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (Question == DialogResult.Yes)
+            {
+                UpdateProveedor();
+                Question = MessageBox.Show("Se Guardaron los Cambios", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                cProveedor.dgvContProveedor.DataSource = null;
+                cProveedor.dgvContProveedor.DataSource = ProveedorBO.GetAllProveedor();
+            }
+            else if (Question == DialogResult.No)
+            {
+                this.Close();
+                cProveedor.dgvContProveedor.DataSource = null;
+                cProveedor.dgvContProveedor.DataSource = ProveedorBO.GetAllProveedor();
+                return;
+            }
+            
         }
     }
             

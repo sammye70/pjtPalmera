@@ -140,6 +140,37 @@ namespace pjPalmera.DAL
             }
         }
 
+
+        /// <summary>
+        /// Filter Product near to expire date
+        /// </summary>
+        /// <returns></returns>
+        public static List<ProductosEntity> ProductExpire()
+        {
+            List<ProductosEntity> list = new List<ProductosEntity>();
+
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string query = @"SELECT * FROM productos WHERE productos.status='Activo' ORDER BY productos.f_vencimiento ASC ";
+
+                MySqlCommand cmd = new MySqlCommand(query,con);
+                //cmd.Parameters.AddWithValue("@DateExpire", DateExpire);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    list.Add(LoadProduct(reader));
+                }
+            }
+             return list;
+        }
+
+
+
+
+
         /// <summary>
         /// Update Information about some product
         /// </summary>
@@ -203,13 +234,62 @@ namespace pjPalmera.DAL
         /// <returns></returns>
         public static bool VerificateCode(Int64 id)
         {
-
-
             return true;
         }
-        
-        
-        
+
+
+
+        /// <summary>
+        /// Filter product by Expire Date (Month and Year)
+        /// </summary>
+        public static List<ProductosEntity> ExpireDate(Int32 month, Int32 year)
+        {
+            List<ProductosEntity> productos = new List<ProductosEntity>();
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string query = @"SELECT * FROM productos WHERE MONTH(f_vencimiento)=@month AND YEAR(f_vencimiento)=@year AND status='Activo'";
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@month", month);
+                cmd.Parameters.AddWithValue("@year", year);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    productos.Add(LoadProduct(reader));
+                }
+            }
+                return productos;
+        }
+
+        /// <summary>
+        /// Filter product Expire Date by Year
+        /// </summary>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        public static List<ProductosEntity> ExpireYear(Int32 year)
+        {
+            List<ProductosEntity> productos = new List<ProductosEntity>();
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string query = @"SELECT * FROM productos WHERE YEAR(f_vencimiento)=@year AND status='Activo' ORDER BY f_vencimiento ASC";
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@year", year);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    productos.Add(LoadProduct(reader));
+                }
+            }
+            return productos;
+        }
+
         /// <summary>
         /// Search Products by Orden
         /// </summary>
@@ -351,8 +431,8 @@ namespace pjPalmera.DAL
             Productos.Vencimiento = Convert.ToDateTime(Reader["f_vencimiento"]);
             Productos.Costo = Convert.ToDecimal(Reader["costo"]);
             Productos.Precio_venta = Convert.ToDecimal(Reader["p_venta"]);
-            Productos.Created = Convert.ToDateTime(Reader["created"]);
             Productos.Status = Convert.ToString(Reader["status"]);
+            Productos.Created = Convert.ToDateTime(Reader["created"]);
 
             return Productos;
         }

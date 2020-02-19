@@ -15,6 +15,13 @@ namespace pjPalmera.PL
     public partial class frmConsultarProveedor : Form
     {
         ProveedorEntity Proveedor = new ProveedorEntity();
+        frmRegProveedor fproveedor = new frmRegProveedor();
+        Int64 _code;
+
+        public Int64 Code
+        {
+            get { return _code; }
+        }
 
         public frmConsultarProveedor()
         {
@@ -28,25 +35,9 @@ namespace pjPalmera.PL
             CleanControls();
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            CleanControls();
-            this.txtCriterioBuscar.Focus();
-        }
-
 
         private void txtCriterioBuscar_TextChanged(object sender, EventArgs e)
         {
-
-            if (this.rbRnc.Checked == true)
-            {
-                FiltterByRnc();
-            }
-
-            if (this.rbNomEmpresa.Checked == true)
-            {
-                FilterByName();
-            }
 
         }
 
@@ -65,6 +56,14 @@ namespace pjPalmera.PL
             this.txtCriterioBuscar.Focus();
         }
 
+        /// <summary>
+        /// EnableAllControls from ConsultarProveedor
+        /// </summary>
+        public void EnableControls()
+        {
+            this.btnEditar.Visible = true;
+            this.btnEliminar.Visible = true;
+        }
 
 
         /// <summary>
@@ -86,16 +85,55 @@ namespace pjPalmera.PL
 
 
         /// <summary>
+        /// Edit Proveedor
+        /// </summary>
+        public void EditProveedor()
+        {
+            try
+            {
+                DataGridViewRow x = this.dgvContProveedor.CurrentRow;
+                _code = Convert.ToInt32(this.dgvContProveedor.Rows[x.Index].Cells["idproveedor"].Value);
+
+               
+
+                fproveedor.Show();
+                fproveedor.Text = "Actualizar Información del Proveedor";
+                fproveedor.EnableControls();
+                fproveedor.IniControls();
+
+                Proveedor = ProveedorBO.SearchByCodeUpdate(this.Code);
+
+                fproveedor.txtIdProveedor.Text = Convert.ToString(Proveedor.Idproveedor);
+                fproveedor.txtRnc.Text = Convert.ToString(Proveedor.Rnc);
+                fproveedor.txtNomProveedor.Text = Proveedor.Nombre_proveedor;
+                fproveedor.txtDirProveedor.Text = Proveedor.Direccion_fab;
+                fproveedor.mktLimiteCredito.Text = Convert.ToString(Proveedor.Limitecredito);
+                fproveedor.txtNomRepresentante.Text = Proveedor.Nombre_contacto;
+                fproveedor.mktTelefRepresentante.Text = Proveedor.Tel_contacto;
+                fproveedor.mktTelefono.Text = Proveedor.Tel_proveedor;    
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,"Mensaje del Sistema");
+            }
+        }
+
+
+       
+
+
+        /// <summary>
         /// Filter proveedor by rnc
         /// </summary>
-        private void FiltterByRnc()
+        private void FilterByRnc()
         {
             try
             {
                 if (this.txtCriterioBuscar.Text != string.Empty)
                 {
-                    Proveedor.Rnc = this.txtCriterioBuscar.Text;
-                    this.dgvContProveedor.DataSource = ProveedorBO.SearhByrnc(Proveedor.Rnc);
+                    Proveedor.Rnc =Convert.ToInt64(this.txtCriterioBuscar.Text);
+                    this.dgvContProveedor.DataSource = ProveedorBO.FilterByRnc(Proveedor.Rnc);
                 }
                 else
                 {
@@ -132,5 +170,87 @@ namespace pjPalmera.PL
             }
         }
 
+        /// <summary>
+        /// Remove Proveedor by Code
+        /// </summary>
+        private void RemoveProveedor()
+        {
+            try
+            {
+                DataGridViewRow x = this.dgvContProveedor.CurrentRow;
+                _code = Convert.ToInt32(this.dgvContProveedor.Rows[x.Index].Cells["idproveedor"].Value);
+
+                ProveedorBO.RemoveProveedor(this.Code);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+        }
+
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            DialogResult Question = new DialogResult();
+
+            Question=MessageBox.Show("Seguro que desea eliminar definitivamente el proveedor", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (Question == DialogResult.Yes)
+            {
+                RemoveProveedor();
+                MessageBox.Show("Se elimino el proveedor", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.dgvContProveedor.DataSource = null;
+                this.dgvContProveedor.DataSource = ProveedorBO.GetAllProveedor();
+                return;
+            }
+            else if (Question == DialogResult.No)
+            {
+                this.dgvContProveedor.DataSource = null;
+                this.dgvContProveedor.DataSource = ProveedorBO.GetAllProveedor();
+                return;
+            }
+
+        }
+
+        private void txtCriterioBuscar_TextChanged_1(object sender, EventArgs e)
+        {
+            try
+            {
+                if ((this.rbRnc.Checked == true) && (this.txtCriterioBuscar.Text != string.Empty))
+                {
+                    FilterByRnc();
+                }
+                else
+                {
+                    this.dgvContProveedor.DataSource = null;
+                   this.dgvContProveedor.DataSource=ProveedorBO.GetAllProveedor();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            EditProveedor();
+        }
+
+        private void frmConsultarProveedor_Activated(object sender, EventArgs e)
+        {
+            DialogResult Result = new DialogResult();
+
+            if (Result == DialogResult.OK)
+            {
+                this.dgvContProveedor.DataSource = null;
+                this.dgvContProveedor.DataSource=ProveedorBO.GetAllProveedor();
+            }
+        }
     }
 }

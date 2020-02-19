@@ -14,8 +14,8 @@ namespace pjPalmera.PL
 {
     public partial class frmRegArticulos : Form
     {
-        ProductosEntity producto = new ProductosEntity();
-       // frmEditarProductos cproductos = new frmEditarProductos();
+        ProductosEntity productos = new ProductosEntity();
+        //frmEditarProductos ccproductos = new frmEditarProductos();
 
         public frmRegArticulos()
         {
@@ -69,7 +69,7 @@ namespace pjPalmera.PL
             }
             finally
             {
-                producto = null;
+                productos = null;
             }
 
         }
@@ -88,7 +88,7 @@ namespace pjPalmera.PL
 
             EnableControls();
             CleanControls();
-            producto = null;
+            productos = null;
             this.txtCodigo.Focus();
         }
 
@@ -173,23 +173,23 @@ namespace pjPalmera.PL
         /// </summary>
         private void NewProduct()
         {
-            if (producto == null)
+            if (productos == null)
             {
-                producto = new ProductosEntity();
+                productos = new ProductosEntity();
 
-                producto.Idproducto = Convert.ToInt64(this.txtCodigo.Text);
-                producto.Fabricante = this.cmbFabrincante.Text;
-                producto.Descripcion = this.txtDescripcion.Text;
-                producto.Categoria = this.cmbFamilia.Text;
-                producto.Stock = Convert.ToInt32(txtStockInicial.Text);
-                producto.Stockminimo = Convert.ToInt32(this.txtStockMinimo.Text);
-                producto.Vencimiento = Convert.ToDateTime(dateTimePicker1.Value.Date.ToShortDateString());
-                producto.Costo = Convert.ToDecimal(this.txtCosto.Text);
-                producto.Precio_venta = Convert.ToDecimal(txtPrecioVenta.Text);
-                producto.Created = DateTime.Now.Date;
-                producto.Status = cmbEstado.Text;
+                productos.Idproducto = Convert.ToInt64(this.txtCodigo.Text);
+                productos.Fabricante = this.cmbFabrincante.Text;
+                productos.Descripcion = this.txtDescripcion.Text;
+                productos.Categoria = this.cmbFamilia.Text;
+                productos.Stock = Convert.ToInt32(txtStockInicial.Text);
+                productos.Stockminimo = Convert.ToInt32(this.txtStockMinimo.Text);
+                productos.Vencimiento = Convert.ToDateTime(dateTimePicker1.Value.Date.ToShortDateString());
+                productos.Costo = Convert.ToDecimal(this.txtCosto.Text);
+                productos.Precio_venta = Convert.ToDecimal(txtPrecioVenta.Text);
+                productos.Created = DateTime.Now.Date;
+                productos.Status = cmbEstado.Text;
 
-                ProductosBO.Save(producto);
+                ProductosBO.Save(productos);
             }
         }
 
@@ -200,20 +200,28 @@ namespace pjPalmera.PL
         private void UpdateFields()
         {
 
-            producto = new ProductosEntity();
+            try
+            {
+                productos = new ProductosEntity();
 
-            producto.Orden = Convert.ToInt64(this.txtOrden.Text);
-            producto.Idproducto = Convert.ToInt64(this.txtCodigo.Text);
-            producto.Fabricante = this.cmbFabrincante.Text;
-            producto.Descripcion = this.txtDescripcion.Text;
-            producto.Categoria = this.cmbFamilia.Text;
-            producto.Vencimiento = Convert.ToDateTime(dateTimePicker1.Value.Date.ToShortDateString());
-            producto.Costo = Convert.ToDecimal(this.txtCosto.Text);
-            producto.Precio_venta = Convert.ToDecimal(this.txtPrecioVenta.Text);
-            producto.Stock = Convert.ToInt32(this.txtStockInicial.Text);
-            producto.Stockminimo = Convert.ToInt32(this.txtStockMinimo.Text);
+                productos.Orden = Convert.ToInt64(this.txtOrden.Text);
+                productos.Idproducto = Convert.ToInt64(this.txtCodigo.Text);
+                productos.Fabricante = this.cmbFabrincante.Text;
+                productos.Descripcion = this.txtDescripcion.Text;
+                productos.Categoria = this.cmbFamilia.Text;
+                productos.Vencimiento = Convert.ToDateTime(dateTimePicker1.Value.Date.ToShortDateString());
+                productos.Costo = Convert.ToDecimal(this.txtCosto.Text);
+                productos.Precio_venta = Convert.ToDecimal(this.txtPrecioVenta.Text);
+                productos.Stock = Convert.ToInt32(this.txtStockInicial.Text);
+                productos.Stockminimo = Convert.ToInt32(this.txtStockMinimo.Text);
 
-            ProductosBO.Update_Info_Product(producto);
+                ProductosBO.Update_Info_Product(productos);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
         //    MessageBox.Show("Guardado Satisfactoriamente","Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -310,9 +318,9 @@ namespace pjPalmera.PL
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            frmEditarProductos ccproductos = new frmEditarProductos();
-            producto = null;
-            ccproductos.dgvProdConsultar = null;
+        //    frmEditarProductos cccproductos = new frmEditarProductos();
+            productos = null;
+          //  ccproductos.dgvProdConsultar = null;
             this.Close();
         }
 
@@ -367,19 +375,23 @@ namespace pjPalmera.PL
 
         private void btnUpdateFields_Click(object sender, EventArgs e)
         {
-            try
+            DialogResult Question = new DialogResult();
+
+            Question = MessageBox.Show("Seguro Que Desea Guardar los Cambios", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (Question == DialogResult.Yes)
             {
-               frmEditarProductos cproductos = new frmEditarProductos();
                 UpdateFields();
                 MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.DialogResult = DialogResult.OK;
-                cproductos.dgvProdConsultar.DataSource = null;
-                cproductos.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+                DialogResult = DialogResult.OK;
+            //    ccproductos.dgvProdConsultar.DataSource = null;
+              //  ccproductos.dgvProdConsultar.DataSource = ProductosBO.GetAll();
                 this.Close();
             }
-            catch (Exception ex)
+            else if (Question == DialogResult.No)
             {
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //ccproductos.dgvProdConsultar.DataSource = null;
+                //ccproductos.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+                this.Close();
                 return;
             }
         }

@@ -209,6 +209,14 @@ namespace pjPalmera.PL
         }
 
         /// <summary>
+        /// Initial All Controls
+        /// </summary>
+        private void InitialControls()
+        {
+            
+        }
+
+        /// <summary>
         /// Uppcase Textbox
         /// </summary>
         private void UpperText()

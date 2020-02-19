@@ -116,7 +116,7 @@ namespace pjPalmera.PL
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            frmVenta Venta = new PL.frmVenta();
+            frmVenta Venta = new frmVenta();
             Venta.Show();
         }
 
@@ -184,7 +184,7 @@ namespace pjPalmera.PL
 
         private void articulosAVencerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmArticulosVencer ArtVencer = new frmArticulosVencer();
+            frmArticulosExpirar ArtVencer = new frmArticulosExpirar();
             ArtVencer.ShowDialog(this);
         }
 
@@ -193,6 +193,15 @@ namespace pjPalmera.PL
             frmConsulClientes ConsultarClientes = new frmConsulClientes();
             ConsultarClientes.ShowDialog(this);
 
+        }
+
+        private void editarProveedorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmConsultarProveedor EditProveedor = new frmConsultarProveedor();
+
+            EditProveedor.Text = "Editar Proveedor";
+            EditProveedor.EnableControls();
+            EditProveedor.ShowDialog(this);
         }
     }
 }

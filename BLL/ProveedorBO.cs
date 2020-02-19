@@ -65,14 +65,14 @@ namespace pjPalmera.BLL
         }
 
         /// <summary>
-        /// Search proveedor by rnc
+        /// Search proveedor by Code    //Create in ProveedorDAL
         /// </summary>
         /// <returns></returns>
-        public static List<ProveedorEntity> SearhByrnc(string rnc)
+        public static List<ProveedorEntity> SearchByCode(Int64 code)
         {
             try
             {
-                return ProveedorDAL.SearchByrnc(rnc);
+                return ProveedorDAL.SearchByCode(code);
             }
             catch (Exception ex)
             {
@@ -90,6 +90,80 @@ namespace pjPalmera.BLL
             try
             {
                 return ProveedorDAL.SearchByName(name);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Remove Proveedor from DataBases
+        /// </summary>
+        /// <param name="code"></param>
+        public static void RemoveProveedor(Int64 code)
+        {
+            try
+            {
+                ProveedorDAL.RemoveProveedor(code);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        /// <summary>
+        /// Update Proveedor Information 
+        /// </summary>
+        /// <param name="proveedor"></param>
+        /// <returns></returns>
+        public static ProveedorEntity Update(ProveedorEntity proveedor)
+        {
+            try
+            {
+                return ProveedorDAL.Update(proveedor);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Search by Code to Update Proveedor
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public static ProveedorEntity SearchByCodeUpdate(Int64 code)
+        {
+
+            try
+            {
+                return ProveedorDAL.SearchByCodeUpdate(code);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+        }
+
+
+        /// <summary>
+        /// Filter Proveedor by Rnc
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public static List<ProveedorEntity> FilterByRnc(Int64 code)
+        {
+            try
+            {
+                return ProveedorDAL.FilterByRnc(code);
             }
             catch (Exception ex)
             {

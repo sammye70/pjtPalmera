@@ -21,9 +21,9 @@ namespace pjPalmera.Entities
         private DateTime vencimiento;
         private decimal costo;
         private decimal precio_venta;
+        private string status;
         private int createby;
         private DateTime created;
-        private string status;
 
 
         //Constructor
@@ -33,7 +33,7 @@ namespace pjPalmera.Entities
         }
 
         public ProductosEntity(long orden, long idproducto, string descripcion, string categoria, string fabricante, float stock_actual, float stock, float stock_minimo,
-            DateTime vencimiento, decimal costo, decimal precio_venta, int createby, DateTime created, string status)
+            DateTime vencimiento, decimal costo, decimal precio_venta, string status, int createby, DateTime created)
         {
             this.Orden = orden;
             this.Idproducto = idproducto;
@@ -45,9 +45,9 @@ namespace pjPalmera.Entities
             this.Vencimiento = vencimiento;
             this.Costo = Costo;
             this.Precio_venta = precio_venta;
+            this.Status = status;
             this.Createby = createby;
             this.Created = created;
-            this.Status = status;
         }
 
         //Properties
@@ -239,6 +239,5 @@ namespace pjPalmera.Entities
             string NumberRandom = Convert.ToString(NumberRandom1);
             return NumberRandom;
         }
-
     }
 }

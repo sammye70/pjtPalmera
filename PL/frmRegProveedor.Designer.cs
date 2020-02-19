@@ -51,6 +51,8 @@
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnNuevo = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.txtIdProveedor = new System.Windows.Forms.TextBox();
+            this.btnUpdate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -236,12 +238,32 @@
             this.btnNuevo.UseVisualStyleBackColor = true;
             this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
+            // txtIdProveedor
+            // 
+            this.txtIdProveedor.Location = new System.Drawing.Point(17, 386);
+            this.txtIdProveedor.Name = "txtIdProveedor";
+            this.txtIdProveedor.Size = new System.Drawing.Size(112, 20);
+            this.txtIdProveedor.TabIndex = 20;
+            this.txtIdProveedor.Visible = false;
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Image = global::PL.Properties.Resources.save;
+            this.btnUpdate.Location = new System.Drawing.Point(231, 369);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(75, 52);
+            this.btnUpdate.TabIndex = 21;
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
             // frmRegProveedor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(433, 433);
             this.ControlBox = false;
+            this.Controls.Add(this.btnUpdate);
+            this.Controls.Add(this.txtIdProveedor);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCancelar);
@@ -276,28 +298,29 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox txtRnc;
-        private System.Windows.Forms.TextBox txtNomProveedor;
-        private System.Windows.Forms.TextBox txtDirProveedor;
-        private System.Windows.Forms.MaskedTextBox mktTelefono;
-        private System.Windows.Forms.MaskedTextBox mktLimiteCredito;
-        private System.Windows.Forms.TextBox txtNomRepresentante;
-        private System.Windows.Forms.MaskedTextBox mktTelefRepresentante;
-        private System.Windows.Forms.ComboBox cmbCredito;
-        private System.Windows.Forms.Button btnNuevo;
-        private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolTip toolTip1;
+        public System.Windows.Forms.Button btnNuevo;
+        public System.Windows.Forms.Button btnGuardar;
+        public System.Windows.Forms.Label label1;
+        public System.Windows.Forms.Label label2;
+        public System.Windows.Forms.Label label3;
+        public System.Windows.Forms.Label label4;
+        public System.Windows.Forms.Label label5;
+        public System.Windows.Forms.Label label6;
+        public System.Windows.Forms.Label label7;
+        public System.Windows.Forms.Label label8;
+        public System.Windows.Forms.TextBox txtRnc;
+        public System.Windows.Forms.TextBox txtNomProveedor;
+        public System.Windows.Forms.TextBox txtDirProveedor;
+        public System.Windows.Forms.MaskedTextBox mktTelefono;
+        public System.Windows.Forms.MaskedTextBox mktLimiteCredito;
+        public System.Windows.Forms.TextBox txtNomRepresentante;
+        public System.Windows.Forms.MaskedTextBox mktTelefRepresentante;
+        public System.Windows.Forms.ComboBox cmbCredito;
+        public System.Windows.Forms.TextBox txtIdProveedor;
+        public System.Windows.Forms.Button btnUpdate;
     }
 }

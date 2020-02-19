@@ -14,7 +14,7 @@ namespace pjPalmera.PL
 {
     public partial class frmEditarProductos : Form
     {
-        frmRegArticulos fproductos = new frmRegArticulos();
+        frmRegArticulos ffproductos = new frmRegArticulos();
         ProductosEntity productos = new ProductosEntity();
 
         private Int64 _orden;
@@ -97,10 +97,10 @@ namespace pjPalmera.PL
         /// </summary>
         private void InitControl()
         {
-            fproductos.btnUpdateFields.Visible = true;
-            fproductos.cmbEstado.Visible = true;
-            fproductos.lblEstado.Visible = true;
-            fproductos.txtCodigo.Focus();
+            ffproductos.btnUpdateFields.Visible = true;
+            ffproductos.cmbEstado.Visible = true;
+            ffproductos.lblEstado.Visible = true;
+            ffproductos.txtCodigo.Focus();
         }
 
         /// <summary>
@@ -108,12 +108,12 @@ namespace pjPalmera.PL
         /// </summary>
         private void HideControls()
         { 
-            //fproductos.txtStockInicial.Visible = false;
-            //fproductos.txtStockMinimo.Visible = false;
-            //fproductos.lblStockInicial.Visible = false;
-            //fproductos.lblStockMinimo.Visible = false;
-            fproductos.btnGuardar.Visible = false;
-            fproductos.btnNuevo.Visible = false;
+            //ffproductos.txtStockInicial.Visible = false;
+            //ffproductos.txtStockMinimo.Visible = false;
+            //ffproductos.lblStockInicial.Visible = false;
+            //ffproductos.lblStockMinimo.Visible = false;
+            ffproductos.btnGuardar.Visible = false;
+            ffproductos.btnNuevo.Visible = false;
         }
 
 
@@ -129,29 +129,29 @@ namespace pjPalmera.PL
                   _orden = Convert.ToInt64(dgvProdConsultar.Rows[x.Index].Cells["Orden"].Value); 
        
 
-                fproductos.Show();
+                ffproductos.Show();
                 HideControls();
-                fproductos.Text = "Actualizar Información del Articulo";
-                fproductos.EnableControls();
-                fproductos.porcentaje();
+                ffproductos.Text = "Actualizar Información del Articulo";
+                ffproductos.EnableControls();
+                ffproductos.porcentaje();
                 InitControl();
 
                 productos = ProductosBO.SearchByOrden(this.Orden);
 
-                fproductos.txtOrden.Text = Convert.ToString(productos.Orden);
-                fproductos.txtCodigo.Text = Convert.ToString(productos.Idproducto);
-                fproductos.txtDescripcion.Text = productos.Descripcion;
-                fproductos.cmbFabrincante.Text = productos.Fabricante;
-                fproductos.cmbFamilia.Text = productos.Categoria;
-                fproductos.dateTimePicker1.Text = Convert.ToString(productos.Vencimiento);
-                fproductos.txtCosto.Text = Convert.ToString(productos.Costo);
-                fproductos.txtPrecioVenta.Text = Convert.ToString(productos.Precio_venta);
-                fproductos.txtStockInicial.Text = Convert.ToString(productos.Stock);
-                fproductos.txtStockMinimo.Text = Convert.ToString(productos.Stockminimo);
-                fproductos.cmbEstado.Text = productos.Status;
+                ffproductos.txtOrden.Text = Convert.ToString(productos.Orden);
+                ffproductos.txtCodigo.Text = Convert.ToString(productos.Idproducto);
+                ffproductos.txtDescripcion.Text = productos.Descripcion;
+                ffproductos.cmbFabrincante.Text = productos.Fabricante;
+                ffproductos.cmbFamilia.Text = productos.Categoria;
+                ffproductos.dateTimePicker1.Text = Convert.ToString(productos.Vencimiento);
+                ffproductos.txtCosto.Text = Convert.ToString(productos.Costo);
+                ffproductos.txtPrecioVenta.Text = Convert.ToString(productos.Precio_venta);
+                ffproductos.txtStockInicial.Text = Convert.ToString(productos.Stock);
+                ffproductos.txtStockMinimo.Text = Convert.ToString(productos.Stockminimo);
+                ffproductos.cmbEstado.Text = productos.Status;
 
-                //fproductos.LoadProveedor();
-                //fproductos.Categories();
+                //ffproductos.LoadProveedor();
+                //ffproductos.Categories();
                
             }
             catch
@@ -256,10 +256,23 @@ namespace pjPalmera.PL
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
+            DialogResult Question = new DialogResult();
+
+            Question = MessageBox.Show("Seguro que desea eliminar el producto", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (Question == DialogResult.Yes)
+            {
                 DeleteProduct();
-                MessageBox.Show("El Producto fue eliminado","Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("El Producto fue eliminado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.dgvProdConsultar.DataSource = null;
                 this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+            }
+            else if(Question == DialogResult.No)
+            {
+                this.dgvProdConsultar.DataSource = null;
+                this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+                return;
+            }
         }
     }
 }

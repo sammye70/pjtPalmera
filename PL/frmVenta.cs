@@ -171,16 +171,16 @@ namespace pjPalmera.PL
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-          //  TicketVentaEntity caja = new TicketVentaEntity();
+            //  TicketVentaEntity caja = new TicketVentaEntity();
+            DialogResult Question = new DialogResult();
 
-           if (!ValidatorPost())
-               return;
+            if (!ValidatorPost())
+             return;
 
-            MessageBox.Show("Imprimir Recibo","Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            Question=MessageBox.Show("Imprimir Recibo","Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if ( DialogResult == DialogResult.Yes)
+            if (Question == DialogResult.Yes)
             {
-
                 Save_Invoices();
                 PrintTicket();
                 //caja.AbreCajon();
@@ -191,17 +191,17 @@ namespace pjPalmera.PL
                 Limpiar();
                 this.txtProductos.Focus();
             }
-            else
-            {
+            else if(Question == DialogResult.No)
+             {
                 Save_Invoices();
-                //PrintTicket();
-                //MessageBox.Show("No se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                PrintTicket();
+              //  MessageBox.Show("No se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MessageBox.Show("Venta Procesada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 NewInvoice();
                 LimpiarEfectivo();
                 Limpiar();
                 this.txtProductos.Focus();
-            }
+             }
         }
 
 
@@ -642,9 +642,9 @@ namespace pjPalmera.PL
             for (int i = 0; i < a; i++)
             {
                 //g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[0].Value), fdpTitle, sb, 5, 305 + AutoScrollOffset);
-                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[1].Value), fdpTitle, sb, 5, 305 + AutoScrollOffset); //Description
-                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[2].Value), fdpTitle, sb, 145, 305 + AutoScrollOffset); //Quality
-                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[3].Value), fdpTitle, sb, 178, 305 + AutoScrollOffset);// Price
+                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[2].Value), fdpTitle, sb, 5, 305 + AutoScrollOffset); //Description
+                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[3].Value), fdpTitle, sb, 151, 305 + AutoScrollOffset); //Quality
+                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[4].Value), fdpTitle, sb, 178, 305 + AutoScrollOffset);// Price
                 g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[5].Value), fdpTitle, sb, 225, 305 + AutoScrollOffset); // Total Price x Unit
                 AutoScrollOffset = AutoScrollOffset + 12;
             }
@@ -874,7 +874,7 @@ namespace pjPalmera.PL
                 Detail.PRECIO = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[4].Value.ToString()); //Price
                 Detail.ITBIS = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[5].Value.ToString()); //Itbis
                 Detail.IMPORTE = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[6].Value.ToString()); //amount
-               // venta.id = id; 
+                venta.id = id; 
             }
             FacturaBO.Create_detail(venta);
 
@@ -989,10 +989,11 @@ namespace pjPalmera.PL
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!String.IsNullOrWhiteSpace(this.txtProductos.Text))
-            {
-                SearchProductByCode(Convert.ToInt64(this.txtProductos.Text)); 
-            }
+            
+            //if (!String.IsNullOrWhiteSpace(this.txtProductos.Text))
+            //{
+            //    SearchProductByCode(Convert.ToInt64(this.txtProductos.Text)); 
+            //}
         }
 
         private void txtCantidad_KeyDown(object sender, KeyEventArgs e)

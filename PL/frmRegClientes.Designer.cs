@@ -132,7 +132,6 @@
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(188, 20);
             this.txtNombre.TabIndex = 8;
-
             // 
             // txtApellidos
             // 
@@ -151,7 +150,43 @@
             // 
             // cmbProvincia
             // 
+            this.cmbProvincia.AutoCompleteCustomSource.AddRange(new string[] {
+            "1"});
+            this.cmbProvincia.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.cmbProvincia.FormattingEnabled = true;
+            this.cmbProvincia.Items.AddRange(new object[] {
+            "Azúa",
+            "Baoruco ",
+            "Barahona ",
+            "Dajabón ",
+            "Distrito Nacional",
+            "Duarte ",
+            "Elías Pina ",
+            "El Seibo ",
+            "Espaillat ",
+            "Hato Mayor",
+            "Independencia",
+            "La Altagracia",
+            "La Romana",
+            "La Vega",
+            "Maria Trinidad Sanchez",
+            "Monseñor Nouel",
+            "Monte Cristi",
+            "Monte Plata",
+            "Pedernales",
+            "Peravia",
+            "Puerto Plata",
+            "Salcedo",
+            "Samana",
+            "Sánchez Ramírez",
+            "San Cristobal",
+            "San Jose de Ocoa",
+            "San Juan",
+            "San Pedro de Macorís",
+            "Santiago",
+            "Santiago Rodríguez",
+            "Santo Domingo",
+            "Valverde."});
             this.cmbProvincia.Location = new System.Drawing.Point(63, 234);
             this.cmbProvincia.Name = "cmbProvincia";
             this.cmbProvincia.Size = new System.Drawing.Size(227, 21);
@@ -199,7 +234,7 @@
             // btnGuardar
             // 
             this.btnGuardar.Image = global::PL.Properties.Resources.save;
-            this.btnGuardar.Location = new System.Drawing.Point(239, 331);
+            this.btnGuardar.Location = new System.Drawing.Point(244, 331);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 40);
             this.btnGuardar.TabIndex = 20;

@@ -22,13 +22,14 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql = @"INSERT INTO categories (category_id, category)
-                                VALUES(@category_id, @category)";
+                string sql = @"INSERT INTO categories (category_id, category, created)
+                                VALUES(@category_id, @category, @created)";
 
                 MySqlCommand cmd = new MySqlCommand(sql,con);
 
                 cmd.Parameters.AddWithValue("@category_id", Categoria.Category_id);
                 cmd.Parameters.AddWithValue("@category",Categoria.Category);
+                cmd.Parameters.AddWithValue("@created", DateTime.Now);
 
                 Categoria.Category_id = Convert.ToInt32(cmd.ExecuteScalar());
 

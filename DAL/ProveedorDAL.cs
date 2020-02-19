@@ -95,22 +95,134 @@ namespace pjPalmera.DAL
 
 
         /// <summary>
-        ///  Get proveedor by rnc
+        /// Filter proveedor by rnc
+        /// </summary>
+        /// <param name="code"></param>
+        public static List<ProveedorEntity> FilterByRnc(Int64 code)
+        {
+             List <ProveedorEntity> proveedor = new List<ProveedorEntity>();
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string query = @"select * from fabricante WHERE fabricante.rnc=@rnc";
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@rnc", code);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    proveedor.Add(LoadProveedor(reader));
+                }
+            }
+
+            return proveedor;
+        }
+
+
+        /// <summary>
+        /// Remove proveedor from DataBases
+        /// </summary>
+        /// <param name="code"></param>
+        public static void RemoveProveedor(Int64 code)
+        {
+           // ProveedorEntity proveedor = new ProveedorEntity();
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string query = @"DELETE from fabricante WHERE idfabricante=@idfabricante";
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@idfabricante", code);
+
+                //MySqlDataReader reader = cmd.ExecuteReader();
+
+                cmd.ExecuteNonQuery();
+            }
+       
+        }
+
+        /// <summary>
+        /// Search by Code to Update Proveedor
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public static ProveedorEntity SearchByCodeUpdate(Int64 code)
+        {
+             ProveedorEntity proveedor = new ProveedorEntity();
+            //List<ProveedorEntity> list = new List<ProveedorEntity>();
+
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string sql = @"SELECT * FROM fabricante WHERE fabricante.idfabricante=@idfabricante";
+
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+
+                cmd.Parameters.AddWithValue("@idfabricante", code);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    proveedor = (LoadProveedor(reader));
+                }
+            }
+            return proveedor;
+        }
+
+
+        /// <summary>
+        /// Update Proveedor Information 
+        /// </summary>
+        /// <returns></returns>
+        public static ProveedorEntity Update(ProveedorEntity Proveedor)
+        {
+            //ProveedorEntity Proveedor = new ProveedorEntity();
+            using (MySqlConnection con = new MySqlConnection (SettingDAL.connectionstring))
+            {
+                con.Open();
+                string query = @"UPDATE fabricante SET fabricante.nombre_fab=@nombre_fab, fabricante.nom_contacto=@nom_contacto, fabricante.tel_contacto=@tel_contacto, 
+                                                       fabricante.direccion_fab=@direccion_fab, fabricante.rnc=@rnc, fabricante.limitecredito=@limitecredito
+                                WHERE idfabricante=@idfabricante ";
+                                                                        // add column Proveedor Telephone in databases
+
+                MySqlCommand cmd = new MySqlCommand(query,con);
+
+                cmd.Parameters.AddWithValue("@idfabricante", Proveedor.Idproveedor);
+                cmd.Parameters.AddWithValue("@nombre_fab", Proveedor.Nombre_proveedor);
+                cmd.Parameters.AddWithValue("@nom_contacto", Proveedor.Nombre_contacto);
+                cmd.Parameters.AddWithValue("@tel_contacto", Proveedor.Tel_contacto);
+                cmd.Parameters.AddWithValue("@direccion_fab", Proveedor.Direccion_fab);
+                cmd.Parameters.AddWithValue("@rnc", Proveedor.Rnc);
+                cmd.Parameters.AddWithValue("@limitecredito", Proveedor.Limitecredito);
+                cmd.Parameters.AddWithValue("@modificated", DateTime.Now);
+
+                cmd.ExecuteNonQuery();
+            }
+            return Proveedor;
+        }
+
+        /// <summary>
+        ///  Search proveedor by code
         ///  </summary>
         /// <returns></returns>
-        public static List<ProveedorEntity> SearchByrnc(string rnc)
+        public static List<ProveedorEntity> SearchByCode(Int64 code)
         {
-            ProveedorEntity proveedor = new ProveedorEntity();
-            List<ProveedorEntity> list = new List<ProveedorEntity>();
+           // ProveedorEntity proveedor = new ProveedorEntity();
+           List<ProveedorEntity> list = new List<ProveedorEntity>();
 
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();                
-                string sql = @"SELECT * FROM fabricante WHERE fabricante.rnc=@rnc";
+                string sql = @"SELECT * FROM fabricante WHERE fabricante.idfabricante=@idfabricante";
 
                 MySqlCommand cmd = new MySqlCommand(sql, con);
 
-                cmd.Parameters.AddWithValue("@rnc", rnc);
+                cmd.Parameters.AddWithValue("@idfabricante", code);
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -179,7 +291,7 @@ namespace pjPalmera.DAL
             Proveedor.Nombre_contacto = Convert.ToString(Reader["nom_contacto"]);
             Proveedor.Tel_contacto = Convert.ToString(Reader["tel_contacto"]);
             Proveedor.Direccion_fab = Convert.ToString(Reader["direccion_fab"]);
-            Proveedor.Rnc = Convert.ToString(Reader["rnc"]);
+            Proveedor.Rnc = Convert.ToInt64(Reader["rnc"]);
             Proveedor.Limitecredito = Convert.ToDecimal(Reader["limitecredito"]);
             Proveedor.Created = Convert.ToDateTime(Reader["created"]);
             //Proveedor.Createby =

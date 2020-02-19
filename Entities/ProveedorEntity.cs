@@ -15,7 +15,7 @@ namespace pjPalmera.Entities
         private string tel_proveedor;
         private string tel_contacto;
         private string direccion_fab;
-        private string rnc;
+        private long rnc;
         private decimal limitecredito;
         private DateTime created;
         private int createby;
@@ -27,7 +27,7 @@ namespace pjPalmera.Entities
         }
 
         public ProveedorEntity(int idproveedor, string nombre_proveedor, string nombre_contacto, string tel_proveedor, string tel_contacto, 
-            string direccion_fab, string rnc, decimal limitecredito, DateTime created, int createby)
+            string direccion_fab, long rnc, decimal limitecredito, DateTime created, int createby)
         {
             this.Idproveedor = idproveedor;
             this.Nombre_proveedor = nombre_proveedor;
@@ -76,7 +76,7 @@ namespace pjPalmera.Entities
             set { direccion_fab = value; }
         }
 
-        public string Rnc
+        public Int64 Rnc
         {
             get { return rnc; }
 

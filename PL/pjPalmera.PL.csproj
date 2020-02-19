@@ -95,11 +95,11 @@
     <Compile Include="frmAjustarProductos.Designer.cs">
       <DependentUpon>frmAjustarProductos.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmArticulosVencer.cs">
+    <Compile Include="frmArticulosExpirar.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmArticulosVencer.Designer.cs">
-      <DependentUpon>frmArticulosVencer.cs</DependentUpon>
+    <Compile Include="frmArticulosExpirar.Designer.cs">
+      <DependentUpon>frmArticulosExpirar.cs</DependentUpon>
     </Compile>
     <Compile Include="frmCategoria.cs">
       <SubType>Form</SubType>
@@ -243,8 +243,8 @@
     <EmbeddedResource Include="frmAjustarProductos.resx">
       <DependentUpon>frmAjustarProductos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmArticulosVencer.resx">
-      <DependentUpon>frmArticulosVencer.cs</DependentUpon>
+    <EmbeddedResource Include="frmArticulosExpirar.resx">
+      <DependentUpon>frmArticulosExpirar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCategoria.resx">
       <DependentUpon>frmCategoria.cs</DependentUpon>
