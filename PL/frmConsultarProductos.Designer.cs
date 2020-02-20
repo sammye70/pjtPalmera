@@ -39,9 +39,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtCriterioBusqueda = new System.Windows.Forms.TextBox();
             this.lblMensaje = new System.Windows.Forms.Label();
+            this.dgvProductOnlyActive = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProdConsultar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProductOnlyActive)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvProdConsultar
@@ -131,11 +133,25 @@
             this.lblMensaje.Text = "Doble click para seleccionar un producto";
             this.lblMensaje.Visible = false;
             // 
+            // dgvProductOnlyActive
+            // 
+            this.dgvProductOnlyActive.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvProductOnlyActive.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvProductOnlyActive.Location = new System.Drawing.Point(12, 104);
+            this.dgvProductOnlyActive.Name = "dgvProductOnlyActive";
+            this.dgvProductOnlyActive.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvProductOnlyActive.Size = new System.Drawing.Size(1053, 367);
+            this.dgvProductOnlyActive.TabIndex = 3;
+            this.dgvProductOnlyActive.Visible = false;
+            this.dgvProductOnlyActive.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductOnlyActive_CellContentClick);
+            // 
             // frmConsultarProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1072, 499);
+            this.Controls.Add(this.dgvProductOnlyActive);
             this.Controls.Add(this.lblMensaje);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dgvProdConsultar);
@@ -147,6 +163,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProductOnlyActive)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,5 +180,6 @@
         public System.Windows.Forms.DataGridView dgvProdConsultar;
         public System.Windows.Forms.Button btnExpExcel;
         public System.Windows.Forms.Label lblMensaje;
+        public System.Windows.Forms.DataGridView dgvProductOnlyActive;
     }
 }

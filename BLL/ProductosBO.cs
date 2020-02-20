@@ -78,10 +78,10 @@ namespace pjPalmera.BLL
             {
                 ProductosDAL.Decrease_Stock(producto);
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
+               // MessageBox.Show(ex.ToString(), "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+               // return;
             }
         }
 
@@ -236,6 +236,35 @@ namespace pjPalmera.BLL
             try
             {
                 return ProductosDAL.ExpireYear(year);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
+        }
+        /// <summary>
+        /// Filter product and show only active
+        /// </summary>
+        /// <returns></returns>
+        public static List<ProductosEntity> OnlyActive()
+        {
+            try
+            {
+                return ProductosDAL.OnlyActive();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
+        }
+
+        public static List<ProductosEntity> FilterByStatus(string status)
+        {
+            try
+            {
+                return ProductosDAL.FilterByStatus(status);
             }
             catch (Exception ex)
             {

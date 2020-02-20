@@ -40,17 +40,22 @@ namespace pjPalmera.PL
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
+            this.txtCriterioBusqueda.Visible = true;
             CleanControls();
+            this.cmbEstado.Visible = false;
             this.txtCriterioBusqueda.Focus();
             this.lblCriterio.Text = "CODIGO";
+            this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
+            this.txtCriterioBusqueda.Visible = true;
             CleanControls();
             this.txtCriterioBusqueda.Focus();
+            this.cmbEstado.Visible = false;
             this.lblCriterio.Text = "DESCRIPCION";
-
+            this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
         }
 
         /// <summary>
@@ -59,6 +64,7 @@ namespace pjPalmera.PL
         private void CleanControls()
         {
             this.txtCriterioBusqueda.Clear();
+            this.cmbEstado.Text = "";
         }
 
         /// <summary>
@@ -70,8 +76,9 @@ namespace pjPalmera.PL
             this.MaximizeBox = false;
             this.lblCriterio.Text = "";
             this.dgvProdConsultar.ReadOnly = true;
-            this.radioButton1.Checked = false;
-            this.radioButton2.Checked = false;
+            this.rdbCodigo.Checked = false;
+            this.rdbDescription.Checked = false;
+            this.cmbEstado.Visible = false;
             //this.dgvProdConsultar.Columns["Orden"].Visible = false;
         }
 
@@ -83,6 +90,7 @@ namespace pjPalmera.PL
         private void btnRefrescar_Click(object sender, EventArgs e)
         {
             DesableControls();
+            CleanControls();
             this.dgvProdConsultar.DataSource = null;
             this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
         }
@@ -118,7 +126,7 @@ namespace pjPalmera.PL
 
 
         /// <summary>
-        /// Edit Fields in Product and to Save in Databases
+        /// Edit Fields in Product and to Save Changes
         /// </summary>
         private void EditProduct()
         {
@@ -162,7 +170,6 @@ namespace pjPalmera.PL
             }
 
         }
-
 
 
         /// <summary>
@@ -243,12 +250,12 @@ namespace pjPalmera.PL
 
         private void txtCriterioBusqueda_TextChanged(object sender, EventArgs e)
         {
-            if (this.radioButton1.Checked == true)
+            if (this.rdbCodigo.Checked == true)
             {
                 SearchByCode();
             }
 
-            if (this.radioButton2.Checked == true)
+            if (this.rdbDescription.Checked == true)
             {
                 SearchByDescrip();
             }
@@ -272,6 +279,48 @@ namespace pjPalmera.PL
                 this.dgvProdConsultar.DataSource = null;
                 this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
                 return;
+            }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FilterbyStatus()
+        {
+            try
+            {
+                productos.Status = this.cmbEstado.Text;
+                this.dgvProdConsultar.DataSource = ProductosBO.FilterByStatus(productos.Status);
+            }
+            catch
+            {
+            }
+        }
+
+        private void rdEstado_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.rdbEstado.Checked == true)
+            {
+                this.cmbEstado.Visible = true;
+                CleanControls();
+                this.cmbEstado.Focus();
+                this.lblCriterio.Text = "Estado";
+                this.txtCriterioBusqueda.Visible = false;
+                this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+            }
+        }
+
+        private void cmbEstado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.cmbEstado.Text != string.Empty)
+            {
+                FilterbyStatus();
+            }
+            else
+            {
+                this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
             }
         }
     }

@@ -93,7 +93,7 @@ namespace pjPalmera.Entities
         /// <summary>
         /// Calculate amount for items
         /// </summary>
-        /// <returns>Importe</returns>
+        /// <returns></returns>
         public decimal SubTotal()
         {
             decimal total = 0;
@@ -103,7 +103,6 @@ namespace pjPalmera.Entities
             }
             return total;
         }
-
 
         /// <summary>
         /// Return Itbis value

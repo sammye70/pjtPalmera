@@ -42,6 +42,7 @@ namespace pjPalmera.PL
             
             DesableControls();
             this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+            this.dgvProductOnlyActive.DataSource = ProductosBO.OnlyActive();
             this.txtCriterioBusqueda.Focus();
         }
 
@@ -67,6 +68,7 @@ namespace pjPalmera.PL
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.dgvProdConsultar.ReadOnly = true;
+            this.dgvProductOnlyActive.ReadOnly = true;
         }
 
 
@@ -80,10 +82,12 @@ namespace pjPalmera.PL
                 productos.Idproducto = Convert.ToInt64(this.txtCriterioBusqueda.Text);
 
                 this.dgvProdConsultar.DataSource = ProductosBO.FilterProductbyCode(productos.Idproducto);
+                this.dgvProductOnlyActive.DataSource = ProductosBO.FilterProductbyCode(productos.Idproducto);
             }
             else
             {
                 this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+                this.dgvProductOnlyActive.DataSource = ProductosBO.GetAll();
                 this.txtCriterioBusqueda.Focus();
             }
         }
@@ -107,8 +111,6 @@ namespace pjPalmera.PL
                     this.dgvProdConsultar.DataSource = null;
                     this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
                     return;
-
-
                 }
                 else
                 {
@@ -123,7 +125,6 @@ namespace pjPalmera.PL
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
@@ -139,6 +140,44 @@ namespace pjPalmera.PL
         private void btnSearch_Click(object sender, EventArgs e)
         {
            
+        }
+
+        private void dgvProductOnlyActive_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            decimal cvalor = Convert.ToDecimal(this.dgvProdConsultar.Rows[e.RowIndex].Cells["Stock"].Value);
+
+            try
+            {
+                if (cvalor == 0)
+                {
+                    //  if (e.RowIndex == -1)
+                    //    return;
+
+                    _numero = Convert.ToInt64(this.dgvProductOnlyActive.Rows[e.RowIndex].Cells["Orden"].Value);
+
+                    MessageBox.Show("No hay Stock disponible del producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    this.dgvProductOnlyActive.DataSource = null;
+                    this.dgvProductOnlyActive.DataSource = ProductosBO.GetAll();
+                    return;
+                }
+                else
+                {
+                    if (e.RowIndex == -1)
+                        return;
+
+                    _numero = Convert.ToInt64(this.dgvProductOnlyActive.Rows[e.RowIndex].Cells["Orden"].Value);
+
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
     }
 }

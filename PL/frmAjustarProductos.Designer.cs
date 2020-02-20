@@ -70,6 +70,7 @@
             this.txtCodigoProducto.Name = "txtCodigoProducto";
             this.txtCodigoProducto.Size = new System.Drawing.Size(201, 20);
             this.txtCodigoProducto.TabIndex = 44;
+            this.txtCodigoProducto.TextChanged += new System.EventHandler(this.txtCodigoProducto_TextChanged);
             // 
             // btnBuscarProducto
             // 
@@ -80,6 +81,7 @@
             this.btnBuscarProducto.Size = new System.Drawing.Size(42, 37);
             this.btnBuscarProducto.TabIndex = 48;
             this.btnBuscarProducto.UseVisualStyleBackColor = true;
+            this.btnBuscarProducto.Click += new System.EventHandler(this.btnBuscarProducto_Click);
             // 
             // dgvProductos
             // 
@@ -130,6 +132,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtCodigoProducto);
             this.Name = "frmAjustarProductos";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ajustar Productos";
             this.Load += new System.EventHandler(this.frmAjustarProductos_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).EndInit();

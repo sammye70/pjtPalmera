@@ -33,17 +33,19 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnRemove = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnEditarProd = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.rdbDescription = new System.Windows.Forms.RadioButton();
+            this.rdbCodigo = new System.Windows.Forms.RadioButton();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnRefrescar = new System.Windows.Forms.Button();
             this.lblCriterio = new System.Windows.Forms.Label();
             this.txtCriterioBusqueda = new System.Windows.Forms.TextBox();
             this.lblMensaje = new System.Windows.Forms.Label();
-            this.btnRemove = new System.Windows.Forms.Button();
+            this.rdbEstado = new System.Windows.Forms.RadioButton();
+            this.cmbEstado = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProdConsultar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -56,7 +58,7 @@
             this.dgvProdConsultar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvProdConsultar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProdConsultar.Location = new System.Drawing.Point(6, 129);
+            this.dgvProdConsultar.Location = new System.Drawing.Point(9, 129);
             this.dgvProdConsultar.Name = "dgvProdConsultar";
             this.dgvProdConsultar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvProdConsultar.Size = new System.Drawing.Size(1075, 335);
@@ -69,6 +71,7 @@
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.cmbEstado);
             this.panel1.Controls.Add(this.btnRemove);
             this.panel1.Controls.Add(this.btnSearch);
             this.panel1.Controls.Add(this.btnEditarProd);
@@ -77,22 +80,33 @@
             this.panel1.Controls.Add(this.btnRefrescar);
             this.panel1.Controls.Add(this.lblCriterio);
             this.panel1.Controls.Add(this.txtCriterioBusqueda);
-            this.panel1.Location = new System.Drawing.Point(6, 21);
+            this.panel1.Location = new System.Drawing.Point(10, 21);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1075, 93);
             this.panel1.TabIndex = 3;
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.Image = global::PL.Properties.Resources.trash;
+            this.btnRemove.Location = new System.Drawing.Point(915, 24);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(56, 43);
+            this.btnRemove.TabIndex = 63;
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // btnSearch
             // 
             this.btnSearch.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnSearch.Image = global::PL.Properties.Resources.search;
-            this.btnSearch.Location = new System.Drawing.Point(404, 27);
+            this.btnSearch.Location = new System.Drawing.Point(399, 27);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(42, 37);
             this.btnSearch.TabIndex = 62;
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Visible = false;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnEditarProd
             // 
@@ -108,37 +122,38 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Controls.Add(this.radioButton1);
+            this.groupBox1.Controls.Add(this.rdbEstado);
+            this.groupBox1.Controls.Add(this.rdbDescription);
+            this.groupBox1.Controls.Add(this.rdbCodigo);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(487, 13);
+            this.groupBox1.Location = new System.Drawing.Point(465, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(298, 54);
+            this.groupBox1.Size = new System.Drawing.Size(368, 64);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtrar por";
             // 
-            // radioButton2
+            // rdbDescription
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(161, 24);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(117, 20);
-            this.radioButton2.TabIndex = 13;
-            this.radioButton2.Text = "DESCRIPCION";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            this.rdbDescription.AutoSize = true;
+            this.rdbDescription.Location = new System.Drawing.Point(113, 24);
+            this.rdbDescription.Name = "rdbDescription";
+            this.rdbDescription.Size = new System.Drawing.Size(117, 20);
+            this.rdbDescription.TabIndex = 13;
+            this.rdbDescription.Text = "DESCRIPCION";
+            this.rdbDescription.UseVisualStyleBackColor = true;
+            this.rdbDescription.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
-            // radioButton1
+            // rdbCodigo
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(42, 24);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(78, 20);
-            this.radioButton1.TabIndex = 12;
-            this.radioButton1.Text = "CODIGO";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            this.rdbCodigo.AutoSize = true;
+            this.rdbCodigo.Location = new System.Drawing.Point(20, 24);
+            this.rdbCodigo.Name = "rdbCodigo";
+            this.rdbCodigo.Size = new System.Drawing.Size(78, 20);
+            this.rdbCodigo.TabIndex = 12;
+            this.rdbCodigo.Text = "CODIGO";
+            this.rdbCodigo.UseVisualStyleBackColor = true;
+            this.rdbCodigo.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // btnEliminar
             // 
@@ -171,7 +186,7 @@
             // 
             // txtCriterioBusqueda
             // 
-            this.txtCriterioBusqueda.Location = new System.Drawing.Point(130, 36);
+            this.txtCriterioBusqueda.Location = new System.Drawing.Point(122, 37);
             this.txtCriterioBusqueda.Name = "txtCriterioBusqueda";
             this.txtCriterioBusqueda.Size = new System.Drawing.Size(267, 20);
             this.txtCriterioBusqueda.TabIndex = 5;
@@ -184,20 +199,33 @@
             this.lblMensaje.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblMensaje.Location = new System.Drawing.Point(3, 469);
             this.lblMensaje.Name = "lblMensaje";
-            this.lblMensaje.Size = new System.Drawing.Size(563, 13);
+            this.lblMensaje.Size = new System.Drawing.Size(737, 13);
             this.lblMensaje.TabIndex = 4;
-            this.lblMensaje.Text = "Indicar como buscar (Codigo, Descripcion). Luego Seleccionar y  despues presinar " +
-    "el boton Editar";
+            this.lblMensaje.Text = "Indicar como buscar (Código, Descripción), por Estado(Activo, Inactivo). Luego Se" +
+    "leccionar y  después presionar el botón Editar";
             // 
-            // btnRemove
+            // rdbEstado
             // 
-            this.btnRemove.Image = global::PL.Properties.Resources.trash;
-            this.btnRemove.Location = new System.Drawing.Point(915, 24);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(56, 43);
-            this.btnRemove.TabIndex = 63;
-            this.btnRemove.UseVisualStyleBackColor = true;
-            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            this.rdbEstado.AutoSize = true;
+            this.rdbEstado.Location = new System.Drawing.Point(249, 23);
+            this.rdbEstado.Name = "rdbEstado";
+            this.rdbEstado.Size = new System.Drawing.Size(82, 20);
+            this.rdbEstado.TabIndex = 64;
+            this.rdbEstado.Text = "ESTADO";
+            this.rdbEstado.UseVisualStyleBackColor = true;
+            this.rdbEstado.CheckedChanged += new System.EventHandler(this.rdEstado_CheckedChanged);
+            // 
+            // cmbEstado
+            // 
+            this.cmbEstado.FormattingEnabled = true;
+            this.cmbEstado.Items.AddRange(new object[] {
+            "Activo",
+            "Inactivo"});
+            this.cmbEstado.Location = new System.Drawing.Point(114, 38);
+            this.cmbEstado.Name = "cmbEstado";
+            this.cmbEstado.Size = new System.Drawing.Size(144, 21);
+            this.cmbEstado.TabIndex = 64;
+            this.cmbEstado.SelectedIndexChanged += new System.EventHandler(this.cmbEstado_SelectedIndexChanged);
             // 
             // frmEditarProductos
             // 
@@ -231,12 +259,14 @@
         private System.Windows.Forms.Label lblCriterio;
         private System.Windows.Forms.TextBox txtCriterioBusqueda;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton rdbDescription;
+        private System.Windows.Forms.RadioButton rdbCodigo;
         public System.Windows.Forms.Button btnEditarProd;
         public System.Windows.Forms.Label lblMensaje;
         private System.Windows.Forms.Button btnSearch;
         public System.Windows.Forms.DataGridView dgvProdConsultar;
         private System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.RadioButton rdbEstado;
+        private System.Windows.Forms.ComboBox cmbEstado;
     }
 }

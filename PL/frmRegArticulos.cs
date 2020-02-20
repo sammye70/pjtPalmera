@@ -214,6 +214,7 @@ namespace pjPalmera.PL
                 productos.Precio_venta = Convert.ToDecimal(this.txtPrecioVenta.Text);
                 productos.Stock = Convert.ToInt32(this.txtStockInicial.Text);
                 productos.Stockminimo = Convert.ToInt32(this.txtStockMinimo.Text);
+                productos.Status = this.cmbEstado.Text;
 
                 ProductosBO.Update_Info_Product(productos);
             }

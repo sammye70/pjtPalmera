@@ -21,7 +21,7 @@ namespace pjPalmera.DAL
         /// </summary>
         //static String ConnectionString = @"server=192.168.8.131;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas;"; //Home ip
         static String ConnectionString = @"server=192.168.8.131;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas_store"; //Home
-        // static String ConnectionString = @"server=localhost;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas;"; // Drog Store ip
+       // static String ConnectionString = @"server=localhost;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas;"; // Drog Store ip
         /// <summary>
         /// ConnectionString to Databases
         /// </summary>

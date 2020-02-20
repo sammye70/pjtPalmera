@@ -76,6 +76,31 @@ namespace pjPalmera.DAL
           return list;
         }
 
+        /// <summary>
+        /// Filter product and show only active
+        /// </summary>
+        /// <returns></returns>
+        public static List<ProductosEntity> OnlyActive()
+        {
+            List<ProductosEntity> list = new List<ProductosEntity>();
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string sql = @"SELECT * FROM productos 
+                                 WHERE productos.status='Activo'  ORDER BY descripcion ASC";
+
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    list.Add(LoadProduct(reader));
+                }
+                con.Close();
+            }
+            return list;
+        }
+
 
         /// <summary>
         /// Update Stock (Decrease) on table productos
@@ -93,7 +118,7 @@ namespace pjPalmera.DAL
 
                 ProductosEntity product = new ProductosEntity();
 
-               string update_stock = @"UPDATE productos SET productos.stock=productos.stock-@cantidad WHERE idproducto = @idproducto";
+               string update_stock = @"UPDATE productos SET productos.stock=productos.stock-@cantidad WHERE productos.idproducto=@idproducto";
                 //string update_stock = @"update productos set stock = stock - @cantidad where idproducto = @idproducto";
 
                 MySqlCommand cmd = new MySqlCommand(update_stock, con);
@@ -181,7 +206,7 @@ namespace pjPalmera.DAL
                 con.Open();
                 string query = @"UPDATE productos SET productos.numero=@numero, productos.idproducto=@idproducto, productos.descripcion=@descripcion, productos.f_vencimiento=@f_vencimiento,
                                         productos.p_venta=@p_venta, productos.costo=@costo, productos.idfamilia=@idfamilia, productos.idfabricante=@idfabricante,
-                                        productos.stock=@stock, productos.stockminimo=@stockminimo, productos.modificated=@modificated   
+                                        productos.stock=@stock, productos.stockminimo=@stockminimo, productos.modificated=@modificated, productos.status=@status   
                                 WHERE numero=@numero";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
@@ -411,6 +436,36 @@ namespace pjPalmera.DAL
             }
             return productos;
         }
+
+        /// <summary>
+        /// Filter Product By Status
+        /// </summary>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public static List<ProductosEntity> FilterByStatus(string status)
+        {
+            List<ProductosEntity> producto = new List<ProductosEntity>();
+
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+
+                string query = @"SELECT * FROM productos WHERE productos.status=@status ORDER BY productos.descripcion ASC";
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@status", status);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    producto.Add(LoadProduct(reader));
+                }
+            }
+            return producto;
+        }
+        
 
         /// <summary>
         /// LoadProduct
