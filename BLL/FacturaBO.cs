@@ -25,7 +25,7 @@ namespace pjPalmera.BLL
             }
             catch (Exception ex)
             {
-             //   MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
         }
@@ -42,7 +42,7 @@ namespace pjPalmera.BLL
             }
             catch (Exception ex)
             {
-              //  MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(ex.ToString(), "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
         }
@@ -100,6 +100,23 @@ namespace pjPalmera.BLL
                 return null;
             }
 
+        }
+
+        /// <summary>
+        ///  Search Last Invoice Id
+        /// </summary>
+        /// <returns></returns>
+        public static Int64 LastId()
+        {
+            try
+            {
+                return FacturasDAL.LastId();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return 0;
+            }
         }
 
     }

@@ -50,6 +50,7 @@ namespace pjPalmera.DAL
           return Producto;
         }
 
+
         /// <summary>
         /// Get All Products
         /// </summary>
@@ -76,6 +77,7 @@ namespace pjPalmera.DAL
           return list;
         }
 
+
         /// <summary>
         /// Filter product and show only active
         /// </summary>
@@ -96,7 +98,6 @@ namespace pjPalmera.DAL
                 {
                     list.Add(LoadProduct(reader));
                 }
-                con.Close();
             }
             return list;
         }
@@ -116,24 +117,19 @@ namespace pjPalmera.DAL
             {
                 con.Open();
 
-                ProductosEntity product = new ProductosEntity();
-
                string update_stock = @"UPDATE productos SET productos.stock=productos.stock-@cantidad WHERE productos.idproducto=@idproducto";
-                //string update_stock = @"update productos set stock = stock - @cantidad where idproducto = @idproducto";
 
                 MySqlCommand cmd = new MySqlCommand(update_stock, con);
 
-                cmd.Parameters.Clear();
-
                 foreach (DetalleVentaEntity producto in venta.Productos)
                 {
+                    cmd.Parameters.Clear(); //
+
                     cmd.Parameters.AddWithValue("@idproducto",producto.ID);
-                    cmd.Parameters.AddWithValue("@cantidad", producto.CANTIDAD); 
+                    cmd.Parameters.AddWithValue("@cantidad", producto.CANTIDAD);
+
+                    cmd.ExecuteNonQuery();
                 }
-
-                product.Idproducto = Convert.ToInt64(cmd.ExecuteScalar());
-
-                con.Close();
             }
         }
 
@@ -170,7 +166,7 @@ namespace pjPalmera.DAL
         /// Filter Product near to expire date
         /// </summary>
         /// <returns></returns>
-        public static List<ProductosEntity> ProductExpire()
+        public static List<ProductosEntity> ProductExpire()   /// Pending to Build
         {
             List<ProductosEntity> list = new List<ProductosEntity>();
 
@@ -191,9 +187,6 @@ namespace pjPalmera.DAL
             }
              return list;
         }
-
-
-
 
 
         /// <summary>
@@ -230,7 +223,6 @@ namespace pjPalmera.DAL
         }
 
 
-
         /// <summary>
         /// Remove Product from DataBases
         /// </summary>
@@ -263,7 +255,6 @@ namespace pjPalmera.DAL
         }
 
 
-
         /// <summary>
         /// Filter product by Expire Date (Month and Year)
         /// </summary>
@@ -288,6 +279,7 @@ namespace pjPalmera.DAL
             }
                 return productos;
         }
+
 
         /// <summary>
         /// Filter product Expire Date by Year
@@ -314,6 +306,7 @@ namespace pjPalmera.DAL
             }
             return productos;
         }
+
 
         /// <summary>
         /// Search Products by Orden
@@ -410,6 +403,7 @@ namespace pjPalmera.DAL
                 return productos;
         }
 
+
         /// <summary>
         /// Filter Products by Description
         /// </summary>
@@ -436,6 +430,7 @@ namespace pjPalmera.DAL
             }
             return productos;
         }
+
 
         /// <summary>
         /// Filter Product By Status

@@ -22,7 +22,7 @@ namespace pjPalmera.DAL
         {
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
-
+                
                 con.Open();
                 string sql_head = @"INSERT INTO venta (nombre, apellidos, total, created, status, tipo, descuento, subtotal, total_itbis, recibido, devuelta) 
                                         VALUES(@nombre, @apellidos, @total, @created, @status, @tipo, @descuento, @subtotal, @total_itbis, @recibido, @devuelta)";
@@ -42,12 +42,35 @@ namespace pjPalmera.DAL
                     cmd.Parameters.AddWithValue("recibido", Venta.recibido);
                     //cmd.Parameters.AddWithValue("@created",DateTime.Now);
 
+                    
                     cmd.ExecuteNonQuery();
                 }
 
                 con.Close();
             }
         }
+
+        /// <summary>
+        /// Search Last Invoice Id
+        /// </summary>
+        /// <param name="id_invoice"></param>
+        /// <returns></returns>
+        public static Int64 LastId()
+        {
+            Int64 id;
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string query = @"SELECT max(id) from ebgsolut_abejas_store.venta;";
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+
+                id= Convert.ToInt64(cmd.ExecuteScalar());
+            }
+
+            return id;
+        }
+
 
         /// <summary>
         /// Create Insert detail on databases
@@ -59,8 +82,8 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql_detail = @"INSERT INTO detail_venta (idproducto, descripcion, cantidad, precio, itbis, importe, created)
-                                        VALUES(@idproducto, @descripcion, @cantidad, @precio, @itbis, @importe, @created)";
+                string sql_detail = @"INSERT INTO detail_venta (idproducto, descripcion, cantidad, precio, itbis, importe, created, status)
+                                        VALUES(@idproducto, @descripcion, @cantidad, @precio, @itbis, @importe, @created, @status)";
 
                 MySqlCommand cmd = new MySqlCommand(sql_detail, con);
 
@@ -78,6 +101,7 @@ namespace pjPalmera.DAL
                     cmd.Parameters.AddWithValue("@itbis", dvental.ITBIS);
                     cmd.Parameters.AddWithValue("@importe", dvental.IMPORTE);
                     cmd.Parameters.AddWithValue("@created", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@status", 1);
                     ///
                     ///
                     cmd.ExecuteNonQuery();
@@ -188,7 +212,6 @@ namespace pjPalmera.DAL
             venta.subtotal = Convert.ToDecimal(reader["subtotal"]);
             venta.total_itbis = Convert.ToDecimal(reader["total_itbis"]);
             
-
             return venta;
         }
     }

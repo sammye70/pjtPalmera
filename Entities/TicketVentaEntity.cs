@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 
 
+
 namespace pjPalmera.Entities
 {
     public class TicketVentaEntity
@@ -15,7 +16,7 @@ namespace pjPalmera.Entities
         StringBuilder linea = new StringBuilder();
         //private Image headerImage = null;
         //Creamos una variable para almacenar el numero maximo de caracteres que permitiremos en el ticket.
-        int maxCar = 48, cortar;//Para una impresora ticketera que imprime a 40 columnas. La variable cortar cortara el texto cuando rebase el limte.
+        int maxCar = 48, cortar;//Para una impresora ticketera que imprime a 40 columnas. La variable cortar cortara el texto cuando rebase el limite.
 
         //public Image HeaderImage
         //{
@@ -328,7 +329,7 @@ namespace pjPalmera.Entities
         //Para abrir el cajon
         public void AbreCajon()
         {
-            //Estos tambien varian, tienen que ever el manual de la impresora para poner los correctos.
+            //Estos tambien varian, tienen que ver el manual de la impresora para poner los correctos.
             linea.AppendLine("\x1B" + "p" + "\x00" + "\x0F" + "\x96"); //Caracteres de apertura cajon 0
             //linea.AppendLine("\x1B" + "p" + "\x01" + "\x0F" + "\x96"); //Caracteres de apertura cajon 1
         }

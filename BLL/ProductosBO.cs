@@ -76,12 +76,12 @@ namespace pjPalmera.BLL
         {
             try
             {
-                ProductosDAL.Decrease_Stock(producto);
+                  ProductosDAL.Decrease_Stock(producto);
             }
-            catch
+            catch (Exception ex)
             {
-               // MessageBox.Show(ex.ToString(), "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-               // return;
+                MessageBox.Show(ex.ToString(), "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
             }
         }
 
@@ -260,6 +260,11 @@ namespace pjPalmera.BLL
             }
         }
 
+        /// <summary>
+        /// Filter Product by Status
+        /// </summary>
+        /// <param name="status"></param>
+        /// <returns></returns>
         public static List<ProductosEntity> FilterByStatus(string status)
         {
             try
