@@ -40,6 +40,8 @@
             this.txtCriterioBusqueda = new System.Windows.Forms.TextBox();
             this.lblMensaje = new System.Windows.Forms.Label();
             this.dgvProductOnlyActive = new System.Windows.Forms.DataGridView();
+            this.lblCostoAllProductos = new System.Windows.Forms.Label();
+            this.lblCostoTotalProductRes = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProdConsultar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -54,7 +56,7 @@
             this.dgvProdConsultar.Location = new System.Drawing.Point(12, 104);
             this.dgvProdConsultar.Name = "dgvProdConsultar";
             this.dgvProdConsultar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvProdConsultar.Size = new System.Drawing.Size(1053, 367);
+            this.dgvProdConsultar.Size = new System.Drawing.Size(1053, 358);
             this.dgvProdConsultar.TabIndex = 0;
             this.dgvProdConsultar.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProdConsultar_CellContentDoubleClick);
             // 
@@ -141,16 +143,40 @@
             this.dgvProductOnlyActive.Location = new System.Drawing.Point(12, 104);
             this.dgvProductOnlyActive.Name = "dgvProductOnlyActive";
             this.dgvProductOnlyActive.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvProductOnlyActive.Size = new System.Drawing.Size(1053, 367);
+            this.dgvProductOnlyActive.Size = new System.Drawing.Size(1053, 358);
             this.dgvProductOnlyActive.TabIndex = 3;
             this.dgvProductOnlyActive.Visible = false;
             this.dgvProductOnlyActive.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductOnlyActive_CellContentClick);
+            // 
+            // lblCostoAllProductos
+            // 
+            this.lblCostoAllProductos.AutoSize = true;
+            this.lblCostoAllProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCostoAllProductos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lblCostoAllProductos.Location = new System.Drawing.Point(801, 466);
+            this.lblCostoAllProductos.Name = "lblCostoAllProductos";
+            this.lblCostoAllProductos.Size = new System.Drawing.Size(79, 24);
+            this.lblCostoAllProductos.TabIndex = 5;
+            this.lblCostoAllProductos.Text = "Capital:";
+            // 
+            // lblCostoTotalProductRes
+            // 
+            this.lblCostoTotalProductRes.AutoSize = true;
+            this.lblCostoTotalProductRes.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCostoTotalProductRes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lblCostoTotalProductRes.Location = new System.Drawing.Point(886, 466);
+            this.lblCostoTotalProductRes.Name = "lblCostoTotalProductRes";
+            this.lblCostoTotalProductRes.Size = new System.Drawing.Size(162, 24);
+            this.lblCostoTotalProductRes.TabIndex = 6;
+            this.lblCostoTotalProductRes.Text = "Resultado Costo";
             // 
             // frmConsultarProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1072, 499);
+            this.Controls.Add(this.lblCostoTotalProductRes);
+            this.Controls.Add(this.lblCostoAllProductos);
             this.Controls.Add(this.dgvProductOnlyActive);
             this.Controls.Add(this.lblMensaje);
             this.Controls.Add(this.panel1);
@@ -181,5 +207,7 @@
         public System.Windows.Forms.Button btnExpExcel;
         public System.Windows.Forms.Label lblMensaje;
         public System.Windows.Forms.DataGridView dgvProductOnlyActive;
+        public System.Windows.Forms.Label lblCostoTotalProductRes;
+        public System.Windows.Forms.Label lblCostoAllProductos;
     }
 }

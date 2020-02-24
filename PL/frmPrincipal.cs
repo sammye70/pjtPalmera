@@ -203,5 +203,11 @@ namespace pjPalmera.PL
             EditProveedor.EnableControls();
             EditProveedor.ShowDialog(this);
         }
+
+        private void abrirCajaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmAbrirCaja ocaja = new frmAbrirCaja();
+            ocaja.ShowDialog(this);
+        }
     }
 }

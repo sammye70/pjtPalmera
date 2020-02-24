@@ -48,6 +48,7 @@ namespace pjPalmera.PL
             this.lblCriterio2.Text = "";
             this.btnSearchMonth.Visible = false;
             this.btnSearchYear.Visible = false;
+            this.dgvProductExpirar.ReadOnly = true;
         }
 
         /// <summary>

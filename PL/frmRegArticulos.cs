@@ -370,8 +370,8 @@ namespace pjPalmera.PL
 
         private void button1_Click(object sender, EventArgs e)
         {
-            frmRegProveedor proveedor = new frmRegProveedor();
-            proveedor.ShowDialog(this);
+            frmRegProveedor Regproveedor = new frmRegProveedor();
+            Regproveedor.Show();
         }
 
         private void btnUpdateFields_Click(object sender, EventArgs e)
@@ -416,6 +416,12 @@ namespace pjPalmera.PL
         private void cmbFamilia_DropDown(object sender, EventArgs e)
         {
             Categories();
+        }
+
+        private void btnAddFabricante_Click(object sender, EventArgs e)
+        {
+            frmRegProveedor rproveedor = new frmRegProveedor();
+            rproveedor.ShowDialog(this);
         }
     }
 }

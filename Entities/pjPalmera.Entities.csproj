@@ -40,11 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CierreCajaEntity.cs" />
+    <Compile Include="AperturaCajaEntity.cs" />
     <Compile Include="CategoriaEntity.cs" />
     <Compile Include="CiudadEntity.cs" />
     <Compile Include="ClientesEntity.cs" />
     <Compile Include="DetalleVentaEntity.cs" />
     <Compile Include="InventarioEntity.cs" />
+    <Compile Include="OpServices.cs" />
     <Compile Include="PedidosEntity.cs" />
     <Compile Include="TicketVentaEntity.cs" />
     <Compile Include="ProveedorEntity.cs" />

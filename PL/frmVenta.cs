@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using pjPalmera.Entities;
 using pjPalmera.BLL;
-using pjPalmera.DAL;
+
 
 namespace pjPalmera.PL
 {
@@ -514,6 +514,8 @@ namespace pjPalmera.PL
                 consulProductos.lblMensaje.Visible = true;
                 consulProductos.dgvProductOnlyActive.Visible = true;
                 consulProductos.dgvProdConsultar.Visible = false;
+                consulProductos.lblCostoAllProductos.Visible = false;
+                consulProductos.lblCostoTotalProductRes.Visible = false;
 
                 if (consulProductos.ShowDialog() == DialogResult.OK)
                 {
@@ -611,7 +613,7 @@ namespace pjPalmera.PL
             string Type = "FACTURA AL CONTADO"; //Type of invoice
 
             //Id Invoice
-            venta.id=FacturasDAL.LastId();
+            venta.id=FacturaBO.LastId();
             this.txtId_Invoice.Text = Convert.ToString(venta.id);
 
             RawPrinterHelper j = new RawPrinterHelper(); //
@@ -897,8 +899,7 @@ namespace pjPalmera.PL
                     Detail.CANTIDAD = Convert.ToInt32(this.dgvDetalle.Rows[i].Cells[3].Value.ToString()); //Quality
                     Detail.PRECIO = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[4].Value.ToString()); //Price
                     Detail.ITBIS = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[5].Value.ToString()); //Itbis
-                    Detail.IMPORTE = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[6].Value.ToString()); //amount
-                                                                                                           // venta.id = id; 
+                    Detail.IMPORTE = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[6].Value.ToString()); //amount                                                                                       
                 }
                 FacturaBO.Create_detail(venta);
             }

@@ -15,7 +15,7 @@ namespace pjPalmera.PL
     public partial class frmConsultarProveedor : Form
     {
         ProveedorEntity Proveedor = new ProveedorEntity();
-        frmRegProveedor fproveedor = new frmRegProveedor();
+        
         Int64 _code;
 
         public Int64 Code
@@ -89,6 +89,7 @@ namespace pjPalmera.PL
         /// </summary>
         public void EditProveedor()
         {
+            frmRegProveedor fproveedor = new frmRegProveedor();
             try
             {
                 DataGridViewRow x = this.dgvContProveedor.CurrentRow;

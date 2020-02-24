@@ -35,10 +35,10 @@
             this.efectuarVentaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.notaDeCreditoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.consultarFacturasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.facturasEmitidasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.facturasAnuladasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.gestionarClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.crearClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consultarClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -126,7 +126,7 @@
             this.toolStripMenuItem1,
             this.notaDeCreditoToolStripMenuItem});
             this.facturarToolStripMenuItem.Name = "facturarToolStripMenuItem";
-            this.facturarToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.facturarToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.facturarToolStripMenuItem.Text = "Facturar";
             // 
             // efectuarVentaToolStripMenuItem
@@ -148,18 +148,13 @@
             this.notaDeCreditoToolStripMenuItem.Text = "Nota de Credito";
             this.notaDeCreditoToolStripMenuItem.Click += new System.EventHandler(this.notaDeCreditoToolStripMenuItem_Click);
             // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(175, 6);
-            // 
             // consultarFacturasToolStripMenuItem
             // 
             this.consultarFacturasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.facturasEmitidasToolStripMenuItem,
             this.facturasAnuladasToolStripMenuItem});
             this.consultarFacturasToolStripMenuItem.Name = "consultarFacturasToolStripMenuItem";
-            this.consultarFacturasToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.consultarFacturasToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.consultarFacturasToolStripMenuItem.Text = "Consultar Facturas";
             // 
             // facturasEmitidasToolStripMenuItem
@@ -176,6 +171,11 @@
             this.facturasAnuladasToolStripMenuItem.Text = "Facturas Anuladas";
             this.facturasAnuladasToolStripMenuItem.Click += new System.EventHandler(this.facturasAnuladasToolStripMenuItem_Click);
             // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(169, 6);
+            // 
             // gestionarClientesToolStripMenuItem
             // 
             this.gestionarClientesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -190,26 +190,26 @@
             // crearClientesToolStripMenuItem
             // 
             this.crearClientesToolStripMenuItem.Name = "crearClientesToolStripMenuItem";
-            this.crearClientesToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.crearClientesToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.crearClientesToolStripMenuItem.Text = "Crear Clientes";
             this.crearClientesToolStripMenuItem.Click += new System.EventHandler(this.crearClientesToolStripMenuItem_Click);
             // 
             // consultarClientesToolStripMenuItem
             // 
             this.consultarClientesToolStripMenuItem.Name = "consultarClientesToolStripMenuItem";
-            this.consultarClientesToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.consultarClientesToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.consultarClientesToolStripMenuItem.Text = "Consultar Clientes";
             this.consultarClientesToolStripMenuItem.Click += new System.EventHandler(this.consultarClientesToolStripMenuItem_Click);
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(217, 6);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(167, 6);
             // 
             // asignarCreditoToolStripMenuItem
             // 
             this.asignarCreditoToolStripMenuItem.Name = "asignarCreditoToolStripMenuItem";
-            this.asignarCreditoToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.asignarCreditoToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.asignarCreditoToolStripMenuItem.Text = "Asignar Credito";
             // 
             // almacenToolStripMenuItem
@@ -402,13 +402,14 @@
             // abrirCajaToolStripMenuItem
             // 
             this.abrirCajaToolStripMenuItem.Name = "abrirCajaToolStripMenuItem";
-            this.abrirCajaToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.abrirCajaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.abrirCajaToolStripMenuItem.Text = "Abrir Caja";
+            this.abrirCajaToolStripMenuItem.Click += new System.EventHandler(this.abrirCajaToolStripMenuItem_Click);
             // 
             // cierreDeCajaToolStripMenuItem
             // 
             this.cierreDeCajaToolStripMenuItem.Name = "cierreDeCajaToolStripMenuItem";
-            this.cierreDeCajaToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.cierreDeCajaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.cierreDeCajaToolStripMenuItem.Text = "Cierre de Caja";
             this.cierreDeCajaToolStripMenuItem.Click += new System.EventHandler(this.cierreDeCajaToolStripMenuItem_Click);
             // 

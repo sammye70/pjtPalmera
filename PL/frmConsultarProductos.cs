@@ -39,10 +39,12 @@ namespace pjPalmera.PL
 
         private void frmConsultarProductos_Load(object sender, EventArgs e)
         {
-            
+
+            CleanControls();
             DesableControls();
             this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
             this.dgvProductOnlyActive.DataSource = ProductosBO.OnlyActive();
+            AmountAllProduct();
             this.txtCriterioBusqueda.Focus();
         }
 
@@ -59,6 +61,25 @@ namespace pjPalmera.PL
             this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
             this.txtCriterioBusqueda.Focus();
         }
+
+        /// <summary>
+        /// Clean Content in All Controls
+        /// </summary>
+        private void CleanControls()
+        {
+            this.lblCostoTotalProductRes.Text = "";
+        }
+
+        /// <summary>
+        /// Get Amount Cost All Products where status active
+        /// </summary>
+        private void AmountAllProduct()
+        {
+            decimal amount;
+            amount = ProductosBO.GetAmountAllProducts();
+            this.lblCostoTotalProductRes.Text = Convert.ToString(amount);
+        }
+
 
         /// <summary>
         /// Desable all Controls 

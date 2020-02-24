@@ -27,11 +27,29 @@ namespace pjPalmera.BLL
             }
             catch (Exception ex)
             {
-            
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return null;
             }
         }
+
+
+        /// <summary>
+        /// Amount Total Cost All Products where only status Active
+        /// </summary>
+        /// <returns></returns>
+        public static decimal GetAmountAllProducts()
+        {
+            try
+            {
+                return ProductosDAL.GetAmountAllProducts();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return 0;
+            }
+        }
+
 
         /// <summary>
         /// Get All Products

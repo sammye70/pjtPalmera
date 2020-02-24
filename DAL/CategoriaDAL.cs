@@ -69,7 +69,7 @@ namespace pjPalmera.DAL
         /// LoadCategories on Reader
         /// </summary>
         /// <returns></returns>
-        public static CategoriaEntity LoadCategories(IDataReader reader)
+        private static CategoriaEntity LoadCategories(IDataReader reader)
         {
             CategoriaEntity category = new CategoriaEntity();
 

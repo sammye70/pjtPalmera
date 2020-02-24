@@ -41,6 +41,8 @@
             this.mktxtFechaHasta = new System.Windows.Forms.MaskedTextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.lblMontoTotalinvoicesRes = new System.Windows.Forms.Label();
+            this.lblMontoAll_invoices = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFacturasEmitidas)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -54,7 +56,7 @@
             this.dgvFacturasEmitidas.Location = new System.Drawing.Point(8, 70);
             this.dgvFacturasEmitidas.Name = "dgvFacturasEmitidas";
             this.dgvFacturasEmitidas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvFacturasEmitidas.Size = new System.Drawing.Size(954, 362);
+            this.dgvFacturasEmitidas.Size = new System.Drawing.Size(954, 334);
             this.dgvFacturasEmitidas.TabIndex = 13;
             // 
             // groupBox1
@@ -156,11 +158,35 @@
             this.btnSearch.Visible = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
+            // lblMontoTotalinvoicesRes
+            // 
+            this.lblMontoTotalinvoicesRes.AutoSize = true;
+            this.lblMontoTotalinvoicesRes.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMontoTotalinvoicesRes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lblMontoTotalinvoicesRes.Location = new System.Drawing.Point(762, 408);
+            this.lblMontoTotalinvoicesRes.Name = "lblMontoTotalinvoicesRes";
+            this.lblMontoTotalinvoicesRes.Size = new System.Drawing.Size(109, 24);
+            this.lblMontoTotalinvoicesRes.TabIndex = 19;
+            this.lblMontoTotalinvoicesRes.Text = "Resultado ";
+            // 
+            // lblMontoAll_invoices
+            // 
+            this.lblMontoAll_invoices.AutoSize = true;
+            this.lblMontoAll_invoices.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMontoAll_invoices.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lblMontoAll_invoices.Location = new System.Drawing.Point(641, 408);
+            this.lblMontoAll_invoices.Name = "lblMontoAll_invoices";
+            this.lblMontoAll_invoices.Size = new System.Drawing.Size(126, 24);
+            this.lblMontoAll_invoices.TabIndex = 18;
+            this.lblMontoAll_invoices.Text = "Monto Total:";
+            // 
             // frmConsultFacturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(971, 441);
+            this.Controls.Add(this.lblMontoTotalinvoicesRes);
+            this.Controls.Add(this.lblMontoAll_invoices);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.mktxtFechaHasta);
             this.Controls.Add(this.mktxtFechaDesde);
@@ -196,5 +222,7 @@
         private System.Windows.Forms.MaskedTextBox mktxtFechaHasta;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.ToolTip toolTip1;
+        public System.Windows.Forms.Label lblMontoTotalinvoicesRes;
+        public System.Windows.Forms.Label lblMontoAll_invoices;
     }
 }

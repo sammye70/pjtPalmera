@@ -218,7 +218,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(53, 32);
+            this.label10.Location = new System.Drawing.Point(26, 50);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(131, 13);
             this.label10.TabIndex = 21;
@@ -228,7 +228,7 @@
             // cmbEstanteLocalizacion
             // 
             this.cmbEstanteLocalizacion.FormattingEnabled = true;
-            this.cmbEstanteLocalizacion.Location = new System.Drawing.Point(190, 28);
+            this.cmbEstanteLocalizacion.Location = new System.Drawing.Point(163, 47);
             this.cmbEstanteLocalizacion.Name = "cmbEstanteLocalizacion";
             this.cmbEstanteLocalizacion.Size = new System.Drawing.Size(77, 21);
             this.cmbEstanteLocalizacion.TabIndex = 22;
@@ -296,7 +296,7 @@
             this.btnAddFabricante.TabIndex = 25;
             this.btnAddFabricante.Text = "+";
             this.btnAddFabricante.UseVisualStyleBackColor = true;
-            this.btnAddFabricante.Click += new System.EventHandler(this.button1_Click);
+            this.btnAddFabricante.Click += new System.EventHandler(this.btnAddFabricante_Click);
             // 
             // btnUpdateFields
             // 
@@ -360,7 +360,7 @@
             // 
             // txtOrden
             // 
-            this.txtOrden.Location = new System.Drawing.Point(273, 36);
+            this.txtOrden.Location = new System.Drawing.Point(20, 9);
             this.txtOrden.Name = "txtOrden";
             this.txtOrden.Size = new System.Drawing.Size(100, 20);
             this.txtOrden.TabIndex = 33;

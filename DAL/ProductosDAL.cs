@@ -77,6 +77,26 @@ namespace pjPalmera.DAL
           return list;
         }
 
+        /// <summary>
+        /// Amount Total Cost All Products where only status Active
+        /// </summary>
+        /// <returns></returns>
+        public static decimal GetAmountAllProducts()
+        {
+            decimal amount;
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+              //  string query = @"SELECT SUM(stock*costo) FROM productos;";
+                string query = @"SELECT SUM(stock*costo) FROM productos WHERE status='Activo';";
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+
+                amount = Convert.ToDecimal(cmd.ExecuteScalar());
+            }
+           return amount;
+        }
+
 
         /// <summary>
         /// Filter product and show only active

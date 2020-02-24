@@ -61,14 +61,33 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = @"SELECT max(id) from ebgsolut_abejas_store.venta;";
-
+                string query = @"SELECT max(id) from venta;";
+               // string query = @"SELECT last_insert_id() from venta;";
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
                 id= Convert.ToInt64(cmd.ExecuteScalar());
             }
 
             return id;
+        }
+
+        /// <summary>
+        /// Amount Total All Invoices where Active
+        /// </summary>
+        /// <returns></returns>
+        public static decimal AmountAllInvoices()
+        {
+            decimal amount;
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string query = @"SELECT SUM(total) FROM venta WHERE status='1';";
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+
+                amount = Convert.ToDecimal(cmd.ExecuteScalar());
+            }
+            return amount;
         }
 
 

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System;
 using System.Windows.Forms;
 using pjPalmera.BLL;
 using pjPalmera.Entities;
@@ -16,16 +19,16 @@ namespace pjPalmera.PL
             InitializeComponent();
         }
 
-        private const int CP_NOCLOSE_BUTTON = 0x200;
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams myCp = base.CreateParams;
-                myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
-                return myCp;
-            }
-        }
+        //private const int CP_NOCLOSE_BUTTON = 0x200;
+        //protected override CreateParams CreateParams
+        //{
+        //    get
+        //    {
+        //        CreateParams myCp = base.CreateParams;
+        //        myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
+        //        return myCp;
+        //    }
+        //}
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
@@ -42,7 +45,7 @@ namespace pjPalmera.PL
                     this.btnNuevo.Focus();
                     MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else
+                else if(Validator() == false)
                 {
                     MessageBox.Show("Proporcionar los campos indicados ", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
@@ -194,7 +197,7 @@ namespace pjPalmera.PL
         }
 
         /// <summary>
-        /// Remove data the all controls
+        /// Remove Data the All Controls
         /// </summary>
         private void CleanControls()
         {

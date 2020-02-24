@@ -97,9 +97,17 @@ namespace pjPalmera.PL
             this.lblCriterio2.Visible = true;
             this.lblCriterio1.Text = "Desde";
             this.lblCriterio2.Text = "Hasta";
-
         }
 
+        /// <summary>
+        /// Get Amount Total all Invoices
+        /// </summary>
+        private void GetAllAmountInvoices()
+        {
+            decimal amount;
+            amount = FacturaBO.AmountAllInvoices();
+            this.lblMontoTotalinvoicesRes.Text = Convert.ToString(amount);
+        }
 
         /// <summary>
         /// Describe All Controls in this form
@@ -165,7 +173,9 @@ namespace pjPalmera.PL
 
         private void frmConsulFactEmitidas_Load(object sender, EventArgs e)
         {
+            CleanControls();
             DesableControls();
+            GetAllAmountInvoices();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

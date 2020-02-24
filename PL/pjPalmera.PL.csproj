@@ -83,6 +83,12 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmAbrirCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAbrirCaja.Designer.cs">
+      <DependentUpon>frmAbrirCaja.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAddProvincia.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -237,6 +243,9 @@
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmAbrirCaja.resx">
+      <DependentUpon>frmAbrirCaja.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAddProvincia.resx">
       <DependentUpon>frmAddProvincia.cs</DependentUpon>
     </EmbeddedResource>
@@ -334,10 +343,6 @@
     <ProjectReference Include="..\BLL\pjPalmera.BLL.csproj">
       <Project>{e3ec5f0a-cd53-40cb-a68c-58b40abd40fa}</Project>
       <Name>pjPalmera.BLL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DAL\pjPalmera.DAL.csproj">
-      <Project>{4f1593fc-47f7-4b98-8afe-395a39d47367}</Project>
-      <Name>pjPalmera.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Entities\pjPalmera.Entities.csproj">
       <Project>{65164c5b-b7e9-483a-966a-e5dc9aaee214}</Project>
@@ -458,6 +463,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="folder_summer_13091.ico" />
+    <None Include="Resources\calculator.ico" />
+    <None Include="Resources\pack.ico" />
     <None Include="Resources\office-excel.ico" />
     <None Include="Resources\excel.png" />
     <None Include="Resources\calendar.ico" />

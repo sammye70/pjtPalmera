@@ -31,6 +31,25 @@ namespace pjPalmera.BLL
         }
 
         /// <summary>
+        /// Amount Total All Invoices where Active
+        /// </summary>
+        /// <returns></returns>
+        public static decimal AmountAllInvoices()
+        {
+            try
+            {
+                return FacturasDAL.AmountAllInvoices();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No Hay Monto que Mostrar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return 0;
+            }
+        }
+
+
+
+        /// <summary>
         /// Save Detail invoice
         /// </summary>
         /// <param name="detail"></param>
@@ -40,10 +59,10 @@ namespace pjPalmera.BLL
             {
                 FacturasDAL.Created_Detail(detail);
             }
-            catch (Exception ex)
+            catch //(Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+              //  MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+              //  return;
             }
         }
 

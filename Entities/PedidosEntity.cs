@@ -8,7 +8,7 @@ namespace Entities
 {
    public class PedidosEntity
     {
-        private Int64 idproducto;
-        private Int32 cantidad;
+     //   private Int64 idproducto;
+      //  private Int32 cantidad;
     }
 }
