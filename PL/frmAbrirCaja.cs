@@ -24,6 +24,7 @@ namespace pjPalmera.PL
 
         private void frmAbrirCaja_Load(object sender, EventArgs e)
         {
+            InfControls();
             DesableControls();
             CleanControls();
             this.txtMonedas1.Focus();
@@ -39,6 +40,17 @@ namespace pjPalmera.PL
         {
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+        }
+
+
+        /// <summary>
+        /// Information about Controls
+        /// </summary>
+        private void InfControls()
+        {
+            this.toolTip1.SetToolTip(this.btnCalcularMonto,"Calcular Monto Apertura");
+            this.toolTip1.SetToolTip(this.btnClean,"Limpiar Campos");
+            this.toolTip1.SetToolTip(this.btnProcesar,"Efectuar Proceso de Apertura");
         }
 
 

@@ -23,7 +23,7 @@ namespace pjPalmera.BLL
             }
             catch //(Exception ex)
             {
-                MessageBox.Show("Debe Aperturar la Caja Antes", "Mensaje del Sistema");
+              //  MessageBox.Show("No se Realizaron Ventas", "Mensaje del Sistema");
                 return 0;
             }
         }
@@ -42,6 +42,15 @@ namespace pjPalmera.BLL
                 MessageBox.Show(ex.Message, "Mensaje del Sistema");
                 return;
             }
+        }
+
+        /// <summary>
+        /// Clean Open Box
+        /// </summary>
+        public static void CleanOpenBox()
+        {
+            CierreCajaDAL.CleanOpenBox();
+
         }
     }
 }

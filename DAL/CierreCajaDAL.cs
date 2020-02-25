@@ -48,5 +48,22 @@ namespace pjPalmera.DAL
                 cmd.ExecuteNonQuery();
             }
         }
+
+        /// <summary>
+        /// Clean Open Box
+        /// </summary>
+        public static void CleanOpenBox()
+        {
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+
+                string query = @"TRUNCATE TABLE open_box;";
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }

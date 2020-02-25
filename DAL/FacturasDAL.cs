@@ -40,7 +40,6 @@ namespace pjPalmera.DAL
                     cmd.Parameters.AddWithValue("@total_itbis", Venta.total_itbis);
                     cmd.Parameters.AddWithValue("devuelta", Venta.devuelta);
                     cmd.Parameters.AddWithValue("recibido", Venta.recibido);
-                    //cmd.Parameters.AddWithValue("@created",DateTime.Now);
 
                     
                     cmd.ExecuteNonQuery();
@@ -101,8 +100,8 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql_detail = @"INSERT INTO detail_venta (idproducto, descripcion, cantidad, precio, itbis, importe, created, status)
-                                        VALUES(@idproducto, @descripcion, @cantidad, @precio, @itbis, @importe, @created, @status)";
+                string sql_detail = @"INSERT INTO detail_venta (idproducto, descripcion, cantidad, precio, itbis, importe, created, id_venta)
+                                        VALUES(@idproducto, @descripcion, @cantidad, @precio, @itbis, @importe, @created, @id_venta)";
 
                 MySqlCommand cmd = new MySqlCommand(sql_detail, con);
 
@@ -120,7 +119,8 @@ namespace pjPalmera.DAL
                     cmd.Parameters.AddWithValue("@itbis", dvental.ITBIS);
                     cmd.Parameters.AddWithValue("@importe", dvental.IMPORTE);
                     cmd.Parameters.AddWithValue("@created", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@status", 1);
+                    cmd.Parameters.AddWithValue("@id_venta", detail.id);
+                    // cmd.Parameters.AddWithValue("@status", 1);
                     ///
                     ///
                     cmd.ExecuteNonQuery();

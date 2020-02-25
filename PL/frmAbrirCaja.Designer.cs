@@ -58,6 +58,8 @@
             this.btnProcesar = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.label12 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -144,7 +146,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(28, 39);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(532, 100);
+            this.groupBox1.Size = new System.Drawing.Size(532, 89);
             this.groupBox1.TabIndex = 46;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Monedas";
@@ -232,7 +234,7 @@
             this.groupBox2.Controls.Add(this.txtBilletes100);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(28, 145);
+            this.groupBox2.Location = new System.Drawing.Point(28, 132);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(532, 127);
             this.groupBox2.TabIndex = 47;
@@ -277,7 +279,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(24, 294);
+            this.label11.Location = new System.Drawing.Point(24, 300);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(120, 24);
             this.label11.TabIndex = 51;
@@ -287,7 +289,7 @@
             // 
             this.lblMontoTotal.AutoSize = true;
             this.lblMontoTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMontoTotal.Location = new System.Drawing.Point(175, 294);
+            this.lblMontoTotal.Location = new System.Drawing.Point(175, 300);
             this.lblMontoTotal.Name = "lblMontoTotal";
             this.lblMontoTotal.Size = new System.Drawing.Size(114, 24);
             this.lblMontoTotal.TabIndex = 52;
@@ -297,7 +299,7 @@
             // 
             this.btnCalcularMonto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCalcularMonto.Image = global::PL.Properties.Resources.calculator;
-            this.btnCalcularMonto.Location = new System.Drawing.Point(350, 282);
+            this.btnCalcularMonto.Location = new System.Drawing.Point(350, 290);
             this.btnCalcularMonto.Margin = new System.Windows.Forms.Padding(4);
             this.btnCalcularMonto.Name = "btnCalcularMonto";
             this.btnCalcularMonto.Size = new System.Drawing.Size(72, 52);
@@ -309,7 +311,7 @@
             // 
             this.btnClean.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClean.Image = global::PL.Properties.Resources.pack1;
-            this.btnClean.Location = new System.Drawing.Point(434, 282);
+            this.btnClean.Location = new System.Drawing.Point(434, 290);
             this.btnClean.Margin = new System.Windows.Forms.Padding(4);
             this.btnClean.Name = "btnClean";
             this.btnClean.Size = new System.Drawing.Size(72, 52);
@@ -321,7 +323,7 @@
             // 
             this.btnProcesar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnProcesar.Image = global::PL.Properties.Resources.apply;
-            this.btnProcesar.Location = new System.Drawing.Point(514, 282);
+            this.btnProcesar.Location = new System.Drawing.Point(514, 290);
             this.btnProcesar.Margin = new System.Windows.Forms.Padding(4);
             this.btnProcesar.Name = "btnProcesar";
             this.btnProcesar.Size = new System.Drawing.Size(72, 52);
@@ -343,11 +345,22 @@
             this.label12.TabIndex = 54;
             this.label12.Text = "Detalle de Efectivo para Aperturar la Caja";
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(25, 261);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(425, 13);
+            this.label14.TabIndex = 68;
+            this.label14.Text = "Importante: Agregar 0 en los campos cuando no disponga de una moneda";
+            // 
             // frmAbrirCaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(609, 347);
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.btnCalcularMonto);
             this.Controls.Add(this.lblMontoTotal);
@@ -401,5 +414,7 @@
         private System.Windows.Forms.Button btnCalcularMonto;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

@@ -69,5 +69,26 @@ namespace pjPalmera.DAL
                 cmd.ExecuteNonQuery();
             }
         }
+
+
+        /// <summary>
+        /// Get Current Amount used open box
+        /// </summary>
+        /// <returns></returns>
+        public static decimal GetAmount()
+        {
+            decimal amount;
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string query = @"SELECT SUM(monto) FROM open_box;";
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+
+                amount = Convert.ToDecimal(cmd.ExecuteScalar());
+            }
+            return amount;
+        }
+
     }
 }

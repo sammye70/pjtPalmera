@@ -121,9 +121,9 @@ namespace pjPalmera.PL
 
             try
             {
-                if (cvalor == 0)
+                if (cvalor <= 0)
                 {
-                  //  if (e.RowIndex == -1)
+                    //  if (e.RowIndex == -1)
                     //    return;
 
                     _numero = Convert.ToInt64(dgvProdConsultar.Rows[e.RowIndex].Cells["Orden"].Value);
@@ -132,7 +132,8 @@ namespace pjPalmera.PL
                     this.dgvProdConsultar.DataSource = null;
                     this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
                     return;
-                }
+                } 
+
                 else
                 {
                     if (e.RowIndex == -1)
@@ -165,12 +166,11 @@ namespace pjPalmera.PL
 
         private void dgvProductOnlyActive_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
             decimal cvalor = Convert.ToDecimal(this.dgvProdConsultar.Rows[e.RowIndex].Cells["Stock"].Value);
 
             try
             {
-                if (cvalor == 0)
+                if (cvalor <=0)
                 {
                     //  if (e.RowIndex == -1)
                     //    return;

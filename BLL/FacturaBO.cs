@@ -59,10 +59,10 @@ namespace pjPalmera.BLL
             {
                 FacturasDAL.Created_Detail(detail);
             }
-            catch //(Exception ex)
+            catch (Exception ex)
             {
-              //  MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-              //  return;
+               MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
         }
 

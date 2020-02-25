@@ -60,13 +60,10 @@ namespace pjPalmera.PL
         {
             try
             {
-                int t, uno, cinco, diez, venticinco, cincuenta, cien, doscientos, quinientos, mil, dosmil;
-
-                uno = Convert.ToInt32(this.txtMonedas1.Text); cinco = Convert.ToInt32(this.txtMonedas5.Text); diez = Convert.ToInt32(this.txtMonedas10.Text); venticinco = Convert.ToInt32(this.txtMonedas25.Text);
-                cincuenta = Convert.ToInt32(this.txtBilletes50.Text); cien = Convert.ToInt32(this.txtBilletes100.Text); doscientos = Convert.ToInt32(this.txtBilletes200.Text); quinientos = Convert.ToInt32(this.txtBilletes500.Text);
-                mil = Convert.ToInt32(this.txtBilletes1000.Text); dosmil = Convert.ToInt32(this.txtBilletes2000.Text);
-
-                t = Services.monto(uno, cinco, diez, venticinco, cincuenta, cien, doscientos, quinientos, mil, dosmil);
+                int t;
+                t = Services.monto(Convert.ToInt32(this.txtMonedas1.Text), Convert.ToInt32(this.txtMonedas5.Text), Convert.ToInt32(this.txtMonedas10.Text), Convert.ToInt32(this.txtMonedas25.Text), 
+                    Convert.ToInt32(this.txtBilletes50.Text),Convert.ToInt32(this.txtBilletes100.Text),Convert.ToInt32(this.txtBilletes200.Text),Convert.ToInt32(this.txtBilletes500.Text),
+                    Convert.ToInt32(this.txtBilletes1000.Text), Convert.ToInt32(this.txtBilletes2000.Text));
 
                 this.lblEfectivoCaja.Text = Convert.ToString(t);
             }
@@ -113,6 +110,7 @@ namespace pjPalmera.PL
 
         private void frmCierreCaja_Load(object sender, EventArgs e)
         {
+            InfControls();
             Desable();
             CleanControls();
             GetAmount();
@@ -131,6 +129,17 @@ namespace pjPalmera.PL
             }
         }
 
+        /// <summary>
+        /// Information about Controls
+        /// </summary>
+        private void InfControls()
+        {
+            this.toolTip1.SetToolTip(this.btnCalcularMonto, "Calcular Monto del Efectivo en Caja");
+            this.toolTip1.SetToolTip(this.btnClean, "Limpiar Campos");
+            this.toolTip1.SetToolTip(this.btnProcesar, "Efectuar Proceso de Cierre");
+        }
+
+
         private void btnClean_Click(object sender, EventArgs e)
         {
             CleanControls();
@@ -138,22 +147,24 @@ namespace pjPalmera.PL
 
         private void btnProcesar_Click(object sender, EventArgs e)
         {
-            if (this.lblEfectivoCaja.Text != "0.00")
-            {
-                MessageBox.Show("Seguro que Desea Cerrar la Caja", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                DialogResult Question = new DialogResult();
+           // DialogResult Question = new DialogResult();
 
-                if (Question == DialogResult.Yes)
-                {
+            if (this.lblEfectivoCaja.Text !="0.00")
+            {
+            //    MessageBox.Show("Seguro que Desea Cerrar la Caja", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+             //   if (Question == DialogResult.Yes)
+              //  {
                     CierreCajaBO.CleanTranstactions();
+                    CierreCajaBO.CleanOpenBox();
                     CleanControls();
                     MessageBox.Show("Cierre Realizado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
-                }
-                else if (Question == DialogResult.No)
-                {
-                    return;
-                }
+            //   }
+            //    else if (Question == DialogResult.No)
+           //     {
+           //         return;
+             //   }
             }
             else
             {

@@ -46,5 +46,22 @@ namespace pjPalmera.BLL
                 return;
             }
         }
+
+        /// <summary>
+        /// Get Current Amount used open box
+        /// </summary>
+        /// <returns></returns>
+        public static decimal GetAmount()
+        {
+            try
+            {
+                return AperturaCajaDAL.GetAmount();
+            }
+            catch 
+            {
+               // MessageBox.Show("No se ha Abierto la Caja", "Mensaje del Sistema");
+                return 0;
+            }
+        }
     }
 }

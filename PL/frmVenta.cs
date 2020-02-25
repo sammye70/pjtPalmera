@@ -27,6 +27,7 @@ namespace pjPalmera.PL
         public Decimal t_pagar = 0;
         public Int32 _iditem;
         public decimal _importe;
+        public decimal Amount;
 
 
         public Int32 Iditem
@@ -76,8 +77,17 @@ namespace pjPalmera.PL
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            NewInvoice();
-            LimpiarEfectivo();
+            Amount = AperturaCajaBO.GetAmount(); //Get Current Amount Invoices after Open Box
+
+            if (Amount != 0)
+            {
+                NewInvoice();
+                LimpiarEfectivo();
+            }
+            else
+            {
+                MessageBox.Show("Debe Abrir la Caja Antes para poder Realizar Ventas", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
 
@@ -133,8 +143,6 @@ namespace pjPalmera.PL
             this.txtTotalPagar.Text = string.Format("{0}", t_pagar);
             this.txtDescuento.Text = Convert.ToString(descuento);
         }
-
-
 
         private void btnPagar_Click(object sender, EventArgs e)
         {
@@ -837,10 +845,12 @@ namespace pjPalmera.PL
         /// </summary>
         public void Save_Invoices()
         {
-                 Save_Detail();
-                 UpdateStock();
-                 Save_Head();
-                 Save_Transactions();
+
+            Save_Detail();
+            UpdateStock();
+            Save_Head();
+            Save_Transactions();
+
         }
 
         /// <summary>
