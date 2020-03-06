@@ -927,7 +927,6 @@ namespace pjPalmera.PL
         /// 
         public void UpdateStock()
         {
-            
             try
             {
                 DetalleVentaEntity Detail = new DetalleVentaEntity();

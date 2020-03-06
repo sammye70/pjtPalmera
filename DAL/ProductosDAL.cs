@@ -176,10 +176,62 @@ namespace pjPalmera.DAL
                 cmd.Parameters.AddWithValue("@cantidad", producto.Stock);
                 cmd.Parameters.AddWithValue("@modificated", DateTime.Now);
 
+                // cmd.ExecuteNonQuery();
+
                 producto.Idproducto = Convert.ToInt64(cmd.ExecuteScalar());
                 con.Close();   
             }
         }
+
+        /// <summary>
+        /// Count only Active Product
+        /// </summary>
+        /// <returns></returns>
+        public static Int32 CountProduct()
+        {
+            Int32 count;
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+
+                string query= @"  SELECT SUM(stock) from productos WHERE status='Activo';";
+
+                MySqlCommand cmd = new MySqlCommand(query,con);
+
+                count=Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            return count;
+        }
+
+
+
+        /// <summary>
+        /// Filter Product near to stock minimal
+        /// </summary>
+        /// <returns></returns>
+        public static List<ProductosEntity> StockMinimo()   /// Pending to Build
+        {
+            List<ProductosEntity> list = new List<ProductosEntity>();
+
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string query = @"SELECT  * FROM productos WHERE stock <= stockminimo AND status ='Activo' ORDER BY productos.f_vencimiento ASC ";
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                //cmd.Parameters.AddWithValue("@DateExpire", DateExpire);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    list.Add(LoadProduct(reader));
+                }
+            }
+            return list;
+        }
+
+
 
 
         /// <summary>
@@ -271,7 +323,28 @@ namespace pjPalmera.DAL
         /// <returns></returns>
         public static bool VerificateCode(Int64 id)
         {
-            return true;
+            bool result;
+            int value;
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                string query = @"SELECT idproduct from productos WHERE idproducto=@idproducto";
+
+                MySqlCommand cmd = new MySqlCommand(query,con);
+                cmd.Parameters.AddWithValue("@idproducto", id);
+
+                 value= Convert.ToInt32(cmd.ExecuteScalar());
+
+                if (value != 0)
+                {
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+            return result;
         }
 
 

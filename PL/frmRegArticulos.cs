@@ -42,6 +42,7 @@ namespace pjPalmera.PL
             InitializeControls();
             DesableContros();
             CleanControls();
+            this.cmbEstado.Visible = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
         }
@@ -89,6 +90,7 @@ namespace pjPalmera.PL
             EnableControls();
             CleanControls();
             productos = null;
+            this.cmbEstado.Text = "Activo";
             this.txtCodigo.Focus();
         }
 
@@ -131,6 +133,7 @@ namespace pjPalmera.PL
             this.btnGenerarCodigo.Enabled = false;
             this.btnAddCategoria.Enabled = false;
             this.btnAddFabricante.Enabled = false;
+            this.cmbEstado.Enabled = false;
         }
 
         /// <summary>
@@ -153,6 +156,7 @@ namespace pjPalmera.PL
             this.btnGenerarCodigo.Enabled = true;
             this.btnAddCategoria.Enabled = true;
             this.btnAddFabricante.Enabled = true;
+            this.cmbEstado.Enabled = true;
         }
 
         /// <summary>
@@ -244,6 +248,7 @@ namespace pjPalmera.PL
             this.cmbFabrincante.Text = "";
             this.cmbFamilia.Text = "";
             this.cmbGanancia.Text = "";
+            this.cmbEstado.Text = "";
         }
 
         /// <summary>

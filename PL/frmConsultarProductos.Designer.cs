@@ -42,6 +42,8 @@
             this.dgvProductOnlyActive = new System.Windows.Forms.DataGridView();
             this.lblCostoAllProductos = new System.Windows.Forms.Label();
             this.lblCostoTotalProductRes = new System.Windows.Forms.Label();
+            this.lblCantidadProdRes = new System.Windows.Forms.Label();
+            this.lblTotalProductos = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProdConsultar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -170,11 +172,35 @@
             this.lblCostoTotalProductRes.TabIndex = 6;
             this.lblCostoTotalProductRes.Text = "Resultado Costo";
             // 
+            // lblCantidadProdRes
+            // 
+            this.lblCantidadProdRes.AutoSize = true;
+            this.lblCantidadProdRes.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCantidadProdRes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.lblCantidadProdRes.Location = new System.Drawing.Point(680, 466);
+            this.lblCantidadProdRes.Name = "lblCantidadProdRes";
+            this.lblCantidadProdRes.Size = new System.Drawing.Size(103, 24);
+            this.lblCantidadProdRes.TabIndex = 8;
+            this.lblCantidadProdRes.Text = "Resultado";
+            // 
+            // lblTotalProductos
+            // 
+            this.lblTotalProductos.AutoSize = true;
+            this.lblTotalProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalProductos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.lblTotalProductos.Location = new System.Drawing.Point(488, 466);
+            this.lblTotalProductos.Name = "lblTotalProductos";
+            this.lblTotalProductos.Size = new System.Drawing.Size(186, 24);
+            this.lblTotalProductos.TabIndex = 7;
+            this.lblTotalProductos.Text = "Total de Unidades:";
+            // 
             // frmConsultarProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1072, 499);
+            this.Controls.Add(this.lblCantidadProdRes);
+            this.Controls.Add(this.lblTotalProductos);
             this.Controls.Add(this.lblCostoTotalProductRes);
             this.Controls.Add(this.lblCostoAllProductos);
             this.Controls.Add(this.dgvProductOnlyActive);
@@ -209,5 +235,7 @@
         public System.Windows.Forms.DataGridView dgvProductOnlyActive;
         public System.Windows.Forms.Label lblCostoTotalProductRes;
         public System.Windows.Forms.Label lblCostoAllProductos;
+        public System.Windows.Forms.Label lblCantidadProdRes;
+        public System.Windows.Forms.Label lblTotalProductos;
     }
 }

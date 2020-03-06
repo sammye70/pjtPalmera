@@ -43,6 +43,7 @@ namespace pjPalmera.PL
             CleanControls();
             DesableControls();
             this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+            StockUnit();
             this.dgvProductOnlyActive.DataSource = ProductosBO.OnlyActive();
             AmountAllProduct();
             this.txtCriterioBusqueda.Focus();
@@ -68,7 +69,19 @@ namespace pjPalmera.PL
         private void CleanControls()
         {
             this.lblCostoTotalProductRes.Text = "";
+            this.lblCantidadProdRes.Text = "";
         }
+
+        /// <summary>
+        /// Stock All Product by Unit
+        /// </summary>
+        private void StockUnit()
+        {
+            Int32 stock;
+            stock = ProductosBO.CountProduct();
+            this.lblCantidadProdRes.Text = Convert.ToString(stock);
+        }
+
 
         /// <summary>
         /// Get Amount Cost All Products where status active

@@ -209,5 +209,11 @@ namespace pjPalmera.PL
             frmAbrirCaja ocaja = new frmAbrirCaja();
             ocaja.ShowDialog(this);
         }
+
+        private void stockMinimosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmStockMinimo StockArticulos = new frmStockMinimo();
+            StockArticulos.ShowDialog();
+        }
     }
 }

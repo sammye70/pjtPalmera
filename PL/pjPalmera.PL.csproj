@@ -227,6 +227,18 @@
     <Compile Include="frmRegUsers.Designer.cs">
       <DependentUpon>frmRegUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmRepProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRepProductos.Designer.cs">
+      <DependentUpon>frmRepProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmStockMinimo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmStockMinimo.Designer.cs">
+      <DependentUpon>frmStockMinimo.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmVenta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -235,10 +247,19 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reports\dsclientes.Designer.cs">
+    <Compile Include="Reports\dsPalmera.cs">
+      <DependentUpon>dsPalmera.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\dsPalmera.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>dsclientes.xsd</DependentUpon>
+      <DependentUpon>dsPalmera.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\rptProductos.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptProductos.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
@@ -312,6 +333,12 @@
     <EmbeddedResource Include="frmRegUsers.resx">
       <DependentUpon>frmRegUsers.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmRepProductos.resx">
+      <DependentUpon>frmRepProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStockMinimo.resx">
+      <DependentUpon>frmStockMinimo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmVenta.resx">
       <DependentUpon>frmVenta.cs</DependentUpon>
     </EmbeddedResource>
@@ -325,7 +352,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Reports\rptClientes.rdlc" />
+    <EmbeddedResource Include="Reports\rptProductos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptProductos.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -350,16 +380,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Reports\dsclientes.xsc">
-      <DependentUpon>dsclientes.xsd</DependentUpon>
+    <None Include="Reports\dsPalmera.xsc">
+      <DependentUpon>dsPalmera.xsd</DependentUpon>
     </None>
-    <None Include="Reports\dsclientes.xsd">
+    <None Include="Reports\dsPalmera.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsclientes.Designer.cs</LastGenOutput>
+      <LastGenOutput>dsPalmera.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Reports\dsclientes.xss">
-      <DependentUpon>dsclientes.xsd</DependentUpon>
+    <None Include="Reports\dsPalmera.xss">
+      <DependentUpon>dsPalmera.xsd</DependentUpon>
     </None>
     <None Include="Resources\atm.png" />
   </ItemGroup>

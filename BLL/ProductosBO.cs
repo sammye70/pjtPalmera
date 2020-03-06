@@ -295,5 +295,43 @@ namespace pjPalmera.BLL
                 return null;
             }
         }
-    }
+
+
+        /// <summary>
+        /// Filter Product near to stock minimal
+        /// </summary>
+        /// <returns></returns>
+        public static List<ProductosEntity> StockMinimo()
+        {
+            try
+            {
+                return ProductosDAL.StockMinimo();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
+        }
+
+
+        /// <summary>
+        /// Count only Active Product
+        /// </summary>
+        /// <returns></returns>
+        public static Int32 CountProduct()
+        {
+            try
+            {
+                return ProductosDAL.CountProduct();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return 0;
+            }
+        }
+        
+     }
 }

@@ -52,6 +52,14 @@ namespace pjPalmera.PL
             this.lblTotalVentas.Text = "0.00";
         }
 
+        /// <summary>
+        /// Close Box Process 
+        /// </summary>
+        private void CloseBoxProc()
+        {
+            CierreCajaBO.CleanTranstactions();
+            CierreCajaBO.CleanOpenBox();
+        }
 
         /// <summary>
         /// Amount for Open Box
@@ -147,24 +155,23 @@ namespace pjPalmera.PL
 
         private void btnProcesar_Click(object sender, EventArgs e)
         {
-           // DialogResult Question = new DialogResult();
+            //DialogResult Question = new DialogResult();
 
             if (this.lblEfectivoCaja.Text !="0.00")
             {
-            //    MessageBox.Show("Seguro que Desea Cerrar la Caja", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                //MessageBox.Show("Seguro que Desea Cerrar la Caja", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-             //   if (Question == DialogResult.Yes)
-              //  {
-                    CierreCajaBO.CleanTranstactions();
-                    CierreCajaBO.CleanOpenBox();
+                //if (Question == DialogResult.Yes)
+                //{
+                    CloseBoxProc();
                     CleanControls();
                     MessageBox.Show("Cierre Realizado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
-            //   }
-            //    else if (Question == DialogResult.No)
-           //     {
-           //         return;
-             //   }
+                //}
+                //else if (Question == DialogResult.No)
+                //{
+                //    return;
+                //}
             }
             else
             {
