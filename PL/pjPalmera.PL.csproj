@@ -137,11 +137,17 @@
     <Compile Include="frmConsulClientes.Designer.cs">
       <DependentUpon>frmConsulClientes.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmConsulFactEmitidas.cs">
+    <Compile Include="frmConsulFactCredito.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmConsulFactEmitidas.Designer.cs">
-      <DependentUpon>frmConsulFactEmitidas.cs</DependentUpon>
+    <Compile Include="frmConsulFactCredito.Designer.cs">
+      <DependentUpon>frmConsulFactCredito.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmConsulFactEmitidasCont.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConsulFactEmitidasCont.Designer.cs">
+      <DependentUpon>frmConsulFactEmitidasCont.cs</DependentUpon>
     </Compile>
     <Compile Include="frmConsultarProductos.cs">
       <SubType>Form</SubType>
@@ -291,8 +297,11 @@
     <EmbeddedResource Include="frmConsulClientes.resx">
       <DependentUpon>frmConsulClientes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmConsulFactEmitidas.resx">
-      <DependentUpon>frmConsulFactEmitidas.cs</DependentUpon>
+    <EmbeddedResource Include="frmConsulFactCredito.resx">
+      <DependentUpon>frmConsulFactCredito.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmConsulFactEmitidasCont.resx">
+      <DependentUpon>frmConsulFactEmitidasCont.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmConsultarProductos.resx">
       <DependentUpon>frmConsultarProductos.cs</DependentUpon>

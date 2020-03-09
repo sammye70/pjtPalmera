@@ -12,11 +12,11 @@ using System.Windows.Forms;
 
 namespace pjPalmera.PL
 {
-    public partial class frmConsultFacturas : Form
+    public partial class frmConsultFacturasCont : Form
     {
         VentaEntity venta = new VentaEntity();
 
-        public frmConsultFacturas()
+        public frmConsultFacturasCont()
         {
             InitializeComponent();
             LoadInvoices();

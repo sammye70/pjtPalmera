@@ -61,7 +61,7 @@ namespace pjPalmera.PL
 
         private void facturasEmitidasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmConsultFacturas ConsultFactEmit = new frmConsultFacturas();
+            frmConsultFacturasCont ConsultFactEmit = new frmConsultFacturasCont();
             ConsultFactEmit.ShowDialog(this);
         }
 
@@ -214,6 +214,12 @@ namespace pjPalmera.PL
         {
             frmStockMinimo StockArticulos = new frmStockMinimo();
             StockArticulos.ShowDialog();
+        }
+
+        private void facturasEmitidasCreditoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmConsulFactCredito ConFacturaCredito = new frmConsulFactCredito();
+            ConFacturaCredito.ShowDialog(this);
         }
     }
 }
