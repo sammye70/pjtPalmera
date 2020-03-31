@@ -20,13 +20,14 @@ namespace pjPalmera.Entities
         private decimal limitecredito;
         private int createby;
         private DateTime created;
+        private int cxc;
 
         //Constructor
         public ClientesEntity()
         {
         }
 
-        public ClientesEntity(Int64 id, Int64 cedula, string nombre, string apellidos, string telefono, string direccion, string provincia, string ciudad, decimal limitecredito, int createby, DateTime created)
+        public ClientesEntity(Int64 id, Int64 cedula, string nombre, string apellidos, string telefono, string direccion, string provincia, string ciudad, decimal limitecredito, int createby, int cxc, DateTime created)
         {
             this.idcliente = id;
             this.cedula = cedula;
@@ -39,6 +40,7 @@ namespace pjPalmera.Entities
             this.limitecredito = limitecredito;
             this.createby = createby;
             this.created = created;
+            this.Cxc = cxc;
         }
 
         //Properties
@@ -95,6 +97,13 @@ namespace pjPalmera.Entities
         {
             get { return limitecredito; }
             set { limitecredito = value; }
+        }
+
+
+        public int Cxc
+        {
+            get { return cxc; }
+            set { cxc = value; }
         }
 
         public int Createby

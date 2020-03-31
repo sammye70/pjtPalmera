@@ -12,8 +12,11 @@ namespace pjPalmera.BLL
 {
     public class FacturaBO
     {
+        public static bool MensajeBO; //
+        //private static bool MensajeDA;
+
         /// <summary>
-        /// Save Head invoice
+        /// Save Head invoice (Cash)
         /// </summary>
         /// <param name="venta"></param>
         public static void Create(VentaEntity venta)
@@ -30,8 +33,27 @@ namespace pjPalmera.BLL
             }
         }
 
+
         /// <summary>
-        /// Amount Total All Invoices where Active
+        /// Save Head invoice (Credit)
+        /// </summary>
+        /// <param name="Venta"></param>
+        public static void CreateCr(VentaEntity Venta)
+        {
+            try
+            {
+                FacturasDAL.CreateCr(Venta);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+        }
+
+
+        /// <summary>
+        /// Amount Total All Invoices where Active and type iqual to cash
         /// </summary>
         /// <returns></returns>
         public static decimal AmountAllInvoices()
@@ -47,6 +69,24 @@ namespace pjPalmera.BLL
             }
         }
 
+
+        /// <summary>
+        /// Amount Total All Invoices where Active and type iqual Credit
+        /// </summary>
+        /// <returns></returns>
+        public static decimal AmountAllInvoicesCr()
+        {
+            try
+            {
+                return FacturasDAL.AmountAllInvoicesCr();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No Hay Monto que Mostrar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return 0;
+            }
+
+        }
 
 
         /// <summary>
@@ -84,7 +124,7 @@ namespace pjPalmera.BLL
         }
 
         /// <summary>
-        /// Search Invoices by Number
+        /// Search Invoices by Number and type equial to Cash
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
@@ -135,6 +175,156 @@ namespace pjPalmera.BLL
             {
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return 0;
+            }
+        }
+
+        /// <summary>
+        /// Get All Credit Invoices
+        /// </summary>
+        /// <returns></returns>
+        public static List<VentaEntity> GetCreditInvoices()
+        {
+            try
+            {
+                return FacturasDAL.GetCreditInvoices();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return null;
+            }
+        }
+
+
+
+        /// <summary>
+        /// Get All Cash Invoices
+        /// </summary>
+        public static List<VentaEntity> GetCashInvoices()
+        {
+            try
+            {
+                return FacturasDAL.GetCashInvoices();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return null;
+            }
+        }
+
+
+        /// <summary>
+        /// Search Invoices by Number and type equial to credit
+        /// </summary>
+        /// <returns></returns>
+        public static List<VentaEntity> SearhByNumberCr(Int64 number)
+        {
+
+            try
+            {
+                return FacturasDAL.SearhByNumberCr(number);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return null;
+            }
+        }
+
+
+        /// <summary>
+        /// Change to Status Desable current Invoice
+        /// </summary>
+        public static void DesableInvoices(VentaEntity invoice)
+        {
+            try
+            {
+                FacturasDAL.DesableInvoice(invoice);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+        }
+
+
+        /// <summary>
+        /// Change to Status Enable current Invoice
+        /// </summary>
+        public static void EnableInvoice(VentaEntity invoice)
+        {
+            try
+            {
+                FacturasDAL.EnableInvoice(invoice);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+        }
+
+
+
+
+        /// <summary>
+        /// Get All Invoices Desable
+        /// </summary>
+        /// <returns></returns>
+        public static List<VentaEntity> GetInvoiceDesable()
+        {
+            try
+            {
+                return FacturasDAL.GetInvoiceDesable();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return null;
+            }
+        }
+
+
+        /// <summary>
+        /// Verificaty Invoices if Exits or not
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static bool ExitsInvoice(Int64 number)
+        {
+            var MensajeDA = FacturasDAL.result;
+               
+
+                if ( MensajeDA == true)
+                {
+                    return MensajeBO = true;
+                }
+                else if (MensajeDA == false)
+                {
+                    return MensajeBO = true;
+                }
+                return MensajeBO;
+        }
+
+        /// <summary>
+        /// Get All Product in Invoices
+        /// </summary>
+        /// <returns></returns>
+        public static List<ProductosVendidosEntity> GetAllProducInvoices()
+        {
+            try
+            {
+                return FacturasDAL.GetAllProducInvoices();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return null;
             }
         }
 

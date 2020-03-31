@@ -486,6 +486,7 @@ namespace pjPalmera.PL
             OnlyRead();
             this.txtClientes.Text = "CONTADO";
             this.txtApClientes.Text = "CONTADO";
+            this.txtIdCliente.Text = "1";
             venta = new VentaEntity(); //Head invoice
             this.dgvDetalle.DataSource = null;
             this.txtProductos.Focus();
@@ -503,9 +504,10 @@ namespace pjPalmera.PL
             {
                 clientes = ClientesBO.GetbyId(Con_Clientes.Orden);
 
-                //this.txtIdCliente.Text = Convert.ToString(ClientesBO.GetbyId(clientes.Cedula));
+                this.txtIdCliente.Text = Convert.ToString(Con_Clientes.Orden);
                 this.txtClientes.Text = clientes.Nombre;
                 this.txtApClientes.Text = clientes.Apellidos;
+                this.txtProductos.Focus(); //
             }
         }
 
@@ -618,7 +620,8 @@ namespace pjPalmera.PL
             Font fdTitle = new Font("Lucida Console", 8, FontStyle.Regular);//Format Font for Detail Title (Address,Telephone, etc.. About Company Information)
             Graphics g = e.Graphics;
             SolidBrush sb = new SolidBrush(Color.Black); // Set Brush color for Drawing Charaters
-            string Type = "FACTURA AL CONTADO"; //Type of invoice
+
+            string Type = "FACTURA AL CONTADO";
 
             //Id Invoice
             venta.id=FacturaBO.LastId();
@@ -651,10 +654,6 @@ namespace pjPalmera.PL
             if ((this.txtClientes.Text != "CONTADO") && (this.txtApClientes.Text != "CONTADO"))
             {
                 Type = "FACTURA A CREDITO";
-            }
-            if (this.txtClientes.Text == "CONTADO")
-            {
-                this.txtApClientes.Text = "";
             }
 
             g.DrawString(Type, fTitle, sb, 75, 255);
@@ -864,6 +863,7 @@ namespace pjPalmera.PL
             {
                 venta = new VentaEntity();
 
+                venta.id_cliente = Convert.ToInt32(this.txtIdCliente.Text);
                 venta.clientes = this.txtClientes.Text; //
                 venta.apellidos = this.txtApClientes.Text; //
                 venta.total = decimal.Parse(this.txtTotalPagar.Text); //
@@ -874,19 +874,25 @@ namespace pjPalmera.PL
                 venta.recibido = decimal.Parse(this.txtEfectivoRecibido.Text);//
                 venta.devuelta = decimal.Parse(this.txtDevueltaEfectivo.Text);//
 
+                //Validate type of Invoices (Cash or Credit)
                 if ((this.txtClientes.Text == "CONTADO") && (this.txtApClientes.Text == "CONTADO"))
                 {
                     venta.tipo = "1";
+                    FacturaBO.Create(venta);  // Cash Invoices (Save history all invoices)
                 }
                 else
                 {
+                    var c = 1; 
                     venta.tipo = "2";
+                    var id = Convert.ToInt32(this.txtIdCliente.Text);
+                    CuentasBO.StatusCxc(c, id); // Set value cxc to client  
+                    FacturaBO.Create(venta); // Save all invoices
+                    FacturaBO.CreateCr(venta); // Credit Invoices
                 }
-                FacturaBO.Create(venta);
             }
             catch
             {
-              //  MessageBox.Show(ex.Message, "Mensaje del Sistema 4", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                //MessageBox.Show(ex.Message, "Mensaje del Sistema 4", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
         }

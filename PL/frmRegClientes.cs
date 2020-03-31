@@ -86,6 +86,8 @@ namespace pjPalmera.PL
         {
             if (clientes == null)
             {
+                var c = 0;
+
                 clientes = new ClientesEntity();
                 clientes.Cedula = Convert.ToInt64(this.mktCedula.Text);
                 clientes.Nombre = this.txtNombre.Text;
@@ -94,10 +96,11 @@ namespace pjPalmera.PL
                 clientes.Ciudad = this.cmbCiudad.Text;
                 clientes.Provincia = this.cmbProvincia.Text;
                 clientes.Telefono = this.mktTelefono.Text;
-                clientes.Created = DateTime.Now.Date;
+                clientes.Cxc = c;
+               // clientes.Created = DateTime.Now.Date;
 
                 clientes = ClientesBO.Save(clientes);
-                MessageBox.Show("Cliente Registrado Satisfactoriamente");   
+                MessageBox.Show("Cliente Registrado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);   
 
             }
         }
@@ -197,7 +200,7 @@ namespace pjPalmera.PL
         }
 
         /// <summary>
-        /// Remove Data the All Controls
+        /// Clean Data the All Controls
         /// </summary>
         private void CleanControls()
         {

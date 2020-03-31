@@ -23,8 +23,8 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql = @"INSERT INTO clientes (cedula, nombre, apellidos, telefono, direccion, ciudad, provincia limitecredito,createby, created)
-                                VALUES (@cedula, @nombre, @apellidos, @telefono, @direccion, @ciudad, @provincia, @limitecredito, @createby, @created)";
+                string sql = @"INSERT INTO clientes (cedula, nombre, apellidos, telefono, direccion, ciudad, provincia, limitecredito, createby, created, cxc)
+                                VALUES (@cedula, @nombre, @apellidos, @telefono, @direccion, @ciudad, @provincia, @limitecredito, @createby, @created, @cxc)";
                 MySqlCommand cmd = new MySqlCommand(sql,con);
 
                 cmd.Parameters.AddWithValue("@cedula",Costumer.Cedula);
@@ -36,7 +36,8 @@ namespace pjPalmera.DAL
                 cmd.Parameters.AddWithValue("@provincia", Costumer.Provincia);
                 cmd.Parameters.AddWithValue("@limitecredito",Costumer.Limitecredito);
                 cmd.Parameters.AddWithValue("@createby",Costumer.Createby);
-                cmd.Parameters.AddWithValue("@created",Costumer.Created);
+                cmd.Parameters.AddWithValue("@created",DateTime.Now);
+                cmd.Parameters.AddWithValue("@cxc", Costumer.Cxc);
 
                 Costumer.Id = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -104,7 +105,7 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql = @"SELECT id, cedula, nombre, apellidos, telefono, direccion, ciudad, provincia 
+                string sql = @"SELECT id, cedula, nombre, apellidos, telefono, direccion, ciudad, provincia, created, cxc 
                                 FROM clientes";
 
                 MySqlCommand cmd = new MySqlCommand(sql, con);
@@ -215,6 +216,8 @@ namespace pjPalmera.DAL
             costumer.Direccion = Convert.ToString(Reader["direccion"]);
             costumer.Ciudad = Convert.ToString(Reader["ciudad"]);
             costumer.Provincia = Convert.ToString(Reader["provincia"]);
+            costumer.Created = Convert.ToDateTime(Reader["created"]);
+            costumer.Cxc = Convert.ToInt32(Reader["cxc"]);
 
             return costumer;
         } 

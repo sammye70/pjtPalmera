@@ -1,6 +1,6 @@
 ﻿namespace pjPalmera.PL
 {
-    partial class frmArticulosExpirar
+    partial class frmConsulArticulosExpirar
     {
         /// <summary>
         /// Required designer variable.
@@ -28,18 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dgvProductExpirar = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnSearchYear = new System.Windows.Forms.Button();
+            this.cmbYear = new System.Windows.Forms.ComboBox();
+            this.lblCriterio2 = new System.Windows.Forms.Label();
+            this.btnSearchMonth = new System.Windows.Forms.Button();
             this.cmbMonth = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rdYear = new System.Windows.Forms.RadioButton();
             this.rdMonth = new System.Windows.Forms.RadioButton();
             this.lblCriterio = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.btnSearchMonth = new System.Windows.Forms.Button();
-            this.lblCriterio2 = new System.Windows.Forms.Label();
-            this.cmbYear = new System.Windows.Forms.ComboBox();
-            this.btnSearchYear = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductExpirar)).BeginInit();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -70,6 +72,43 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(891, 80);
             this.panel1.TabIndex = 6;
+            // 
+            // btnSearchYear
+            // 
+            this.btnSearchYear.Image = global::PL.Properties.Resources.search;
+            this.btnSearchYear.Location = new System.Drawing.Point(294, 26);
+            this.btnSearchYear.Name = "btnSearchYear";
+            this.btnSearchYear.Size = new System.Drawing.Size(42, 37);
+            this.btnSearchYear.TabIndex = 15;
+            this.btnSearchYear.UseVisualStyleBackColor = true;
+            this.btnSearchYear.Click += new System.EventHandler(this.btnSearchYear_Click);
+            // 
+            // cmbYear
+            // 
+            this.cmbYear.FormattingEnabled = true;
+            this.cmbYear.Location = new System.Drawing.Point(51, 37);
+            this.cmbYear.Name = "cmbYear";
+            this.cmbYear.Size = new System.Drawing.Size(70, 21);
+            this.cmbYear.TabIndex = 14;
+            // 
+            // lblCriterio2
+            // 
+            this.lblCriterio2.AutoSize = true;
+            this.lblCriterio2.Location = new System.Drawing.Point(10, 40);
+            this.lblCriterio2.Name = "lblCriterio2";
+            this.lblCriterio2.Size = new System.Drawing.Size(35, 13);
+            this.lblCriterio2.TabIndex = 13;
+            this.lblCriterio2.Text = "label2";
+            // 
+            // btnSearchMonth
+            // 
+            this.btnSearchMonth.Image = global::PL.Properties.Resources.search;
+            this.btnSearchMonth.Location = new System.Drawing.Point(294, 26);
+            this.btnSearchMonth.Name = "btnSearchMonth";
+            this.btnSearchMonth.Size = new System.Drawing.Size(42, 37);
+            this.btnSearchMonth.TabIndex = 12;
+            this.btnSearchMonth.UseVisualStyleBackColor = true;
+            this.btnSearchMonth.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // cmbMonth
             // 
@@ -130,51 +169,14 @@
             this.button1.Text = "Generar Informe";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // btnSearchMonth
-            // 
-            this.btnSearchMonth.Image = global::PL.Properties.Resources.search;
-            this.btnSearchMonth.Location = new System.Drawing.Point(294, 26);
-            this.btnSearchMonth.Name = "btnSearchMonth";
-            this.btnSearchMonth.Size = new System.Drawing.Size(42, 37);
-            this.btnSearchMonth.TabIndex = 12;
-            this.btnSearchMonth.UseVisualStyleBackColor = true;
-            this.btnSearchMonth.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
-            // lblCriterio2
-            // 
-            this.lblCriterio2.AutoSize = true;
-            this.lblCriterio2.Location = new System.Drawing.Point(10, 40);
-            this.lblCriterio2.Name = "lblCriterio2";
-            this.lblCriterio2.Size = new System.Drawing.Size(35, 13);
-            this.lblCriterio2.TabIndex = 13;
-            this.lblCriterio2.Text = "label2";
-            // 
-            // cmbYear
-            // 
-            this.cmbYear.FormattingEnabled = true;
-            this.cmbYear.Location = new System.Drawing.Point(51, 37);
-            this.cmbYear.Name = "cmbYear";
-            this.cmbYear.Size = new System.Drawing.Size(70, 21);
-            this.cmbYear.TabIndex = 14;
-            // 
-            // btnSearchYear
-            // 
-            this.btnSearchYear.Image = global::PL.Properties.Resources.search;
-            this.btnSearchYear.Location = new System.Drawing.Point(294, 26);
-            this.btnSearchYear.Name = "btnSearchYear";
-            this.btnSearchYear.Size = new System.Drawing.Size(42, 37);
-            this.btnSearchYear.TabIndex = 15;
-            this.btnSearchYear.UseVisualStyleBackColor = true;
-            this.btnSearchYear.Click += new System.EventHandler(this.btnSearchYear_Click);
-            // 
-            // frmArticulosExpirar
+            // frmConsulArticulosExpirar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(915, 410);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dgvProductExpirar);
-            this.Name = "frmArticulosExpirar";
+            this.Name = "frmConsulArticulosExpirar";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Articulos a Expirar";
             this.Load += new System.EventHandler(this.frmArticulosVencer_Load);
@@ -200,5 +202,6 @@
         private System.Windows.Forms.ComboBox cmbYear;
         private System.Windows.Forms.Label lblCriterio2;
         private System.Windows.Forms.Button btnSearchYear;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

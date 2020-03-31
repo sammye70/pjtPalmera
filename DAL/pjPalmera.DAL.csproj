@@ -50,8 +50,10 @@
     <Compile Include="CierreCajaDAL.cs" />
     <Compile Include="CiudadDAL.cs" />
     <Compile Include="ClientesDAL.cs" />
+    <Compile Include="CuentasDAL.cs" />
     <Compile Include="FacturasDAL.cs" />
     <Compile Include="InventarioDAL.cs" />
+    <Compile Include="PagosDAL.cs" />
     <Compile Include="PersonasDAL.cs" />
     <Compile Include="ProductosDAL.cs" />
     <Compile Include="ProveedorDAL.cs" />
@@ -66,6 +68,9 @@
       <Project>{65164c5b-b7e9-483a-966a-e5dc9aaee214}</Project>
       <Name>pjPalmera.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

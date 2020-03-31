@@ -33,10 +33,13 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbDescripcion = new System.Windows.Forms.RadioButton();
+            this.rbCodigo = new System.Windows.Forms.RadioButton();
             this.btnExpExcel = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblCriterio = new System.Windows.Forms.Label();
             this.txtCriterioBusqueda = new System.Windows.Forms.TextBox();
             this.lblMensaje = new System.Windows.Forms.Label();
             this.dgvProductOnlyActive = new System.Windows.Forms.DataGridView();
@@ -47,6 +50,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvProdConsultar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductOnlyActive)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,38 +73,76 @@
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.btnExpExcel);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.btnSearch);
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.lblCriterio);
             this.panel1.Controls.Add(this.txtCriterioBusqueda);
             this.panel1.Location = new System.Drawing.Point(7, 26);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1053, 56);
             this.panel1.TabIndex = 1;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rbDescripcion);
+            this.groupBox1.Controls.Add(this.rbCodigo);
+            this.groupBox1.Location = new System.Drawing.Point(518, 3);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(310, 49);
+            this.groupBox1.TabIndex = 9;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Buscar por";
+            // 
+            // rbDescripcion
+            // 
+            this.rbDescripcion.AutoSize = true;
+            this.rbDescripcion.Location = new System.Drawing.Point(126, 20);
+            this.rbDescripcion.Name = "rbDescripcion";
+            this.rbDescripcion.Size = new System.Drawing.Size(81, 17);
+            this.rbDescripcion.TabIndex = 10;
+            this.rbDescripcion.TabStop = true;
+            this.rbDescripcion.Text = "Descripción";
+            this.rbDescripcion.UseVisualStyleBackColor = true;
+            this.rbDescripcion.CheckedChanged += new System.EventHandler(this.rbDescripcion_CheckedChanged);
+            // 
+            // rbCodigo
+            // 
+            this.rbCodigo.AutoSize = true;
+            this.rbCodigo.Location = new System.Drawing.Point(34, 20);
+            this.rbCodigo.Name = "rbCodigo";
+            this.rbCodigo.Size = new System.Drawing.Size(58, 17);
+            this.rbCodigo.TabIndex = 9;
+            this.rbCodigo.TabStop = true;
+            this.rbCodigo.Text = "Código";
+            this.rbCodigo.UseVisualStyleBackColor = true;
+            this.rbCodigo.CheckedChanged += new System.EventHandler(this.rbCodigo_CheckedChanged);
+            // 
             // btnExpExcel
             // 
-            this.btnExpExcel.Location = new System.Drawing.Point(518, 10);
+            this.btnExpExcel.Location = new System.Drawing.Point(856, 11);
             this.btnExpExcel.Name = "btnExpExcel";
-            this.btnExpExcel.Size = new System.Drawing.Size(102, 43);
+            this.btnExpExcel.Size = new System.Drawing.Size(102, 32);
             this.btnExpExcel.TabIndex = 10;
-            this.btnExpExcel.Text = "Exportar a Excel";
+            this.btnExpExcel.Text = "Generar Informe";
             this.btnExpExcel.UseVisualStyleBackColor = true;
+            this.btnExpExcel.Click += new System.EventHandler(this.btnExpExcel_Click);
             // 
             // button2
             // 
             this.button2.Image = global::PL.Properties.Resources.cancel1;
-            this.button2.Location = new System.Drawing.Point(456, 10);
+            this.button2.Location = new System.Drawing.Point(438, 10);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(56, 43);
             this.button2.TabIndex = 9;
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
             // 
             // btnSearch
             // 
             this.btnSearch.Image = global::PL.Properties.Resources.search;
-            this.btnSearch.Location = new System.Drawing.Point(394, 10);
+            this.btnSearch.Location = new System.Drawing.Point(376, 10);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(56, 43);
             this.btnSearch.TabIndex = 7;
@@ -108,14 +150,14 @@
             this.btnSearch.Visible = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // label1
+            // lblCriterio
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 26);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Codigo";
+            this.lblCriterio.AutoSize = true;
+            this.lblCriterio.Location = new System.Drawing.Point(16, 26);
+            this.lblCriterio.Name = "lblCriterio";
+            this.lblCriterio.Size = new System.Drawing.Size(29, 13);
+            this.lblCriterio.TabIndex = 6;
+            this.lblCriterio.Text = "label";
             // 
             // txtCriterioBusqueda
             // 
@@ -132,9 +174,9 @@
             this.lblMensaje.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblMensaje.Location = new System.Drawing.Point(12, 474);
             this.lblMensaje.Name = "lblMensaje";
-            this.lblMensaje.Size = new System.Drawing.Size(241, 13);
+            this.lblMensaje.Size = new System.Drawing.Size(205, 13);
             this.lblMensaje.TabIndex = 2;
-            this.lblMensaje.Text = "Doble click para seleccionar un producto";
+            this.lblMensaje.Text = "Click para seleccionar un producto";
             this.lblMensaje.Visible = false;
             // 
             // dgvProductOnlyActive
@@ -215,6 +257,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductOnlyActive)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -226,7 +270,7 @@
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblCriterio;
         private System.Windows.Forms.TextBox txtCriterioBusqueda;
         private System.Windows.Forms.Button button2;
         public System.Windows.Forms.DataGridView dgvProdConsultar;
@@ -237,5 +281,8 @@
         public System.Windows.Forms.Label lblCostoAllProductos;
         public System.Windows.Forms.Label lblCantidadProdRes;
         public System.Windows.Forms.Label lblTotalProductos;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton rbDescripcion;
+        private System.Windows.Forms.RadioButton rbCodigo;
     }
 }

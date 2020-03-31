@@ -45,7 +45,9 @@ namespace pjPalmera.PL
             this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
             StockUnit();
             this.dgvProductOnlyActive.DataSource = ProductosBO.OnlyActive();
+            AutoSizeCells();
             AmountAllProduct();
+            this.rbCodigo.Checked = true;
             this.txtCriterioBusqueda.Focus();
         }
 
@@ -64,12 +66,30 @@ namespace pjPalmera.PL
         }
 
         /// <summary>
+        /// Auto Size All Cells
+        /// </summary>
+        private void AutoSizeCells()
+        {
+            this.dgvProdConsultar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+        }
+
+
+        /// <summary>
         /// Clean Content in All Controls
         /// </summary>
         private void CleanControls()
         {
             this.lblCostoTotalProductRes.Text = "";
             this.lblCantidadProdRes.Text = "";
+            this.lblCriterio.Text = "";
+        }
+
+        /// <summary>
+        /// Prepare to Control for New Search
+        /// </summary>
+        private void NewSearch()
+        {
+            this.txtCriterioBusqueda.Text = "";
         }
 
         /// <summary>
@@ -111,19 +131,37 @@ namespace pjPalmera.PL
         /// </summary>
         private void FilterProduct()
         {
-            if (this.txtCriterioBusqueda.Text != string.Empty)
+            if ((this.rbCodigo.Checked == true) && (this.txtCriterioBusqueda.Text != string.Empty) && (this.rbDescripcion.Checked == false))
             {
                 productos.Idproducto = Convert.ToInt64(this.txtCriterioBusqueda.Text);
-
                 this.dgvProdConsultar.DataSource = ProductosBO.FilterProductbyCode(productos.Idproducto);
                 this.dgvProductOnlyActive.DataSource = ProductosBO.FilterProductbyCode(productos.Idproducto);
+            }
+           else if ((this.rbDescripcion.Checked == true) && (this.txtCriterioBusqueda.Text != string.Empty) && (this.rbCodigo.Checked == false))
+            {
+                //productos.Descripcion = this.txtCriterioBusqueda.Text;
+                //this.dgvProdConsultar.DataSource = ProductosBO.FilterProductbyDescp(productos.Descripcion);
+                //this.dgvProductOnlyActive.DataSource = ProductosBO.FilterProductbyDescp(productos.Descripcion);
+                //MessageBox.Show("Indicar Descripcion del producto");
             }
             else
             {
                 this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
                 this.dgvProductOnlyActive.DataSource = ProductosBO.GetAll();
-                this.txtCriterioBusqueda.Focus();
             }
+            //if (this.txtCriterioBusqueda.Text != string.Empty)
+            //{
+            //    productos.Idproducto = Convert.ToInt64(this.txtCriterioBusqueda.Text);
+
+            //    this.dgvProdConsultar.DataSource = ProductosBO.FilterProductbyCode(productos.Idproducto);
+            //    this.dgvProductOnlyActive.DataSource = ProductosBO.FilterProductbyCode(productos.Idproducto);
+            //}
+            //else
+            //{
+            //    this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+            //    this.dgvProductOnlyActive.DataSource = ProductosBO.GetAll();
+            //    this.txtCriterioBusqueda.Focus();
+            //}
         }
 
         private void dgvProdConsultar_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -212,6 +250,30 @@ namespace pjPalmera.PL
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+        }
+
+        private void rbCodigo_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.rbCodigo.Checked == true)
+            {
+                this.lblCriterio.Text = "Código";
+                NewSearch();
+            }
+        }
+
+        private void rbDescripcion_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.rbDescripcion.Checked == true)
+            {
+                this.lblCriterio.Text = "Descripción";
+                NewSearch();
+            }
+        }
+
+        private void btnExpExcel_Click(object sender, EventArgs e)
+        {
+            frmRepProductos repProductos = new frmRepProductos();
+            repProductos.ShowDialog(this);
         }
     }
 }

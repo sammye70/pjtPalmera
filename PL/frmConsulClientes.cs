@@ -42,7 +42,7 @@ namespace pjPalmera.PL
         private void DesableControls()
         {
             this.dgvClientConsultar.ReadOnly = true;
-            this.MaximizeBox = false;
+            //this.MaximizeBox = false;
             this.MinimizeBox = false;
         }
 

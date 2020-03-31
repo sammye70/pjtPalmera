@@ -22,8 +22,8 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql = @"INSERT INTO fabricante (nombre_fab, nom_contacto, tel_contacto, direccion_fab, rnc, limitecredito, created, createby)
-                               VALUE (@nombre_fab, @nom_contacto, @tel_contacto, @direccion_fab, @rnc, @limitecredito, @created, @createby)";
+                string sql = @"INSERT INTO fabricante (nombre_fab, nom_contacto, tel_contacto, telefono, direccion_fab, rnc, limitecredito, created, createby)
+                               VALUE (@nombre_fab, @nom_contacto, @tel_contacto, @telefono, @direccion_fab, @rnc, @limitecredito, @created, @createby)";
 
                 MySqlCommand cmd = new MySqlCommand(sql, con);
 
@@ -31,12 +31,14 @@ namespace pjPalmera.DAL
                 cmd.Parameters.AddWithValue("@nom_contacto", Proveedor.Nombre_contacto);
                 cmd.Parameters.AddWithValue("@tel_contacto", Proveedor.Tel_contacto);
                 cmd.Parameters.AddWithValue("@direccion_fab", Proveedor.Direccion_fab);
+                cmd.Parameters.AddWithValue("@telefono", Proveedor.Tel_proveedor);
                 cmd.Parameters.AddWithValue("@rnc", Proveedor.Rnc);
                 cmd.Parameters.AddWithValue("@limitecredito", Proveedor.Limitecredito);
                 cmd.Parameters.AddWithValue("@created", DateTime.Now);
                 cmd.Parameters.AddWithValue("@createby", Proveedor.Createby);
 
-                Proveedor.Idproveedor = Convert.ToInt32(cmd.ExecuteScalar());
+                //Proveedor.Idproveedor = Convert.ToInt32(cmd.ExecuteScalar());
+                cmd.ExecuteNonQuery();
             }
            return Proveedor;
         }

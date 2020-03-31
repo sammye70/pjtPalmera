@@ -151,6 +151,12 @@ namespace pjPalmera.PL
                 proveedor.Nombre_contacto = this.txtNomRepresentante.Text;
                 proveedor.Tel_contacto = this.mktTelefRepresentante.Text;
                 proveedor.Direccion_fab = this.txtDirProveedor.Text;
+
+                if (this.cmbCredito.Text =="No")
+                {
+                    this.mktLimiteCredito.Text = "0";
+                }
+
                 proveedor.Limitecredito =Convert.ToDecimal (this.mktLimiteCredito.Text);
                 proveedor.Tel_proveedor = this.mktTelefono.Text;
 

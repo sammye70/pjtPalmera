@@ -25,13 +25,13 @@ namespace pjPalmera.PL
             try
             {
                 ReportDocument report = new ReportDocument();
-                report.Load("Reports\rptProductos.rpt");
+                report.Load("Reports\rptProductos.rpt", OpenReportMethod.OpenReportByDefault);
                 crystalReportViewer1.ReportSource = report;
                 crystalReportViewer1.Refresh();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Source);
+                MessageBox.Show(ex.Message);
             }
         }
     }

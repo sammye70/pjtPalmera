@@ -53,19 +53,19 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvFacturasEmitidas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvFacturasEmitidas.Location = new System.Drawing.Point(8, 70);
+            this.dgvFacturasEmitidas.Location = new System.Drawing.Point(8, 71);
             this.dgvFacturasEmitidas.Name = "dgvFacturasEmitidas";
             this.dgvFacturasEmitidas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvFacturasEmitidas.Size = new System.Drawing.Size(954, 334);
+            this.dgvFacturasEmitidas.Size = new System.Drawing.Size(1166, 334);
             this.dgvFacturasEmitidas.TabIndex = 13;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.rbFecha);
             this.groupBox1.Controls.Add(this.rbNumFact);
-            this.groupBox1.Location = new System.Drawing.Point(390, 3);
+            this.groupBox1.Location = new System.Drawing.Point(473, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(258, 52);
+            this.groupBox1.Size = new System.Drawing.Size(228, 52);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtrado por";
@@ -122,7 +122,7 @@
             // 
             // btnExpExcel
             // 
-            this.btnExpExcel.Location = new System.Drawing.Point(678, 15);
+            this.btnExpExcel.Location = new System.Drawing.Point(987, 20);
             this.btnExpExcel.Name = "btnExpExcel";
             this.btnExpExcel.Size = new System.Drawing.Size(110, 31);
             this.btnExpExcel.TabIndex = 14;
@@ -160,10 +160,12 @@
             // 
             // lblMontoTotalinvoicesRes
             // 
+            this.lblMontoTotalinvoicesRes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblMontoTotalinvoicesRes.AutoSize = true;
             this.lblMontoTotalinvoicesRes.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMontoTotalinvoicesRes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.lblMontoTotalinvoicesRes.Location = new System.Drawing.Point(762, 408);
+            this.lblMontoTotalinvoicesRes.Location = new System.Drawing.Point(1065, 408);
             this.lblMontoTotalinvoicesRes.Name = "lblMontoTotalinvoicesRes";
             this.lblMontoTotalinvoicesRes.Size = new System.Drawing.Size(109, 24);
             this.lblMontoTotalinvoicesRes.TabIndex = 19;
@@ -171,10 +173,12 @@
             // 
             // lblMontoAll_invoices
             // 
+            this.lblMontoAll_invoices.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblMontoAll_invoices.AutoSize = true;
             this.lblMontoAll_invoices.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMontoAll_invoices.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.lblMontoAll_invoices.Location = new System.Drawing.Point(641, 408);
+            this.lblMontoAll_invoices.Location = new System.Drawing.Point(944, 408);
             this.lblMontoAll_invoices.Name = "lblMontoAll_invoices";
             this.lblMontoAll_invoices.Size = new System.Drawing.Size(126, 24);
             this.lblMontoAll_invoices.TabIndex = 18;
@@ -184,7 +188,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(971, 441);
+            this.ClientSize = new System.Drawing.Size(1183, 441);
             this.Controls.Add(this.lblMontoTotalinvoicesRes);
             this.Controls.Add(this.lblMontoAll_invoices);
             this.Controls.Add(this.btnSearch);
@@ -198,7 +202,7 @@
             this.Controls.Add(this.txtValorCriterio1);
             this.Name = "frmConsultFacturasCont";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Consulta de Facturas Emitidas al Contado";
+            this.Text = "Consulta de Facturas al Contado";
             this.Load += new System.EventHandler(this.frmConsulFactEmitidas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFacturasEmitidas)).EndInit();
             this.groupBox1.ResumeLayout(false);

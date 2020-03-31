@@ -89,6 +89,12 @@
     <Compile Include="frmAbrirCaja.Designer.cs">
       <DependentUpon>frmAbrirCaja.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmActivarFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmActivarFactura.Designer.cs">
+      <DependentUpon>frmActivarFactura.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAddProvincia.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,11 +107,17 @@
     <Compile Include="frmAjustarProductos.Designer.cs">
       <DependentUpon>frmAjustarProductos.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmArticulosExpirar.cs">
+    <Compile Include="frmAnularFactura.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmArticulosExpirar.Designer.cs">
-      <DependentUpon>frmArticulosExpirar.cs</DependentUpon>
+    <Compile Include="frmAnularFactura.Designer.cs">
+      <DependentUpon>frmAnularFactura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmConsulArticulosExpirar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConsulArticulosExpirar.Designer.cs">
+      <DependentUpon>frmConsulArticulosExpirar.cs</DependentUpon>
     </Compile>
     <Compile Include="frmCategoria.cs">
       <SubType>Form</SubType>
@@ -124,6 +136,12 @@
     </Compile>
     <Compile Include="frmCiudad.Designer.cs">
       <DependentUpon>frmCiudad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmClientCredPend.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmClientCredPend.Designer.cs">
+      <DependentUpon>frmClientCredPend.cs</DependentUpon>
     </Compile>
     <Compile Include="frmCobros.cs">
       <SubType>Form</SubType>
@@ -161,17 +179,47 @@
     <Compile Include="frmConsultarProveedor.Designer.cs">
       <DependentUpon>frmConsultarProveedor.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmConsultFacturasAnuladas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConsultFacturasAnuladas.Designer.cs">
+      <DependentUpon>frmConsultFacturasAnuladas.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmEditarProductos.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmEditarProductos.Designer.cs">
       <DependentUpon>frmEditarProductos.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmEfectPagosFactCred.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEfectPagosFactCred.Designer.cs">
+      <DependentUpon>frmEfectPagosFactCred.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmFactAnuladas.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmFactAnuladas.Designer.cs">
       <DependentUpon>frmFactAnuladas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmConsFactCredClient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConsFactCredClient.Designer.cs">
+      <DependentUpon>frmConsFactCredClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmHistorialVentArticulos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmHistorialVentArticulos.Designer.cs">
+      <DependentUpon>frmHistorialVentArticulos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmHistPagoClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmHistPagoClientes.Designer.cs">
+      <DependentUpon>frmHistPagoClientes.cs</DependentUpon>
     </Compile>
     <Compile Include="frmIngresarPedido.cs">
       <SubType>Form</SubType>
@@ -196,6 +244,12 @@
     </Compile>
     <Compile Include="frmNotasCredito.Designer.cs">
       <DependentUpon>frmNotasCredito.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPagosTotalCr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPagosTotalCr.Designer.cs">
+      <DependentUpon>frmPagosTotalCr.cs</DependentUpon>
     </Compile>
     <Compile Include="frmPrincipal.cs">
       <SubType>Form</SubType>
@@ -273,14 +327,20 @@
     <EmbeddedResource Include="frmAbrirCaja.resx">
       <DependentUpon>frmAbrirCaja.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmActivarFactura.resx">
+      <DependentUpon>frmActivarFactura.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAddProvincia.resx">
       <DependentUpon>frmAddProvincia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAjustarProductos.resx">
       <DependentUpon>frmAjustarProductos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmArticulosExpirar.resx">
-      <DependentUpon>frmArticulosExpirar.cs</DependentUpon>
+    <EmbeddedResource Include="frmAnularFactura.resx">
+      <DependentUpon>frmAnularFactura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmConsulArticulosExpirar.resx">
+      <DependentUpon>frmConsulArticulosExpirar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCategoria.resx">
       <DependentUpon>frmCategoria.cs</DependentUpon>
@@ -290,6 +350,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmCiudad.resx">
       <DependentUpon>frmCiudad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmClientCredPend.resx">
+      <DependentUpon>frmClientCredPend.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCobros.resx">
       <DependentUpon>frmCobros.cs</DependentUpon>
@@ -309,11 +372,26 @@
     <EmbeddedResource Include="frmConsultarProveedor.resx">
       <DependentUpon>frmConsultarProveedor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmConsultFacturasAnuladas.resx">
+      <DependentUpon>frmConsultFacturasAnuladas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmEditarProductos.resx">
       <DependentUpon>frmEditarProductos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmEfectPagosFactCred.resx">
+      <DependentUpon>frmEfectPagosFactCred.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmFactAnuladas.resx">
       <DependentUpon>frmFactAnuladas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmConsFactCredClient.resx">
+      <DependentUpon>frmConsFactCredClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmHistorialVentArticulos.resx">
+      <DependentUpon>frmHistorialVentArticulos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmHistPagoClientes.resx">
+      <DependentUpon>frmHistPagoClientes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmIngresarPedido.resx">
       <DependentUpon>frmIngresarPedido.cs</DependentUpon>
@@ -323,6 +401,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMetodoPago.resx">
       <DependentUpon>frmMetodoPago.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPagosTotalCr.resx">
+      <DependentUpon>frmPagosTotalCr.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPrincipal.resx">
       <DependentUpon>frmPrincipal.cs</DependentUpon>
@@ -502,6 +583,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="folder_summer_13091.ico" />
+    <None Include="Resources\documents1.ico" />
     <None Include="Resources\calculator.ico" />
     <None Include="Resources\pack.ico" />
     <None Include="Resources\office-excel.ico" />

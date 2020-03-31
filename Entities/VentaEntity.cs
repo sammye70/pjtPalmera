@@ -31,7 +31,7 @@ namespace pjPalmera.Entities
         public decimal total { get; set; }
         public decimal descuento { get; set; }
         public decimal subtotal { get; set; }
-      //  public int id_cliente { get; set; }
+        public int id_cliente { get; set; }
         public decimal total_itbis { get; set; }
         public decimal recibido { get; set; }
         public decimal devuelta { get; set; }

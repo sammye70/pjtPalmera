@@ -148,6 +148,26 @@ namespace pjPalmera.PL
         }
 
 
+        /// <summary>
+        /// Print Ticket Detail Process Box Close
+        /// </summary>
+        private void Print()
+        {
+            DialogResult QuestionPrint = new DialogResult();
+
+            QuestionPrint = MessageBox.Show("Desea Imprimir Detalle de Cierre de la Caja","Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (QuestionPrint == DialogResult.Yes)
+            {
+                MessageBox.Show("Se imprimio", "Mensaje del Sistema");
+            }
+            else if (QuestionPrint == DialogResult.No)
+            {
+                MessageBox.Show("Se No se imprimio", "Mensaje del Sistema");
+                return;
+            }
+        }
+
+
         private void btnClean_Click(object sender, EventArgs e)
         {
             CleanControls();
@@ -155,23 +175,24 @@ namespace pjPalmera.PL
 
         private void btnProcesar_Click(object sender, EventArgs e)
         {
-            //DialogResult Question = new DialogResult();
+            DialogResult Question = new DialogResult();
 
             if (this.lblEfectivoCaja.Text !="0.00")
             {
-                //MessageBox.Show("Seguro que Desea Cerrar la Caja", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                Question = MessageBox.Show("Seguro que Desea Cerrar la Caja", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                //if (Question == DialogResult.Yes)
-                //{
+                if (Question == DialogResult.Yes)
+                {
                     CloseBoxProc();
+                    Print();
                     CleanControls();
                     MessageBox.Show("Cierre Realizado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
-                //}
-                //else if (Question == DialogResult.No)
-                //{
-                //    return;
-                //}
+                }
+                else if (Question == DialogResult.No)
+                {
+                    return;
+                }
             }
             else
             {

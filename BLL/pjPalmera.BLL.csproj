@@ -47,6 +47,7 @@
     <Compile Include="CierreCajaBO.cs" />
     <Compile Include="CiudadBO.cs" />
     <Compile Include="ClientesBO.cs" />
+    <Compile Include="CuentasBO.cs" />
     <Compile Include="FacturaBO.cs" />
     <Compile Include="PersonasBO.cs" />
     <Compile Include="ProductosBO.cs" />

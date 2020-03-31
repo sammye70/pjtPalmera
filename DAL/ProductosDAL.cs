@@ -216,7 +216,7 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = @"SELECT  * FROM productos WHERE stock <= stockminimo AND status ='Activo' ORDER BY productos.f_vencimiento ASC ";
+                string query = @"SELECT  * FROM productos WHERE stock <= stockminimo AND status ='Activo' ORDER BY productos.idfabricante ";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 //cmd.Parameters.AddWithValue("@DateExpire", DateExpire);
@@ -232,8 +232,6 @@ namespace pjPalmera.DAL
         }
 
 
-
-
         /// <summary>
         /// Filter Product near to expire date
         /// </summary>
@@ -245,7 +243,7 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = @"SELECT * FROM productos WHERE productos.status='Activo' ORDER BY productos.f_vencimiento ASC ";
+                string query = @"SELECT * FROM productos WHERE productos.status='Activo' AND idfamilia !='Escolar'  ORDER BY productos.f_vencimiento ASC ";
 
                 MySqlCommand cmd = new MySqlCommand(query,con);
                 //cmd.Parameters.AddWithValue("@DateExpire", DateExpire);
@@ -504,11 +502,12 @@ namespace pjPalmera.DAL
         public static List<ProductosEntity> FilterProductbyDescp(string descripcion)
         {
             List<ProductosEntity> productos = new List<ProductosEntity>();
+
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
 
-                string query = @"SELECT * FROM productos WHERE productos.descripcion LIKE '@descripcion%'";
+                string query = @"SELECT * FROM productos WHERE productos.descripcion LIKE @descripcion%";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
 

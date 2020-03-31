@@ -42,6 +42,7 @@
             this.dgvStockMinimo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStockMinimo.Location = new System.Drawing.Point(6, 80);
             this.dgvStockMinimo.Name = "dgvStockMinimo";
+            this.dgvStockMinimo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvStockMinimo.Size = new System.Drawing.Size(1096, 395);
             this.dgvStockMinimo.TabIndex = 0;
             // 

@@ -12,9 +12,9 @@ using pjPalmera.BLL;
 
 namespace pjPalmera.PL
 {
-    public partial class frmArticulosExpirar : Form
+    public partial class frmConsulArticulosExpirar : Form
     {
-        public frmArticulosExpirar()
+        public frmConsulArticulosExpirar()
         {
             InitializeComponent();
         }
@@ -102,8 +102,10 @@ namespace pjPalmera.PL
         {
             DesableControls();
             ExpirareProduct();
- 
+            this.dgvProductExpirar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
+
+
 
         /// <summary>
         /// Product to be Expere
@@ -153,6 +155,9 @@ namespace pjPalmera.PL
             }
         }
 
+        /// <summary>
+        /// Load Year since 2020 until 2071
+        /// </summary>
         private void LoadYear()
         {
             int y = 2071;
@@ -211,6 +216,7 @@ namespace pjPalmera.PL
             if ((this.cmbMonth.Text != string.Empty) && (this.cmbYear.Text != string.Empty))
             {
                 SearchMonthYear();
+                
             }
             else
             {
@@ -226,6 +232,7 @@ namespace pjPalmera.PL
             if (this.cmbYear.Text != string.Empty)
             {
                 SearchYear();
+               
             }
             else
             {
@@ -236,5 +243,7 @@ namespace pjPalmera.PL
             }
             
         }
+
+
     }
 }

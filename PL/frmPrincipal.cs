@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using pjPalmera.BLL;
+using pjPalmera.Entities;
 
 namespace pjPalmera.PL
 {
@@ -46,8 +48,7 @@ namespace pjPalmera.PL
 
         private void crearClientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmRegClientes RegistrarClientes = new frmRegClientes();
-            RegistrarClientes.ShowDialog(this);
+
 
         }
 
@@ -61,8 +62,7 @@ namespace pjPalmera.PL
 
         private void facturasEmitidasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmConsultFacturasCont ConsultFactEmit = new frmConsultFacturasCont();
-            ConsultFactEmit.ShowDialog(this);
+
         }
 
         private void toolStripLabel1_Click(object sender, EventArgs e)
@@ -85,8 +85,7 @@ namespace pjPalmera.PL
 
         private void efectuarVentaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmVenta factura = new frmVenta();
-            factura.Show();
+
         }
 
         private void notaDeCreditoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -99,6 +98,8 @@ namespace pjPalmera.PL
         {
             //frmlogin login = new frmlogin();
             //login.ShowDialog();
+
+            this.tabControl1.Visible = false;
             DetailControls();
         }
 
@@ -184,14 +185,13 @@ namespace pjPalmera.PL
 
         private void articulosAVencerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmArticulosExpirar ArtVencer = new frmArticulosExpirar();
+            frmConsulArticulosExpirar ArtVencer = new frmConsulArticulosExpirar();
             ArtVencer.ShowDialog(this);
         }
 
         private void consultarClientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmConsulClientes ConsultarClientes = new frmConsulClientes();
-            ConsultarClientes.ShowDialog(this);
+
 
         }
 
@@ -220,6 +220,90 @@ namespace pjPalmera.PL
         {
             frmConsulFactCredito ConFacturaCredito = new frmConsulFactCredito();
             ConFacturaCredito.ShowDialog(this);
+        }
+
+        private void crearNuevoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmRegClientes RegistrarClientes = new frmRegClientes();
+            RegistrarClientes.ShowDialog(this);
+        }
+
+        private void consultarClientesToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            frmConsulClientes ConsultarClientes = new frmConsulClientes();
+            ConsultarClientes.Text = "Ajustar y Consultar Clientes";
+            ConsultarClientes.ShowDialog(this);
+        }
+
+        private void asignarCreditoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void facturasEmitidasToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            frmConsultFacturasCont ConsultFactEmit = new frmConsultFacturasCont();
+            ConsultFactEmit.ShowDialog(this);
+        }
+
+        private void consultarFacturasCreditoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmConsulFactCredito FacturasCredito = new frmConsulFactCredito();
+            FacturasCredito.ShowDialog(this);
+        }
+
+        private void historialArticulosVendidosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmHistorialVentArticulos ArticulosVendidos = new frmHistorialVentArticulos();
+            ArticulosVendidos.ShowDialog(this);
+        }
+
+        private void efectuarVentaToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            frmVenta factura = new frmVenta();
+            factura.Show();
+        }
+
+        private void cxCToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmHistPagoClientesCr HistorialPagosCr = new frmHistPagoClientesCr();
+
+            HistorialPagosCr.ShowDialog(this);
+        }
+
+        private void efectuarPagosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmEfectPagosFactCred CobrarFactCr = new frmEfectPagosFactCred();
+            CobrarFactCr.ShowDialog(this);
+        }
+
+        private void pagosAlCobrarAlTotalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmPagosTotalCr PagTotalCr = new frmPagosTotalCr();
+            PagTotalCr.ShowDialog(this);
+        }
+
+        private void anularFacturaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void anularToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmAnularFactura AnularFacturas = new frmAnularFactura();
+            AnularFacturas.ShowDialog(this);
+        }
+
+        private void activarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmActivarFactura ActivarFacturas = new PL.frmActivarFactura();
+            ActivarFacturas.ShowDialog(this);
+        }
+
+        private void consultarFacturasAnuladasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmConsultFactAnuladas FactAnuladas = new frmConsultFactAnuladas();
+            FactAnuladas.ShowDialog(this);
         }
     }
 }

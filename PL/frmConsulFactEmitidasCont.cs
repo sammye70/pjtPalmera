@@ -33,7 +33,7 @@ namespace pjPalmera.PL
                 DesableControlsDate();
                 this.txtValorCriterio1.Focus();
                 this.dgvFacturasEmitidas.DataSource = null;
-                this.dgvFacturasEmitidas.DataSource = FacturaBO.GetAll();
+                this.dgvFacturasEmitidas.DataSource = FacturaBO.GetCashInvoices();
             }
         }
 
@@ -123,7 +123,7 @@ namespace pjPalmera.PL
         private void LoadInvoices()
         {
             this.dgvFacturasEmitidas.DataSource = null;
-            this.dgvFacturasEmitidas.DataSource= FacturaBO.GetAll();
+            this.dgvFacturasEmitidas.DataSource = FacturaBO.GetCashInvoices();
         }
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace pjPalmera.PL
             EnableControlsDate();
             this.mktxtFechaDesde.Focus();
             this.dgvFacturasEmitidas.DataSource = null;
-            this.dgvFacturasEmitidas.DataSource = FacturaBO.GetAll();
+            this.dgvFacturasEmitidas.DataSource = FacturaBO.GetCashInvoices();
         }
 
 

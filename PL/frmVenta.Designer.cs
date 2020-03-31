@@ -31,13 +31,11 @@
             this.components = new System.ComponentModel.Container();
             this.dgvDetalle = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label21 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtValor = new System.Windows.Forms.TextBox();
             this.txtIdCliente = new System.Windows.Forms.TextBox();
-            this.txtItbis = new System.Windows.Forms.TextBox();
-            this.btnPagar = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.cmbDescuentoPostVenta = new System.Windows.Forms.ComboBox();
             this.chbDescuento = new System.Windows.Forms.CheckBox();
@@ -62,6 +60,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.cmbTipoVenta = new System.Windows.Forms.ComboBox();
             this.txtProductos = new System.Windows.Forms.TextBox();
+            this.txtItbis = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.btnPagar = new System.Windows.Forms.Button();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
@@ -69,6 +72,7 @@
             this.btnNuevo = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.txtId_Invoice = new System.Windows.Forms.TextBox();
             this.txtDevueltaEfectivo = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.txtEfectivoRecibido = new System.Windows.Forms.TextBox();
@@ -83,10 +87,6 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.txtId_Invoice = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -128,6 +128,19 @@
             this.groupBox1.Size = new System.Drawing.Size(1305, 326);
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.label21.Location = new System.Drawing.Point(883, 278);
+            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(207, 18);
+            this.label21.TabIndex = 41;
+            this.label21.Text = "Agregar al Carrito: ENTER";
+            this.label21.Visible = false;
             // 
             // groupBox3
             // 
@@ -178,36 +191,11 @@
             // 
             // txtIdCliente
             // 
-            this.txtIdCliente.Location = new System.Drawing.Point(1154, 50);
+            this.txtIdCliente.Location = new System.Drawing.Point(1174, 46);
             this.txtIdCliente.Name = "txtIdCliente";
-            this.txtIdCliente.Size = new System.Drawing.Size(100, 24);
+            this.txtIdCliente.Size = new System.Drawing.Size(95, 24);
             this.txtIdCliente.TabIndex = 59;
             this.txtIdCliente.Visible = false;
-            // 
-            // txtItbis
-            // 
-            this.txtItbis.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.txtItbis.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtItbis.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtItbis.ForeColor = System.Drawing.Color.Green;
-            this.txtItbis.Location = new System.Drawing.Point(1149, 254);
-            this.txtItbis.Margin = new System.Windows.Forms.Padding(4);
-            this.txtItbis.Name = "txtItbis";
-            this.txtItbis.Size = new System.Drawing.Size(129, 33);
-            this.txtItbis.TabIndex = 53;
-            // 
-            // btnPagar
-            // 
-            this.btnPagar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPagar.Image = global::PL.Properties.Resources.money;
-            this.btnPagar.Location = new System.Drawing.Point(1120, 266);
-            this.btnPagar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnPagar.Name = "btnPagar";
-            this.btnPagar.Size = new System.Drawing.Size(72, 53);
-            this.btnPagar.TabIndex = 21;
-            this.btnPagar.UseVisualStyleBackColor = true;
-            this.btnPagar.Visible = false;
-            this.btnPagar.Click += new System.EventHandler(this.btnPagar_Click);
             // 
             // button1
             // 
@@ -220,17 +208,6 @@
             this.button1.TabIndex = 61;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Visible = false;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(1207, 291);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(48, 18);
-            this.label9.TabIndex = 50;
-            this.label9.Text = "ITBIS";
             // 
             // label16
             // 
@@ -481,6 +458,68 @@
             this.txtProductos.Size = new System.Drawing.Size(280, 24);
             this.txtProductos.TabIndex = 35;
             // 
+            // txtItbis
+            // 
+            this.txtItbis.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.txtItbis.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtItbis.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtItbis.ForeColor = System.Drawing.Color.Green;
+            this.txtItbis.Location = new System.Drawing.Point(1149, 254);
+            this.txtItbis.Margin = new System.Windows.Forms.Padding(4);
+            this.txtItbis.Name = "txtItbis";
+            this.txtItbis.Size = new System.Drawing.Size(129, 33);
+            this.txtItbis.TabIndex = 53;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.label22.Location = new System.Drawing.Point(1045, 237);
+            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(164, 18);
+            this.label22.TabIndex = 42;
+            this.label22.Text = "Buscar Producto: F3";
+            this.label22.Visible = false;
+            // 
+            // btnPagar
+            // 
+            this.btnPagar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPagar.Image = global::PL.Properties.Resources.money;
+            this.btnPagar.Location = new System.Drawing.Point(1120, 266);
+            this.btnPagar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnPagar.Name = "btnPagar";
+            this.btnPagar.Size = new System.Drawing.Size(72, 53);
+            this.btnPagar.TabIndex = 21;
+            this.btnPagar.UseVisualStyleBackColor = true;
+            this.btnPagar.Visible = false;
+            this.btnPagar.Click += new System.EventHandler(this.btnPagar_Click);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.label20.Location = new System.Drawing.Point(884, 251);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(153, 18);
+            this.label20.TabIndex = 40;
+            this.label20.Text = "Procesar Venta: F2";
+            this.label20.Visible = false;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(1207, 291);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(48, 18);
+            this.label9.TabIndex = 50;
+            this.label9.Text = "ITBIS";
+            // 
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -579,6 +618,14 @@
             this.groupBox4.TabIndex = 34;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Detalle Cobro";
+            // 
+            // txtId_Invoice
+            // 
+            this.txtId_Invoice.Location = new System.Drawing.Point(751, 137);
+            this.txtId_Invoice.Name = "txtId_Invoice";
+            this.txtId_Invoice.Size = new System.Drawing.Size(100, 24);
+            this.txtId_Invoice.TabIndex = 20;
+            this.txtId_Invoice.Visible = false;
             // 
             // txtDevueltaEfectivo
             // 
@@ -711,53 +758,6 @@
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(98, 17);
             this.toolStripStatusLabel1.Text = "By EBG-Solutions";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label20.Location = new System.Drawing.Point(884, 251);
-            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(153, 18);
-            this.label20.TabIndex = 40;
-            this.label20.Text = "Procesar Venta: F2";
-            this.label20.Visible = false;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label21.Location = new System.Drawing.Point(883, 278);
-            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(207, 18);
-            this.label21.TabIndex = 41;
-            this.label21.Text = "Agregar al Carrito: ENTER";
-            this.label21.Visible = false;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label22.Location = new System.Drawing.Point(1045, 237);
-            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(164, 18);
-            this.label22.TabIndex = 42;
-            this.label22.Text = "Buscar Producto: F3";
-            this.label22.Visible = false;
-            // 
-            // txtId_Invoice
-            // 
-            this.txtId_Invoice.Location = new System.Drawing.Point(751, 137);
-            this.txtId_Invoice.Name = "txtId_Invoice";
-            this.txtId_Invoice.Size = new System.Drawing.Size(100, 24);
-            this.txtId_Invoice.TabIndex = 20;
-            this.txtId_Invoice.Visible = false;
             // 
             // frmVenta
             // 
