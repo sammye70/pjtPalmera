@@ -112,7 +112,9 @@ namespace pjPalmera.PL
         private void consultarArticulosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmConsultarProductos productos = new PL.frmConsultarProductos();
+            productos.Text = "Ajustar y Consultar Articulos";
             productos.ShowDialog(this);
+            
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)

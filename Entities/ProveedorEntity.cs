@@ -8,7 +8,7 @@ namespace pjPalmera.Entities
 {
     public class ProveedorEntity
     {
-        //Field
+        //Fields
         private int idproveedor;
         private string nombre_proveedor;
         private string nombre_contacto;

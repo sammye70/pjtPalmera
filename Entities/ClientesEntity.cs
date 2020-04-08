@@ -9,15 +9,16 @@ namespace pjPalmera.Entities
    public class ClientesEntity
     {
         //Field
+        
         private long idcliente;
-        private long cedula;
+        private string cedula;
         private string nombre;
         private string apellidos;
         private string telefono;
         private string direccion;
         private string provincia;
         private string ciudad;
-        private decimal limitecredito;
+        private decimal limite_credito;
         private int createby;
         private DateTime created;
         private int cxc;
@@ -27,19 +28,19 @@ namespace pjPalmera.Entities
         {
         }
 
-        public ClientesEntity(Int64 id, Int64 cedula, string nombre, string apellidos, string telefono, string direccion, string provincia, string ciudad, decimal limitecredito, int createby, int cxc, DateTime created)
+        public ClientesEntity(long id, string cedula, string nombre, string apellidos, string telefono, string direccion, string provincia, string ciudad, decimal limite_credito, int createby, int cxc, DateTime created)
         {
-            this.idcliente = id;
-            this.cedula = cedula;
-            this.nombre = nombre;
-            this.apellidos = apellidos;
-            this.telefono = telefono;
-            this.direccion = direccion;
-            this.provincia = provincia;
-            this.ciudad = ciudad;
-            this.limitecredito = limitecredito;
-            this.createby = createby;
-            this.created = created;
+            this.Id = id;
+            this.Cedula = cedula;
+            this.Nombre = nombre;
+            this.Apellidos = apellidos;
+            this.Telefono = telefono;
+            this.Direccion = direccion;
+            this.Provincia = provincia;
+            this.Ciudad = ciudad;
+            this.Limite_credito = limite_credito;
+            this.Createby = createby;
+            this.Created = created;
             this.Cxc = cxc;
         }
 
@@ -50,7 +51,7 @@ namespace pjPalmera.Entities
             set { idcliente = value; }
         }
 
-        public long Cedula
+        public string Cedula
         {
             get { return cedula; }
             set { cedula = value; }
@@ -93,12 +94,11 @@ namespace pjPalmera.Entities
             set { ciudad = value; }
         }
 
-        public decimal Limitecredito
+        public decimal Limite_credito
         {
-            get { return limitecredito; }
-            set { limitecredito = value; }
+            get { return limite_credito; }
+            set { limite_credito = value; }
         }
-
 
         public int Cxc
         {

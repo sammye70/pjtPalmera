@@ -380,7 +380,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(98, 18);
             this.label6.TabIndex = 43;
-            this.label6.Text = "Descripcion";
+            this.label6.Text = "Descripción";
             // 
             // btnBuscarProducto
             // 
@@ -435,7 +435,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(136, 18);
             this.label2.TabIndex = 38;
-            this.label2.Text = "Codigo Producto";
+            this.label2.Text = "Código Producto";
             // 
             // cmbTipoVenta
             // 
@@ -749,7 +749,7 @@
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 585);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1330, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1284, 22);
             this.statusStrip1.TabIndex = 19;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -763,7 +763,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1330, 607);
+            this.ClientSize = new System.Drawing.Size(1284, 607);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dgvDetalle);

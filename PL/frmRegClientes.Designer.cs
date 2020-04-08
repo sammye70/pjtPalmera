@@ -44,14 +44,17 @@
             this.cmbCiudad = new System.Windows.Forms.ComboBox();
             this.mktTelefono = new System.Windows.Forms.MaskedTextBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnCancelar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnNuevo = new System.Windows.Forms.Button();
             this.btnAgregarCiudad = new System.Windows.Forms.Button();
             this.btnAgregarProvincia = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label9 = new System.Windows.Forms.Label();
+            this.mktLimteCredClient = new System.Windows.Forms.MaskedTextBox();
+            this.btnUpdateClient = new System.Windows.Forms.Button();
+            this.txtIdClient = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -211,6 +214,14 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Location = new System.Drawing.Point(13, 311);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(389, 13);
+            this.groupBox1.TabIndex = 23;
+            this.groupBox1.TabStop = false;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::PL.Properties.Resources.user;
@@ -221,20 +232,10 @@
             this.pictureBox1.TabIndex = 22;
             this.pictureBox1.TabStop = false;
             // 
-            // btnCancelar
-            // 
-            this.btnCancelar.Image = global::PL.Properties.Resources.cancel;
-            this.btnCancelar.Location = new System.Drawing.Point(327, 331);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 40);
-            this.btnCancelar.TabIndex = 21;
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
             // btnGuardar
             // 
             this.btnGuardar.Image = global::PL.Properties.Resources.save;
-            this.btnGuardar.Location = new System.Drawing.Point(244, 331);
+            this.btnGuardar.Location = new System.Drawing.Point(297, 344);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 40);
             this.btnGuardar.TabIndex = 20;
@@ -244,7 +245,7 @@
             // btnNuevo
             // 
             this.btnNuevo.Image = global::PL.Properties.Resources.documents;
-            this.btnNuevo.Location = new System.Drawing.Point(158, 331);
+            this.btnNuevo.Location = new System.Drawing.Point(211, 344);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(75, 40);
             this.btnNuevo.TabIndex = 19;
@@ -273,22 +274,52 @@
             this.btnAgregarProvincia.UseVisualStyleBackColor = true;
             this.btnAgregarProvincia.Click += new System.EventHandler(this.btnAgregarProvincia_Click);
             // 
-            // groupBox1
+            // label9
             // 
-            this.groupBox1.Location = new System.Drawing.Point(13, 311);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(389, 10);
-            this.groupBox1.TabIndex = 23;
-            this.groupBox1.TabStop = false;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(9, 289);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(87, 13);
+            this.label9.TabIndex = 25;
+            this.label9.Text = "Límite de Crédito";
+            // 
+            // mktLimteCredClient
+            // 
+            this.mktLimteCredClient.Location = new System.Drawing.Point(102, 286);
+            this.mktLimteCredClient.Name = "mktLimteCredClient";
+            this.mktLimteCredClient.Size = new System.Drawing.Size(126, 20);
+            this.mktLimteCredClient.TabIndex = 26;
+            // 
+            // btnUpdateClient
+            // 
+            this.btnUpdateClient.Image = global::PL.Properties.Resources.save;
+            this.btnUpdateClient.Location = new System.Drawing.Point(297, 344);
+            this.btnUpdateClient.Name = "btnUpdateClient";
+            this.btnUpdateClient.Size = new System.Drawing.Size(75, 40);
+            this.btnUpdateClient.TabIndex = 27;
+            this.btnUpdateClient.UseVisualStyleBackColor = true;
+            this.btnUpdateClient.Visible = false;
+            this.btnUpdateClient.Click += new System.EventHandler(this.btnUpdateClient_Click);
+            // 
+            // txtIdClient
+            // 
+            this.txtIdClient.Location = new System.Drawing.Point(11, 344);
+            this.txtIdClient.Name = "txtIdClient";
+            this.txtIdClient.Size = new System.Drawing.Size(114, 20);
+            this.txtIdClient.TabIndex = 28;
+            this.txtIdClient.Visible = false;
             // 
             // frmRegClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(421, 396);
+            this.Controls.Add(this.btnUpdateClient);
+            this.Controls.Add(this.txtIdClient);
+            this.Controls.Add(this.mktLimteCredClient);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnNuevo);
             this.Controls.Add(this.mktTelefono);
@@ -329,21 +360,24 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.MaskedTextBox mktCedula;
-        private System.Windows.Forms.TextBox txtNombre;
-        private System.Windows.Forms.TextBox txtApellidos;
-        private System.Windows.Forms.TextBox txtDireccion;
-        private System.Windows.Forms.ComboBox cmbProvincia;
         private System.Windows.Forms.Button btnAgregarProvincia;
-        private System.Windows.Forms.ComboBox cmbCiudad;
         private System.Windows.Forms.Button btnAgregarCiudad;
-        private System.Windows.Forms.MaskedTextBox mktTelefono;
-        private System.Windows.Forms.Button btnCancelar;
-        private System.Windows.Forms.Button btnGuardar;
-        private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label9;
+        public System.Windows.Forms.MaskedTextBox mktCedula;
+        public System.Windows.Forms.TextBox txtNombre;
+        public System.Windows.Forms.TextBox txtApellidos;
+        public System.Windows.Forms.TextBox txtDireccion;
+        public System.Windows.Forms.ComboBox cmbProvincia;
+        public System.Windows.Forms.ComboBox cmbCiudad;
+        public System.Windows.Forms.MaskedTextBox mktTelefono;
+        public System.Windows.Forms.Button btnGuardar;
+        public System.Windows.Forms.Button btnNuevo;
+        public System.Windows.Forms.MaskedTextBox mktLimteCredClient;
+        public System.Windows.Forms.Button btnUpdateClient;
+        public System.Windows.Forms.TextBox txtIdClient;
     }
 }

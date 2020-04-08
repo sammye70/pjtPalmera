@@ -24,16 +24,16 @@ namespace pjPalmera.PL
         }
 
 
-        private const int CP_NOCLOSE_BUTTON = 0x200;
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams myCp = base.CreateParams;
-                myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
-                return myCp;
-            }
-        }
+        //private const int CP_NOCLOSE_BUTTON = 0x200;
+        //protected override CreateParams CreateParams
+        //{
+        //    get
+        //    {
+        //        CreateParams myCp = base.CreateParams;
+        //        myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
+        //        return myCp;
+        //    }
+        //}
 
 
         private void frmRegArticulos_Load(object sender, EventArgs e)
@@ -134,6 +134,7 @@ namespace pjPalmera.PL
             this.btnAddCategoria.Enabled = false;
             this.btnAddFabricante.Enabled = false;
             this.cmbEstado.Enabled = false;
+            this.btnCancelar.Visible = false;
         }
 
         /// <summary>
@@ -164,12 +165,39 @@ namespace pjPalmera.PL
         /// </summary>
         private void InitializeControls()
         {
-            this.toolTip1.SetToolTip(btnNuevo, "Nuevo Registro");
-            this.toolTip1.SetToolTip(btnGuardar, "Guardar Registro");
+            this.toolTip1.SetToolTip(btnNuevo, "Nuevo Articulo");
+            this.toolTip1.SetToolTip(btnGuardar, "Guardar Articulo");
             this.toolTip1.SetToolTip(btnCancelar, "Cerrar");
-            this.toolTip1.SetToolTip(btnUpdateFields, "Guardar Registro");
+            this.toolTip1.SetToolTip(btnUpdateFields, "Actualizar Informacion del  Articulo");
             this.toolTip1.SetToolTip(btnGenerarCodigo, "Generar Código para Productos");
             this.dateTimePicker1.Format = DateTimePickerFormat.Short;
+        }
+
+
+
+        /// <summary>
+        /// Initialitation frmRegArticulos Controls
+        /// </summary>
+        public void InitControl()
+        {
+            this.btnUpdateFields.Visible = true;
+            this.cmbEstado.Visible = true;
+            this.lblEstado.Visible = true;
+            this.txtCodigo.Focus();
+        }
+
+
+        /// <summary>
+        /// Hide controls in frmRegArticulos when current form to call this.
+        /// </summary>
+        public void HideControls()
+        {
+            //ffproductos.txtStockInicial.Visible = false;
+            //ffproductos.txtStockMinimo.Visible = false;
+            //ffproductos.lblStockInicial.Visible = false;
+            //ffproductos.lblStockMinimo.Visible = false;
+            this.btnGuardar.Visible = false;
+            this.btnNuevo.Visible = false;
         }
 
         /// <summary>
@@ -356,13 +384,22 @@ namespace pjPalmera.PL
             {
                 try
                 {
-                    decimal c, pg, pv, p;
+                    var OpServices = new OpServices();
+                    decimal Price;
+                    Price=OpServices.SetPrice(Convert.ToDecimal(this.txtCosto.Text), Convert.ToDecimal(this.cmbGanancia.Text));
+                    this.txtPrecioVenta.Text = Convert.ToString(Price);
 
-                    c = Convert.ToDecimal(this.txtCosto.Text);
-                    p = Convert.ToDecimal(this.cmbGanancia.Text);
-                    pg = (c * p) / 100;
-                    pv = c + pg;
-                    this.txtPrecioVenta.Text = Convert.ToString(pv);
+                    #region OldCode
+
+                    //decimal c, pg, pv, p;
+
+                    //c = Convert.ToDecimal(this.txtCosto.Text);
+                    //p = Convert.ToDecimal(this.cmbGanancia.Text);
+                    //pg = (c * p) / 100;
+                    //pv = c + pg;
+                    //this.txtPrecioVenta.Text = Convert.ToString(pv);
+
+                    #endregion 
                 }
                 catch
                 {
@@ -389,8 +426,8 @@ namespace pjPalmera.PL
                 UpdateFields();
                 MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
-            //    ccproductos.dgvProdConsultar.DataSource = null;
-              //  ccproductos.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+                //ccproductos.dgvProdConsultar.DataSource = null;
+                //ccproductos.dgvProdConsultar.DataSource = ProductosBO.GetAll();
                 this.Close();
             }
             else if (Question == DialogResult.No)
@@ -409,8 +446,8 @@ namespace pjPalmera.PL
 
         private void btnGenerarCodigo_Click(object sender, EventArgs e)
         {
-            ProductosEntity productos = new ProductosEntity();
-            this.txtCodigo.Text=Convert.ToString(productos.NumberGeneratorCode());
+            var OpServices = new OpServices();
+            this.txtCodigo.Text=Convert.ToString(OpServices.NumberGeneratorCode());
         }
 
         private void cmbFabrincante_DropDown(object sender, EventArgs e)

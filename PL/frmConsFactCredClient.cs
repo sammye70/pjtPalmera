@@ -42,7 +42,7 @@ namespace pjPalmera.PL
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

@@ -43,18 +43,54 @@ namespace pjPalmera.BLL
         }
 
         /// <summary>
-        ///Get all Costumers 
+        /// Update costumer information
         /// </summary>
+        /// <param name="costumer"></param>
         /// <returns></returns>
-        public static List<ClientesEntity> GetAll()
+        public static ClientesEntity Update(ClientesEntity costumer)
         {
             try
             {
-                return ClientesDAL.GetAll();
+                return ClientesDAL.Update(costumer);
+            }
+            catch (AggregateException ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
+        }
+
+        /// <summary>
+        ///Delete Client by Id 
+        /// </summary>
+        /// <param name="id"></param>
+        public static void Delete(long id)
+        {
+            try
+            {
+                ClientesDAL.Delete(id);
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
 
+            }
+        }
+
+
+            /// <summary>
+            ///Get all Costumers 
+            /// </summary>
+            /// <returns></returns>
+            public static List<ClientesEntity> GetAll()
+        {
+            try
+            {
+                return ClientesDAL.All;
+            }
+            catch (Exception ex)
+            { 
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return null;
             }
@@ -79,11 +115,29 @@ namespace pjPalmera.BLL
         }
 
         /// <summary>
-        /// Filter Costumer by cedula
+        /// Get User by Id for Update Information
         /// </summary>
-        /// <param name="cedula"></param>
         /// <returns></returns>
-        public static List<ClientesEntity> GetbyCedula(Int64 cedula)
+        public static ClientesEntity GetbyCodeUpdate(long Id)
+        {
+            try
+            {
+                return ClientesDAL.GetbyCodeUpdate(Id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
+        }
+
+
+            /// <summary>
+            /// Filter Costumer by cedula
+            /// </summary>
+            /// <param name="cedula"></param>
+            /// <returns></returns>
+            public static List<ClientesEntity> GetbyCedula(string cedula)
         {
             try
             {

@@ -223,21 +223,5 @@ namespace pjPalmera.Entities
             return pv;
         }
 
-
-        /// <summary>
-        ///Product Generator Code Number
-        /// </summary>
-        public string NumberGeneratorCode()
-        {
-            //Comment stament to genere code product 13 characters
-            // uncomment stament to genere code product 6 characters
-
-            //long NumberRandom1 = new Random().Next(123456789, 987654321);
-            long NumberRandom1 = new Random().Next(123456, 654321);
-            long NumberRandom2 = new Random().Next(1234, 4321);
-            //string NumberRandom = Convert.ToString(NumberRandom1) + Convert.ToString(NumberRandom2);
-            string NumberRandom = Convert.ToString(NumberRandom1);
-            return NumberRandom;
-        }
     }
 }

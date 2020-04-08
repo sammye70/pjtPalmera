@@ -33,13 +33,15 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.btnEliminar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.btnEditar = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtCriterioBusqueda = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientConsultar)).BeginInit();
@@ -54,11 +56,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvClientConsultar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvClientConsultar.Location = new System.Drawing.Point(12, 82);
+            this.dgvClientConsultar.Location = new System.Drawing.Point(12, 70);
             this.dgvClientConsultar.Name = "dgvClientConsultar";
             this.dgvClientConsultar.ReadOnly = true;
             this.dgvClientConsultar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvClientConsultar.Size = new System.Drawing.Size(1055, 401);
+            this.dgvClientConsultar.Size = new System.Drawing.Size(1055, 413);
             this.dgvClientConsultar.TabIndex = 2;
             this.dgvClientConsultar.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClientConsultar_CellContentDoubleClick);
             // 
@@ -68,16 +70,37 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnRefresh);
+            this.panel1.Controls.Add(this.btnEliminar);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.btnEditar);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.btnSearch);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.txtCriterioBusqueda);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(12, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1079, 64);
+            this.panel1.Size = new System.Drawing.Size(1055, 61);
             this.panel1.TabIndex = 3;
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Image = global::PL.Properties.Resources.refresh;
+            this.btnRefresh.Location = new System.Drawing.Point(583, 11);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(56, 43);
+            this.btnRefresh.TabIndex = 14;
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Image = global::PL.Properties.Resources.trash;
+            this.btnEliminar.Location = new System.Drawing.Point(521, 10);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(56, 43);
+            this.btnEliminar.TabIndex = 13;
+            this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // groupBox1
             // 
@@ -85,7 +108,7 @@
             this.groupBox1.Controls.Add(this.radioButton3);
             this.groupBox1.Controls.Add(this.radioButton2);
             this.groupBox1.Controls.Add(this.radioButton1);
-            this.groupBox1.Location = new System.Drawing.Point(534, 10);
+            this.groupBox1.Location = new System.Drawing.Point(655, 9);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(381, 46);
             this.groupBox1.TabIndex = 11;
@@ -144,15 +167,16 @@
             this.btnEditar.Size = new System.Drawing.Size(56, 43);
             this.btnEditar.TabIndex = 9;
             this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
-            // button1
+            // btnSearch
             // 
-            this.button1.Image = global::PL.Properties.Resources.search;
-            this.button1.Location = new System.Drawing.Point(394, 10);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(56, 43);
-            this.button1.TabIndex = 7;
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnSearch.Image = global::PL.Properties.Resources.search;
+            this.btnSearch.Location = new System.Drawing.Point(394, 10);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(56, 43);
+            this.btnSearch.TabIndex = 7;
+            this.btnSearch.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -179,6 +203,7 @@
             this.Controls.Add(this.dgvClientConsultar);
             this.Controls.Add(this.panel1);
             this.Name = "frmConsulClientes";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Consultar Clientes";
             this.Load += new System.EventHandler(this.frmConsulClientes_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientConsultar)).EndInit();
@@ -197,7 +222,7 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtCriterioBusqueda;
         private System.Windows.Forms.Button btnEditar;
@@ -206,5 +231,7 @@
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.RadioButton radioButton2;
+        public System.Windows.Forms.Button btnRefresh;
+        public System.Windows.Forms.Button btnEliminar;
     }
 }

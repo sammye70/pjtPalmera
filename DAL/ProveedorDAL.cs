@@ -22,8 +22,8 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql = @"INSERT INTO fabricante (nombre_fab, nom_contacto, tel_contacto, telefono, direccion_fab, rnc, limitecredito, created, createby)
-                               VALUE (@nombre_fab, @nom_contacto, @tel_contacto, @telefono, @direccion_fab, @rnc, @limitecredito, @created, @createby)";
+                string sql = @"INSERT INTO fabricante (nombre_fab, telefono, nom_contacto, tel_contacto, direccion_fab, rnc, limitecredito, created, createby)
+                               VALUE (@nombre_fab, @nom_contacto, @telefono, @tel_contacto, @direccion_fab, @rnc, @limitecredito, @created, @createby)";
 
                 MySqlCommand cmd = new MySqlCommand(sql, con);
 
@@ -187,15 +187,16 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection (SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = @"UPDATE fabricante SET fabricante.nombre_fab=@nombre_fab, fabricante.nom_contacto=@nom_contacto, fabricante.tel_contacto=@tel_contacto, 
+                string query = @"UPDATE fabricante SET fabricante.nombre_fab=@nombre_fab, telefono=@telefono, fabricante.nom_contacto=@nom_contacto, fabricante.tel_contacto=@tel_contacto, 
                                                        fabricante.direccion_fab=@direccion_fab, fabricante.rnc=@rnc, fabricante.limitecredito=@limitecredito
                                 WHERE idfabricante=@idfabricante ";
-                                                                        // add column Proveedor Telephone in databases
+                                                                        
 
                 MySqlCommand cmd = new MySqlCommand(query,con);
 
                 cmd.Parameters.AddWithValue("@idfabricante", Proveedor.Idproveedor);
                 cmd.Parameters.AddWithValue("@nombre_fab", Proveedor.Nombre_proveedor);
+                cmd.Parameters.AddWithValue("@telefono", Proveedor.Tel_proveedor);
                 cmd.Parameters.AddWithValue("@nom_contacto", Proveedor.Nombre_contacto);
                 cmd.Parameters.AddWithValue("@tel_contacto", Proveedor.Tel_contacto);
                 cmd.Parameters.AddWithValue("@direccion_fab", Proveedor.Direccion_fab);
@@ -290,6 +291,7 @@ namespace pjPalmera.DAL
 
             Proveedor.Idproveedor = Convert.ToInt32(Reader["idfabricante"]);
             Proveedor.Nombre_proveedor = Convert.ToString(Reader["nombre_fab"]);
+            Proveedor.Tel_proveedor = Convert.ToString(Reader["telefono"]);
             Proveedor.Nombre_contacto = Convert.ToString(Reader["nom_contacto"]);
             Proveedor.Tel_contacto = Convert.ToString(Reader["tel_contacto"]);
             Proveedor.Direccion_fab = Convert.ToString(Reader["direccion_fab"]);

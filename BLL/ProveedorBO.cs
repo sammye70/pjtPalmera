@@ -127,8 +127,7 @@ namespace pjPalmera.BLL
                 return ProveedorDAL.Update(proveedor);
             }
             catch (Exception ex)
-            {
-
+            { 
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }

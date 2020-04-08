@@ -52,7 +52,6 @@
             this.consultarArticulosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stockMinimosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripSeparator();
-            this.reporteDeArticulosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.articulosAVencerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.ingresarPedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,8 +89,8 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pbExitApp = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -108,8 +107,8 @@
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExitApp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -263,7 +262,6 @@
             this.consultarArticulosToolStripMenuItem,
             this.stockMinimosToolStripMenuItem,
             this.toolStripMenuItem7,
-            this.reporteDeArticulosToolStripMenuItem,
             this.articulosAVencerToolStripMenuItem,
             this.toolStripMenuItem2,
             this.ingresarPedidosToolStripMenuItem,
@@ -283,7 +281,7 @@
             // 
             this.consultarArticulosToolStripMenuItem.Name = "consultarArticulosToolStripMenuItem";
             this.consultarArticulosToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
-            this.consultarArticulosToolStripMenuItem.Text = "Consultar Articulos";
+            this.consultarArticulosToolStripMenuItem.Text = "Ajustar y Consultar Articulos";
             this.consultarArticulosToolStripMenuItem.Click += new System.EventHandler(this.consultarArticulosToolStripMenuItem_Click);
             // 
             // stockMinimosToolStripMenuItem
@@ -297,13 +295,6 @@
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
             this.toolStripMenuItem7.Size = new System.Drawing.Size(270, 6);
-            // 
-            // reporteDeArticulosToolStripMenuItem
-            // 
-            this.reporteDeArticulosToolStripMenuItem.Name = "reporteDeArticulosToolStripMenuItem";
-            this.reporteDeArticulosToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
-            this.reporteDeArticulosToolStripMenuItem.Text = "Editar Articulos";
-            this.reporteDeArticulosToolStripMenuItem.Click += new System.EventHandler(this.reporteDeArticulosToolStripMenuItem_Click);
             // 
             // articulosAVencerToolStripMenuItem
             // 
@@ -577,17 +568,6 @@
             this.panel1.Size = new System.Drawing.Size(989, 84);
             this.panel1.TabIndex = 4;
             // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::PL.Properties.Resources.poor;
-            this.pictureBox3.Location = new System.Drawing.Point(83, 11);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(73, 63);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 3;
-            this.pictureBox3.TabStop = false;
-            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click_1);
-            // 
             // pictureBox4
             // 
             this.pictureBox4.Image = global::PL.Properties.Resources.delivery_cart_1;
@@ -598,6 +578,17 @@
             this.pictureBox4.TabIndex = 2;
             this.pictureBox4.TabStop = false;
             this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::PL.Properties.Resources.poor;
+            this.pictureBox3.Location = new System.Drawing.Point(83, 11);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(73, 63);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 3;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click_1);
             // 
             // pbExitApp
             // 
@@ -748,8 +739,8 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExitApp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -766,7 +757,6 @@
         private System.Windows.Forms.ToolStripMenuItem almacenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem crearArticuloToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem consultarArticulosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem reporteDeArticulosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ingresarPedidosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem proveedorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem crearProveedorToolStripMenuItem;

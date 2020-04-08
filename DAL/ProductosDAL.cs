@@ -45,7 +45,6 @@ namespace pjPalmera.DAL
 
                 //Producto.Id=Convert.ToInt32(cmd.ExecuteScalar());
                 cmd.ExecuteNonQuery();
-                con.Close();
             }
           return Producto;
         }
@@ -56,25 +55,28 @@ namespace pjPalmera.DAL
         /// </summary>
         /// <param name="GetAllProd"></param>
         /// <returns></returns>
-        public static List<ProductosEntity> GetAll()
+        public static List<ProductosEntity> All
         {
-            List<ProductosEntity> list = new List<ProductosEntity>();
-            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            get
             {
-                con.Open();
-                string sql = @"SELECT * FROM productos 
+                List<ProductosEntity> list = new List<ProductosEntity>();
+
+                using (var con = new MySqlConnection(SettingDAL.connectionstring))
+                {
+                    con.Open();
+                    string sql = @"SELECT * FROM productos 
                                      ORDER BY descripcion ASC";
 
-                MySqlCommand cmd = new MySqlCommand(sql, con);
-                MySqlDataReader reader = cmd.ExecuteReader();
+                    MySqlCommand cmd = new MySqlCommand(sql, con);
+                    MySqlDataReader reader = cmd.ExecuteReader();
 
-                while (reader.Read())
-                {
-                    list.Add(LoadProduct(reader));
+                    while (reader.Read())
+                    {
+                        list.Add(LoadProduct(reader));
+                    }
                 }
-                con.Close();
+                return list;
             }
-          return list;
         }
 
         /// <summary>
@@ -236,27 +238,30 @@ namespace pjPalmera.DAL
         /// Filter Product near to expire date
         /// </summary>
         /// <returns></returns>
-        public static List<ProductosEntity> ProductExpire()   /// Pending to Build
+        public static List<ProductosEntity> ProductExpire   /// Pending to Build
         {
-            List<ProductosEntity> list = new List<ProductosEntity>();
-
-            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            get
             {
-                con.Open();
-                string query = @"SELECT * FROM productos WHERE productos.status='Activo' AND idfamilia !='Escolar'  ORDER BY productos.f_vencimiento ASC ";
+                List<ProductosEntity> list = new List<ProductosEntity>();
 
-                MySqlCommand cmd = new MySqlCommand(query,con);
-                //cmd.Parameters.AddWithValue("@DateExpire", DateExpire);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
                 {
-                    list.Add(LoadProduct(reader));
+                    con.Open();
+                    string query = @"SELECT * FROM productos WHERE productos.status='Activo' AND idfamilia !='Escolar'  ORDER BY productos.f_vencimiento ASC ";
+
+                    MySqlCommand cmd = new MySqlCommand(query, con);
+                    //cmd.Parameters.AddWithValue("@DateExpire", DateExpire);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        list.Add(LoadProduct(reader));
+                    }
                 }
+                return list;
             }
-             return list;
-        }
+         }
 
 
         /// <summary>
@@ -297,8 +302,9 @@ namespace pjPalmera.DAL
         /// Remove Product from DataBases
         /// </summary>
         /// <returns></returns>
-        public static void DeleteProduct(Int64 code)
+        public static void DeleteProduct(long code)
         {
+         
            // ProductosEntity productos = new ProductosEntity();
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
@@ -319,7 +325,7 @@ namespace pjPalmera.DAL
         /// </summary>
         /// <param name=""></param>
         /// <returns></returns>
-        public static bool VerificateCode(Int64 id)
+        public static bool VerificateCode(long id)
         {
             bool result;
             int value;
@@ -349,7 +355,7 @@ namespace pjPalmera.DAL
         /// <summary>
         /// Filter product by Expire Date (Month and Year)
         /// </summary>
-        public static List<ProductosEntity> ExpireDate(Int32 month, Int32 year)
+        public static List<ProductosEntity> ExpireDate(int month, int year)
         {
             List<ProductosEntity> productos = new List<ProductosEntity>();
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
@@ -377,7 +383,7 @@ namespace pjPalmera.DAL
         /// </summary>
         /// <param name="year"></param>
         /// <returns></returns>
-        public static List<ProductosEntity> ExpireYear(Int32 year)
+        public static List<ProductosEntity> ExpireYear(int year)
         {
             List<ProductosEntity> productos = new List<ProductosEntity>();
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
@@ -402,7 +408,7 @@ namespace pjPalmera.DAL
         /// <summary>
         /// Search Products by Orden
         /// </summary>
-        public static ProductosEntity SearchByOrden(Int64 id)
+        public static ProductosEntity SearchByOrden(long id)
         {
             //List<ProductosEntity> productos = new List<ProductosEntity>();
             ProductosEntity productos = new ProductosEntity();
@@ -435,7 +441,7 @@ namespace pjPalmera.DAL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static ProductosEntity SearchByCode(Int64 code)
+        public static ProductosEntity SearchByCode(long code)
         {
             //List<ProductosEntity> productos = new List<ProductosEntity>();
             ProductosEntity productos = new ProductosEntity();
@@ -456,11 +462,9 @@ namespace pjPalmera.DAL
 
                 if (reader.Read())
                 {
-                   
                     productos.Idproducto = Convert.ToInt64(reader["idproducto"]);
                     productos.Descripcion = Convert.ToString(reader["descripcion"]);
                     productos.Precio_venta = Convert.ToDecimal(reader["p_venta"]);
-
                 }
             }
             return productos;
@@ -471,7 +475,7 @@ namespace pjPalmera.DAL
         /// Filter Products by Code
         /// </summary>
         /// <returns></returns>
-        public static List<ProductosEntity> FilterProductbyCode(Int64 id)
+        public static List<ProductosEntity> FilterProductbyCode(long id)
         {
            List<ProductosEntity> productos = new List<ProductosEntity>();
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))

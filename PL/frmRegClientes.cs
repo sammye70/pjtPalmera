@@ -41,7 +41,7 @@ namespace pjPalmera.PL
                     CleanControls();
                     this.errorProvider1.Clear();
                     DesableControls();
-                    this.btnCancelar.Enabled = true;
+                   // this.btnCancelar.Enabled = true;
                     this.btnNuevo.Focus();
                     MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -64,19 +64,19 @@ namespace pjPalmera.PL
         private void btnNuevo_Click(object sender, EventArgs e)
         {
             EnabledControls();
+            CleanControls();
             this.mktCedula.Focus();
             clientes = null;
-            
         }
 
         /// <summary>
         /// Set Detail About Control
         /// </summary>
-        private void SetTooltipControls()
+        private void DescripControls()
         {
             toolTip1.SetToolTip(btnNuevo, "Nuevo Registro");
-            toolTip1.SetToolTip(btnGuardar, "Guardar Registro");
-            toolTip1.SetToolTip(btnCancelar, "Limpiar Campos");
+            toolTip1.SetToolTip(btnGuardar, "Guardar Información del Nuevo Cliente");
+            toolTip1.SetToolTip(btnUpdateClient, "Actualizar Información del Cliente");
         }
 
         /// <summary>
@@ -86,10 +86,10 @@ namespace pjPalmera.PL
         {
             if (clientes == null)
             {
-                var c = 0;
+                var c = 1;
 
                 clientes = new ClientesEntity();
-                clientes.Cedula = Convert.ToInt64(this.mktCedula.Text);
+                clientes.Cedula = this.mktCedula.Text;
                 clientes.Nombre = this.txtNombre.Text;
                 clientes.Apellidos = this.txtApellidos.Text;
                 clientes.Direccion = this.txtDireccion.Text;
@@ -97,6 +97,7 @@ namespace pjPalmera.PL
                 clientes.Provincia = this.cmbProvincia.Text;
                 clientes.Telefono = this.mktTelefono.Text;
                 clientes.Cxc = c;
+                clientes.Limite_credito = Convert.ToDecimal(this.mktLimteCredClient.Text);
                // clientes.Created = DateTime.Now.Date;
 
                 clientes = ClientesBO.Save(clientes);
@@ -170,6 +171,7 @@ namespace pjPalmera.PL
         {
             this.mktCedula.Enabled = false;
             this.mktTelefono.Enabled = false;
+            this.mktLimteCredClient.Enabled = false;
             this.txtNombre.Enabled = false;
             this.txtApellidos.Enabled = false;
             this.txtDireccion.Enabled = false;
@@ -178,15 +180,16 @@ namespace pjPalmera.PL
             this.btnAgregarCiudad.Enabled = false;
             this.btnAgregarProvincia.Enabled = false;
             this.btnGuardar.Enabled = false;
-            this.btnCancelar.Enabled = false;
+          //  this.btnCancelar.Enabled = false;
         }
 
         /// <summary>
-        /// Enabled Controls
+        /// Enabled Controls Clients
         /// </summary>
-        private void EnabledControls()
+        public void EnabledControls()
         {
             this.mktCedula.Enabled = true;
+            this.mktLimteCredClient.Enabled = true;
             this.mktTelefono.Enabled = true;
             this.txtNombre.Enabled = true;
             this.txtApellidos.Enabled = true;
@@ -196,7 +199,7 @@ namespace pjPalmera.PL
             this.btnAgregarCiudad.Enabled = true;
             this.btnAgregarProvincia.Enabled = true;
             this.btnGuardar.Enabled = true;
-            this.btnCancelar.Enabled = true;
+           // this.btnCancelar.Enabled = true;
         }
 
         /// <summary>
@@ -206,6 +209,7 @@ namespace pjPalmera.PL
         {
             this.mktCedula.Text = "";
             this.mktTelefono.Text = "";
+            this.mktLimteCredClient.Text = "";
             this.txtNombre.Text = "";
             this.txtApellidos.Text = "";
             this.txtDireccion.Text = "";
@@ -215,11 +219,46 @@ namespace pjPalmera.PL
         }
 
         /// <summary>
-        /// Initial All Controls
+        /// Initial All Controls Register Clients
         /// </summary>
-        private void InitialControls()
+        public void InitialControls()
         {
-            
+            this.btnNuevo.Visible = false;
+            this.btnGuardar.Visible = false;
+            this.btnUpdateClient.Visible = true;
+        }
+
+
+        /// <summary>
+        /// Update Client Informations
+        /// </summary>
+        private void UpdateClient()
+        {
+            var clientes = new ClientesEntity();
+
+
+            try
+            {
+                if (clientes != null)
+                {
+                    clientes.Id = Convert.ToInt64(this.txtIdClient.Text);
+                    clientes.Cedula = this.mktCedula.Text;
+                    clientes.Nombre = this.txtNombre.Text;
+                    clientes.Apellidos = this.txtApellidos.Text;
+                    clientes.Direccion = this.txtDireccion.Text;
+                    clientes.Telefono = this.mktTelefono.Text;
+                    clientes.Limite_credito = Convert.ToDecimal(this.mktLimteCredClient.Text);
+                    clientes.Ciudad = this.cmbCiudad.Text;
+                    clientes.Provincia = this.cmbProvincia.Text;
+
+                    ClientesBO.Update(clientes);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
         }
 
         /// <summary>
@@ -233,8 +272,8 @@ namespace pjPalmera.PL
         }
 
         private void frmRegClientes_Load(object sender, EventArgs e)
-        {            
-            SetTooltipControls();
+        {
+            DescripControls();
             DesableControls();
             this.errorProvider1.Clear();
             this.btnNuevo.Focus();
@@ -261,5 +300,24 @@ namespace pjPalmera.PL
         }
 
 
+        private void btnUpdateClient_Click(object sender, EventArgs e)
+        {
+            DialogResult Question;
+
+            Question = MessageBox.Show("Esta Apunto de Actualizar la Información del Cliente. Desea Continuar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Question);
+
+            if (Question == DialogResult.Yes)
+            {
+                UpdateClient();
+                MessageBox.Show("Información del Cliente Actualizada Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+            else if (Question == DialogResult.No)
+            {
+                this.Close();
+                return;
+            }
+            
+        }
     }
 }

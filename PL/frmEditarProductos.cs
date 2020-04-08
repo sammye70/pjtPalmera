@@ -159,8 +159,7 @@ namespace pjPalmera.PL
                 ffproductos.cmbEstado.Text = productos.Status;
 
                 //ffproductos.LoadProveedor();
-                //ffproductos.Categories();
-               
+                //ffproductos.Categories(); 
             }
             catch
             {
@@ -322,6 +321,11 @@ namespace pjPalmera.PL
             {
                 this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
             }
+        }
+
+        private void dgvProdConsultar_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

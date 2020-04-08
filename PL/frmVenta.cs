@@ -182,14 +182,14 @@ namespace pjPalmera.PL
         private void btnGuardar_Click(object sender, EventArgs e)
         {
               TicketVentaEntity caja = new TicketVentaEntity();
-            DialogResult Question = new DialogResult();
+            var Answer = new DialogResult();
 
             if (!ValidatorPost())
              return;
 
-            Question=MessageBox.Show("Imprimir Recibo","Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            Answer = MessageBox.Show("Imprimir Recibo","Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if (Question == DialogResult.Yes)
+            if (Answer == DialogResult.Yes)
             {
                 Save_Invoices();
                 PrintTicket();
@@ -200,7 +200,7 @@ namespace pjPalmera.PL
                 Limpiar();
                 this.txtProductos.Focus();
             }
-            else if(Question == DialogResult.No)
+            else if(Answer == DialogResult.No)
              {
                 Save_Invoices();
                 caja.AbreCajon();
@@ -412,26 +412,28 @@ namespace pjPalmera.PL
         /// </summary>
         private void RemoveItems()
         {
-            int i;
+            int i, y;
             DataGridViewRow x = this.dgvDetalle.CurrentRow;
+            i = this.dgvDetalle.RowCount;
+            y = this.dgvDetalle.Rows.Count;
         
-             _iditem = Convert.ToInt32(this.dgvDetalle.Rows[x.Index].Cells["No"].Value);
+             _iditem = Convert.ToInt32(this.dgvDetalle.Rows[x.Index].Cells["No"].Value);   // -------------------->
             _importe = Convert.ToDecimal(this.dgvDetalle.Rows[x.Index].Cells["IMPORTE"].Value);
             decimal subtotal, diferencia, descuento, total, tdescuento, rdescuento, pdescuento;
             total = Convert.ToDecimal(this.txtTotalPagar.Text);
             subtotal = Convert.ToDecimal(this.txtSubtotal.Text);
             descuento = Convert.ToDecimal(this.txtDescuento.Text);
-           
 
+            
             try
             {
                 if (this.dgvDetalle.CurrentRow.Index != -1)
-                {
+                {                                                                   // ------------------> Verify logic code (possible use iteration (For))
                     //this.dgvDetalle.Rows.Remove(this.dgvDetalle.CurrentRow);
-                    i=this.dgvDetalle.RowCount - 1;
-                    i = this.dgvDetalle.Rows.Count - 1;
-                    this.Iditem = i;
-                    venta.RemoveItem(this.Iditem);
+                    i = i - 1;
+                    y = y - 1;
+                    //this.Iditem = i;
+                    venta.RemoveItem(this.Iditem); //Remove Row from list
                     this.dgvDetalle.Parent.Refresh();
                     this.dgvDetalle.Refresh();
                     diferencia = subtotal - this.Importe; // Subtract amount by item in list
@@ -519,13 +521,8 @@ namespace pjPalmera.PL
             try
             {
                 frmConsultarProductos consulProductos = new frmConsultarProductos();
-                //  consulProductos.btnEditarProd.Visible = false;
-                consulProductos.btnExpExcel.Visible = false;
-                consulProductos.lblMensaje.Visible = true;
-                consulProductos.dgvProductOnlyActive.Visible = true;
-                consulProductos.dgvProdConsultar.Visible = false;
-                consulProductos.lblCostoAllProductos.Visible = false;
-                consulProductos.lblCostoTotalProductRes.Visible = false;
+                consulProductos.IniControls();
+
 
                 if (consulProductos.ShowDialog() == DialogResult.OK)
                 {
@@ -812,7 +809,7 @@ namespace pjPalmera.PL
                 //add products to Gridview
                 DetalleVentaEntity Detail = new DetalleVentaEntity();
 
-                int x = this.dgvDetalle.Rows.Count;
+                int x= this.dgvDetalle.Rows.Count;
 
                 Detail.No = x; // Index in list
                 Detail.ID = Convert.ToInt64(txtProductos.Text);
@@ -844,13 +841,94 @@ namespace pjPalmera.PL
         /// </summary>
         public void Save_Invoices()
         {
-
-            Save_Detail();
+            CreateInvoice();
+           // Save_Detail();
             UpdateStock();
-            Save_Head();
+           // Save_Head();     ------------------------> Here Work
             Save_Transactions();
+        }
+
+
+        /// <summary>
+        /// Test Code Create Invoice
+        /// </summary>
+        private void CreateInvoice()
+        {
+            int x = this.dgvDetalle.Rows.Count; //Rows counter in DataGridView
+
+                int status = 1;
+                var c = 1;
+
+              try
+                {
+                    venta = new VentaEntity();
+
+                    venta.id_cliente = Convert.ToInt32(this.txtIdCliente.Text);
+                    venta.clientes = this.txtClientes.Text; //
+                    venta.apellidos = this.txtApClientes.Text; //
+                    venta.total = decimal.Parse(this.txtTotalPagar.Text); //
+                    venta.status = status; //
+                    venta.descuento = decimal.Parse(this.txtDescuento.Text); //
+                    venta.subtotal = decimal.Parse(this.txtSubtotal.Text); //
+                    venta.total_itbis = decimal.Parse(this.txtItbis.Text); //
+                    venta.recibido = decimal.Parse(this.txtEfectivoRecibido.Text);//
+                    venta.devuelta = decimal.Parse(this.txtDevueltaEfectivo.Text);//
+
+                    //Validate type of Invoices (Cash or Credit)
+                    if ((this.txtClientes.Text == "CONTADO") && (this.txtApClientes.Text == "CONTADO"))
+                    {
+                        venta.tipo = "1";
+                        DetalleVentaEntity Detail = new DetalleVentaEntity(); 
+
+                        foreach (DataGridViewRow row in this.dgvDetalle.Rows)
+                        {
+                            Detail.ID = Convert.ToInt64(row.Cells["ID"].Value); //Id
+                            Detail.DESCRIPCION = Convert.ToString(row.Cells["DESCRIPCION"].Value); //Description
+                            Detail.CANTIDAD = Convert.ToInt32(row.Cells["CANTIDAD"].Value); //Quality
+                            Detail.PRECIO = Convert.ToDecimal(row.Cells["PRECIO"].Value); //Price
+                            Detail.ITBIS = Convert.ToDecimal(row.Cells["ITBIS"].Value); //Itbis
+                            Detail.IMPORTE = Convert.ToDecimal(row.Cells["IMPORTE"].Value); //amount      
+                        }
+                         FacturaBO.CreateTest(venta);  // Cash Invoices (Save history all invoices)            -----------> Here Continue to Work
+                    }
+                    else
+                    {
+                       
+                        venta.tipo = "2";
+                        var id = Convert.ToInt32(this.txtIdCliente.Text);
+
+                        foreach (DetalleVentaEntity Detail in venta.Productos)
+                        {
+                            Detail.ID = Convert.ToInt64(this.dgvDetalle.Rows[x].Cells[1].Value.ToString()); //Id
+                            Detail.DESCRIPCION = this.dgvDetalle.Rows[x].Cells[2].Value.ToString(); //Description
+                            Detail.CANTIDAD = Convert.ToInt32(this.dgvDetalle.Rows[x].Cells[3].Value.ToString()); //Quality
+                            Detail.PRECIO = Convert.ToDecimal(this.dgvDetalle.Rows[x].Cells[4].Value.ToString()); //Price
+                            Detail.ITBIS = Convert.ToDecimal(this.dgvDetalle.Rows[x].Cells[5].Value.ToString()); //Itbis
+                            Detail.IMPORTE = Convert.ToDecimal(this.dgvDetalle.Rows[x].Cells[6].Value.ToString()); //amount      
+                        }
+
+                        FacturaBO.CreateTest(venta);  // Cash Invoices (Save history all invoices)            -----------> Here Continue to Work
+                        CuentasBO.StatusCxc(c, id); // Set value cxc to client  
+                       // FacturaBO.Create(venta); // Save all invoices
+                        FacturaBO.CreateCr(venta); // Credit Invoices
+                    }
+
+                /*-----------------------------------------------------------------------------------------------*/
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
 
         }
+
+
+
+
+
 
         /// <summary>
         ///  Head Generate from Textbox
@@ -918,12 +996,16 @@ namespace pjPalmera.PL
                     Detail.IMPORTE = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[6].Value.ToString()); //amount                                                                                       
                 }
                 FacturaBO.Create_detail(venta);
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
+
+           
+
 
         }
 

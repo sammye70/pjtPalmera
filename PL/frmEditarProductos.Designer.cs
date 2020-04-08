@@ -33,10 +33,12 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cmbEstado = new System.Windows.Forms.ComboBox();
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnEditarProd = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rdbEstado = new System.Windows.Forms.RadioButton();
             this.rdbDescription = new System.Windows.Forms.RadioButton();
             this.rdbCodigo = new System.Windows.Forms.RadioButton();
             this.btnEliminar = new System.Windows.Forms.Button();
@@ -44,8 +46,6 @@
             this.lblCriterio = new System.Windows.Forms.Label();
             this.txtCriterioBusqueda = new System.Windows.Forms.TextBox();
             this.lblMensaje = new System.Windows.Forms.Label();
-            this.rdbEstado = new System.Windows.Forms.RadioButton();
-            this.cmbEstado = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProdConsultar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -58,11 +58,12 @@
             this.dgvProdConsultar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvProdConsultar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProdConsultar.Location = new System.Drawing.Point(9, 129);
+            this.dgvProdConsultar.Location = new System.Drawing.Point(10, 129);
             this.dgvProdConsultar.Name = "dgvProdConsultar";
             this.dgvProdConsultar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvProdConsultar.Size = new System.Drawing.Size(1075, 335);
             this.dgvProdConsultar.TabIndex = 2;
+            this.dgvProdConsultar.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProdConsultar_CellContentClick);
             // 
             // errorProvider1
             // 
@@ -84,6 +85,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1075, 93);
             this.panel1.TabIndex = 3;
+            // 
+            // cmbEstado
+            // 
+            this.cmbEstado.FormattingEnabled = true;
+            this.cmbEstado.Items.AddRange(new object[] {
+            "Activo",
+            "Inactivo"});
+            this.cmbEstado.Location = new System.Drawing.Point(114, 38);
+            this.cmbEstado.Name = "cmbEstado";
+            this.cmbEstado.Size = new System.Drawing.Size(144, 21);
+            this.cmbEstado.TabIndex = 64;
+            this.cmbEstado.SelectedIndexChanged += new System.EventHandler(this.cmbEstado_SelectedIndexChanged);
             // 
             // btnRemove
             // 
@@ -132,6 +145,17 @@
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtrar por";
+            // 
+            // rdbEstado
+            // 
+            this.rdbEstado.AutoSize = true;
+            this.rdbEstado.Location = new System.Drawing.Point(249, 23);
+            this.rdbEstado.Name = "rdbEstado";
+            this.rdbEstado.Size = new System.Drawing.Size(82, 20);
+            this.rdbEstado.TabIndex = 64;
+            this.rdbEstado.Text = "ESTADO";
+            this.rdbEstado.UseVisualStyleBackColor = true;
+            this.rdbEstado.CheckedChanged += new System.EventHandler(this.rdEstado_CheckedChanged);
             // 
             // rdbDescription
             // 
@@ -203,29 +227,6 @@
             this.lblMensaje.TabIndex = 4;
             this.lblMensaje.Text = "Indicar como buscar (Código, Descripción), por Estado(Activo, Inactivo). Luego Se" +
     "leccionar y  después presionar el botón Editar";
-            // 
-            // rdbEstado
-            // 
-            this.rdbEstado.AutoSize = true;
-            this.rdbEstado.Location = new System.Drawing.Point(249, 23);
-            this.rdbEstado.Name = "rdbEstado";
-            this.rdbEstado.Size = new System.Drawing.Size(82, 20);
-            this.rdbEstado.TabIndex = 64;
-            this.rdbEstado.Text = "ESTADO";
-            this.rdbEstado.UseVisualStyleBackColor = true;
-            this.rdbEstado.CheckedChanged += new System.EventHandler(this.rdEstado_CheckedChanged);
-            // 
-            // cmbEstado
-            // 
-            this.cmbEstado.FormattingEnabled = true;
-            this.cmbEstado.Items.AddRange(new object[] {
-            "Activo",
-            "Inactivo"});
-            this.cmbEstado.Location = new System.Drawing.Point(114, 38);
-            this.cmbEstado.Name = "cmbEstado";
-            this.cmbEstado.Size = new System.Drawing.Size(144, 21);
-            this.cmbEstado.TabIndex = 64;
-            this.cmbEstado.SelectedIndexChanged += new System.EventHandler(this.cmbEstado_SelectedIndexChanged);
             // 
             // frmEditarProductos
             // 

@@ -59,7 +59,7 @@ namespace pjPalmera.BLL
         {
             try
             {
-                return ProductosDAL.GetAll();
+                return ProductosDAL.All;
             }
             catch (Exception ex)
             {
@@ -73,7 +73,7 @@ namespace pjPalmera.BLL
         /// Search Product by Id
         /// </summary>
         /// <returns></returns>
-        public static ProductosEntity SearchByOrden(Int64 id)
+        public static ProductosEntity SearchByOrden(long id)
         {
             try
             {
@@ -219,7 +219,7 @@ namespace pjPalmera.BLL
         {
             try
             {
-                return ProductosDAL.ProductExpire();
+                return ProductosDAL.ProductExpire;
             }
             catch (Exception ex)
             {

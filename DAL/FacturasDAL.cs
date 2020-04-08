@@ -97,6 +97,76 @@ namespace pjPalmera.DAL
         }
 
 
+        /*-----------------------------------New Test Code---------------------------------------*/
+        /// <summary>
+        /// Test Process Insert  Invoice Head and Detail
+        /// </summary>
+        /// <param name="Venta"></param>
+        public static void CreateTest(VentaEntity Venta)
+        {
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+
+                con.Open();
+                string sql_head = @"INSERT INTO venta (id_cliente, nombre, apellidos, total, created, status, tipo, descuento, subtotal, total_itbis, recibido, devuelta) 
+                                        VALUES(@id_cliente, @nombre, @apellidos, @total, @created, @status, @tipo, @descuento, @subtotal, @total_itbis, @recibido, @devuelta)
+                                    ";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql_head, con))
+                {
+                    cmd.Parameters.AddWithValue("@id_cliente", Venta.id_cliente);
+                    cmd.Parameters.AddWithValue("@nombre", Venta.clientes);
+                    cmd.Parameters.AddWithValue("@apellidos", Venta.apellidos);
+                    cmd.Parameters.AddWithValue("@total", Venta.total);
+                    cmd.Parameters.AddWithValue("@created", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@status", Venta.status);
+                    cmd.Parameters.AddWithValue("@tipo", Venta.tipo);
+                    cmd.Parameters.AddWithValue("@descuento", Venta.descuento);
+                    cmd.Parameters.AddWithValue("@subtotal", Venta.subtotal);
+                    cmd.Parameters.AddWithValue("@total_itbis", Venta.total_itbis);
+                    cmd.Parameters.AddWithValue("devuelta", Venta.devuelta);
+                    cmd.Parameters.AddWithValue("recibido", Venta.recibido);
+
+                    Venta.id =  Convert.ToInt64(cmd.ExecuteScalar());
+                }
+
+                //   con.Close();
+
+                string sql_detail = @"INSERT INTO detail_venta (idproducto, idventa, descripcion, cantidad, precio, itbis, importe, created)
+                                        VALUES(@idproducto, @descripcion, @id_venta, @cantidad, @precio, @itbis, @importe, @created)";
+
+                //MySqlCommand cmd = new MySqlCommand(sql_detail, con);
+                using (var cmd = new MySqlCommand(sql_detail, con))
+                {
+                    foreach (DetalleVentaEntity dvental in Venta.Productos)
+                    {
+                        //
+                        //Remove old parameters
+                        //
+                        cmd.Parameters.Clear();
+                        //
+                        cmd.Parameters.AddWithValue("@idproducto", dvental.ID);
+                        cmd.Parameters.AddWithValue("@descripcion", dvental.DESCRIPCION);
+                        cmd.Parameters.AddWithValue("@cantidad", dvental.CANTIDAD);
+                        cmd.Parameters.AddWithValue("@precio", dvental.PRECIO);
+                        cmd.Parameters.AddWithValue("@itbis", dvental.ITBIS);
+                        cmd.Parameters.AddWithValue("@importe", dvental.IMPORTE);
+                        cmd.Parameters.AddWithValue("@created", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@id_venta", Venta.id);
+                        // cmd.Parameters.AddWithValue("@status", 1);
+                        ///
+                        ///
+                        cmd.ExecuteNonQuery();
+                    }
+
+                }
+            }
+        }
+
+        /*----------------------------------Until Test Code-------------------------------------------------*/
+
+
+
         /// <summary>
         /// Create Insert head on databases (Credit)
         /// </summary>

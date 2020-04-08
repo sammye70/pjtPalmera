@@ -583,6 +583,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="folder_summer_13091.ico" />
+    <None Include="Resources\documents2.ico" />
     <None Include="Resources\documents1.ico" />
     <None Include="Resources\calculator.ico" />
     <None Include="Resources\pack.ico" />

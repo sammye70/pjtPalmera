@@ -138,7 +138,7 @@ namespace pjPalmera.DAL
             ClientesEntity costumer = new ClientesEntity();
 
             costumer.Id = Convert.ToInt32(Reader["id"]);
-            costumer.Cedula = Convert.ToInt32(Reader["cedula"]);
+            costumer.Cedula = Convert.ToString(Reader["cedula"]);
             costumer.Nombre = Convert.ToString(Reader["nombre"]);
             costumer.Apellidos = Convert.ToString(Reader["apellidos"]);
             costumer.Telefono = Convert.ToString(Reader["telefono"]);

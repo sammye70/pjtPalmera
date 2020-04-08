@@ -16,9 +16,9 @@ namespace pjPalmera.PL
     {
         ProveedorEntity Proveedor = new ProveedorEntity();
         
-        Int64 _code;
+        long _code;
 
-        public Int64 Code
+        public long Code
         {
             get { return _code; }
         }
@@ -26,13 +26,14 @@ namespace pjPalmera.PL
         public frmConsultarProveedor()
         {
             InitializeComponent();
-            DesableControls();
+           
         }
 
         private void frmConsultarProveedor_Load(object sender, EventArgs e)
         {
             this.dgvContProveedor.DataSource = ProveedorBO.GetAllProveedor();
             CleanControls();
+            DesableControls();
         }
 
 
@@ -63,6 +64,7 @@ namespace pjPalmera.PL
         {
             this.btnEditar.Visible = true;
             this.btnEliminar.Visible = true;
+            this.btnRefresh.Visible = true;
         }
 
 
@@ -116,7 +118,9 @@ namespace pjPalmera.PL
 
             catch (Exception ex)
             {
+                Proveedor = null;
                 MessageBox.Show(ex.Message,"Mensaje del Sistema");
+                return;
             }
         }
 
@@ -252,6 +256,13 @@ namespace pjPalmera.PL
                 this.dgvContProveedor.DataSource = null;
                 this.dgvContProveedor.DataSource=ProveedorBO.GetAllProveedor();
             }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            this.dgvContProveedor.DataSource = null;
+            this.dgvContProveedor.DataSource = ProveedorBO.GetAllProveedor();
+            return;
         }
     }
 }

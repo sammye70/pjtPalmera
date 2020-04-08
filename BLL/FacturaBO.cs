@@ -328,5 +328,29 @@ namespace pjPalmera.BLL
             }
         }
 
+
+
+        /*-----------------------------------*/
+
+        /// <summary>
+        /// Test Process Insert  Invoice Head and Detail
+        /// </summary>
+        /// <param name="Venta"></param>
+        public static void CreateTest(VentaEntity Venta)
+        {
+            try
+            {
+                FacturasDAL.CreateTest(Venta);
+            }
+            catch (Exception  ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+        }
+
+
+
+
     }
 }

@@ -162,7 +162,6 @@ namespace pjPalmera.PL
 
                 ProveedorBO.Save(proveedor);
             }
-
         }
 
         /// <summary>
@@ -174,6 +173,7 @@ namespace pjPalmera.PL
             {
                 proveedor = new ProveedorEntity();
 
+                proveedor.Idproveedor = Convert.ToInt32(this.txtIdProveedor.Text);
                 proveedor.Rnc = Convert.ToInt64(this.txtRnc.Text);
                 proveedor.Nombre_proveedor = this.txtNomProveedor.Text;
                 proveedor.Nombre_contacto = this.txtNomRepresentante.Text;
@@ -222,7 +222,7 @@ namespace pjPalmera.PL
             if (Question == DialogResult.Yes)
             {
                 UpdateProveedor();
-                Question = MessageBox.Show("Se Guardaron los Cambios", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //Question = MessageBox.Show("Se Guardaron los Cambios", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 cProveedor.dgvContProveedor.DataSource = null;
                 cProveedor.dgvContProveedor.DataSource = ProveedorBO.GetAllProveedor();
             }

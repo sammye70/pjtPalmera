@@ -69,9 +69,10 @@ namespace pjPalmera.PL
             try
             {
                 int t;
-                t = Services.monto(Convert.ToInt32(this.txtMonedas1.Text), Convert.ToInt32(this.txtMonedas5.Text), Convert.ToInt32(this.txtMonedas10.Text), Convert.ToInt32(this.txtMonedas25.Text), 
-                    Convert.ToInt32(this.txtBilletes50.Text),Convert.ToInt32(this.txtBilletes100.Text),Convert.ToInt32(this.txtBilletes200.Text),Convert.ToInt32(this.txtBilletes500.Text),
-                    Convert.ToInt32(this.txtBilletes1000.Text), Convert.ToInt32(this.txtBilletes2000.Text));
+                t = Services.monto(Convert.ToInt32(this.txtMonedas1.Text), Convert.ToInt32(this.txtMonedas5.Text), Convert.ToInt32(this.txtMonedas10.Text), 
+                    Convert.ToInt32(this.txtMonedas25.Text), Convert.ToInt32(this.txtBilletes50.Text),Convert.ToInt32(this.txtBilletes100.Text),
+                    Convert.ToInt32(this.txtBilletes200.Text),Convert.ToInt32(this.txtBilletes500.Text), Convert.ToInt32(this.txtBilletes1000.Text),
+                    Convert.ToInt32(this.txtBilletes2000.Text));
 
                 this.lblEfectivoCaja.Text = Convert.ToString(t);
             }
@@ -175,21 +176,21 @@ namespace pjPalmera.PL
 
         private void btnProcesar_Click(object sender, EventArgs e)
         {
-            DialogResult Question = new DialogResult();
+            var Answer = new DialogResult();
 
             if (this.lblEfectivoCaja.Text !="0.00")
             {
-                Question = MessageBox.Show("Seguro que Desea Cerrar la Caja", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                Answer = MessageBox.Show("Seguro que Desea Cerrar la Caja", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                if (Question == DialogResult.Yes)
+                if (Answer == DialogResult.Yes)
                 {
                     CloseBoxProc();
-                    Print();
+                    //Print();
                     CleanControls();
                     MessageBox.Show("Cierre Realizado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
-                else if (Question == DialogResult.No)
+                else if (Answer == DialogResult.No)
                 {
                     return;
                 }

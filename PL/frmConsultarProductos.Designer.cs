@@ -33,11 +33,15 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cmbEstado = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbDescripcion = new System.Windows.Forms.RadioButton();
+            this.rbEstado = new System.Windows.Forms.RadioButton();
+            this.rbDescription = new System.Windows.Forms.RadioButton();
             this.rbCodigo = new System.Windows.Forms.RadioButton();
+            this.btnRemove = new System.Windows.Forms.Button();
+            this.btnEditarProd = new System.Windows.Forms.Button();
+            this.btnRefrescar = new System.Windows.Forms.Button();
             this.btnExpExcel = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.lblCriterio = new System.Windows.Forms.Label();
             this.txtCriterioBusqueda = new System.Windows.Forms.TextBox();
@@ -56,13 +60,14 @@
             // 
             // dgvProdConsultar
             // 
-            this.dgvProdConsultar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgvProdConsultar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvProdConsultar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProdConsultar.Location = new System.Drawing.Point(12, 104);
+            this.dgvProdConsultar.Location = new System.Drawing.Point(12, 88);
             this.dgvProdConsultar.Name = "dgvProdConsultar";
             this.dgvProdConsultar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvProdConsultar.Size = new System.Drawing.Size(1053, 358);
+            this.dgvProdConsultar.Size = new System.Drawing.Size(1103, 374);
             this.dgvProdConsultar.TabIndex = 0;
             this.dgvProdConsultar.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProdConsultar_CellContentDoubleClick);
             // 
@@ -72,56 +77,112 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.cmbEstado);
             this.panel1.Controls.Add(this.groupBox1);
+            this.panel1.Controls.Add(this.btnRemove);
+            this.panel1.Controls.Add(this.btnEditarProd);
+            this.panel1.Controls.Add(this.btnRefrescar);
             this.panel1.Controls.Add(this.btnExpExcel);
-            this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.btnSearch);
             this.panel1.Controls.Add(this.lblCriterio);
             this.panel1.Controls.Add(this.txtCriterioBusqueda);
-            this.panel1.Location = new System.Drawing.Point(7, 26);
+            this.panel1.Location = new System.Drawing.Point(11, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1053, 56);
+            this.panel1.Size = new System.Drawing.Size(1103, 70);
             this.panel1.TabIndex = 1;
+            // 
+            // cmbEstado
+            // 
+            this.cmbEstado.FormattingEnabled = true;
+            this.cmbEstado.Items.AddRange(new object[] {
+            "Activo",
+            "Inactivo"});
+            this.cmbEstado.Location = new System.Drawing.Point(85, 22);
+            this.cmbEstado.Name = "cmbEstado";
+            this.cmbEstado.Size = new System.Drawing.Size(144, 21);
+            this.cmbEstado.TabIndex = 65;
+            this.cmbEstado.Visible = false;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.rbDescripcion);
+            this.groupBox1.Controls.Add(this.rbEstado);
+            this.groupBox1.Controls.Add(this.rbDescription);
             this.groupBox1.Controls.Add(this.rbCodigo);
-            this.groupBox1.Location = new System.Drawing.Point(518, 3);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(637, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(310, 49);
-            this.groupBox1.TabIndex = 9;
+            this.groupBox1.Size = new System.Drawing.Size(346, 56);
+            this.groupBox1.TabIndex = 68;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Buscar por";
+            this.groupBox1.Text = "Filtrar por";
             // 
-            // rbDescripcion
+            // rbEstado
             // 
-            this.rbDescripcion.AutoSize = true;
-            this.rbDescripcion.Location = new System.Drawing.Point(126, 20);
-            this.rbDescripcion.Name = "rbDescripcion";
-            this.rbDescripcion.Size = new System.Drawing.Size(81, 17);
-            this.rbDescripcion.TabIndex = 10;
-            this.rbDescripcion.TabStop = true;
-            this.rbDescripcion.Text = "Descripción";
-            this.rbDescripcion.UseVisualStyleBackColor = true;
-            this.rbDescripcion.CheckedChanged += new System.EventHandler(this.rbDescripcion_CheckedChanged);
+            this.rbEstado.AutoSize = true;
+            this.rbEstado.Location = new System.Drawing.Point(249, 23);
+            this.rbEstado.Name = "rbEstado";
+            this.rbEstado.Size = new System.Drawing.Size(82, 20);
+            this.rbEstado.TabIndex = 64;
+            this.rbEstado.Text = "ESTADO";
+            this.rbEstado.UseVisualStyleBackColor = true;
+            // 
+            // rbDescription
+            // 
+            this.rbDescription.AutoSize = true;
+            this.rbDescription.Location = new System.Drawing.Point(113, 24);
+            this.rbDescription.Name = "rbDescription";
+            this.rbDescription.Size = new System.Drawing.Size(117, 20);
+            this.rbDescription.TabIndex = 13;
+            this.rbDescription.Text = "DESCRIPCION";
+            this.rbDescription.UseVisualStyleBackColor = true;
             // 
             // rbCodigo
             // 
             this.rbCodigo.AutoSize = true;
-            this.rbCodigo.Location = new System.Drawing.Point(34, 20);
+            this.rbCodigo.Location = new System.Drawing.Point(20, 24);
             this.rbCodigo.Name = "rbCodigo";
-            this.rbCodigo.Size = new System.Drawing.Size(58, 17);
-            this.rbCodigo.TabIndex = 9;
-            this.rbCodigo.TabStop = true;
-            this.rbCodigo.Text = "Código";
+            this.rbCodigo.Size = new System.Drawing.Size(78, 20);
+            this.rbCodigo.TabIndex = 12;
+            this.rbCodigo.Text = "CODIGO";
             this.rbCodigo.UseVisualStyleBackColor = true;
-            this.rbCodigo.CheckedChanged += new System.EventHandler(this.rbCodigo_CheckedChanged);
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.Image = global::PL.Properties.Resources.trash;
+            this.btnRemove.Location = new System.Drawing.Point(513, 14);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(56, 43);
+            this.btnRemove.TabIndex = 67;
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
+            // btnEditarProd
+            // 
+            this.btnEditarProd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEditarProd.Image = global::PL.Properties.Resources.edit;
+            this.btnEditarProd.Location = new System.Drawing.Point(439, 14);
+            this.btnEditarProd.Margin = new System.Windows.Forms.Padding(4);
+            this.btnEditarProd.Name = "btnEditarProd";
+            this.btnEditarProd.Size = new System.Drawing.Size(64, 42);
+            this.btnEditarProd.TabIndex = 66;
+            this.btnEditarProd.UseVisualStyleBackColor = true;
+            this.btnEditarProd.Click += new System.EventHandler(this.btnEditarProd_Click);
+            // 
+            // btnRefrescar
+            // 
+            this.btnRefrescar.Image = global::PL.Properties.Resources.refresh;
+            this.btnRefrescar.Location = new System.Drawing.Point(575, 14);
+            this.btnRefrescar.Name = "btnRefrescar";
+            this.btnRefrescar.Size = new System.Drawing.Size(56, 43);
+            this.btnRefrescar.TabIndex = 64;
+            this.btnRefrescar.UseVisualStyleBackColor = true;
+            this.btnRefrescar.Click += new System.EventHandler(this.btnRefrescar_Click);
             // 
             // btnExpExcel
             // 
-            this.btnExpExcel.Location = new System.Drawing.Point(856, 11);
+            this.btnExpExcel.Location = new System.Drawing.Point(989, 26);
             this.btnExpExcel.Name = "btnExpExcel";
             this.btnExpExcel.Size = new System.Drawing.Size(102, 32);
             this.btnExpExcel.TabIndex = 10;
@@ -129,25 +190,14 @@
             this.btnExpExcel.UseVisualStyleBackColor = true;
             this.btnExpExcel.Click += new System.EventHandler(this.btnExpExcel_Click);
             // 
-            // button2
-            // 
-            this.button2.Image = global::PL.Properties.Resources.cancel1;
-            this.button2.Location = new System.Drawing.Point(438, 10);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(56, 43);
-            this.button2.TabIndex = 9;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
-            // 
             // btnSearch
             // 
             this.btnSearch.Image = global::PL.Properties.Resources.search;
-            this.btnSearch.Location = new System.Drawing.Point(376, 10);
+            this.btnSearch.Location = new System.Drawing.Point(376, 14);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(56, 43);
             this.btnSearch.TabIndex = 7;
             this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Visible = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // lblCriterio
@@ -169,6 +219,8 @@
             // 
             // lblMensaje
             // 
+            this.lblMensaje.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblMensaje.AutoSize = true;
             this.lblMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMensaje.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -181,19 +233,22 @@
             // 
             // dgvProductOnlyActive
             // 
-            this.dgvProductOnlyActive.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgvProductOnlyActive.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvProductOnlyActive.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProductOnlyActive.Location = new System.Drawing.Point(12, 104);
+            this.dgvProductOnlyActive.Location = new System.Drawing.Point(12, 88);
             this.dgvProductOnlyActive.Name = "dgvProductOnlyActive";
             this.dgvProductOnlyActive.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvProductOnlyActive.Size = new System.Drawing.Size(1053, 358);
+            this.dgvProductOnlyActive.Size = new System.Drawing.Size(1103, 374);
             this.dgvProductOnlyActive.TabIndex = 3;
             this.dgvProductOnlyActive.Visible = false;
             this.dgvProductOnlyActive.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductOnlyActive_CellContentClick);
             // 
             // lblCostoAllProductos
             // 
+            this.lblCostoAllProductos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCostoAllProductos.AutoSize = true;
             this.lblCostoAllProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCostoAllProductos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
@@ -205,6 +260,8 @@
             // 
             // lblCostoTotalProductRes
             // 
+            this.lblCostoTotalProductRes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCostoTotalProductRes.AutoSize = true;
             this.lblCostoTotalProductRes.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCostoTotalProductRes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
@@ -216,6 +273,8 @@
             // 
             // lblCantidadProdRes
             // 
+            this.lblCantidadProdRes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCantidadProdRes.AutoSize = true;
             this.lblCantidadProdRes.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCantidadProdRes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
@@ -227,6 +286,8 @@
             // 
             // lblTotalProductos
             // 
+            this.lblTotalProductos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTotalProductos.AutoSize = true;
             this.lblTotalProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalProductos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
@@ -240,7 +301,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1072, 499);
+            this.ClientSize = new System.Drawing.Size(1122, 499);
             this.Controls.Add(this.lblCantidadProdRes);
             this.Controls.Add(this.lblTotalProductos);
             this.Controls.Add(this.lblCostoTotalProductRes);
@@ -269,10 +330,8 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Label lblCriterio;
         private System.Windows.Forms.TextBox txtCriterioBusqueda;
-        private System.Windows.Forms.Button button2;
         public System.Windows.Forms.DataGridView dgvProdConsultar;
         public System.Windows.Forms.Button btnExpExcel;
         public System.Windows.Forms.Label lblMensaje;
@@ -281,8 +340,14 @@
         public System.Windows.Forms.Label lblCostoAllProductos;
         public System.Windows.Forms.Label lblCantidadProdRes;
         public System.Windows.Forms.Label lblTotalProductos;
+        public System.Windows.Forms.Button btnEditarProd;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton rbDescripcion;
+        private System.Windows.Forms.RadioButton rbDescription;
         private System.Windows.Forms.RadioButton rbCodigo;
+        public System.Windows.Forms.RadioButton rbEstado;
+        public System.Windows.Forms.Button btnSearch;
+        public System.Windows.Forms.Button btnRemove;
+        public System.Windows.Forms.Button btnRefrescar;
+        private System.Windows.Forms.ComboBox cmbEstado;
     }
 }

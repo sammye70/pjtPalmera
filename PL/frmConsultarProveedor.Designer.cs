@@ -36,6 +36,7 @@
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
+            this.btnRefresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvContProveedor)).BeginInit();
             this.SuspendLayout();
             // 
@@ -124,11 +125,23 @@
             this.btnEliminar.Visible = false;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Image = global::PL.Properties.Resources.refresh;
+            this.btnRefresh.Location = new System.Drawing.Point(702, 12);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(56, 43);
+            this.btnRefresh.TabIndex = 12;
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Visible = false;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // frmConsultarProveedor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1055, 469);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.btnBuscar);
@@ -158,5 +171,6 @@
         public System.Windows.Forms.Button btnEliminar;
         public System.Windows.Forms.Button btnEditar;
         public System.Windows.Forms.DataGridView dgvContProveedor;
+        public System.Windows.Forms.Button btnRefresh;
     }
 }

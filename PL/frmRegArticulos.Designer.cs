@@ -301,7 +301,7 @@
             // btnUpdateFields
             // 
             this.btnUpdateFields.Image = global::PL.Properties.Resources.save;
-            this.btnUpdateFields.Location = new System.Drawing.Point(500, 230);
+            this.btnUpdateFields.Location = new System.Drawing.Point(501, 229);
             this.btnUpdateFields.Name = "btnUpdateFields";
             this.btnUpdateFields.Size = new System.Drawing.Size(75, 51);
             this.btnUpdateFields.TabIndex = 26;
