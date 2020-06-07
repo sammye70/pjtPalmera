@@ -90,9 +90,45 @@ namespace pjPalmera.Entities
 
             return pv;
         }
-        
 
+        /// <summary>
+        /// Refrest Sub Amount after remove item from the list
+        /// </summary>
+        /// <returns>diferencia</returns>
+        public static decimal UpdateSubAmount(decimal subtotal, decimal amount_item) 
+        {
+            decimal diferencia;
+            
+            diferencia = subtotal - amount_item;
 
+            return diferencia;
+        }
 
+        /// <summary>
+        /// Refrest  Amount after remove item from the list
+        /// </summary>
+        /// <returns></returns>
+        public static decimal UpdateAmount(decimal diferencia)
+        {
+            decimal pdescuento, rdescuento;
+
+            pdescuento = (diferencia * 10) / 100;
+            rdescuento = diferencia - pdescuento;
+
+            return rdescuento;
+        }
+
+        /// <summary>
+        /// Refrest  Descount Amount after remove item from the list
+        /// </summary>
+        /// <returns></returns>
+        public static decimal UpdateDescountAmount(decimal diferencia)
+        {
+            decimal pdescuento;
+            
+            pdescuento = (diferencia * 10) / 100;
+
+            return pdescuento;
+        }
     }
 }

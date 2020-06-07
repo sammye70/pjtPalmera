@@ -20,12 +20,12 @@ namespace pjPalmera.PL
             InitializeComponent();
         }
 
-        private long _id;
+        //private long _id;
 
-        public long Id
-        {
-            get { return _id; }
-        }
+        //public long Id
+        //{
+        //    get { return _id; }
+        //}
 
 
         /// <summary>

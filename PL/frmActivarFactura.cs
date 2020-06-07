@@ -81,7 +81,7 @@ namespace pjPalmera.PL
         private void ProcessEnableInvoice()
         {
             var invoice = new VentaEntity();
-            invoice.id = Convert.ToInt64(this.txtNoFactActivar.Text);
+            invoice.id = Convert.ToInt32(this.txtNoFactActivar.Text);
             //var number = Convert.ToInt64(this.txtNoFactActivar.Text);
             invoice.status = 1;
             FacturaBO.EnableInvoice(invoice);

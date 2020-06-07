@@ -106,7 +106,7 @@ namespace pjPalmera.DAL
         {
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
-
+                int id;
                 con.Open();
                 string sql_head = @"INSERT INTO venta (id_cliente, nombre, apellidos, total, created, status, tipo, descuento, subtotal, total_itbis, recibido, devuelta) 
                                         VALUES(@id_cliente, @nombre, @apellidos, @total, @created, @status, @tipo, @descuento, @subtotal, @total_itbis, @recibido, @devuelta)
@@ -127,12 +127,12 @@ namespace pjPalmera.DAL
                     cmd.Parameters.AddWithValue("devuelta", Venta.devuelta);
                     cmd.Parameters.AddWithValue("recibido", Venta.recibido);
 
-                    Venta.id =  Convert.ToInt64(cmd.ExecuteScalar());
+                    id = Convert.ToInt32(cmd.ExecuteScalar());
                 }
 
                 //   con.Close();
 
-                string sql_detail = @"INSERT INTO detail_venta (idproducto, idventa, descripcion, cantidad, precio, itbis, importe, created)
+                string sql_detail = @"INSERT INTO detail_venta (idproducto, id_venta, descripcion, cantidad, precio, itbis, importe, created)
                                         VALUES(@idproducto, @descripcion, @id_venta, @cantidad, @precio, @itbis, @importe, @created)";
 
                 //MySqlCommand cmd = new MySqlCommand(sql_detail, con);
@@ -152,7 +152,7 @@ namespace pjPalmera.DAL
                         cmd.Parameters.AddWithValue("@itbis", dvental.ITBIS);
                         cmd.Parameters.AddWithValue("@importe", dvental.IMPORTE);
                         cmd.Parameters.AddWithValue("@created", DateTime.Now);
-                        cmd.Parameters.AddWithValue("@id_venta", Venta.id);
+                        cmd.Parameters.AddWithValue("@id_venta", id);
                         // cmd.Parameters.AddWithValue("@status", 1);
                         ///
                         ///
@@ -279,9 +279,9 @@ namespace pjPalmera.DAL
         /// </summary>
         /// <param name="id_invoice"></param>
         /// <returns></returns>
-        public static Int64 LastId()
+        public static int LastId()
         {
-            Int64 id;
+            int id;
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
@@ -289,7 +289,7 @@ namespace pjPalmera.DAL
                // string query = @"SELECT last_insert_id() from venta;";
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
-                id= Convert.ToInt64(cmd.ExecuteScalar());
+                id= Convert.ToInt32(cmd.ExecuteScalar());
             }
 
             return id;
@@ -573,7 +573,7 @@ namespace pjPalmera.DAL
         {
             VentaEntity venta = new VentaEntity();
 
-            venta.id = Convert.ToInt64(reader["id"]);
+            venta.id = Convert.ToInt32(reader["id"]);
             venta.clientes = Convert.ToString(reader["nombre"]);
             venta.apellidos = Convert.ToString(reader["apellidos"]);
             venta.fecha = Convert.ToDateTime(reader["created"]);

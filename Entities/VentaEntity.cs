@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace pjPalmera.Entities
 
 {
-
     public class VentaEntity
     {
         /// <summary>
@@ -20,7 +19,7 @@ namespace pjPalmera.Entities
         /// </summary>
 
         //Fields and Properties
-        public Int64 id { get; set; }
+        public int id { get; set; }
         public string clientes { get; set; }
         public string apellidos { get; set; }
         public DateTime fecha { get; set; }
@@ -36,14 +35,14 @@ namespace pjPalmera.Entities
         public decimal recibido { get; set; }
         public decimal devuelta { get; set; }
         private List<DetalleVentaEntity> productos;
-       
-        
+
+
 
         //Contructors
-       
+
         public VentaEntity()
         {
-            this.productos = new List<DetalleVentaEntity>();
+            //this.productos = new List<DetalleVentaEntity>();                   <-------------- Check Parameter in this Constructor
         }
 
 
@@ -58,6 +57,7 @@ namespace pjPalmera.Entities
             }
         }
 
+        #region MyRegion
 
         //public VentaEntity (string clientes, string apellidos )
         //{
@@ -68,7 +68,8 @@ namespace pjPalmera.Entities
         //    //this.vendedor = vendedor;
 
         //    this.productos = new List<DetalleVentaEntity>();
-        //}
+        //} 
+        #endregion
 
 
         /// <summary>
@@ -87,6 +88,8 @@ namespace pjPalmera.Entities
         public void RemoveItem(Int32 item)
         {
             Productos.RemoveAt(item);
+            productos.Sort();
+           
         }
 
 
@@ -102,6 +105,20 @@ namespace pjPalmera.Entities
                 total += producto.IMPORTE;
             }
             return total;
+        }
+
+        /// <summary>
+        /// Set Amount  in Specificate Product
+        /// </summary>
+        /// <param name="price"></param>
+        /// <param name="cantidad"></param>
+        /// <returns></returns>
+        public decimal ProductValue(decimal price, decimal cantidad)
+        {
+            decimal importe;
+
+            importe = price * cantidad;
+            return importe;
         }
 
         /// <summary>
@@ -121,10 +138,10 @@ namespace pjPalmera.Entities
         /// 
         /// </summary>
         /// <returns></returns>
-        public decimal Descuento()
+        public decimal Descuento( decimal subtotal)
         {
             decimal t_descuento = 0, descuento = 10;
-            t_descuento = (descuento * SubTotal()) / 100;
+            t_descuento = (descuento * subtotal) / 100;
             return t_descuento;
         }
 
@@ -134,13 +151,12 @@ namespace pjPalmera.Entities
         /// <param name="itbis"></param>
         /// <param name="subtotal"></param>
         /// <returns></returns>
-        public decimal Pagar(decimal itbis, decimal subtotal)
+        public decimal Pagar(decimal subtotal)
         {
-            decimal t_pagar, t_pagar_c_descuento;
-            //t_pagar = itbis + subtotal;
-            t_pagar = subtotal;
-            t_pagar_c_descuento = t_pagar - Descuento();
-            return t_pagar_c_descuento;
+            decimal pagar_c_descuento;
+            //t_pagar = itbis + subtotal; // --------> Remove itbis for this time
+            pagar_c_descuento = subtotal - Descuento(subtotal);
+            return pagar_c_descuento;
         }
 
         /// <summary>

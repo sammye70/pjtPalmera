@@ -48,7 +48,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(633, 389);
-            this.Controls.Add(this.crystalReportViewer1);
             this.Name = "frmRepProductos";
             this.Text = "frmRepProductos";
             this.Load += new System.EventHandler(this.frmRepProductos_Load);

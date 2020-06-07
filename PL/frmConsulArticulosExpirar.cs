@@ -94,8 +94,8 @@ namespace pjPalmera.PL
 
         private void CleanControls()
         {
-            this.cmbMonth.Text = "";
-            this.cmbYear.Text = "";
+            this.cmbMonth.Items.Clear();
+            this.cmbYear.Items.Clear();
         }
 
         private void frmArticulosVencer_Load(object sender, EventArgs e)

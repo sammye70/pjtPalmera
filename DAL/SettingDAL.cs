@@ -19,7 +19,7 @@ namespace pjPalmera.DAL
         /// Create Date:20/12/2019
         /// Modificated: 
         /// </summary>
-        static String ConnectionString = @"server=192.168.8.124;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas"; //Home dev last
+        static String ConnectionString = @"server=192.168.8.124;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas_bkR"; //Home dev last
         //static String ConnectionString = @"server=localhost;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas;"; // Drog Store ip
         //static String ConnectionString = @"server=192.168.8.124;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas_last"; //Home dev
 

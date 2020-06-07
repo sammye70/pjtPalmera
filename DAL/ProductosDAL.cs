@@ -186,6 +186,64 @@ namespace pjPalmera.DAL
         }
 
         /// <summary>
+        /// Get Product Where Status Active
+        /// </summary>
+        /// <param name="productos"></param>
+        /// <returns></returns>
+        public static List<ProductosEntity> GetProductosActive(ProductosEntity productos)
+        {
+            List<ProductosEntity> list = new List<ProductosEntity>();
+
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                var query = @"SELECT * FROM productos WHERE status='Activo'";
+
+                using (var cmd = new MySqlCommand (query, con))
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    { 
+                     list.Add(LoadProduct(reader));
+                    }
+                }
+            }
+
+          return list;
+        }
+
+
+
+        /// <summary>
+        /// Get Product Where Status Desable
+        /// </summary>
+        /// <param name="productos"></param>
+        /// <returns></returns>
+        public static List<ProductosEntity> GetProductosDesable(ProductosEntity productos)
+        {
+            List<ProductosEntity> list = new List<ProductosEntity>();
+
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                var query = @"SELECT * FROM productos WHERE status='Inactivo'";
+
+                using (var cmd = new MySqlCommand(query, con))
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        list.Add(LoadProduct(reader));
+                    }
+                }
+            }
+
+            return list;
+        }
+
+
+
+        /// <summary>
         /// Count only Active Product
         /// </summary>
         /// <returns></returns>

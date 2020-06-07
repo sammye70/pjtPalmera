@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.dgvDetalle = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label21 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtValor = new System.Windows.Forms.TextBox();
             this.txtIdCliente = new System.Windows.Forms.TextBox();
@@ -61,9 +60,7 @@
             this.cmbTipoVenta = new System.Windows.Forms.ComboBox();
             this.txtProductos = new System.Windows.Forms.TextBox();
             this.txtItbis = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
             this.btnPagar = new System.Windows.Forms.Button();
-            this.label20 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnGuardar = new System.Windows.Forms.Button();
@@ -83,10 +80,14 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label23 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -102,7 +103,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvDetalle.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvDetalle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDetalle.Location = new System.Drawing.Point(13, 345);
+            this.dgvDetalle.Location = new System.Drawing.Point(13, 349);
             this.dgvDetalle.Margin = new System.Windows.Forms.Padding(4);
             this.dgvDetalle.Name = "dgvDetalle";
             this.dgvDetalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -114,33 +115,17 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.label21);
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.txtItbis);
-            this.groupBox1.Controls.Add(this.label22);
             this.groupBox1.Controls.Add(this.btnPagar);
-            this.groupBox1.Controls.Add(this.label20);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.groupBox4);
-            this.groupBox1.Location = new System.Drawing.Point(13, 12);
+            this.groupBox1.Location = new System.Drawing.Point(15, 20);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1305, 326);
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label21.Location = new System.Drawing.Point(883, 278);
-            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(207, 18);
-            this.label21.TabIndex = 41;
-            this.label21.Text = "Agregar al Carrito: ENTER";
-            this.label21.Visible = false;
             // 
             // groupBox3
             // 
@@ -242,22 +227,23 @@
             // 
             // txtApClientes
             // 
-            this.txtApClientes.Location = new System.Drawing.Point(473, 22);
+            this.txtApClientes.Location = new System.Drawing.Point(355, 28);
             this.txtApClientes.Margin = new System.Windows.Forms.Padding(4);
             this.txtApClientes.Name = "txtApClientes";
-            this.txtApClientes.Size = new System.Drawing.Size(264, 24);
+            this.txtApClientes.Size = new System.Drawing.Size(273, 24);
             this.txtApClientes.TabIndex = 57;
             // 
             // label18
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(390, 28);
+            this.label18.Location = new System.Drawing.Point(477, 9);
             this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(76, 18);
             this.label18.TabIndex = 56;
             this.label18.Text = "Apellidos";
+            this.label18.Visible = false;
             // 
             // label15
             // 
@@ -317,7 +303,7 @@
             // btnBuscarClientes
             // 
             this.btnBuscarClientes.Image = global::PL.Properties.Resources.search;
-            this.btnBuscarClientes.Location = new System.Drawing.Point(745, 14);
+            this.btnBuscarClientes.Location = new System.Drawing.Point(642, 22);
             this.btnBuscarClientes.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscarClientes.Name = "btnBuscarClientes";
             this.btnBuscarClientes.Size = new System.Drawing.Size(44, 36);
@@ -340,9 +326,9 @@
             this.label1.Location = new System.Drawing.Point(13, 32);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 18);
+            this.label1.Size = new System.Drawing.Size(60, 18);
             this.label1.TabIndex = 48;
-            this.label1.Text = "Nombre";
+            this.label1.Text = "Cliente";
             // 
             // txtPrecio
             // 
@@ -457,6 +443,7 @@
             this.txtProductos.Name = "txtProductos";
             this.txtProductos.Size = new System.Drawing.Size(280, 24);
             this.txtProductos.TabIndex = 35;
+            this.txtProductos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtProductos_KeyDown);
             // 
             // txtItbis
             // 
@@ -470,19 +457,6 @@
             this.txtItbis.Size = new System.Drawing.Size(129, 33);
             this.txtItbis.TabIndex = 53;
             // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label22.Location = new System.Drawing.Point(1045, 237);
-            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(164, 18);
-            this.label22.TabIndex = 42;
-            this.label22.Text = "Buscar Producto: F3";
-            this.label22.Visible = false;
-            // 
             // btnPagar
             // 
             this.btnPagar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -495,19 +469,6 @@
             this.btnPagar.UseVisualStyleBackColor = true;
             this.btnPagar.Visible = false;
             this.btnPagar.Click += new System.EventHandler(this.btnPagar_Click);
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label20.Location = new System.Drawing.Point(884, 251);
-            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(153, 18);
-            this.label20.TabIndex = 40;
-            this.label20.Text = "Procesar Venta: F2";
-            this.label20.Visible = false;
             // 
             // label9
             // 
@@ -739,6 +700,45 @@
             this.label5.TabIndex = 49;
             this.label5.Text = "Total a Pagar";
             // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.label21.Location = new System.Drawing.Point(1010, 4);
+            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(207, 18);
+            this.label21.TabIndex = 41;
+            this.label21.Text = "Agregar al Carrito: ENTER";
+            this.label21.Visible = false;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.label22.Location = new System.Drawing.Point(530, 4);
+            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(164, 18);
+            this.label22.TabIndex = 42;
+            this.label22.Text = "Buscar Producto: F3";
+            this.label22.Visible = false;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.label20.Location = new System.Drawing.Point(362, 4);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(153, 18);
+            this.label20.TabIndex = 40;
+            this.label20.Text = "Procesar Venta: F2";
+            this.label20.Visible = false;
+            // 
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
@@ -759,14 +759,31 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(98, 17);
             this.toolStripStatusLabel1.Text = "By EBG-Solutions";
             // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.label23.Location = new System.Drawing.Point(702, 4);
+            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(244, 18);
+            this.label23.TabIndex = 43;
+            this.label23.Text = "Agregar Producto al Carrito: F4";
+            this.label23.Visible = false;
+            // 
             // frmVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1284, 607);
+            this.Controls.Add(this.label23);
+            this.Controls.Add(this.label21);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.label20);
             this.Controls.Add(this.dgvDetalle);
+            this.Controls.Add(this.label22);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmVenta";
@@ -848,5 +865,6 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox txtId_Invoice;
+        private System.Windows.Forms.Label label23;
     }
 }

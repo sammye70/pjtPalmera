@@ -100,7 +100,7 @@ namespace pjPalmera.PL
         {
             var invoice = new VentaEntity();
             //var number = Convert.ToInt64(this.txtNoFactAnular.Text);
-            invoice.id = Convert.ToInt64(this.txtNoFactAnular.Text);
+            invoice.id = Convert.ToInt32(this.txtNoFactAnular.Text);
             invoice.status = 2;
             FacturaBO.DesableInvoices(invoice);
         }

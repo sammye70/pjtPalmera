@@ -133,7 +133,7 @@ namespace pjPalmera.PL
         {
             try
             {
-                venta.id = Convert.ToInt64(this.txtValorCriterio1.Text);
+                venta.id = Convert.ToInt32(this.txtValorCriterio1.Text);
                 this.dgvFacturasEmitidas.DataSource = FacturaBO.SearhByNumber(venta.id);
             }
             catch

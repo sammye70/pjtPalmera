@@ -35,7 +35,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.cmbEstado = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbEstado = new System.Windows.Forms.RadioButton();
+            this.rbStatus = new System.Windows.Forms.RadioButton();
             this.rbDescription = new System.Windows.Forms.RadioButton();
             this.rbCodigo = new System.Windows.Forms.RadioButton();
             this.btnRemove = new System.Windows.Forms.Button();
@@ -46,11 +46,11 @@
             this.lblCriterio = new System.Windows.Forms.Label();
             this.txtCriterioBusqueda = new System.Windows.Forms.TextBox();
             this.lblMensaje = new System.Windows.Forms.Label();
-            this.dgvProductOnlyActive = new System.Windows.Forms.DataGridView();
             this.lblCostoAllProductos = new System.Windows.Forms.Label();
             this.lblCostoTotalProductRes = new System.Windows.Forms.Label();
             this.lblCantidadProdRes = new System.Windows.Forms.Label();
             this.lblTotalProductos = new System.Windows.Forms.Label();
+            this.dgvProductOnlyActive = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProdConsultar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -104,10 +104,11 @@
             this.cmbEstado.Size = new System.Drawing.Size(144, 21);
             this.cmbEstado.TabIndex = 65;
             this.cmbEstado.Visible = false;
+            this.cmbEstado.SelectedIndexChanged += new System.EventHandler(this.cmbEstado_SelectedIndexChanged);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.rbEstado);
+            this.groupBox1.Controls.Add(this.rbStatus);
             this.groupBox1.Controls.Add(this.rbDescription);
             this.groupBox1.Controls.Add(this.rbCodigo);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -118,15 +119,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtrar por";
             // 
-            // rbEstado
+            // rbStatus
             // 
-            this.rbEstado.AutoSize = true;
-            this.rbEstado.Location = new System.Drawing.Point(249, 23);
-            this.rbEstado.Name = "rbEstado";
-            this.rbEstado.Size = new System.Drawing.Size(82, 20);
-            this.rbEstado.TabIndex = 64;
-            this.rbEstado.Text = "ESTADO";
-            this.rbEstado.UseVisualStyleBackColor = true;
+            this.rbStatus.AutoSize = true;
+            this.rbStatus.Location = new System.Drawing.Point(249, 23);
+            this.rbStatus.Name = "rbStatus";
+            this.rbStatus.Size = new System.Drawing.Size(82, 20);
+            this.rbStatus.TabIndex = 64;
+            this.rbStatus.Text = "ESTADO";
+            this.rbStatus.UseVisualStyleBackColor = true;
+            this.rbStatus.CheckedChanged += new System.EventHandler(this.rbStatus_CheckedChanged);
             // 
             // rbDescription
             // 
@@ -137,6 +139,7 @@
             this.rbDescription.TabIndex = 13;
             this.rbDescription.Text = "DESCRIPCION";
             this.rbDescription.UseVisualStyleBackColor = true;
+            this.rbDescription.CheckedChanged += new System.EventHandler(this.rbDescription_CheckedChanged);
             // 
             // rbCodigo
             // 
@@ -147,6 +150,7 @@
             this.rbCodigo.TabIndex = 12;
             this.rbCodigo.Text = "CODIGO";
             this.rbCodigo.UseVisualStyleBackColor = true;
+            this.rbCodigo.CheckedChanged += new System.EventHandler(this.rbCodigo_CheckedChanged);
             // 
             // btnRemove
             // 
@@ -231,20 +235,6 @@
             this.lblMensaje.Text = "Click para seleccionar un producto";
             this.lblMensaje.Visible = false;
             // 
-            // dgvProductOnlyActive
-            // 
-            this.dgvProductOnlyActive.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvProductOnlyActive.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProductOnlyActive.Location = new System.Drawing.Point(12, 88);
-            this.dgvProductOnlyActive.Name = "dgvProductOnlyActive";
-            this.dgvProductOnlyActive.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvProductOnlyActive.Size = new System.Drawing.Size(1103, 374);
-            this.dgvProductOnlyActive.TabIndex = 3;
-            this.dgvProductOnlyActive.Visible = false;
-            this.dgvProductOnlyActive.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductOnlyActive_CellContentClick);
-            // 
             // lblCostoAllProductos
             // 
             this.lblCostoAllProductos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -297,6 +287,20 @@
             this.lblTotalProductos.TabIndex = 7;
             this.lblTotalProductos.Text = "Total de Unidades:";
             // 
+            // dgvProductOnlyActive
+            // 
+            this.dgvProductOnlyActive.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvProductOnlyActive.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvProductOnlyActive.Location = new System.Drawing.Point(11, 88);
+            this.dgvProductOnlyActive.Name = "dgvProductOnlyActive";
+            this.dgvProductOnlyActive.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvProductOnlyActive.Size = new System.Drawing.Size(1103, 374);
+            this.dgvProductOnlyActive.TabIndex = 3;
+            this.dgvProductOnlyActive.Visible = false;
+            this.dgvProductOnlyActive.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductOnlyActive_CellContentClick);
+            // 
             // frmConsultarProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -335,7 +339,6 @@
         public System.Windows.Forms.DataGridView dgvProdConsultar;
         public System.Windows.Forms.Button btnExpExcel;
         public System.Windows.Forms.Label lblMensaje;
-        public System.Windows.Forms.DataGridView dgvProductOnlyActive;
         public System.Windows.Forms.Label lblCostoTotalProductRes;
         public System.Windows.Forms.Label lblCostoAllProductos;
         public System.Windows.Forms.Label lblCantidadProdRes;
@@ -344,10 +347,11 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rbDescription;
         private System.Windows.Forms.RadioButton rbCodigo;
-        public System.Windows.Forms.RadioButton rbEstado;
+        public System.Windows.Forms.RadioButton rbStatus;
         public System.Windows.Forms.Button btnSearch;
         public System.Windows.Forms.Button btnRemove;
         public System.Windows.Forms.Button btnRefrescar;
         private System.Windows.Forms.ComboBox cmbEstado;
+        public System.Windows.Forms.DataGridView dgvProductOnlyActive;
     }
 }

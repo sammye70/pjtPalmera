@@ -15,8 +15,6 @@ namespace pjPalmera.PL
     public partial class frmConsultarProductos : Form
     {
 
-
-        frmRegArticulos ffproductos = new frmRegArticulos();
         ProductosEntity productos = new ProductosEntity();
 
         public frmConsultarProductos()
@@ -115,7 +113,7 @@ namespace pjPalmera.PL
             this.btnRefrescar.Visible = false;
             this.btnRemove.Visible = false;
             this.btnEditarProd.Visible = false;
-            this.rbEstado.Visible = false;
+            this.rbStatus.Visible = false;
             this.btnSearch.Visible = false;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -169,24 +167,24 @@ namespace pjPalmera.PL
         /// </summary>
         private void FilterProduct()
         {
-           // if ((this.rbCodigo.Checked == true) && (this.txtCriterioBusqueda.Text != string.Empty) && (this.rbDescripcion.Checked == false))
-           // {
-           //     productos.Idproducto = Convert.ToInt64(this.txtCriterioBusqueda.Text);
-           //     this.dgvProdConsultar.DataSource = ProductosBO.FilterProductbyCode(productos.Idproducto);                         -----------------------> Here
-           //     this.dgvProductOnlyActive.DataSource = ProductosBO.FilterProductbyCode(productos.Idproducto);
-           // }
-           //else if ((this.rbDescripcion.Checked == true) && (this.txtCriterioBusqueda.Text != string.Empty) && (this.rbCodigo.Checked == false))
-           // {
-                //productos.Descripcion = this.txtCriterioBusqueda.Text;
-                //this.dgvProdConsultar.DataSource = ProductosBO.FilterProductbyDescp(productos.Descripcion);
-                //this.dgvProductOnlyActive.DataSource = ProductosBO.FilterProductbyDescp(productos.Descripcion);                     ------------------------> Here
-                //MessageBox.Show("Indicar Descripcion del producto");
-            //}
-            //else
-            //{
-            //    this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
-            //    this.dgvProductOnlyActive.DataSource = ProductosBO.GetAll();
-            //}
+            if ((this.rbCodigo.Checked == true) && (this.txtCriterioBusqueda.Text != string.Empty) && (this.rbDescription.Checked == false))
+            {
+                productos.Idproducto = Convert.ToInt64(this.txtCriterioBusqueda.Text);
+                this.dgvProdConsultar.DataSource = ProductosBO.FilterProductbyCode(productos.Idproducto); //----------------------->Here
+                this.dgvProductOnlyActive.DataSource = ProductosBO.FilterProductbyCode(productos.Idproducto);
+            }
+            else if ((this.rbDescription.Checked == true) && (this.txtCriterioBusqueda.Text != string.Empty) && (this.rbCodigo.Checked == false))
+            {
+                productos.Descripcion = this.txtCriterioBusqueda.Text;
+                this.dgvProdConsultar.DataSource = ProductosBO.FilterProductbyDescp(productos.Descripcion);
+                this.dgvProductOnlyActive.DataSource = ProductosBO.FilterProductbyDescp(productos.Descripcion); //------------------------> Here
+                 MessageBox.Show("Indicar Descripcion del producto");
+            }
+            else
+            {
+                this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+                this.dgvProductOnlyActive.DataSource = ProductosBO.GetAll();
+            }
             //if (this.txtCriterioBusqueda.Text != string.Empty)
             //{
             //    productos.Idproducto = Convert.ToInt64(this.txtCriterioBusqueda.Text);
@@ -208,6 +206,7 @@ namespace pjPalmera.PL
         /// </summary>
         private void EditProduct()
         {
+            frmRegArticulos ffproductos = new frmRegArticulos();
             try
             {
 
@@ -245,10 +244,7 @@ namespace pjPalmera.PL
                 this.txtCriterioBusqueda.Focus();
                 return;
             }
-
         }
-
-
 
         private void dgvProdConsultar_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -287,6 +283,26 @@ namespace pjPalmera.PL
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+        }
+
+        /// <summary>
+        /// Get Product by Status
+        /// </summary>
+        private void LoadProductStatus()
+        {
+            if (this.cmbEstado.Text == "Activo")
+            {
+                this.dgvProdConsultar.DataSource = ProductosBO.GetProductosActive(productos);
+            }
+            else if (this.cmbEstado.Text == "Inactivo")
+            {
+                this.dgvProdConsultar.DataSource = ProductosBO.GetProductosDesable(productos);
+            }
+            else
+            {
+                MessageBox.Show("No hay productos que Mostrar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+            }
         }
 
 
@@ -338,15 +354,6 @@ namespace pjPalmera.PL
 
         }
 
-        private void rbCodigo_CheckedChanged(object sender, EventArgs e)
-        {
-            //if (this.rbCodigo.Checked == true)
-            //{
-            //    this.lblCriterio.Text = "Código";
-            //    NewSearch();
-            //}
-        }
-
 
         /// <summary>
         /// Delete selected product
@@ -361,7 +368,7 @@ namespace pjPalmera.PL
             }
             catch
             {
-                // MessageBox.Show("Seleccione un Elemento","Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                MessageBox.Show("Seleccione un Elemento", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -382,14 +389,6 @@ namespace pjPalmera.PL
             }
         }
 
-        private void rbDescripcion_CheckedChanged(object sender, EventArgs e)
-        {
-            //if (this.rbDescripcion.Checked == true)
-            //{
-            //    this.lblCriterio.Text = "Descripción";
-            //    NewSearch();
-            //}
-        }
 
         private void btnExpExcel_Click(object sender, EventArgs e)
         {
@@ -411,7 +410,7 @@ namespace pjPalmera.PL
             if (Question == DialogResult.Yes)
             {
                 DeleteProduct();
-                MessageBox.Show("El Producto fue eliminado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("El Producto fue Eliminado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.dgvProdConsultar.DataSource = null;
                 this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
             }
@@ -423,9 +422,48 @@ namespace pjPalmera.PL
             }
         }
 
+
         private void btnRefrescar_Click(object sender, EventArgs e)
         {
             RefreshGrid();
+        }
+
+        private void rbCodigo_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.rbCodigo.Checked == true)
+            {
+                this.lblCriterio.Text = "Código";
+                NewSearch();
+                this.cmbEstado.Visible = false;
+                this.txtCriterioBusqueda.Visible = true;
+            }
+        }
+
+        private void rbDescription_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.rbDescription.Checked == true)
+            {
+                this.lblCriterio.Text = "Descripción";
+                NewSearch();
+                this.cmbEstado.Visible = false;
+                this.txtCriterioBusqueda.Visible = true;
+            }
+        }
+
+        private void rbStatus_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.rbStatus.Checked == true)
+            {
+                this.lblCriterio.Text = "Estado";
+                NewSearch();
+                this.txtCriterioBusqueda.Visible = false;
+                this.cmbEstado.Visible = true;
+            }
+        }
+
+        private void cmbEstado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadProductStatus();
         }
     }
 }

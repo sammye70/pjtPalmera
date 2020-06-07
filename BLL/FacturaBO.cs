@@ -165,7 +165,7 @@ namespace pjPalmera.BLL
         ///  Search Last Invoice Id
         /// </summary>
         /// <returns></returns>
-        public static Int64 LastId()
+        public static int LastId()
         {
             try
             {
@@ -323,7 +323,7 @@ namespace pjPalmera.BLL
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Error"+ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return null;
             }
         }
@@ -344,7 +344,8 @@ namespace pjPalmera.BLL
             }
             catch (Exception  ex)
             {
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
+                MessageBox.Show("Error"+ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
         }

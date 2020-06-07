@@ -26,6 +26,7 @@ namespace pjPalmera.PL
 
         private void btnGenerar_Click(object sender, EventArgs e)
         {
+            this.dgvStockMinimo.ReadOnly = true;
             this.dgvStockMinimo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dgvStockMinimo.DataSource = ProductosBO.StockMinimo();
         }

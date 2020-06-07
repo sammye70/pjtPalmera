@@ -418,10 +418,11 @@ namespace pjPalmera.PL
 
         private void btnUpdateFields_Click(object sender, EventArgs e)
         {
-            DialogResult Question = new DialogResult();
+            var Answer = new DialogResult();
 
-            Question = MessageBox.Show("Seguro Que Desea Guardar los Cambios", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (Question == DialogResult.Yes)
+            Answer = MessageBox.Show("Seguro Que Desea Guardar los Cambios", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            
+            if (Answer == DialogResult.Yes)
             {
                 UpdateFields();
                 MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -430,7 +431,7 @@ namespace pjPalmera.PL
                 //ccproductos.dgvProdConsultar.DataSource = ProductosBO.GetAll();
                 this.Close();
             }
-            else if (Question == DialogResult.No)
+            else if (Answer == DialogResult.No)
             {
                 //ccproductos.dgvProdConsultar.DataSource = null;
                 //ccproductos.dgvProdConsultar.DataSource = ProductosBO.GetAll();

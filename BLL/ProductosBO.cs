@@ -51,11 +51,54 @@ namespace pjPalmera.BLL
         }
 
 
+
         /// <summary>
-        /// Get All Products
+        /// Get Product Where Status Active
         /// </summary>
+        /// <param name="productos"></param>
         /// <returns></returns>
-        public static List<ProductosEntity> GetAll()
+        public static List<ProductosEntity> GetProductosActive(ProductosEntity productos)
+        {
+            try
+            {
+                return ProductosDAL.GetProductosActive(productos);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
+        }
+
+
+
+        /// <summary>
+        /// Get Product Where Status Desable
+        /// </summary>
+        /// <param name="productos"></param>
+        /// <returns></returns>
+        public static List<ProductosEntity> GetProductosDesable(ProductosEntity productos)
+        {
+
+            try
+            {
+                return ProductosDAL.GetProductosDesable(productos);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
+
+
+        }
+
+
+            /// <summary>
+            /// Get All Products
+            /// </summary>
+            /// <returns></returns>
+            public static List<ProductosEntity> GetAll()
         {
             try
             {
