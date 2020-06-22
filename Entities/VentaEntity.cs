@@ -34,7 +34,7 @@ namespace pjPalmera.Entities
         public decimal total_itbis { get; set; }
         public decimal recibido { get; set; }
         public decimal devuelta { get; set; }
-        private List<DetalleVentaEntity> productos;
+        private List<DetalleVentaEntity> item;
 
 
 
@@ -42,18 +42,18 @@ namespace pjPalmera.Entities
 
         public VentaEntity()
         {
-            //this.productos = new List<DetalleVentaEntity>();                   <-------------- Check Parameter in this Constructor
+            this.item = new List<DetalleVentaEntity>();            //       <-------------- Check Parameter in this Constructor
         }
 
 
         /// <summary>
         /// Return Product from List
         /// </summary>
-        public List<DetalleVentaEntity> Productos
+        public List<DetalleVentaEntity> listProductos
         {
             get
             {
-                return productos;
+                return item;
             }
         }
 
@@ -76,19 +76,19 @@ namespace pjPalmera.Entities
         /// Add Items to list<DetalleVentaEntity>
         /// </summary>
         /// <param name="producto"></param>
-        public void addProduct(DetalleVentaEntity producto)
+        public void addProduct(DetalleVentaEntity item)
         {
-            Productos.Add(producto);
+            listProductos.Add(item);
         }
 
         /// <summary>
         /// Remove Item from List
         /// </summary>
         /// <param name="item"></param>
-        public void RemoveItem(Int32 item)
+        public void RemoveItem(int item)
         {
-            Productos.RemoveAt(item);
-            productos.Sort();
+            listProductos.RemoveAt(item);
+            listProductos.Sort();
            
         }
 
@@ -100,9 +100,9 @@ namespace pjPalmera.Entities
         public decimal SubTotal()
         {
             decimal total = 0;
-            foreach (DetalleVentaEntity producto in Productos)
+            foreach (DetalleVentaEntity item in listProductos)
             {
-                total += producto.IMPORTE;
+                total += item.IMPORTE;
             }
             return total;
         }

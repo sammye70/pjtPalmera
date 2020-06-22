@@ -70,7 +70,7 @@ namespace pjPalmera.DAL
                 //MySqlCommand cmd = new MySqlCommand(sql_detail, con);
                 using ( var cmd = new MySqlCommand(sql_detail, con))
                 {
-                    foreach (DetalleVentaEntity dvental in detail.Productos)
+                    foreach (DetalleVentaEntity dvental in detail.listProductos)
                     {
                         //
                         //Remove old parameters
@@ -138,7 +138,7 @@ namespace pjPalmera.DAL
                 //MySqlCommand cmd = new MySqlCommand(sql_detail, con);
                 using (var cmd = new MySqlCommand(sql_detail, con))
                 {
-                    foreach (DetalleVentaEntity dvental in Venta.Productos)
+                    foreach (DetalleVentaEntity dvental in Venta.listProductos)
                     {
                         //
                         //Remove old parameters

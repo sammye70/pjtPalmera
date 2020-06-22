@@ -143,7 +143,7 @@ namespace pjPalmera.DAL
 
                 MySqlCommand cmd = new MySqlCommand(update_stock, con);
 
-                foreach (DetalleVentaEntity producto in venta.Productos)
+                foreach (DetalleVentaEntity producto in venta.listProductos)
                 {
                     cmd.Parameters.Clear(); //
 

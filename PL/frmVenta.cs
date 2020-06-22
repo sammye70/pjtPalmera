@@ -20,7 +20,7 @@ namespace pjPalmera.PL
     public partial class frmVenta : Form
     {
         public VentaEntity venta = null;
-        VentaEntity detail = new VentaEntity();
+        //VentaEntity detail = new VentaEntity();
         ProductosEntity producto = new ProductosEntity();
         TransactionsEntity Transactions = new TransactionsEntity();
         public ClientesEntity clientes = new ClientesEntity();
@@ -28,14 +28,14 @@ namespace pjPalmera.PL
         public float cantidad = 0;
         public long id;
         public Decimal t_pagar = 0;
-        public Int32 _iditem;
+        public int _iditem;
         public decimal _importe;
         public decimal Amount;
         public int indx = 0;
 
         
 
-        public Int32 Iditem
+        public int Iditem
         {
             get { return _iditem; }
             set { _iditem = value; }
@@ -75,7 +75,7 @@ namespace pjPalmera.PL
             }
 
             venta = new VentaEntity();
-            dgvDetalle.DataSource = venta.Productos;
+            dgvDetalle.DataSource = venta.listProductos;
         }
 
 
@@ -101,8 +101,7 @@ namespace pjPalmera.PL
             // InsertItem();  // -------> Old Method
             BuildDataGrid();
             LoadHeadGrid();
-            InsertNewItem();   //--------------------> New Method  ----Modificated: 15/04/2020  -  17:35 By:
-
+            InsertNewItem();   //--------------------> New Method  ----Modificated: 15/04/2020  -  17:35 By:SEC
         }
 
         private void btnBuscarProducto_Click(object sender, EventArgs e)
@@ -407,9 +406,10 @@ namespace pjPalmera.PL
         /// </summary>
         private void RemoveItems()
         {
-            DataGridViewRow x = this.dgvDetalle.CurrentRow;
-            int i = this.dgvDetalle.RowCount;
-            decimal result;
+            DataGridViewRow x = this.dgvDetalle.CurrentRow; // Get current containing Cell
+            int i = this.dgvDetalle.RowCount; // Get/Set DataGridviwe rows has
+            int ci = this.dgvDetalle.CurrentRow.Index; // Current row index
+            decimal result; 
 
             if (this.dgvDetalle.CurrentRow.Index != -1)
             {
@@ -422,8 +422,7 @@ namespace pjPalmera.PL
                     this.txtTotalPagar.Text= Convert.ToString(OpServices.UpdateAmount(result));
                     this.txtDescuento.Text= Convert.ToString(OpServices.UpdateDescountAmount(result));
 
-
-                    this.dgvDetalle.Rows.RemoveAt(this.dgvDetalle.CurrentRow.Index);
+                    this.dgvDetalle.Rows.RemoveAt(ci);
                     i--;
 
                 }
@@ -451,7 +450,7 @@ namespace pjPalmera.PL
             DataGridViewRow x = this.dgvDetalle.CurrentRow;
             var n = this.dgvDetalle.RowCount;
 
-            var list = venta.Productos;
+            var list = venta.listProductos;
 
             _iditem = Convert.ToInt32(this.dgvDetalle.Rows[x.Index].Cells["No"].Value);   // -------------------->
             _importe = Convert.ToDecimal(this.dgvDetalle.Rows[x.Index].Cells["IMPORTE"].Value);
@@ -975,7 +974,7 @@ namespace pjPalmera.PL
                 //add products to Gridview
                 DetalleVentaEntity Detail = new DetalleVentaEntity();
                 //var list = new List<DetalleVentaEntity>();
-                var list = venta.Productos; // Products list 
+                var list = venta.listProductos; // Products list 
 
                 int x = this.dgvDetalle.RowCount;
                
@@ -991,7 +990,7 @@ namespace pjPalmera.PL
                 Detail.PRECIO = decimal.Parse(this.txtPrecio.Text);
                 dgvDetalle.DataSource = null;
                 venta.addProduct(Detail);
-                dgvDetalle.DataSource = venta.Productos;  //Data from List to DataGridView
+                dgvDetalle.DataSource = venta.listProductos;  //Data from List to DataGridView
 
 
                 //DataGridViewColumn Column = this.dgvDetalle.Columns[0];
@@ -1029,33 +1028,34 @@ namespace pjPalmera.PL
         /// </summary>
         private void CreateInvoice()
         {
-            int x = this.dgvDetalle.Rows.Count; //Rows counter in DataGridView
+            int x = this.dgvDetalle.Rows.Count; //Rows counter in DataGridView Items List
 
             int status = 1;
             //var c = 1;
 
             try
             {
-                var venta = new VentaEntity();
+                var ventas = new VentaEntity();
 
                 //Validate type of Invoices (Cash or Credit) --> In this case is Cash
                 if ((this.txtClientes.Text == "CONTADO") && (this.txtApClientes.Text == "CONTADO"))
                 {
-                    venta.id_cliente = Convert.ToInt32(this.txtIdCliente.Text);
-                    venta.clientes = this.txtClientes.Text; //
-                    venta.apellidos = this.txtApClientes.Text; //
-                    venta.total = decimal.Parse(this.txtTotalPagar.Text); //
-                    venta.status = status; //
-                    venta.descuento = decimal.Parse(this.txtDescuento.Text); //
-                    venta.subtotal = decimal.Parse(this.txtSubtotal.Text); //
-                    venta.total_itbis = decimal.Parse(this.txtItbis.Text); //
-                    venta.recibido = decimal.Parse(this.txtEfectivoRecibido.Text);//
-                    venta.devuelta = decimal.Parse(this.txtDevueltaEfectivo.Text);//
+                    ventas.tipo = "1";
 
-                    venta.tipo = "1";
-                    var Detail = new DetalleVentaEntity();
+                    ventas.id_cliente = Convert.ToInt32(this.txtIdCliente.Text);
+                    ventas.clientes = this.txtClientes.Text; //
+                    ventas.apellidos = this.txtApClientes.Text; //
+                    ventas.total = decimal.Parse(this.txtTotalPagar.Text); //
+                    ventas.status = status; //
+                    ventas.descuento = decimal.Parse(this.txtDescuento.Text); //
+                    ventas.subtotal = decimal.Parse(this.txtSubtotal.Text); //
+                    ventas.total_itbis = decimal.Parse(this.txtItbis.Text); //
+                    ventas.recibido = decimal.Parse(this.txtEfectivoRecibido.Text);//
+                    ventas.devuelta = decimal.Parse(this.txtDevueltaEfectivo.Text);//
 
-                    for (int i=0; i < x; i++)
+                    DetalleVentaEntity Detail = new DetalleVentaEntity();
+
+                    for (int i = 0; i < x; i++)
                     {
                         Detail.ID = Convert.ToInt64(this.dgvDetalle.Rows[i].Cells[0].Value); //Id
                         Detail.DESCRIPCION = Convert.ToString(this.dgvDetalle.Rows[i].Cells[1].Value); //Description
@@ -1063,10 +1063,11 @@ namespace pjPalmera.PL
                         Detail.PRECIO = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[3].Value); //Price
                         //Detail.ITBIS = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells["ITBIS"].Value); //Itbis
                         Detail.IMPORTE = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[4].Value); //amount 
-                        venta.addProduct(Detail);
+
+                        ventas.addProduct(Detail);
                     }
-                   
-                    FacturaBO.CreateTest(venta);  // Cash Invoices (Save history all invoices)            -----------> Here Continue to Work
+
+                   // FacturaBO.CreateTest(venta);  // Cash Invoices (Save history all invoices)            -----------> Here Continue to Work
                 }
                 else
                 {
