@@ -90,6 +90,7 @@ namespace pjPalmera.PL
             EnableControls();
             CleanControls();
             productos = null;
+            this.txtDescripcion.MaxLength = 23;
             this.cmbEstado.Text = "Activo";
             this.txtCodigo.Focus();
         }
@@ -420,7 +421,7 @@ namespace pjPalmera.PL
         {
             var Answer = new DialogResult();
 
-            Answer = MessageBox.Show("Seguro Que Desea Guardar los Cambios", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            MessageBox.Show("Seguro Que Desea Guardar los Cambios", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             
             if (Answer == DialogResult.Yes)
             {
@@ -465,6 +466,15 @@ namespace pjPalmera.PL
         {
             frmRegProveedor rproveedor = new frmRegProveedor();
             rproveedor.ShowDialog(this);
+        }
+
+        private void txtDescripcion_TextChanged(object sender, EventArgs e)
+        {
+            if (this.txtDescripcion.TextLength == 23)
+            {
+                MessageBox.Show("La longitud maxima es de 23 caracteres (a...z, etc)", "Mensaje del Sistema", 
+                                 MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
     }
 }

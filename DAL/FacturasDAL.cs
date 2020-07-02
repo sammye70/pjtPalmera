@@ -17,18 +17,19 @@ namespace pjPalmera.DAL
         public static bool result; // Values to invoice return if exist 
 
         /// <summary>
-        /// Create Insert head on databases (Cash)
+        /// New Process Insert  Invoice Head and Detail
         /// </summary>
-        /// Cretaed: 19/12/2019
         /// <param name="Venta"></param>
         public static void Create(VentaEntity Venta)
         {
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
-                
+                int id_venta;
                 con.Open();
-                string sql_head = @"INSERT INTO venta (id_cliente, nombre, apellidos, total, created, status, tipo, descuento, subtotal, total_itbis, recibido, devuelta) 
-                                        VALUES(@id_cliente, @nombre, @apellidos, @total, @created, @status, @tipo, @descuento, @subtotal, @total_itbis, @recibido, @devuelta)";
+                var sql_head = @"INSERT INTO venta (id_cliente, nombre, apellidos, total, created, status, tipo, descuento, subtotal, total_itbis, recibido, devuelta) 
+                                        VALUES (@id_cliente, @nombre, @apellidos, @total, @created, @status, @tipo, @descuento, @subtotal, @total_itbis, @recibido, @devuelta);
+                                SELECT LAST_INSERT_ID() 
+                                    FROM venta;";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql_head, con))
                 {
@@ -45,95 +46,11 @@ namespace pjPalmera.DAL
                     cmd.Parameters.AddWithValue("devuelta", Venta.devuelta);
                     cmd.Parameters.AddWithValue("recibido", Venta.recibido);
 
-                    
-                    cmd.ExecuteNonQuery();
+                    id_venta = Convert.ToInt32(cmd.ExecuteScalar());
                 }
 
-             //   con.Close();
-            }
-        }
-
-
-        /// <summary>
-        /// Create Insert detail on databases
-        /// </summary>
-        ///Cretaed: 19/01/2020
-        /// <param name="detail"></param>
-        public static void Created_Detail(VentaEntity detail)
-        {
-            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
-            {
-                con.Open();
-                string sql_detail = @"INSERT INTO detail_venta (idproducto, descripcion, cantidad, precio, itbis, importe, created)
-                                        VALUES(@idproducto, @descripcion, @cantidad, @precio, @itbis, @importe, @created)";
-
-                //MySqlCommand cmd = new MySqlCommand(sql_detail, con);
-                using ( var cmd = new MySqlCommand(sql_detail, con))
-                {
-                    foreach (DetalleVentaEntity dvental in detail.listProductos)
-                    {
-                        //
-                        //Remove old parameters
-                        //
-                        cmd.Parameters.Clear();
-                        //
-                        cmd.Parameters.AddWithValue("@idproducto", dvental.ID);
-                        cmd.Parameters.AddWithValue("@descripcion", dvental.DESCRIPCION);
-                        cmd.Parameters.AddWithValue("@cantidad", dvental.CANTIDAD);
-                        cmd.Parameters.AddWithValue("@precio", dvental.PRECIO);
-                        cmd.Parameters.AddWithValue("@itbis", dvental.ITBIS);
-                        cmd.Parameters.AddWithValue("@importe", dvental.IMPORTE);
-                        cmd.Parameters.AddWithValue("@created", DateTime.Now);
-                        // cmd.Parameters.AddWithValue("@id_venta", detail.id);
-                        // cmd.Parameters.AddWithValue("@status", 1);
-                        ///
-                        ///
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                   
-               // con.Close();
-            }
-        }
-
-
-        /*-----------------------------------New Test Code---------------------------------------*/
-        /// <summary>
-        /// Test Process Insert  Invoice Head and Detail
-        /// </summary>
-        /// <param name="Venta"></param>
-        public static void CreateTest(VentaEntity Venta)
-        {
-            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
-            {
-                int id;
-                con.Open();
-                string sql_head = @"INSERT INTO venta (id_cliente, nombre, apellidos, total, created, status, tipo, descuento, subtotal, total_itbis, recibido, devuelta) 
-                                        VALUES(@id_cliente, @nombre, @apellidos, @total, @created, @status, @tipo, @descuento, @subtotal, @total_itbis, @recibido, @devuelta)
-                                    ";
-
-                using (MySqlCommand cmd = new MySqlCommand(sql_head, con))
-                {
-                    cmd.Parameters.AddWithValue("@id_cliente", Venta.id_cliente);
-                    cmd.Parameters.AddWithValue("@nombre", Venta.clientes);
-                    cmd.Parameters.AddWithValue("@apellidos", Venta.apellidos);
-                    cmd.Parameters.AddWithValue("@total", Venta.total);
-                    cmd.Parameters.AddWithValue("@created", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@status", Venta.status);
-                    cmd.Parameters.AddWithValue("@tipo", Venta.tipo);
-                    cmd.Parameters.AddWithValue("@descuento", Venta.descuento);
-                    cmd.Parameters.AddWithValue("@subtotal", Venta.subtotal);
-                    cmd.Parameters.AddWithValue("@total_itbis", Venta.total_itbis);
-                    cmd.Parameters.AddWithValue("devuelta", Venta.devuelta);
-                    cmd.Parameters.AddWithValue("recibido", Venta.recibido);
-
-                    id = Convert.ToInt32(cmd.ExecuteScalar());
-                }
-
-                //   con.Close();
-
-                string sql_detail = @"INSERT INTO detail_venta (idproducto, id_venta, descripcion, cantidad, precio, itbis, importe, created)
-                                        VALUES(@idproducto, @descripcion, @id_venta, @cantidad, @precio, @itbis, @importe, @created)";
+                var sql_detail = @"INSERT INTO detail_venta (idproducto, descripcion, cantidad, precio, itbis, importe, id_venta, created)
+                                        VALUES(@idproducto, @descripcion, @cantidad, @precio, @itbis, @importe, @id_venta, @created);";
 
                 //MySqlCommand cmd = new MySqlCommand(sql_detail, con);
                 using (var cmd = new MySqlCommand(sql_detail, con))
@@ -145,27 +62,40 @@ namespace pjPalmera.DAL
                         //
                         cmd.Parameters.Clear();
                         //
-                        cmd.Parameters.AddWithValue("@idproducto", dvental.ID);
+                        cmd.Parameters.AddWithValue("@idproducto", dvental.CODIGO);
                         cmd.Parameters.AddWithValue("@descripcion", dvental.DESCRIPCION);
                         cmd.Parameters.AddWithValue("@cantidad", dvental.CANTIDAD);
                         cmd.Parameters.AddWithValue("@precio", dvental.PRECIO);
                         cmd.Parameters.AddWithValue("@itbis", dvental.ITBIS);
                         cmd.Parameters.AddWithValue("@importe", dvental.IMPORTE);
-                        cmd.Parameters.AddWithValue("@created", DateTime.Now);
-                        cmd.Parameters.AddWithValue("@id_venta", id);
-                        // cmd.Parameters.AddWithValue("@status", 1);
-                        ///
-                        ///
+                        cmd.Parameters.AddWithValue("@id_venta", id_venta);
+                        cmd.Parameters.AddWithValue("@created", DateTime.Now); 
+
                         cmd.ExecuteNonQuery();
                     }
-
                 }
             }
         }
 
-        /*----------------------------------Until Test Code-------------------------------------------------*/
+        /// <summary>
+        /// Delete Empty Rows in Detail Invoices
+        /// </summary>
+        public static void DeleteEmptyRow()
+        {
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                var query = @"DELETE FROM detail_venta WHERE idproducto = 0;";
+                
+                var cmd = new MySqlCommand(query, con);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
 
 
+
+        //---------------------------------------------------- Check this process ------------------------------------------//
 
         /// <summary>
         /// Create Insert head on databases (Credit)
@@ -178,7 +108,7 @@ namespace pjPalmera.DAL
             {
 
                 con.Open();
-                string sql_head = @"INSERT INTO cxc (id_cliente, nombre, apellidos, monto, created, status) 
+                var sql_head = @"INSERT INTO cxc (id_cliente, nombre, apellidos, monto, created, status) 
                                         VALUES(@id_cliente, @nombre, @apellidos, @monto, @created, @status)";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql_head, con))
@@ -192,8 +122,6 @@ namespace pjPalmera.DAL
 
                     cmd.ExecuteNonQuery();
                 }
-
-              //  con.Close();
             }
         }
 
@@ -210,7 +138,7 @@ namespace pjPalmera.DAL
             using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                var query = @"SELECT id FROM venta WHERE venta.id=@numero";
+                var query = "SELECT id FROM venta WHERE venta.id=@numero";
 
                 using (var cmd = new MySqlCommand(query, con))
                 {
@@ -240,7 +168,7 @@ namespace pjPalmera.DAL
             using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                var query = @"UPDATE venta SET venta.status=@status WHERE venta.id=@id";
+                var query = "UPDATE venta SET venta.status=@status WHERE venta.id=@id";
                 using (var cmd = new MySqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@id", invoice.id);
@@ -250,7 +178,6 @@ namespace pjPalmera.DAL
                 }
             }
         }
-
 
 
         /// <summary>
@@ -261,7 +188,7 @@ namespace pjPalmera.DAL
             using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                var query = @"UPDATE venta SET venta.status=@status WHERE venta.id=@id";
+                var query = "UPDATE venta SET venta.status=@status WHERE venta.id=@id";
                 using (var cmd = new MySqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@id", invoice.id);
@@ -271,7 +198,6 @@ namespace pjPalmera.DAL
                 }
             }
         }
-
 
 
         /// <summary>
@@ -285,9 +211,12 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = @"SELECT max(id) from venta;";
+                var query = "SELECT max(id) from venta;";
+                
                // string query = @"SELECT last_insert_id() from venta;";
                 MySqlCommand cmd = new MySqlCommand(query, con);
+              //cmd.CommandType = CommandType.StoredProcedure;
+                
 
                 id= Convert.ToInt32(cmd.ExecuteScalar());
             }
@@ -306,7 +235,7 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = @"SELECT SUM(total) FROM venta WHERE status='1' AND tipo='1';";
+                var query = "SELECT SUM(total) FROM venta WHERE status='1' AND tipo='1';";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
@@ -326,7 +255,7 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = @"SELECT SUM(total) FROM venta WHERE status='1' AND tipo='2';";
+                var query = "SELECT SUM(total) FROM venta WHERE status='1' AND tipo='2';";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
@@ -346,7 +275,7 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = @"select * from venta ORDER BY created DESC";
+                var query = "select * from venta ORDER BY created DESC";
 
                 MySqlCommand cmd = new MySqlCommand(query,con);
 
@@ -371,7 +300,7 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = @"select * from venta WHERE venta.tipo='2' ORDER BY created DESC";
+                string query = "select * from venta WHERE venta.tipo='2' ORDER BY created DESC";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
@@ -397,7 +326,8 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = @"select * from venta WHERE venta.tipo='1' AND venta.status='1' ORDER BY created DESC";
+                string query = "select * from venta WHERE venta.tipo='1' AND venta.status='1' ORDER BY created DESC;" +
+                                "DELETE FROM detail_venta  WHERE idproducto = 0; ";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
@@ -413,6 +343,67 @@ namespace pjPalmera.DAL
         }
 
         /// <summary>
+        /// Filter Detail Invoice by Id Invoice (Cash)
+        /// </summary>
+        /// <returns></returns>
+        public static List<DetalleVentaEntity> GetDetailInvoices(int idventa)
+        {
+            List<DetalleVentaEntity> list = new List<DetalleVentaEntity>();
+
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+
+                var query = @"SELECT * FROM detail_venta WHERE id_venta = @id_venta;";
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@id_venta", idventa);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    list.Add(LoadDetailVenta(reader));
+                }
+
+            }
+                return list;
+        }
+
+
+
+        /// <summary>
+        ///Get All Detail Invoice (cash)   (Long Description)
+        /// </summary>
+        /// <returns></returns>
+        public static List<DetalleVentaEntity> GetAllDetailInvoices()
+        {
+            List<DetalleVentaEntity> list = new List<DetalleVentaEntity>();
+
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+
+                var query = @"SELECT * FROM detail_venta ORDER BY id_venta DESC;";
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    list.Add(LoadDetailVenta(reader));
+                }
+
+            }
+            return list;
+        }
+
+
+
+
+        /// <summary>
         /// Get All Invoices Desable
         /// </summary>
         /// <returns></returns>
@@ -423,7 +414,7 @@ namespace pjPalmera.DAL
             using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = @"select * from venta WHERE venta.status='2' ORDER BY created DESC";
+                string query = "select * from venta WHERE venta.status='2' ORDER BY created DESC";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
@@ -451,7 +442,7 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = @"SELECT * FROM venta WHERE venta.id=@id and venta.tipo='1'";
+                string query = "SELECT * FROM venta WHERE venta.id=@id and venta.tipo='1'";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@id", number);
@@ -478,7 +469,7 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = @"SELECT * FROM venta WHERE venta.id=@id and venta.tipo='2'";
+                string query = "SELECT * FROM venta WHERE venta.id=@id and venta.tipo='2'";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@id", number);
@@ -506,7 +497,7 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = @"SELECT * FROM venta WHERE venta.id=@id";
+                string query = "SELECT * FROM venta WHERE venta.id=@id";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@created1", DateBegin);
@@ -523,7 +514,7 @@ namespace pjPalmera.DAL
         }
 
         /// <summary>
-        /// Get All Product in Invoices
+        /// Get All Product in Invoices   (Short Description)
         /// </summary>
         /// <returns></returns>
         public static List<ProductosVendidosEntity> GetAllProducInvoices()
@@ -533,7 +524,7 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = @"SELECT idproducto, descripcion, cantidad, created FROM detail_venta";
+                string query = "SELECT idproducto, descripcion, cantidad, created FROM detail_venta";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
@@ -549,7 +540,7 @@ namespace pjPalmera.DAL
         }
 
         /// <summary>
-        /// Load All Product in Invoices
+        /// Load All Product in Invoices  (Short Description)
         /// </summary>
         /// <returns></returns>
         private static ProductosVendidosEntity LoadProductVend(IDataReader reader)
@@ -566,7 +557,7 @@ namespace pjPalmera.DAL
 
 
         /// <summary>
-        /// Load table Ventas
+        /// Load table Invoice
         /// </summary>
         /// <returns></returns>
         private static VentaEntity LoadVentas(IDataReader reader)
@@ -588,5 +579,107 @@ namespace pjPalmera.DAL
             
             return venta;
         }
+
+        /// <summary>
+        /// Load Table Detail Invoice (Long Description)
+        /// </summary>
+        /// <returns></returns>
+        private static DetalleVentaEntity LoadDetailVenta(IDataReader reader)
+        {
+            DetalleVentaEntity detalle = new DetalleVentaEntity();
+
+            // detalle.No = Convert.ToInt32(reader["id"]);
+            detalle.ID_FACTURA = Convert.ToInt64(reader["id_venta"]);
+            detalle.CODIGO = Convert.ToInt64(reader["idproducto"]);
+            detalle.DESCRIPCION = Convert.ToString(reader["descripcion"]);
+            detalle.CANTIDAD = Convert.ToInt32(reader["cantidad"]);
+            detalle.PRECIO = Convert.ToDecimal(reader["precio"]);
+            detalle.ITBIS = Convert.ToDecimal(reader["itbis"]);
+            detalle.IMPORTE = Convert.ToDecimal(reader["importe"]);
+
+
+            return detalle;
+        }
+
+
+        #region Old Invoice Code
+        /// <summary>
+        /// Create Insert head on databases (Cash)
+        /// </summary>
+        /// Cretaed: 19/12/2019
+        /// <param name="Venta"></param>
+        public static void CreateOld(VentaEntity Venta)
+        {
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+
+                con.Open();
+                var sql_head = @"INSERT INTO venta (id_cliente, nombre, apellidos, total, created, status, tipo, descuento, subtotal, total_itbis, recibido, devuelta) 
+                                        VALUES(@id_cliente, @nombre, @apellidos, @total, @created, @status, @tipo, @descuento, @subtotal, @total_itbis, @recibido, @devuelta)";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql_head, con))
+                {
+                    cmd.Parameters.AddWithValue("@id_cliente", Venta.id_cliente);
+                    cmd.Parameters.AddWithValue("@nombre", Venta.clientes);
+                    cmd.Parameters.AddWithValue("@apellidos", Venta.apellidos);
+                    cmd.Parameters.AddWithValue("@total", Venta.total);
+                    cmd.Parameters.AddWithValue("@created", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@status", Venta.status);
+                    cmd.Parameters.AddWithValue("@tipo", Venta.tipo);
+                    cmd.Parameters.AddWithValue("@descuento", Venta.descuento);
+                    cmd.Parameters.AddWithValue("@subtotal", Venta.subtotal);
+                    cmd.Parameters.AddWithValue("@total_itbis", Venta.total_itbis);
+                    cmd.Parameters.AddWithValue("devuelta", Venta.devuelta);
+                    cmd.Parameters.AddWithValue("recibido", Venta.recibido);
+
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                //   con.Close();
+            }
+        }
+
+
+        /// <summary>
+        /// Create Insert detail on databases
+        /// </summary>
+        ///Cretaed: 19/01/2020
+        /// <param name="detail"></param>
+        public static void Created_Detail(VentaEntity detail)
+        {
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                var sql_detail = @"INSERT INTO detail_venta (idproducto, descripcion, cantidad, precio, itbis, importe, created)
+                                        VALUES(@idproducto, @descripcion, @cantidad, @precio, @itbis, @importe, @created)";
+
+                //MySqlCommand cmd = new MySqlCommand(sql_detail, con);
+                using (var cmd = new MySqlCommand(sql_detail, con))
+                {
+                    foreach (DetalleVentaEntity dvental in detail.listProductos)
+                    {
+                        //
+                        //Remove old parameters
+                        //
+                        cmd.Parameters.Clear();
+                        //
+                        cmd.Parameters.AddWithValue("@idproducto", dvental.CODIGO);
+                        cmd.Parameters.AddWithValue("@descripcion", dvental.DESCRIPCION);
+                        cmd.Parameters.AddWithValue("@cantidad", dvental.CANTIDAD);
+                        cmd.Parameters.AddWithValue("@precio", dvental.PRECIO);
+                        cmd.Parameters.AddWithValue("@itbis", dvental.ITBIS);
+                        cmd.Parameters.AddWithValue("@importe", dvental.IMPORTE);
+                        cmd.Parameters.AddWithValue("@created", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@id_venta", detail.id);
+                        // cmd.Parameters.AddWithValue("@status", 1);
+                        ///
+                        ///
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+        } 
+        #endregion
     }
 }

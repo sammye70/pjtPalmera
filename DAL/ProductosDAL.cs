@@ -147,7 +147,7 @@ namespace pjPalmera.DAL
                 {
                     cmd.Parameters.Clear(); //
 
-                    cmd.Parameters.AddWithValue("@idproducto",producto.ID);
+                    cmd.Parameters.AddWithValue("@idproducto",producto.CODIGO);
                     cmd.Parameters.AddWithValue("@cantidad", producto.CANTIDAD);
 
                     cmd.ExecuteNonQuery();

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
-using System.Windows.Forms;
+using System.Windows.Forms; //
 using pjPalmera.Entities;
 using pjPalmera.DAL;
 
@@ -13,7 +13,7 @@ namespace pjPalmera.BLL
     public class FacturaBO
     {
         public static bool MensajeBO; //
-        //private static bool MensajeDA;
+        public static string strMensajeBO; //
 
         /// <summary>
         /// Save Head invoice (Cash)
@@ -28,7 +28,8 @@ namespace pjPalmera.BLL
             }
             catch (Exception ex)
             {
-               MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                strMensajeBO = ex.Message;
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
         }
@@ -46,6 +47,7 @@ namespace pjPalmera.BLL
             }
             catch (Exception ex)
             {
+                strMensajeBO = ex.Message;
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
@@ -64,6 +66,7 @@ namespace pjPalmera.BLL
             }
             catch (Exception)
             {
+                strMensajeBO = "";
                 MessageBox.Show("No Hay Monto que Mostrar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return 0;
             }
@@ -82,6 +85,7 @@ namespace pjPalmera.BLL
             }
             catch (Exception)
             {
+                strMensajeBO = "No Hay Monto que Mostrar";
                 MessageBox.Show("No Hay Monto que Mostrar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return 0;
             }
@@ -101,7 +105,8 @@ namespace pjPalmera.BLL
             }
             catch (Exception ex)
             {
-               MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                strMensajeBO = ex.Message;
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
         }
@@ -118,6 +123,7 @@ namespace pjPalmera.BLL
             }
             catch (Exception ex)
             {
+                strMensajeBO = ex.Message;
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return null;
             }
@@ -136,6 +142,7 @@ namespace pjPalmera.BLL
             }
             catch (Exception ex)
             {
+                strMensajeBO = ex.Message;
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return null;
             }
@@ -155,6 +162,7 @@ namespace pjPalmera.BLL
             }
             catch (Exception ex)
             {
+                strMensajeBO = ex.Message;
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return null;
             }
@@ -173,6 +181,7 @@ namespace pjPalmera.BLL
             }
             catch (Exception ex)
             {
+                strMensajeBO = ex.Message;
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return 0;
             }
@@ -190,7 +199,7 @@ namespace pjPalmera.BLL
             }
             catch (Exception ex)
             {
-
+                strMensajeBO = ex.Message;
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return null;
             }
@@ -209,7 +218,7 @@ namespace pjPalmera.BLL
             }
             catch (Exception ex)
             {
-
+                strMensajeBO = ex.Message;
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return null;
             }
@@ -229,7 +238,7 @@ namespace pjPalmera.BLL
             }
             catch (Exception ex)
             {
-
+                strMensajeBO = ex.Message;
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return null;
             }
@@ -247,6 +256,7 @@ namespace pjPalmera.BLL
             }
             catch (Exception ex)
             {
+                strMensajeBO = ex.Message;
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
@@ -264,12 +274,11 @@ namespace pjPalmera.BLL
             }
             catch (Exception ex)
             {
+                strMensajeBO = ex.Message;
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
         }
-
-
 
 
         /// <summary>
@@ -284,6 +293,7 @@ namespace pjPalmera.BLL
             }
             catch (Exception ex)
             {
+                strMensajeBO = ex.Message;
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return null;
             }
@@ -323,34 +333,84 @@ namespace pjPalmera.BLL
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error"+ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                strMensajeBO = ex.Message;
+                MessageBox.Show("Error "+ ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return null;
             }
         }
 
 
-
-        /*-----------------------------------*/
-
         /// <summary>
-        /// Test Process Insert  Invoice Head and Detail
+        /// Filter Detail Invoice by Id Invoice (Long Description)
         /// </summary>
-        /// <param name="Venta"></param>
-        public static void CreateTest(VentaEntity Venta)
+        /// <returns></returns>
+        public static List<DetalleVentaEntity> GetDetailInvoices(int idventa)
         {
             try
             {
-                FacturasDAL.CreateTest(Venta);
+                return FacturasDAL.GetDetailInvoices(idventa);
             }
-            catch (Exception  ex)
+            catch (Exception ex)
             {
-                
-                MessageBox.Show("Error"+ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                strMensajeBO = ex.Message;
+                MessageBox.Show("Error " + ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Get All Detail Invoice (cash) Long Description
+        /// </summary>
+        /// <returns></returns>
+        public static List<DetalleVentaEntity> GetAllDetailInvoices()
+        {
+            try
+            {
+                return FacturasDAL.GetAllDetailInvoices();
+            }
+            catch (Exception ex)
+            {
+                strMensajeBO = ex.Message;
+              //  MessageBox.Show("Error " + ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return null;
+            }
+        }
+
+
+        /// <summary>
+        /// Process Insert  Invoice Head and Detail (New)
+        /// </summary>
+        /// <param name="Venta"></param>
+        public static void CreateInvoice(VentaEntity Venta)
+        {
+            try
+            {
+                FacturasDAL.Create(Venta);
+                strMensajeBO = "";
+            }
+            catch (Exception ex)
+            {
+                strMensajeBO = ex.Message;
                 return;
             }
         }
 
 
+        /// <summary>
+        /// Delete Empty Rows and Detail Invoices
+        /// </summary>
+        public static void DeleteEmptyRow()
+        {
+            try
+            {
+                FacturasDAL.DeleteEmptyRow();
+            }
+            catch (Exception ex)
+            {
+                strMensajeBO = ex.Message;
+                return;
+            }
+        }
 
 
     }

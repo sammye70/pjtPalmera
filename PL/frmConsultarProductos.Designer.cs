@@ -345,13 +345,13 @@
         public System.Windows.Forms.Label lblTotalProductos;
         public System.Windows.Forms.Button btnEditarProd;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton rbDescription;
-        private System.Windows.Forms.RadioButton rbCodigo;
         public System.Windows.Forms.RadioButton rbStatus;
         public System.Windows.Forms.Button btnSearch;
         public System.Windows.Forms.Button btnRemove;
         public System.Windows.Forms.Button btnRefrescar;
         private System.Windows.Forms.ComboBox cmbEstado;
         public System.Windows.Forms.DataGridView dgvProductOnlyActive;
+        public System.Windows.Forms.RadioButton rbDescription;
+        public System.Windows.Forms.RadioButton rbCodigo;
     }
 }

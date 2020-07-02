@@ -50,13 +50,24 @@ namespace pjPalmera.PL
 
 
         /// <summary>
-        /// Process Desable Bill
+        /// Process Desable Bill   --->
         /// </summary>
         private void DesableBill()
         {
             //if (VerifyInvoice() == true)
-            //{
-                var Question = MessageBox.Show("Esta Apunto de Anular para Factura. Desea Continuar", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            //{ 
+
+            if (this.txtNoFactAnular.Text == string.Empty)
+            {
+                MessageBox.Show("Debe Ingresar una Número de Factura Válido", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.txtNoFactAnular.Focus();
+                return;
+            } 
+            else if (this.txtNoFactAnular.Text != string.Empty) 
+            {
+                var Question = new DialogResult();
+
+                Question = MessageBox.Show("Esta Apunto de Anular para Factura. Desea Continuar", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (Question == DialogResult.Yes)
                 {
@@ -67,15 +78,16 @@ namespace pjPalmera.PL
                 else if (Question == DialogResult.No)
                 {
                     return;
+
                     //MessageBox.Show("Factura No Anulada");
                 }
-            //}
-            //else if (VerifyInvoice () == false)
-            //{
-            //    MessageBox.Show("No Existe Factura Asociado al Número Indicado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            //}
+                //else if (VerifyInvoice() == false)
+                //{
+                //    MessageBox.Show("No Existe Factura Asociado al Número Indicado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                //}
+            }
 
-           
+
         }
 
         private void btnAnularFac_Click(object sender, EventArgs e)

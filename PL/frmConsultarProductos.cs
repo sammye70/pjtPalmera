@@ -49,7 +49,7 @@ namespace pjPalmera.PL
             this.dgvProductOnlyActive.DataSource = ProductosBO.OnlyActive();
             AutoSizeCells();
             AmountAllProduct();
-            //this.rbCodigo.Checked = true;
+            this.rbCodigo.Checked = true;
             this.txtCriterioBusqueda.Focus();
         }
 

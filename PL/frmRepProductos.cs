@@ -7,8 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CrystalDecisions.CrystalReports.Engine;
-using CrystalDecisions.Shared;
+
 
 namespace pjPalmera.PL
 {
@@ -19,20 +18,5 @@ namespace pjPalmera.PL
             InitializeComponent();
         }
 
-        private void frmRepProductos_Load(object sender, EventArgs e)
-        {
-
-            try
-            {
-                ReportDocument report = new ReportDocument();
-                report.Load("Reports\rptProductos.rpt", OpenReportMethod.OpenReportByDefault);
-                crystalReportViewer1.ReportSource = report;
-                crystalReportViewer1.Refresh();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 using System.Threading.Tasks;
-
+using System.Runtime.CompilerServices;
 
 namespace pjPalmera.Entities
 
@@ -25,7 +25,7 @@ namespace pjPalmera.Entities
         public DateTime fecha { get; set; }
         public string vendedor { get; set; }
         public int ncf { get; set; }
-        public string tipo { get; set; } 
+        public string tipo { get; set; }
         public int status { get; set; }
         public decimal total { get; set; }
         public decimal descuento { get; set; }
@@ -35,7 +35,6 @@ namespace pjPalmera.Entities
         public decimal recibido { get; set; }
         public decimal devuelta { get; set; }
         private List<DetalleVentaEntity> item;
-
 
 
         //Contructors
@@ -73,7 +72,7 @@ namespace pjPalmera.Entities
 
 
         /// <summary>
-        /// Add Items to list<DetalleVentaEntity>
+        /// Add Items to DetalleVentaEntity
         /// </summary>
         /// <param name="producto"></param>
         public void addProduct(DetalleVentaEntity item)
@@ -89,7 +88,7 @@ namespace pjPalmera.Entities
         {
             listProductos.RemoveAt(item);
             listProductos.Sort();
-           
+
         }
 
 
@@ -122,7 +121,7 @@ namespace pjPalmera.Entities
         }
 
         /// <summary>
-        /// Return Itbis value
+        /// Return Tax applied to Total Amount
         /// </summary>
         /// <returns></returns>
         public decimal Itbis()
@@ -135,10 +134,10 @@ namespace pjPalmera.Entities
         }
 
         /// <summary>
-        /// 
+        /// Discount in the invoice
         /// </summary>
         /// <returns></returns>
-        public decimal Descuento( decimal subtotal)
+        public decimal Descuento(decimal subtotal)
         {
             decimal t_descuento = 0, descuento = 10;
             t_descuento = (descuento * subtotal) / 100;
@@ -146,7 +145,7 @@ namespace pjPalmera.Entities
         }
 
         /// <summary>
-        /// 
+        /// Total Amount after applied discount
         /// </summary>
         /// <param name="itbis"></param>
         /// <param name="subtotal"></param>
@@ -160,17 +159,50 @@ namespace pjPalmera.Entities
         }
 
         /// <summary>
-        /// 
+        /// Change Cash to costumer
         /// </summary>
         /// <param name="recibido"></param>
         /// <param name="cobrar"></param>
         /// <returns></returns>
-        public decimal Cambio_Compras( decimal recibido, decimal cobrar)
+        public decimal Cambio_Compras(decimal recibido, decimal cobrar)
         {
             decimal cambio;
             cambio = recibido - cobrar;
             return cambio;
         }
 
+        /// <summary>
+        /// Apply discount producto's price after submit
+        /// </summary>
+        /// <param name="price"></param>
+        /// <param name="discount"></param>
+        /// <returns></returns>
+        public decimal SetDescountInvoice(decimal price, decimal discount)
+        {
+            decimal t_discount; //calculate discount
+            decimal p_discount; //result after to apply discount
+
+            t_discount = (price * discount) / 100;
+            p_discount = price - t_discount;
+            return p_discount;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="strTypeInv"></param>
+        /// <returns></returns>
+        public  string set_Type_invoice(string strTypeInv)
+        {
+            if (strTypeInv == "cash")
+            {
+                return "1";
+            }
+            else if (strTypeInv == "credit") 
+            {
+                return "2";
+            }
+            return "";
+        }
     }
 }

@@ -33,7 +33,7 @@ namespace pjPalmera.PL
         public decimal Amount;
         public int indx = 0;
 
-        
+  
 
         public int Iditem
         {
@@ -81,7 +81,9 @@ namespace pjPalmera.PL
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            Amount = 1000; //AperturaCajaBO.GetAmount(); //Get Current Amount Invoices after Open Box
+            FacturaBO.DeleteEmptyRow();
+            Amount = AperturaCajaBO.GetAmount(); //Get Current Amount Invoices after Open Box
+            //Amount = 1000;  //------> This variable is use to development
 
             if (Amount != 0)
             {
@@ -223,37 +225,17 @@ namespace pjPalmera.PL
             }
         }
 
-
-
         private void cmbDescuentoPostVenta_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                SetDescountInvoice();
+               this.txtPrecio.Text = Convert.ToString(venta.SetDescountInvoice(Convert.ToDecimal(this.txtPrecio.Text), +
+                   Convert.ToDecimal(this.cmbDescuentoPostVenta.Text)));
             }
             catch
             {
                 return;
               
-            }
-        }
-
-
-        /// <summary>
-        /// Apply Descount producto's price after submit
-        /// </summary>
-        private void SetDescountInvoice()
-        {
-            decimal p, dc, fp, pd;
-            p = Convert.ToDecimal(this.txtPrecio.Text);
-            dc = Convert.ToDecimal(this.cmbDescuentoPostVenta.Text);
-            pd = (p * dc) / 100;
-            fp = p - pd;
-            this.txtPrecio.Text = Convert.ToString(fp);
-
-            if (Convert.ToInt32(this.cmbDescuentoPostVenta.Text) == 0)
-            {
-                this.txtPrecio.Text = Convert.ToString(p);
             }
         }
 
@@ -423,7 +405,7 @@ namespace pjPalmera.PL
                     this.txtDescuento.Text= Convert.ToString(OpServices.UpdateDescountAmount(result));
 
                     this.dgvDetalle.Rows.RemoveAt(ci);
-                    i--;
+                   // i--;
 
                 }
                 catch (Exception ex)
@@ -510,7 +492,6 @@ namespace pjPalmera.PL
             this.txtSubtotal.Text = "0.00";
             // this.txtRecibidoEfectivo.Text="0.0";
         }
-
 
         /// <summary>
         /// Prepare for New Invoice   -- Modificated: 16/04/2020, 10:55.
@@ -641,7 +622,6 @@ namespace pjPalmera.PL
         /// </summary>
         public void ProcessSell()
         {
-
             TicketVentaEntity caja = new TicketVentaEntity();
             var Answer = new DialogResult();
 
@@ -654,6 +634,7 @@ namespace pjPalmera.PL
             {
                 Save_Invoices();
                 PrintTicket();
+                FacturaBO.DeleteEmptyRow();
                 //MessageBox.Show("Se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MessageBox.Show("Venta Procesada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 NewInvoice();
@@ -664,6 +645,7 @@ namespace pjPalmera.PL
             else if (Answer == DialogResult.No)
             {
                 Save_Invoices();
+                FacturaBO.DeleteEmptyRow();
                 caja.AbreCajon();
                 //  MessageBox.Show("No se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MessageBox.Show("Venta Procesada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -707,7 +689,6 @@ namespace pjPalmera.PL
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
@@ -781,10 +762,10 @@ namespace pjPalmera.PL
             for (int i = 0; i < a; i++)
             {
                 //g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[0].Value), fdpTitle, sb, 5, 305 + AutoScrollOffset);
-                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[2].Value), fdpTitle, sb, 5, 305 + AutoScrollOffset); //Description
-                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[3].Value), fdpTitle, sb, 153, 305 + AutoScrollOffset); //Quality
-                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[4].Value), fdpTitle, sb, 178, 305 + AutoScrollOffset);// Price
-                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[6].Value), fpTitle, sb, 225, 305 + AutoScrollOffset); // Total Price x Unit
+                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[1].Value), fdpTitle, sb, 5, 305 + AutoScrollOffset); //Description
+                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[2].Value), fdpTitle, sb, 153, 305 + AutoScrollOffset); //Quality
+                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[3].Value), fdpTitle, sb, 178, 305 + AutoScrollOffset);// Price
+                g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[4].Value), fpTitle, sb, 225, 305 + AutoScrollOffset); // Total Price x Unit
                 AutoScrollOffset = AutoScrollOffset + 12;
             }
             
@@ -983,8 +964,8 @@ namespace pjPalmera.PL
                     indx=i;
                 }
 
-                Detail.No = indx; // Index in list    ------------------>> Done, but it's verification process   -- Last Modificated: 13/05/2020, by: Samuel Estrella
-                Detail.ID = Convert.ToInt64(txtProductos.Text);
+              //  Detail.No = indx; // Index in list    ------------------>> Done, but it's verification process   -- Last Modificated: 13/05/2020, by: Samuel Estrella
+                Detail.CODIGO = Convert.ToInt64(txtProductos.Text);
                 Detail.DESCRIPCION = txtDescripcion.Text;
                 Detail.CANTIDAD = Int32.Parse(this.txtCantidad.Text);
                 Detail.PRECIO = decimal.Parse(this.txtPrecio.Text);
@@ -1017,22 +998,26 @@ namespace pjPalmera.PL
             CreateInvoice();   //------------------------> Here Work
             //Save_Head();
             //Save_Detail();
-            UpdateStock();
+           // UpdateStock();
             Save_Transactions();
         }
 
-        #region TestCreateInvoice
+        #region New Create Invoice code
+
+
+        enum Type_invoices { cash=1, credit = 2 }
 
         /// <summary>
-        /// Test Code Create Invoice
+        ///  Code Create Invoice
         /// </summary>
+        /// 
         private void CreateInvoice()
         {
             int x = this.dgvDetalle.Rows.Count; //Rows counter in DataGridView Items List
 
             int status = 1;
             //var c = 1;
-
+            
             try
             {
                 var ventas = new VentaEntity();
@@ -1040,8 +1025,7 @@ namespace pjPalmera.PL
                 //Validate type of Invoices (Cash or Credit) --> In this case is Cash
                 if ((this.txtClientes.Text == "CONTADO") && (this.txtApClientes.Text == "CONTADO"))
                 {
-                    ventas.tipo = "1";
-
+                    ventas.tipo = ventas.set_Type_invoice(Convert.ToString(Type_invoices.cash));
                     ventas.id_cliente = Convert.ToInt32(this.txtIdCliente.Text);
                     ventas.clientes = this.txtClientes.Text; //
                     ventas.apellidos = this.txtApClientes.Text; //
@@ -1053,11 +1037,12 @@ namespace pjPalmera.PL
                     ventas.recibido = decimal.Parse(this.txtEfectivoRecibido.Text);//
                     ventas.devuelta = decimal.Parse(this.txtDevueltaEfectivo.Text);//
 
-                    DetalleVentaEntity Detail = new DetalleVentaEntity();
 
                     for (int i = 0; i < x; i++)
-                    {
-                        Detail.ID = Convert.ToInt64(this.dgvDetalle.Rows[i].Cells[0].Value); //Id
+                    { 
+                        var Detail = new DetalleVentaEntity();
+
+                        Detail.CODIGO = Convert.ToInt64(this.dgvDetalle.Rows[i].Cells[0].Value); //Id
                         Detail.DESCRIPCION = Convert.ToString(this.dgvDetalle.Rows[i].Cells[1].Value); //Description
                         Detail.CANTIDAD = Convert.ToInt32(this.dgvDetalle.Rows[i].Cells[2].Value); //Quality
                         Detail.PRECIO = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[3].Value); //Price
@@ -1067,47 +1052,48 @@ namespace pjPalmera.PL
                         ventas.addProduct(Detail);
                     }
 
-                   // FacturaBO.CreateTest(venta);  // Cash Invoices (Save history all invoices)            -----------> Here Continue to Work
+                    FacturaBO.CreateInvoice(ventas);  // Cash Invoices (Save history all invoices)            -----------> Here Continue to Work
+                    ProductosBO.Decrease_Stock(ventas); // Decrease Stock 
                 }
                 else
                 {
-                    var Detail1 = new DetalleVentaEntity();
-                    venta.tipo = "2";
+                    venta.tipo = Type_invoices.credit.ToString();
                     var id = Convert.ToInt32(this.txtIdCliente.Text);
 
-                    for (int i=0; i < x; i++)
+                    for (int i = 0; i < x; i++)
                     {
-                        Detail1.ID = Convert.ToInt64(this.dgvDetalle.Rows[i].Cells[0].Value.ToString()); //Id
-                        Detail1.DESCRIPCION = this.dgvDetalle.Rows[i].Cells[1].Value.ToString(); //Description
-                        Detail1.CANTIDAD = Convert.ToInt32(this.dgvDetalle.Rows[i].Cells[2].Value.ToString()); //Quality
-                        Detail1.PRECIO = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[3].Value.ToString()); //Price
-                        //Detail.ITBIS = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[5].Value.ToString()); //Itbis
-                        Detail1.IMPORTE = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[4].Value.ToString()); //amount      
+                        var Detail = new DetalleVentaEntity();
 
-                        venta.addProduct(Detail1);
+                        Detail.CODIGO = Convert.ToInt64(this.dgvDetalle.Rows[i].Cells[0].Value); //Id
+                        Detail.DESCRIPCION = this.dgvDetalle.Rows[i].Cells[1].Value.ToString(); //Description
+                        Detail.CANTIDAD = Convert.ToInt32(this.dgvDetalle.Rows[i].Cells[2].Value); //Quality
+                        Detail.PRECIO = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[3].Value); //Price
+                        //Detail.ITBIS = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[5].Value.ToString()); //Itbis
+                        Detail.IMPORTE = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[4].Value); //amount      
+
+                        venta.addProduct(Detail);
                     }
 
-                    FacturaBO.CreateTest(venta);  // Cash Invoices (Save history all invoices)            -----------> Here Continue to Work
-                  //  CuentasBO.StatusCxc(c, id); // Set value cxc to client  
-                                                // FacturaBO.Create(venta); // Save all invoices
-                  //  FacturaBO.CreateCr(venta); // Credit Invoices
+                    FacturaBO.CreateInvoice(ventas);  // Cash Invoices (Save history all invoices)            -----------> Here Continue to Work
+                    //  CuentasBO.StatusCxc(c, id); // Set value cxc to client  
+                    // FacturaBO.Create(venta); // Save all invoices
+                    //  FacturaBO.CreateCr(venta); // Credit Invoices
+                 }
+
+                    /*-----------------------------------------------------------------------------------------------*/
+
                 }
-
-                /*-----------------------------------------------------------------------------------------------*/
-
-            }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show(ex.StackTrace, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Error " + FacturaBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
-
-        } 
+           
+        }
         #endregion
 
-
-
+        #region Invoice Old Code
         /// <summary>
         ///  Head Generate from Textbox
         /// </summary>
@@ -1138,7 +1124,7 @@ namespace pjPalmera.PL
                 }
                 else
                 {
-                    var c = 1; 
+                    var c = 1;
                     venta.tipo = "2";
                     var id = Convert.ToInt32(this.txtIdCliente.Text);
                     CuentasBO.StatusCxc(c, id); // Set value cxc to client  
@@ -1176,11 +1162,11 @@ namespace pjPalmera.PL
 
                 foreach (DataGridViewRow row in this.dgvDetalle.Rows)                       //---------------------------> Right Now Work
                 {
-                    Detail.ID = Convert.ToInt64(row.Cells[1].Value.ToString()); //Id
+                    Detail.CODIGO = Convert.ToInt64(row.Cells[1].Value.ToString()); //Id
                     Detail.DESCRIPCION = row.Cells[2].Value.ToString(); //Description
                     Detail.CANTIDAD = Convert.ToInt32(row.Cells[3].Value.ToString()); //Quality
                     Detail.PRECIO = Convert.ToDecimal(row.Cells[4].Value.ToString()); //Price
-                   // Detail.ITBIS = Convert.ToDecimal(row.Cells[5].Value.ToString()); //Itbis
+                                                                                      // Detail.ITBIS = Convert.ToDecimal(row.Cells[5].Value.ToString()); //Itbis
                     Detail.IMPORTE = Convert.ToDecimal(row.Cells[5].Value.ToString()); //amount
 
                     venta.id = FacturaBO.LastId();   // Set last Id on Invoice
@@ -1196,7 +1182,8 @@ namespace pjPalmera.PL
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-        }
+        } 
+        #endregion
 
         /// <summary>
         /// Update Decrease
@@ -1210,10 +1197,10 @@ namespace pjPalmera.PL
 
                 int x = this.dgvDetalle.Rows.Count;
 
-                for (int i = 1; i > x; i++)
+                for (int i = 0; i < x; i++)
                 {
-                    Detail.ID = Convert.ToInt64(this.dgvDetalle.Rows[i].Cells["ID"].Value.ToString()); //Id_product
-                    Detail.CANTIDAD = Convert.ToInt32(this.dgvDetalle.Rows[i].Cells["CANTIDAD"].Value.ToString()); //Quality
+                    Detail.CODIGO = Convert.ToInt64(this.dgvDetalle.Rows[i].Cells[0].Value); //Id_product
+                    Detail.CANTIDAD = Convert.ToInt32(this.dgvDetalle.Rows[i].Cells[2].Value); //Quality
                 }
 
                 ProductosBO.Decrease_Stock(venta);
@@ -1327,11 +1314,10 @@ namespace pjPalmera.PL
         {
             if (e.KeyData == Keys.Enter)
             {
-               // InsertItem();   //-----> Old Method
-                 InsertNewItem();  //----> New Method
-
-                //DataGridViewColumn Column = this.dgvDetalle.Columns[0];
-                //Column.Visible = false;
+                // InsertItem();   //-----> Old Method
+                BuildDataGrid();
+                LoadHeadGrid();
+                InsertNewItem();  //----> New Method
             }
         }
 
@@ -1359,6 +1345,7 @@ namespace pjPalmera.PL
                 //ProcessSell();
             }
         }
+
     }
 
 }

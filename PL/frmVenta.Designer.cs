@@ -34,7 +34,6 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtValor = new System.Windows.Forms.TextBox();
             this.txtIdCliente = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
             this.cmbDescuentoPostVenta = new System.Windows.Forms.ComboBox();
             this.chbDescuento = new System.Windows.Forms.CheckBox();
@@ -133,7 +132,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.txtValor);
             this.groupBox3.Controls.Add(this.txtIdCliente);
-            this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Controls.Add(this.label16);
             this.groupBox3.Controls.Add(this.cmbDescuentoPostVenta);
             this.groupBox3.Controls.Add(this.chbDescuento);
@@ -181,18 +179,6 @@
             this.txtIdCliente.Size = new System.Drawing.Size(95, 24);
             this.txtIdCliente.TabIndex = 59;
             this.txtIdCliente.Visible = false;
-            // 
-            // button1
-            // 
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Image = global::PL.Properties.Resources.search;
-            this.button1.Location = new System.Drawing.Point(499, 55);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(42, 37);
-            this.button1.TabIndex = 61;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
             // 
             // label16
             // 
@@ -490,7 +476,7 @@
             this.groupBox2.Controls.Add(this.btnNuevo);
             this.groupBox2.Controls.Add(this.btnAgregar);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(871, 148);
+            this.groupBox2.Location = new System.Drawing.Point(820, 148);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(428, 88);
             this.groupBox2.TabIndex = 33;
@@ -575,14 +561,14 @@
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(8, 148);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(857, 171);
+            this.groupBox4.Size = new System.Drawing.Size(806, 171);
             this.groupBox4.TabIndex = 34;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Detalle Cobro";
             // 
             // txtId_Invoice
             // 
-            this.txtId_Invoice.Location = new System.Drawing.Point(751, 137);
+            this.txtId_Invoice.Location = new System.Drawing.Point(490, 143);
             this.txtId_Invoice.Name = "txtId_Invoice";
             this.txtId_Invoice.Size = new System.Drawing.Size(100, 24);
             this.txtId_Invoice.TabIndex = 20;
@@ -860,7 +846,6 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.ComboBox cmbDescuentoPostVenta;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label22;

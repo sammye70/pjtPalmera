@@ -6,30 +6,83 @@ using System.Threading.Tasks;
 
 namespace pjPalmera.Entities
 {
+    /// <summary>
+    /// Author: Samuel Estrella
+    /// created: 22/12/2019
+    /// Modificated by:  
+    /// Title: Products for Sales
+    /// </summary>
+    
     public class DetalleVentaEntity
     {
-        /// <summary>
-        /// Author: Samuel Estrella
-        /// created: 22/12/2019
-        /// Modificated by:  
-        /// Title: Products for Sales
-        /// </summary>
+        //Fields
+        //private int no;
+        private long id;
+        private string description;
+        private float quality;
+        private decimal price;
+        private decimal itbis;
+        private decimal amount;
+        private long id_venta;
 
-        public int No { get; set; }
-        public long ID { get; set; }
-        public string DESCRIPCION { get; set; }
-        public float CANTIDAD { get; set; }
-        public decimal PRECIO { get; set; }
-        public decimal ITBIS { get { return (IMPORTE * 18) / 100; } set { } }
-        public decimal IMPORTE { get { return PRECIO * (decimal)CANTIDAD; } set { } }
+        #region Other Fields
         //public int idfamilia { get; set; }
         //public float stockmax { get; set; }
         //public float stockmin { get; set; }
         //public DateTime f_vencimiento { get; set; }
         //public decimal costo { get; set; }
         //public int createby { get; set; }
-        //public int created { get; set; }
-     
+        //public int created { get; set; } 
+        #endregion
+
+        //Properties
+        //public int No 
+        //{ 
+        //    get { return no; }
+        //    set { no = value; }
+        //}
+
+        public long CODIGO 
+        {
+            get { return id; }
+            set { id = value; } 
+        }
+        public string DESCRIPCION 
+        {
+            get { return description; }
+            set { description = value; } 
+        }
+
+        public float CANTIDAD 
+        {
+            get { return quality; }
+            set { quality = value; }
+        }
+
+        public decimal PRECIO 
+        {
+            get { return price; }
+            set { price = value; }
+        }
+
+        public decimal ITBIS 
+        { 
+            get { return itbis =(amount * 18) / 100; } 
+            set { amount = value; } 
+        }
+
+        public decimal IMPORTE 
+        { 
+            get { return amount = price * (decimal)quality; } 
+            set { amount = value; } 
+        }
+
+        public long ID_FACTURA
+        {
+            get { return id_venta; }
+            set { id_venta = value; }
+        }
+
 
     }
 }
