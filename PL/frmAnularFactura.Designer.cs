@@ -42,6 +42,7 @@
             this.txtNoFactAnular.Name = "txtNoFactAnular";
             this.txtNoFactAnular.Size = new System.Drawing.Size(204, 20);
             this.txtNoFactAnular.TabIndex = 0;
+            this.txtNoFactAnular.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNoFactAnular_KeyDown);
             // 
             // label1
             // 
@@ -70,6 +71,7 @@
             this.btnLimpiar.Size = new System.Drawing.Size(75, 48);
             this.btnLimpiar.TabIndex = 3;
             this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // frmAnularFactura
             // 

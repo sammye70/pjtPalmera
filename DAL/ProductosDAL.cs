@@ -155,9 +155,40 @@ namespace pjPalmera.DAL
             }
         }
 
+        /// <summary>
+        /// Update Stock (inscrement) on table productos
+        /// </summary>
+        /// 
+        /// Author: Samuel Estrella
+        /// Created: 07/07/2020
+        public static void InscrementAfterDesable(VentaEntity venta)
+        {
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+
+                string update_stock = @"UPDATE productos SET productos.stock=productos.stock+@cantidad, modificated=@modificated WHERE productos.idproducto=@idproducto";
+
+                MySqlCommand cmd = new MySqlCommand(update_stock, con);
+
+                foreach (DetalleVentaEntity producto in venta.listProductos)
+                {
+                    cmd.Parameters.Clear(); //
+
+                    cmd.Parameters.AddWithValue("@idproducto", producto.CODIGO);
+                    cmd.Parameters.AddWithValue("@cantidad", producto.CANTIDAD);
+                    cmd.Parameters.AddWithValue("@modificated", DateTime.Now);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+
 
         /// <summary>
-        /// Update Increment Stock
+        /// Update Increment Stock only one product
         /// </summary>
         /// 
         /// Author: Samuel Estrella
@@ -181,7 +212,7 @@ namespace pjPalmera.DAL
                 // cmd.ExecuteNonQuery();
 
                 producto.Idproducto = Convert.ToInt64(cmd.ExecuteScalar());
-                con.Close();   
+                //con.Close();   
             }
         }
 
@@ -351,7 +382,7 @@ namespace pjPalmera.DAL
                 cmd.Parameters.AddWithValue("@modificated",DateTime.Now);
 
                  productos.Orden = Convert.ToInt64(cmd.ExecuteScalar());
-                con.Close();
+                //con.Close();
             }
         }
 

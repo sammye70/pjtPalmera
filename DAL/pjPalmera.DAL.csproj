@@ -61,7 +61,6 @@
     <Compile Include="ProvinciaDAL.cs" />
     <Compile Include="SettingDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TransactionsDAL.cs" />
     <Compile Include="UsuariosDAL.cs" />
   </ItemGroup>
   <ItemGroup>

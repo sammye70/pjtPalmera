@@ -23,6 +23,7 @@ namespace pjPalmera.Entities
         private decimal total_itbis;
         private decimal recibido;
         private decimal devuelta;
+        private int id_venta;
 
 
         //Constructor
@@ -189,6 +190,12 @@ namespace pjPalmera.Entities
             {
                 devuelta = value;
             }
+        }
+
+        public int Id_venta
+        {
+            get { return id_venta; }
+            set { id_venta = value; }
         }
 
     }

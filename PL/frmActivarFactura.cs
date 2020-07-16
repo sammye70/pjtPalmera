@@ -51,63 +51,56 @@ namespace pjPalmera.PL
         /// <summary>
         /// Process Enable Bill
         /// </summary>
-        private void EnableBill()
+        private void EnableBill(string number)
         {
-            //if (VerifyInvoice() == true)
-            //{
-            var Question = MessageBox.Show("Esta Apunto de Activar la Factura, Desea Continuar","Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var Answer = new DialogResult();
 
-            if (Question == DialogResult.Yes)
+            if (number == string.Empty)
             {
-                ProcessEnableInvoice();
-                MessageBox.Show("Factura Activada Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                MessageBox.Show("Debe indicar un número de factura valido", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.txtNoFactActivar.Focus();
             }
-            else if (Question == DialogResult.No)
+            else if (number != string.Empty)
             {
-                return;
-                //MessageBox.Show("Factura No Anulada");
+                var NumFactura = FacturaBO.ExitsInvoice(int.Parse(number));
+
+                if (NumFactura == true)
+                {
+                    MessageBox.Show(FacturaBO.strMensajeBO + number, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                    Answer = MessageBox.Show("Esta Apunto de Activar la Factura " + number + ", Desea Continuar", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (Answer == DialogResult.Yes)
+                    {
+                        ProcessEnableInvoice(int.Parse(number));
+                        MessageBox.Show("Factura " + number + " Activada Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
+                    }
+                    else if (Answer == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
+                else if (NumFactura == false)
+                {
+                    MessageBox.Show(FacturaBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    this.txtNoFactActivar.Focus();
+                }
             }
-            //}
-            //else if (VerifyInvoice () == false)
-            //{
-            //    MessageBox.Show("No Existe Factura Asociado al Número Indicado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            //}
         }
 
         /// <summary>
         /// Change to Status Enable Current Invoice
         /// </summary>
-        private void ProcessEnableInvoice()
+        private void ProcessEnableInvoice(int number)
         {
             var invoice = new VentaEntity();
+            var detail = new DetalleVentaEntity();
+
             invoice.id = Convert.ToInt32(this.txtNoFactActivar.Text);
             //var number = Convert.ToInt64(this.txtNoFactActivar.Text);
             invoice.status = 1;
             FacturaBO.EnableInvoice(invoice);
-        }
-
-        /// <summary>
-        ///  Verify if exits invoices
-        /// </summary>
-        /// <returns></returns>
-        private bool VerifyInvoice()
-        {
-            bool result = true;
-            var number = Convert.ToInt64(this.txtNoFactActivar.Text); //
-            FacturaBO.ExitsInvoice(number); //
-            var mensaje = FacturaBO.MensajeBO; //
-
-            if (mensaje == true)
-            {
-                return result = true;  //
-            }
-            else if (mensaje == false)
-            {
-                return result = false; //
-            }
-
-            return result;
         }
 
         private void frmActivarFactura_Load(object sender, EventArgs e)
@@ -120,7 +113,22 @@ namespace pjPalmera.PL
 
         private void btnActivarFac_Click(object sender, EventArgs e)
         {
-            EnableBill();
+            var number = this.txtNoFactActivar.Text;
+
+            EnableBill(number);
+        }
+
+        private void txtNoFactActivar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                this.btnActivarFac.Focus();
+            }
+
+            if (e.KeyData == Keys.Escape)
+            {
+                this.Close();
+            }
         }
     }
 }

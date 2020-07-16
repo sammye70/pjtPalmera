@@ -279,6 +279,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.DarkGreen;
             this.label11.Location = new System.Drawing.Point(24, 300);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(120, 24);
@@ -289,6 +290,7 @@
             // 
             this.lblMontoTotal.AutoSize = true;
             this.lblMontoTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMontoTotal.ForeColor = System.Drawing.Color.DarkGreen;
             this.lblMontoTotal.Location = new System.Drawing.Point(175, 300);
             this.lblMontoTotal.Name = "lblMontoTotal";
             this.lblMontoTotal.Size = new System.Drawing.Size(114, 24);
@@ -349,6 +351,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label14.Location = new System.Drawing.Point(25, 261);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(425, 13);

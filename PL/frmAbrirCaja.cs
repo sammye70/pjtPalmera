@@ -80,19 +80,15 @@ namespace pjPalmera.PL
         {
             try
             {
-                int t, uno, cinco, diez, venticinco, cincuenta, cien, doscientos, quinientos, mil, dosmil;
-
-                uno = Convert.ToInt32(this.txtMonedas1.Text); cinco = Convert.ToInt32(this.txtMonedas5.Text); diez = Convert.ToInt32(this.txtMonedas10.Text); venticinco = Convert.ToInt32(this.txtMonedas25.Text);
-                cincuenta = Convert.ToInt32(this.txtBilletes50.Text); cien = Convert.ToInt32(this.txtBilletes100.Text); doscientos = Convert.ToInt32(this.txtBilletes200.Text); quinientos = Convert.ToInt32(this.txtBilletes500.Text);
-                mil = Convert.ToInt32(this.txtBilletes1000.Text); dosmil = Convert.ToInt32(this.txtBilletes2000.Text);
-
-                t = Services.monto(uno, cinco, diez, venticinco, cincuenta, cien, doscientos, quinientos, mil, dosmil);
+                var t = Services.monto(Convert.ToInt32(this.txtMonedas1.Text), Convert.ToInt32(this.txtMonedas5.Text), Convert.ToInt32(this.txtMonedas10.Text), 
+                                        Convert.ToInt32(this.txtMonedas25.Text), Convert.ToInt32(this.txtBilletes50.Text), Convert.ToInt32(this.txtBilletes100.Text), 
+                                        Convert.ToInt32(this.txtBilletes200.Text), Convert.ToInt32(this.txtBilletes500.Text), Convert.ToInt32(this.txtBilletes1000.Text), Convert.ToInt32(this.txtBilletes2000.Text));
 
                 this.lblMontoTotal.Text = Convert.ToString(t);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -206,7 +202,6 @@ namespace pjPalmera.PL
             
         }
 
-
         private void btnClean_Click(object sender, EventArgs e)
         {
             CleanControls();
@@ -226,19 +221,44 @@ namespace pjPalmera.PL
 
         private void btnProcesar_Click(object sender, EventArgs e)
         {
-            if (Validate() == true)
+            var Answer = new DialogResult();
+
+            try
             {
-                OpenBox();
-                MessageBox.Show("Caja Abierta! Recuerde Cerrar la Caja al Finalizar las Labores", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                CleanControls();
-                this.Close();
+                Answer = MessageBox.Show("Esta Apunto de Aperturar la Caja, Seguro que quiere hacerlo", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (Answer == DialogResult.Yes)
+                {
+                    if (Validator() == true)
+                    {
+                        //Missing function valide if current box was opened
+
+                        OpenBox();
+                        MessageBox.Show("Caja Abierta! Recuerde Cerrar la Caja al Finalizar las Labores", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        CleanControls();
+                        this.Close();
+                    }
+                    else if (Validator() != true)
+                    {
+                        MessageBox.Show("Debe Revisar los Valor Ingresados. Para poder Aperturar la Caja", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+                }
+                else if (Answer == DialogResult.No)
+                {
+                    this.txtMonedas1.Focus();
+                    return;
+                }
             }
-            else if (Validate() != true)
+            catch (Exception ex)
             {
-                MessageBox.Show("Debe Revisar los Valor Ingresados. Para poder Aperturar la Caja", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
             }
-            
+            finally 
+            {
+                this.txtMonedas1.Focus();
+            }
         }
     }
 }

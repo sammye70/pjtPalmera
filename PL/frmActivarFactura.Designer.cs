@@ -51,6 +51,7 @@
             this.txtNoFactActivar.Name = "txtNoFactActivar";
             this.txtNoFactActivar.Size = new System.Drawing.Size(204, 20);
             this.txtNoFactActivar.TabIndex = 4;
+            this.txtNoFactActivar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNoFactActivar_KeyDown);
             // 
             // btnLimpiar
             // 

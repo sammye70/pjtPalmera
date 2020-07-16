@@ -319,11 +319,20 @@ namespace pjPalmera.PL
 
         private void dgvProductOnlyActive_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            // Evaluate item stock
+            // cvalor is number the item in storage
+            // Return true if item stock is smaller than 0 or iqual to 0 (Example: -1 or 0)
+            // Return false if item stock is bigger than 0
+
+            // Create by: Samuel Estrella
+            // Modificated:
+            // Create:
+
             decimal cvalor = Convert.ToDecimal(this.dgvProdConsultar.Rows[e.RowIndex].Cells["Stock"].Value);
 
             try
             {
-                if (cvalor <=0)
+                if (cvalor <= 0)
                 {
                     //  if (e.RowIndex == -1)
                     //    return;
@@ -335,15 +344,16 @@ namespace pjPalmera.PL
                     this.dgvProductOnlyActive.DataSource = ProductosBO.GetAll();
                     return;
                 }
-                else
+                else 
                 {
                     if (e.RowIndex == -1)
                         return;
 
                     _numero = Convert.ToInt64(this.dgvProductOnlyActive.Rows[e.RowIndex].Cells["Orden"].Value);
-
+                    
                     this.DialogResult = DialogResult.OK;
                     this.Close();
+                   
                 }
             }
             catch (Exception ex)
@@ -436,6 +446,7 @@ namespace pjPalmera.PL
                 NewSearch();
                 this.cmbEstado.Visible = false;
                 this.txtCriterioBusqueda.Visible = true;
+                this.txtCriterioBusqueda.Focus();
             }
         }
 
@@ -447,6 +458,7 @@ namespace pjPalmera.PL
                 NewSearch();
                 this.cmbEstado.Visible = false;
                 this.txtCriterioBusqueda.Visible = true;
+                this.txtCriterioBusqueda.Focus();
             }
         }
 
@@ -458,6 +470,7 @@ namespace pjPalmera.PL
                 NewSearch();
                 this.txtCriterioBusqueda.Visible = false;
                 this.cmbEstado.Visible = true;
+                this.cmbEstado.Focus();
             }
         }
 

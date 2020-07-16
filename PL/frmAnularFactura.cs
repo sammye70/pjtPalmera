@@ -14,6 +14,7 @@ namespace pjPalmera.PL
 {
     public partial class frmAnularFactura : Form
     {
+
         public frmAnularFactura()
         {
             InitializeComponent();
@@ -50,49 +51,62 @@ namespace pjPalmera.PL
 
 
         /// <summary>
-        /// Process Desable Bill   --->
+        /// Process Desable Invoice
         /// </summary>
-        private void DesableBill()
+        private void DesableBill(string number)
         {
-            //if (VerifyInvoice() == true)
-            //{ 
+            var Question = new DialogResult();
 
-            if (this.txtNoFactAnular.Text == string.Empty)
+            if (number == string.Empty)
             {
-                MessageBox.Show("Debe Ingresar una Número de Factura Válido", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Debe Indicar un Número de Factura", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.txtNoFactAnular.Focus();
                 return;
-            } 
-            else if (this.txtNoFactAnular.Text != string.Empty) 
-            {
-                var Question = new DialogResult();
-
-                Question = MessageBox.Show("Esta Apunto de Anular para Factura. Desea Continuar", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (Question == DialogResult.Yes)
-                {
-                    ProcessDesableInvoice();
-                    MessageBox.Show("Factura Anulada Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Close();
-                }
-                else if (Question == DialogResult.No)
-                {
-                    return;
-
-                    //MessageBox.Show("Factura No Anulada");
-                }
-                //else if (VerifyInvoice() == false)
-                //{
-                //    MessageBox.Show("No Existe Factura Asociado al Número Indicado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                //}
             }
+            else if (number != string.Empty)
+            {
+                try
+                {
+                    var NumFactura = FacturaBO.ExitsInvoice(int.Parse(number));
 
+                    if (NumFactura == true)
+                    {
+                        MessageBox.Show(FacturaBO.strMensajeBO + number, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
+                        Question = MessageBox.Show("Esta Apunto de Anular la Factura No: " + number + ". Desea Continuar", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (Question == DialogResult.Yes)
+                        {
+                            // ProcessDesableInvoice(int.Parse(numero));
+                            Load_Invoice(int.Parse(number));
+                            MessageBox.Show("Factura "+ number +" Anulada Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.Close();
+                        }
+                        else if (Question == DialogResult.No)
+                        {
+                            return;
+                        }
+                    }
+                    else if (NumFactura == false)
+                    {
+                        MessageBox.Show(FacturaBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        this.txtNoFactAnular.Focus();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // MessageBox.Show("Formato incorrecto del número de factura (Solo acepta números)", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.txtNoFactAnular.Focus();
+                }
+            }
         }
 
         private void btnAnularFac_Click(object sender, EventArgs e)
         {
-            DesableBill();
+            var number = this.txtNoFactAnular.Text; //
+
+            DesableBill(number);
         }
 
         private void frmAnularFactura_Load(object sender, EventArgs e)
@@ -103,42 +117,76 @@ namespace pjPalmera.PL
             this.txtNoFactAnular.Focus();
         }
 
-
-
         /// <summary>
-        /// Change to Status Desable current Invoice
+        /// Change to Status Desable current Invoice (head)
         /// </summary>
-        private void ProcessDesableInvoice()
+        private void ProcessDesableInvoice(int numero)
         {
             var invoice = new VentaEntity();
             //var number = Convert.ToInt64(this.txtNoFactAnular.Text);
-            invoice.id = Convert.ToInt32(this.txtNoFactAnular.Text);
+            invoice.id = numero;
             invoice.status = 2;
             FacturaBO.DesableInvoices(invoice);
         }
 
-
         /// <summary>
-        ///  Verify if exits invoices
+        /// Load Invoice for Desable
         /// </summary>
-        /// <returns></returns>
-        private bool VerifyInvoice()
+        /// <param name="number"></param>
+        private void Load_Invoice(int number)
         {
-            bool result= true;
-            var number = Convert.ToInt64(this.txtNoFactAnular.Text); //
-            FacturaBO.ExitsInvoice(number); //
-            var mensaje = FacturaBO.MensajeBO; //
+            //
+            // Process 1 Change Status invoices, and Inscrement stock product -OK
+            // Process 2 Insert list Product in Detail Desable Table waiting for if invoices changes status to Actived  -OK
+            // Process 3 Insert transactions and General Transactions Tables -ok
 
-            if (mensaje == true)
-            {
-                return result = true;  //
-            }
-            else if (mensaje == false)
-            {
-                return result = false; //
-            }
+            var invoice = new VentaEntity();
+            var Detail = new List<DetalleVentaEntity>();
 
-            return result;
+            invoice = FacturaBO.Get_Head_Invoice_ById(number);
+            Detail = FacturaBO.GetDetail_byInvoiceId(number);
+
+            try
+            {
+
+                for (int i = 0; i < Detail.Count; i++)
+                {
+                    // create method to add list item to  insert in new table detail invoice desable, and increment stock in table product
+                    invoice.addProduct(Detail[i]);
+                }
+
+                ProductosBO.InscrementAfterDesable(invoice);
+                FacturaBO.UpdateTranst(invoice);
+                FacturaBO.DesableInvoices(invoice);
+                FacturaBO.DeleteDetailByIdInvoice(invoice);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            this.txtNoFactAnular.Text = "";
+            this.txtNoFactAnular.Focus();
+        }
+
+        private void txtNoFactAnular_KeyDown(object sender, KeyEventArgs e)
+        {
+            //var number = this.txtNoFactAnular.Text;
+
+            if (e.KeyData == Keys.Enter)
+            {
+                //  DesableBill(number);
+                this.btnAnularFac.Focus();
+            }
+            if (e.KeyData == Keys.Escape)
+            {
+                this.Close();
+            }
         }
     }
 }

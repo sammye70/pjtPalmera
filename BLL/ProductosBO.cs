@@ -163,6 +163,31 @@ namespace pjPalmera.BLL
             }
         }
 
+
+
+
+        /// <summary>
+        /// Update Stock (inscrement) on table productos after Desable Invoice
+        /// </summary>
+        /// 
+        /// Author: Samuel Estrella
+        /// Created: 07/07/2020
+        public static void InscrementAfterDesable(VentaEntity venta)
+        {
+            try
+            {
+               ProductosDAL.InscrementAfterDesable(venta);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            
+
+        }
+
+
         /// <summary>
         /// Update Information about some product
         /// </summary>

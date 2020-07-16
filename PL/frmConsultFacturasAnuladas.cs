@@ -31,7 +31,7 @@ namespace pjPalmera.PL
         /// </summary>
         private void GetInvoicesDesable()
         {
-            this.dgvFactAnuladas.DataSource = FacturaBO.GetInvoiceDesable();
+            this.dgvFactAnuladas.DataSource = FacturaBO.Get_All_Invoice_Desable();
 
             if (this.dgvFactAnuladas.RowCount < 1)
             {

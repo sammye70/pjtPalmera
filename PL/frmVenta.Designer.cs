@@ -87,6 +87,7 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -691,7 +692,7 @@
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.label21.Location = new System.Drawing.Point(1010, 4);
+            this.label21.Location = new System.Drawing.Point(889, -1);
             this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(207, 18);
@@ -704,12 +705,12 @@
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.label22.Location = new System.Drawing.Point(530, 4);
+            this.label22.Location = new System.Drawing.Point(409, -1);
             this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(164, 18);
             this.label22.TabIndex = 42;
-            this.label22.Text = "Buscar Producto: F3";
+            this.label22.Text = "Buscar Producto: F6";
             this.label22.Visible = false;
             // 
             // label20
@@ -717,12 +718,12 @@
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.label20.Location = new System.Drawing.Point(362, 4);
+            this.label20.Location = new System.Drawing.Point(36, -1);
             this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(153, 18);
+            this.label20.Size = new System.Drawing.Size(131, 18);
             this.label20.TabIndex = 40;
-            this.label20.Text = "Procesar Venta: F2";
+            this.label20.Text = "Nueva Venta: F2";
             this.label20.Visible = false;
             // 
             // timer1
@@ -750,7 +751,7 @@
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.label23.Location = new System.Drawing.Point(702, 4);
+            this.label23.Location = new System.Drawing.Point(581, -1);
             this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(244, 18);
@@ -758,11 +759,25 @@
             this.label23.Text = "Agregar Producto al Carrito: F4";
             this.label23.Visible = false;
             // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.label24.Location = new System.Drawing.Point(229, -1);
+            this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(153, 18);
+            this.label24.TabIndex = 44;
+            this.label24.Text = "Procesar Venta: F3";
+            this.label24.Visible = false;
+            // 
             // frmVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1284, 607);
+            this.Controls.Add(this.label24);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.statusStrip1);
@@ -776,7 +791,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ventas";
             this.Load += new System.EventHandler(this.frmVenta_Load);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.frmVenta_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -851,5 +865,6 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox txtId_Invoice;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label24;
     }
 }

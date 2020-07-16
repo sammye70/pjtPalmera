@@ -421,7 +421,7 @@ namespace pjPalmera.PL
         {
             var Answer = new DialogResult();
 
-            MessageBox.Show("Seguro Que Desea Guardar los Cambios", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            Answer = MessageBox.Show("Seguro Que Desea Guardar los Cambios", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             
             if (Answer == DialogResult.Yes)
             {

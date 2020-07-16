@@ -24,6 +24,7 @@ namespace pjPalmera.Entities
         private decimal itbis;
         private decimal amount;
         private long id_venta;
+        private DateTime created;
 
         #region Other Fields
         //public int idfamilia { get; set; }
@@ -81,6 +82,12 @@ namespace pjPalmera.Entities
         {
             get { return id_venta; }
             set { id_venta = value; }
+        }
+
+        public DateTime CREATED
+        {
+            get { return created; }
+            set { created = value; }
         }
 
 

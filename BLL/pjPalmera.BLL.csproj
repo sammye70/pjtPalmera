@@ -54,7 +54,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProveedorBO.cs" />
     <Compile Include="ProvinciaBO.cs" />
-    <Compile Include="TransactionsBO.cs" />
     <Compile Include="UsuariosBO.cs" />
   </ItemGroup>
   <ItemGroup>

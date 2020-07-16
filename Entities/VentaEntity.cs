@@ -11,11 +11,18 @@ namespace pjPalmera.Entities
 {
     public class VentaEntity
     {
+        //***********************************************************************************************
+        //  Title: Invoice Header y Detail
+        //  Author: Samuel Estrella
+        //  created: 22/12/2019
+        //  Modificated by:  07/07/2020
+        //  Modificated by: Samuel Estrella
+        //
+        //***********************************************************************************************
+
+
         /// <summary>
-        /// Author: Samuel Estrella
-        /// created: 22/12/2019
-        /// Modificated by:  
-        /// Title: Invoice Header y Detail
+        ///  Invoice Head Entity
         /// </summary>
 
         //Fields and Properties
@@ -34,6 +41,9 @@ namespace pjPalmera.Entities
         public decimal total_itbis { get; set; }
         public decimal recibido { get; set; }
         public decimal devuelta { get; set; }
+        public int id_caja { get; set; }
+        public DateTime modificado { get; set;}
+        public int id_vendedor { get; set; }
         private List<DetalleVentaEntity> item;
 
 

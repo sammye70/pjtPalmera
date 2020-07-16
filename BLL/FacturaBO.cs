@@ -7,51 +7,13 @@ using System.Transactions;
 using System.Windows.Forms; //
 using pjPalmera.Entities;
 using pjPalmera.DAL;
+using System.Runtime.CompilerServices;
 
 namespace pjPalmera.BLL
 {
     public class FacturaBO
     {
-        public static bool MensajeBO; //
         public static string strMensajeBO; //
-
-        /// <summary>
-        /// Save Head invoice (Cash)
-        /// </summary>
-        /// <param name="venta"></param>
-        public static void Create(VentaEntity venta)
-        {
-            try
-            {
-                FacturasDAL.Create(venta);
-                
-            }
-            catch (Exception ex)
-            {
-                strMensajeBO = ex.Message;
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-        }
-
-
-        /// <summary>
-        /// Save Head invoice (Credit)
-        /// </summary>
-        /// <param name="Venta"></param>
-        public static void CreateCr(VentaEntity Venta)
-        {
-            try
-            {
-                FacturasDAL.CreateCr(Venta);
-            }
-            catch (Exception ex)
-            {
-                strMensajeBO = ex.Message;
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-        }
 
 
         /// <summary>
@@ -94,25 +56,7 @@ namespace pjPalmera.BLL
 
 
         /// <summary>
-        /// Save Detail invoice
-        /// </summary>
-        /// <param name="detail"></param>
-        public static void Create_detail(VentaEntity detail)
-        {
-            try
-            {
-                FacturasDAL.Created_Detail(detail);
-            }
-            catch (Exception ex)
-            {
-                strMensajeBO = ex.Message;
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-        }
-
-        /// <summary>
-        /// Get All Invoices
+        /// Get All Invoices (Cash and Credit)
         /// </summary>
         /// <returns></returns>
         public static List<VentaEntity> GetAll()
@@ -121,16 +65,16 @@ namespace pjPalmera.BLL
             {
                 return FacturasDAL.GetAll();
             }
-            catch (Exception ex)
+            catch 
             {
-                strMensajeBO = ex.Message;
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               // strMensajeBO = ex.Message;
+              //  MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return null;
             }
         }
 
         /// <summary>
-        /// Search Invoices by Number and type equial to Cash
+        /// Search Invoices by Number and type equial to Cash only
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
@@ -149,7 +93,7 @@ namespace pjPalmera.BLL
         }
 
         /// <summary>
-        /// Search Invoices by Date
+        /// Search Invoices by Date (cash and credit)
         /// </summary>
         /// <param name="DateBegin"></param>
         /// <param name="DateUntil"></param>
@@ -170,25 +114,7 @@ namespace pjPalmera.BLL
         }
 
         /// <summary>
-        ///  Search Last Invoice Id
-        /// </summary>
-        /// <returns></returns>
-        public static int LastId()
-        {
-            try
-            {
-                return FacturasDAL.LastId();
-            }
-            catch (Exception ex)
-            {
-                strMensajeBO = ex.Message;
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return 0;
-            }
-        }
-
-        /// <summary>
-        /// Get All Credit Invoices
+        /// Get All Credit Invoices only
         /// </summary>
         /// <returns></returns>
         public static List<VentaEntity> GetCreditInvoices()
@@ -216,10 +142,10 @@ namespace pjPalmera.BLL
             {
                 return FacturasDAL.GetCashInvoices();
             }
-            catch (Exception ex)
+            catch 
             {
-                strMensajeBO = ex.Message;
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               // strMensajeBO = ex.Message;
+               // MessageBox.Show(ex.StackTrace, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return null;
             }
         }
@@ -244,6 +170,133 @@ namespace pjPalmera.BLL
             }
         }
 
+        /// <summary>
+        /// Change to Status Enable current Invoice
+        /// </summary>
+        public static void EnableInvoice(VentaEntity invoice)
+        {
+            try
+            {
+                FacturasDAL.EnableInvoice(invoice);
+            }
+            catch (Exception ex)
+            {
+                strMensajeBO = ex.Message;
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+        }
+
+
+        /// <summary>
+        /// Get All Invoices Desable only Head by this.
+        /// </summary>
+        /// <returns></returns>
+        public static List<VentaEntity> Get_All_Invoice_Desable()
+        {
+            try
+            {
+                return FacturasDAL.Get_Invoice_Desable();
+            }
+            catch (Exception ex)
+            {
+                strMensajeBO = ex.Message;
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return null;
+            }
+        }
+
+        //-----------------------------------------------Process Desable Invoices--------------------------------------
+        // Created: 02/07/2020
+        // Author: Samuel Estrella
+        // Modificated date:
+        // Modificated by:
+        //-------------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Verificaty Invoices if Exits or not (Only enable invoices )
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static bool ExitsInvoice(int number)
+        {
+            var MensajeDAL = FacturasDAL.ExitsInvoiceAct(number);
+
+            if (MensajeDAL == true)
+            {
+                strMensajeBO = "Se encontro la Factura";
+                return true;
+            }
+            else if (MensajeDAL == false)
+            {
+                strMensajeBO = "No Existe la Factura o la misma fue anulada, Verificar e Internar Nuevamente";
+                return MensajeDAL = false;
+            }
+            return MensajeDAL;
+        }
+
+        /// <summary>
+        /// Verificaty Invoices if Exits or not (Only desable invoices )
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static bool ExitsInvoiceDes(int number)
+        {
+            var MensajeDAL = FacturasDAL.ExitsInvoiceAct(number);
+
+            if (MensajeDAL == true)
+            {
+                strMensajeBO = "Se encontro la Factura";
+                return true;
+            }
+            else if (MensajeDAL == false)
+            {
+                strMensajeBO = "No Existe la Factura o la misma fue anulada, Verificar e Internar Nuevamente";
+                return MensajeDAL = false;
+            }
+            return MensajeDAL;
+        }
+
+
+        /// <summary>
+        /// Get Head Invoice by Id use to desable current invoice
+        /// </summary>
+        /// <param name="invoice_id"></param>
+        /// <returns></returns>
+        public static VentaEntity Get_Head_Invoice_ById(int invoice_id)
+        {
+
+            try
+            {
+                return FacturasDAL.Get_Head_Invoice_ById(invoice_id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        
+        
+        }
+
+        /// <summary>
+        /// Get Detail Invoice for desable this.
+        /// </summary>
+        /// <param name="invoice_id"></param>
+        /// <returns></returns>
+        public static List<DetalleVentaEntity> GetDetail_byInvoiceId(int invoice_id)
+        {
+            try
+            {
+                return FacturasDAL.Get_Detail_by_InvoiceId(invoice_id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
 
         /// <summary>
         /// Change to Status Desable current Invoice
@@ -264,77 +317,40 @@ namespace pjPalmera.BLL
 
 
         /// <summary>
-        /// Change to Status Enable current Invoice
+        /// Delete Detail Item by id invoice After Disabled Invoice
         /// </summary>
-        public static void EnableInvoice(VentaEntity invoice)
+        /// <param name="invoice"></param>
+        public static void DeleteDetailByIdInvoice(VentaEntity invoice)
         {
             try
             {
-                FacturasDAL.EnableInvoice(invoice);
+                FacturasDAL.DeleteDetailByIdInvoice(invoice);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                strMensajeBO = ex.Message;
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+
+                throw;
             }
         }
 
+        //------------------------------------------ Until Here Process Desable Invoices------------------------------------------
 
-        /// <summary>
-        /// Get All Invoices Desable
-        /// </summary>
-        /// <returns></returns>
-        public static List<VentaEntity> GetInvoiceDesable()
-        {
-            try
-            {
-                return FacturasDAL.GetInvoiceDesable();
-            }
-            catch (Exception ex)
-            {
-                strMensajeBO = ex.Message;
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return null;
-            }
-        }
 
 
         /// <summary>
-        /// Verificaty Invoices if Exits or not
-        /// </summary>
-        /// <param name="number"></param>
-        /// <returns></returns>
-        public static bool ExitsInvoice(Int64 number)
-        {
-            var MensajeDA = FacturasDAL.result;
-               
-
-                if ( MensajeDA == true)
-                {
-                    return MensajeBO = true;
-                }
-                else if (MensajeDA == false)
-                {
-                    return MensajeBO = true;
-                }
-                return MensajeBO;
-        }
-
-        /// <summary>
-        /// Get All Product in Invoices
+        /// Get All Product in Invoices (short description)
         /// </summary>
         /// <returns></returns>
         public static List<ProductosVendidosEntity> GetAllProducInvoices()
         {
             try
             {
-                return FacturasDAL.GetAllProducInvoices();
+                return FacturasDAL.AllProducInvoices();
             }
             catch (Exception ex)
             {
                 strMensajeBO = ex.Message;
-                MessageBox.Show("Error "+ ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Error " + ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return null;
             }
         }
@@ -348,7 +364,7 @@ namespace pjPalmera.BLL
         {
             try
             {
-                return FacturasDAL.GetDetailInvoices(idventa);
+                return FacturasDAL.Get_Detail_Invoices(idventa);
             }
             catch (Exception ex)
             {
@@ -358,6 +374,7 @@ namespace pjPalmera.BLL
             }
         }
 
+
         /// <summary>
         /// Get All Detail Invoice (cash) Long Description
         /// </summary>
@@ -366,7 +383,7 @@ namespace pjPalmera.BLL
         {
             try
             {
-                return FacturasDAL.GetAllDetailInvoices();
+                return FacturasDAL.Get_All_Detail_Invoices();
             }
             catch (Exception ex)
             {
@@ -377,8 +394,16 @@ namespace pjPalmera.BLL
         }
 
 
+        //-----------------------------------------------Process Create New Invoices--------------------------------------
+        // Created: 02/07/2020
+        // Author: Samuel Estrella
+        // Modificated date:
+        // Modificated by:
+        //----------------------------------------------------------------------------------------------------------------
+
+
         /// <summary>
-        /// Process Insert  Invoice Head and Detail (New)
+        /// Process Insert Invoice Head and Detail (New)
         /// </summary>
         /// <param name="Venta"></param>
         public static void CreateInvoice(VentaEntity Venta)
@@ -394,6 +419,57 @@ namespace pjPalmera.BLL
                 return;
             }
         }
+
+
+        //------------------------------------------ Until Here Process Create New Invoices---------------------------------
+
+
+
+        /***********************************************************************************************************
+        // Name: Register Daily Transactions 
+        // Created: 09/07/2020
+        // Author: Samuel Estrella
+        // Modificated date: 09/07/2020
+        // Modificated by: Samuel Estrella
+        //*********************************************************************************************************/
+
+
+        /// <summary>
+        /// Create Daily Transactions Temporaly and Permanent
+        /// </summary>
+        /// <param name="invoice"></param>
+        public static void CreateTranst(VentaEntity invoice)
+        {
+            try
+            {
+                FacturasDAL.CreateTranstPermant(invoice);
+            }
+            catch (InvalidOperationException ex)
+            {
+                ex.GetType();
+                return;
+
+            }
+        }
+
+        /// <summary>
+        /// Update Daily Transactions Permanenet and Temporal
+        /// </summary>
+        /// <param name="invoice"></param>
+        public static void UpdateTranst(VentaEntity invoice)
+        {
+            try
+            {
+                FacturasDAL.UpdateTranst(invoice);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        //--------------------------------------------- Until Method Daily Transactions ------------------------------------------ 
 
 
         /// <summary>

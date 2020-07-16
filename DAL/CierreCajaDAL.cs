@@ -16,13 +16,14 @@ namespace pjPalmera.DAL
         /// </summary>
         /// <returns></returns>
         public static decimal MontoVentas()
-        {
+        { 
             decimal amount;
+            
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
 
-                string query = @"SELECT SUM(total) from transactions;";
+                string query = @"SELECT SUM(total) from daily_transactions_temp;";
 
                 MySqlCommand cmd = new MySqlCommand(query,con);
 
@@ -41,7 +42,7 @@ namespace pjPalmera.DAL
             {
                 con.Open();
 
-                string query = @"TRUNCATE TABLE transactions;";
+                string query = @"TRUNCATE TABLE daily_transactions_temp;";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
 

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using pjPalmera.BLL;
 using pjPalmera.Entities;
+using PL;
 
 namespace pjPalmera.PL
 {
@@ -96,6 +97,8 @@ namespace pjPalmera.PL
 
         private void frmPrincipal_Load(object sender, EventArgs e)
         {
+           // splash splash = new splash();
+            //splash.ShowDialog(this);
             //frmlogin login = new frmlogin();
             //login.ShowDialog();
 
@@ -139,12 +142,15 @@ namespace pjPalmera.PL
         /// </summary>
         private void AppExit()
         {
-           DialogResult result = MessageBox.Show("Seguro que desea salir","Mensaje del Sistema",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button1);
-            if (result == DialogResult.Yes)
+            var answer = new DialogResult();
+
+            answer = MessageBox.Show("Seguro que desea salir","Mensaje del Sistema",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button1);
+            
+            if (answer == DialogResult.Yes)
             {
                 this.Close();
             }
-            else if( result == DialogResult.No)
+            else if(answer == DialogResult.No)
             {        
                
             }
