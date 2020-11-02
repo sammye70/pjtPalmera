@@ -33,15 +33,16 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.cmbEstado = new System.Windows.Forms.ComboBox();
+            this.cmbCategories = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbCategory = new System.Windows.Forms.RadioButton();
             this.rbStatus = new System.Windows.Forms.RadioButton();
             this.rbDescription = new System.Windows.Forms.RadioButton();
             this.rbCodigo = new System.Windows.Forms.RadioButton();
+            this.cmbEstado = new System.Windows.Forms.ComboBox();
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnEditarProd = new System.Windows.Forms.Button();
             this.btnRefrescar = new System.Windows.Forms.Button();
-            this.btnExpExcel = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.lblCriterio = new System.Windows.Forms.Label();
             this.txtCriterioBusqueda = new System.Windows.Forms.TextBox();
@@ -67,7 +68,7 @@
             this.dgvProdConsultar.Location = new System.Drawing.Point(12, 88);
             this.dgvProdConsultar.Name = "dgvProdConsultar";
             this.dgvProdConsultar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvProdConsultar.Size = new System.Drawing.Size(1103, 374);
+            this.dgvProdConsultar.Size = new System.Drawing.Size(1144, 374);
             this.dgvProdConsultar.TabIndex = 0;
             this.dgvProdConsultar.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProdConsultar_CellContentDoubleClick);
             // 
@@ -77,52 +78,61 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.cmbEstado);
+            this.panel1.Controls.Add(this.cmbCategories);
             this.panel1.Controls.Add(this.groupBox1);
+            this.panel1.Controls.Add(this.cmbEstado);
             this.panel1.Controls.Add(this.btnRemove);
             this.panel1.Controls.Add(this.btnEditarProd);
             this.panel1.Controls.Add(this.btnRefrescar);
-            this.panel1.Controls.Add(this.btnExpExcel);
             this.panel1.Controls.Add(this.btnSearch);
             this.panel1.Controls.Add(this.lblCriterio);
             this.panel1.Controls.Add(this.txtCriterioBusqueda);
             this.panel1.Location = new System.Drawing.Point(11, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1103, 70);
+            this.panel1.Size = new System.Drawing.Size(1140, 70);
             this.panel1.TabIndex = 1;
             // 
-            // cmbEstado
+            // cmbCategories
             // 
-            this.cmbEstado.FormattingEnabled = true;
-            this.cmbEstado.Items.AddRange(new object[] {
-            "Activo",
-            "Inactivo"});
-            this.cmbEstado.Location = new System.Drawing.Point(85, 22);
-            this.cmbEstado.Name = "cmbEstado";
-            this.cmbEstado.Size = new System.Drawing.Size(144, 21);
-            this.cmbEstado.TabIndex = 65;
-            this.cmbEstado.Visible = false;
-            this.cmbEstado.SelectedIndexChanged += new System.EventHandler(this.cmbEstado_SelectedIndexChanged);
+            this.cmbCategories.FormattingEnabled = true;
+            this.cmbCategories.Location = new System.Drawing.Point(96, 22);
+            this.cmbCategories.Name = "cmbCategories";
+            this.cmbCategories.Size = new System.Drawing.Size(254, 21);
+            this.cmbCategories.TabIndex = 69;
+            this.cmbCategories.Visible = false;
+            this.cmbCategories.DropDown += new System.EventHandler(this.cmbCategories_DropDown);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.rbCategory);
             this.groupBox1.Controls.Add(this.rbStatus);
             this.groupBox1.Controls.Add(this.rbDescription);
             this.groupBox1.Controls.Add(this.rbCodigo);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(637, 6);
+            this.groupBox1.Location = new System.Drawing.Point(657, 8);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(346, 56);
+            this.groupBox1.Size = new System.Drawing.Size(467, 56);
             this.groupBox1.TabIndex = 68;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtrar por";
             // 
+            // rbCategory
+            // 
+            this.rbCategory.AutoSize = true;
+            this.rbCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbCategory.Location = new System.Drawing.Point(253, 24);
+            this.rbCategory.Name = "rbCategory";
+            this.rbCategory.Size = new System.Drawing.Size(104, 20);
+            this.rbCategory.TabIndex = 65;
+            this.rbCategory.Text = "CATEGORIA";
+            this.rbCategory.UseVisualStyleBackColor = true;
+            this.rbCategory.CheckedChanged += new System.EventHandler(this.rbCategory_CheckedChanged);
+            // 
             // rbStatus
             // 
             this.rbStatus.AutoSize = true;
-            this.rbStatus.Location = new System.Drawing.Point(249, 23);
+            this.rbStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbStatus.Location = new System.Drawing.Point(379, 24);
             this.rbStatus.Name = "rbStatus";
             this.rbStatus.Size = new System.Drawing.Size(82, 20);
             this.rbStatus.TabIndex = 64;
@@ -133,6 +143,7 @@
             // rbDescription
             // 
             this.rbDescription.AutoSize = true;
+            this.rbDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbDescription.Location = new System.Drawing.Point(113, 24);
             this.rbDescription.Name = "rbDescription";
             this.rbDescription.Size = new System.Drawing.Size(117, 20);
@@ -144,6 +155,7 @@
             // rbCodigo
             // 
             this.rbCodigo.AutoSize = true;
+            this.rbCodigo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbCodigo.Location = new System.Drawing.Point(20, 24);
             this.rbCodigo.Name = "rbCodigo";
             this.rbCodigo.Size = new System.Drawing.Size(78, 20);
@@ -151,6 +163,16 @@
             this.rbCodigo.Text = "CODIGO";
             this.rbCodigo.UseVisualStyleBackColor = true;
             this.rbCodigo.CheckedChanged += new System.EventHandler(this.rbCodigo_CheckedChanged);
+            // 
+            // cmbEstado
+            // 
+            this.cmbEstado.FormattingEnabled = true;
+            this.cmbEstado.Location = new System.Drawing.Point(95, 22);
+            this.cmbEstado.Name = "cmbEstado";
+            this.cmbEstado.Size = new System.Drawing.Size(144, 21);
+            this.cmbEstado.TabIndex = 65;
+            this.cmbEstado.Visible = false;
+            this.cmbEstado.DropDown += new System.EventHandler(this.cmbEstado_DropDown);
             // 
             // btnRemove
             // 
@@ -166,7 +188,7 @@
             // 
             this.btnEditarProd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEditarProd.Image = global::PL.Properties.Resources.edit;
-            this.btnEditarProd.Location = new System.Drawing.Point(439, 14);
+            this.btnEditarProd.Location = new System.Drawing.Point(442, 14);
             this.btnEditarProd.Margin = new System.Windows.Forms.Padding(4);
             this.btnEditarProd.Name = "btnEditarProd";
             this.btnEditarProd.Size = new System.Drawing.Size(64, 42);
@@ -184,16 +206,6 @@
             this.btnRefrescar.UseVisualStyleBackColor = true;
             this.btnRefrescar.Click += new System.EventHandler(this.btnRefrescar_Click);
             // 
-            // btnExpExcel
-            // 
-            this.btnExpExcel.Location = new System.Drawing.Point(989, 26);
-            this.btnExpExcel.Name = "btnExpExcel";
-            this.btnExpExcel.Size = new System.Drawing.Size(102, 32);
-            this.btnExpExcel.TabIndex = 10;
-            this.btnExpExcel.Text = "Generar Informe";
-            this.btnExpExcel.UseVisualStyleBackColor = true;
-            this.btnExpExcel.Click += new System.EventHandler(this.btnExpExcel_Click);
-            // 
             // btnSearch
             // 
             this.btnSearch.Image = global::PL.Properties.Resources.search;
@@ -207,15 +219,16 @@
             // lblCriterio
             // 
             this.lblCriterio.AutoSize = true;
+            this.lblCriterio.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCriterio.Location = new System.Drawing.Point(16, 26);
             this.lblCriterio.Name = "lblCriterio";
-            this.lblCriterio.Size = new System.Drawing.Size(29, 13);
+            this.lblCriterio.Size = new System.Drawing.Size(38, 16);
             this.lblCriterio.TabIndex = 6;
             this.lblCriterio.Text = "label";
             // 
             // txtCriterioBusqueda
             // 
-            this.txtCriterioBusqueda.Location = new System.Drawing.Point(85, 23);
+            this.txtCriterioBusqueda.Location = new System.Drawing.Point(100, 23);
             this.txtCriterioBusqueda.Name = "txtCriterioBusqueda";
             this.txtCriterioBusqueda.Size = new System.Drawing.Size(267, 20);
             this.txtCriterioBusqueda.TabIndex = 5;
@@ -293,10 +306,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvProductOnlyActive.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProductOnlyActive.Location = new System.Drawing.Point(11, 88);
+            this.dgvProductOnlyActive.Location = new System.Drawing.Point(12, 89);
             this.dgvProductOnlyActive.Name = "dgvProductOnlyActive";
             this.dgvProductOnlyActive.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvProductOnlyActive.Size = new System.Drawing.Size(1103, 374);
+            this.dgvProductOnlyActive.Size = new System.Drawing.Size(1144, 374);
             this.dgvProductOnlyActive.TabIndex = 3;
             this.dgvProductOnlyActive.Visible = false;
             this.dgvProductOnlyActive.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductOnlyActive_CellContentClick);
@@ -305,7 +318,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1122, 499);
+            this.ClientSize = new System.Drawing.Size(1163, 499);
             this.Controls.Add(this.lblCantidadProdRes);
             this.Controls.Add(this.lblTotalProductos);
             this.Controls.Add(this.lblCostoTotalProductRes);
@@ -337,7 +350,6 @@
         private System.Windows.Forms.Label lblCriterio;
         private System.Windows.Forms.TextBox txtCriterioBusqueda;
         public System.Windows.Forms.DataGridView dgvProdConsultar;
-        public System.Windows.Forms.Button btnExpExcel;
         public System.Windows.Forms.Label lblMensaje;
         public System.Windows.Forms.Label lblCostoTotalProductRes;
         public System.Windows.Forms.Label lblCostoAllProductos;
@@ -353,5 +365,7 @@
         public System.Windows.Forms.DataGridView dgvProductOnlyActive;
         public System.Windows.Forms.RadioButton rbDescription;
         public System.Windows.Forms.RadioButton rbCodigo;
+        public System.Windows.Forms.RadioButton rbCategory;
+        private System.Windows.Forms.ComboBox cmbCategories;
     }
 }

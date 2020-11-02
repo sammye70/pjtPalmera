@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using pjPalmera.Entities;
 using pjPalmera.BLL;
+using System.Web.UI.WebControls;
+using System.Media;
 
 namespace pjPalmera.PL
 {
@@ -24,6 +26,7 @@ namespace pjPalmera.PL
         }
 
 
+        #region Hide Button Close
         //private const int CP_NOCLOSE_BUTTON = 0x200;
         //protected override CreateParams CreateParams
         //{
@@ -33,7 +36,8 @@ namespace pjPalmera.PL
         //        myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
         //        return myCp;
         //    }
-        //}
+        //} 
+        #endregion
 
 
         private void frmRegArticulos_Load(object sender, EventArgs e)
@@ -55,7 +59,7 @@ namespace pjPalmera.PL
                 {
                     NewProduct();
                     CleanControls();
-                    DesableContros();
+                   // DesableContros();
                     this.errorProvider1.Clear();
                     MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -66,7 +70,7 @@ namespace pjPalmera.PL
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(ex.StackTrace, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             finally
             {
@@ -87,30 +91,62 @@ namespace pjPalmera.PL
 
             }
 
+            LoadStatusProduct();
             EnableControls();
             CleanControls();
             productos = null;
-            this.txtDescripcion.MaxLength = 23;
-            this.cmbEstado.Text = "Activo";
-            this.txtCodigo.Focus();
+            InitializeControls();
         }
 
         /// <summary>
-        /// Load Categories
+        /// Load Categories for Products
         /// </summary>
         public void Categories()
         {
-            this.cmbFamilia.DisplayMember = "category";
-            this.cmbFamilia.DataSource = CategoriaBO.GetAll();
+            try
+            {   this.cmbFamilia.DisplayMember = "Categoria";
+                this.cmbFamilia.ValueMember = "Id";
+                this.cmbFamilia.DataSource = CategoriaBO.GetCategories();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         /// <summary>
-        /// Load Provider
+        /// Load Provedor
         /// </summary>
-        public void LoadProveedor()
+        public void LoadProveedor()        
         {
-            this.cmbFabrincante.DisplayMember = "nombre_proveedor";
-            this.cmbFabrincante.DataSource=ProveedorBO.GetAllByName();
+            try
+            {   this.cmbDistribuidor.DisplayMember = "Nombre_proveedor";
+                this.cmbDistribuidor.ValueMember = "idproveedor";
+                this.cmbDistribuidor.DataSource = ProveedorBO.GetProveedorsByName();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        /// <summary>
+        ///  Load Product Status
+        /// </summary>
+        public void LoadStatusProduct()
+        {
+            try
+            {
+                this.cmbEstado.DisplayMember = "status";
+                this.cmbEstado.ValueMember = "id";
+                this.cmbEstado.DataSource = ProductosBO.GetStatusProduct();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         /// <summary>
@@ -125,7 +161,7 @@ namespace pjPalmera.PL
             this.txtStockInicial.Enabled = false;
             this.txtStockMinimo.Enabled = false;
             this.btnGuardar.Enabled = false;
-            this.cmbFabrincante.Enabled = false;
+            this.cmbDistribuidor.Enabled = false;
             this.cmbFamilia.Enabled = false;
             this.dateTimePicker1.Enabled = false;
             this.cmbEstanteLocalizacion.Enabled = false;
@@ -150,7 +186,7 @@ namespace pjPalmera.PL
             this.txtStockInicial.Enabled = true;
             this.txtStockMinimo.Enabled = true;
             this.btnGuardar.Enabled = true;
-            this.cmbFabrincante.Enabled = true;
+            this.cmbDistribuidor.Enabled = true;
             this.cmbFamilia.Enabled = true;
             this.dateTimePicker1.Enabled = true;
             this.cmbEstanteLocalizacion.Enabled = true;
@@ -172,6 +208,38 @@ namespace pjPalmera.PL
             this.toolTip1.SetToolTip(btnUpdateFields, "Actualizar Informacion del  Articulo");
             this.toolTip1.SetToolTip(btnGenerarCodigo, "Generar Código para Productos");
             this.dateTimePicker1.Format = DateTimePickerFormat.Short;
+            this.txtDescripcion.MaxLength = 23;
+            this.cmbEstado.Text = "activo";
+            this.txtCodigo.Focus();
+
+            // BackColor
+            this.cmbDistribuidor.BackColor = Color.Bisque;
+            this.txtCodigo.BackColor = Color.Bisque;
+            this.txtCosto.BackColor = Color.Bisque;
+            this.txtDescripcion.BackColor = Color.Bisque;
+            this.txtPrecioVenta.BackColor = Color.Bisque;
+            this.txtStockInicial.BackColor = Color.Bisque;
+            this.txtStockMinimo.BackColor = Color.Bisque;
+            this.cmbFamilia.BackColor = Color.Bisque;
+            this.dateTimePicker1.BackColor = Color.Bisque;
+            this.cmbEstanteLocalizacion.BackColor = Color.Bisque;
+            this.cmbEstado.BackColor = Color.Bisque;
+            this.cmbGanancia.BackColor = Color.Bisque;
+
+            // ForeColor
+            this.cmbDistribuidor.ForeColor = Color.Maroon;
+            this.txtCodigo.ForeColor = Color.Maroon;
+            this.txtCosto.ForeColor = Color.Maroon;
+            this.txtDescripcion.ForeColor = Color.Maroon;
+            this.txtPrecioVenta.ForeColor = Color.Maroon;
+            this.txtStockInicial.ForeColor = Color.Maroon;
+            this.txtStockMinimo.ForeColor = Color.Maroon;
+            this.cmbFamilia.ForeColor = Color.Maroon;
+            this.dateTimePicker1.ForeColor = Color.Maroon;
+            this.cmbEstanteLocalizacion.ForeColor = Color.Maroon;
+            this.cmbEstado.ForeColor = Color.Maroon;
+            this.cmbGanancia.ForeColor = Color.Maroon;
+
         }
 
 
@@ -206,24 +274,44 @@ namespace pjPalmera.PL
         /// </summary>
         private void NewProduct()
         {
-            if (productos == null)
+            bool err = false;
+           // var st = 1;
+            try
             {
-                productos = new ProductosEntity();
+                if (productos == null)
+                {
+                    productos = new ProductosEntity();
 
-                productos.Idproducto = Convert.ToInt64(this.txtCodigo.Text);
-                productos.Fabricante = this.cmbFabrincante.Text;
-                productos.Descripcion = this.txtDescripcion.Text;
-                productos.Categoria = this.cmbFamilia.Text;
-                productos.Stock = Convert.ToInt32(txtStockInicial.Text);
-                productos.Stockminimo = Convert.ToInt32(this.txtStockMinimo.Text);
-                productos.Vencimiento = Convert.ToDateTime(dateTimePicker1.Value.Date.ToShortDateString());
-                productos.Costo = Convert.ToDecimal(this.txtCosto.Text);
-                productos.Precio_venta = Convert.ToDecimal(txtPrecioVenta.Text);
-                productos.Created = DateTime.Now.Date;
-                productos.Status = cmbEstado.Text;
+                    productos.Codigo = Convert.ToInt64(this.txtCodigo.Text);
+                    productos.Proveedor = this.cmbDistribuidor.SelectedValue.ToString();
+                    productos.Descripcion = this.txtDescripcion.Text;
+                    productos.Categoria = this.cmbFamilia.SelectedValue.ToString();
+                    productos.Stock = Convert.ToInt32(txtStockInicial.Text);
+                    productos.Stockminimo = Convert.ToInt32(this.txtStockMinimo.Text);
+                    productos.Vencimiento = Convert.ToDateTime(dateTimePicker1.Value.Date.ToShortDateString());
+                    productos.Costo = Convert.ToDecimal(this.txtCosto.Text);
+                    productos.Precio_venta = Convert.ToDecimal(txtPrecioVenta.Text);
+                    productos.Creado = DateTime.Now.Date;
+                    // productos.Estado = st.ToString();
+                    productos.Estado = this.cmbEstado.SelectedValue.ToString();
 
-                ProductosBO.Save(productos);
+                    ProductosBO.Save(productos);
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                err = true;
+            }
+            finally
+            {
+                if (err == true)
+                {
+                    MessageBox.Show("Verificar la infomación suministrada en los campos", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+
+            return;
         }
 
 
@@ -232,33 +320,39 @@ namespace pjPalmera.PL
         /// </summary>
         private void UpdateFields()
         {
-
+            bool err = false;
             try
             {
-                productos = new ProductosEntity();
+               var productos = new ProductosEntity();
 
                 productos.Orden = Convert.ToInt64(this.txtOrden.Text);
-                productos.Idproducto = Convert.ToInt64(this.txtCodigo.Text);
-                productos.Fabricante = this.cmbFabrincante.Text;
+                productos.Codigo = Convert.ToInt64(this.txtCodigo.Text);
+                productos.Proveedor = this.cmbDistribuidor.SelectedText.ToString();
                 productos.Descripcion = this.txtDescripcion.Text;
-                productos.Categoria = this.cmbFamilia.Text;
+                productos.Categoria = this.cmbFamilia.SelectedValue.ToString();
                 productos.Vencimiento = Convert.ToDateTime(dateTimePicker1.Value.Date.ToShortDateString());
                 productos.Costo = Convert.ToDecimal(this.txtCosto.Text);
                 productos.Precio_venta = Convert.ToDecimal(this.txtPrecioVenta.Text);
                 productos.Stock = Convert.ToInt32(this.txtStockInicial.Text);
                 productos.Stockminimo = Convert.ToInt32(this.txtStockMinimo.Text);
-                productos.Status = this.cmbEstado.Text;
+                productos.Estado = this.cmbEstado.SelectedValue.ToString();
 
                 ProductosBO.Update_Info_Product(productos);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                err = true;
                 return;
             }
-
-        //    MessageBox.Show("Guardado Satisfactoriamente","Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+            finally
+            {
+                if (err == true)
+                {
+                    MessageBox.Show("Verificar la infomación suministrada en los campos", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    this.txtCodigo.Focus();
+                }
+            }
         }
 
 
@@ -274,7 +368,7 @@ namespace pjPalmera.PL
             this.txtStockInicial.Text = "";
             this.txtStockMinimo.Text = "";
             this.cmbEstanteLocalizacion.Text = "";
-            this.cmbFabrincante.Text = "";
+            this.cmbDistribuidor.Text = "";
             this.cmbFamilia.Text = "";
             this.cmbGanancia.Text = "";
             this.cmbEstado.Text = "";
@@ -330,9 +424,9 @@ namespace pjPalmera.PL
             //    result = false;
             //}
 
-            if (string.IsNullOrEmpty(this.cmbFabrincante.Text))
+            if (string.IsNullOrEmpty(this.cmbDistribuidor.Text))
             {
-                this.errorProvider1.SetError(this.cmbFabrincante, "Indicar fabricante del Articulo");
+                this.errorProvider1.SetError(this.cmbDistribuidor, "Indicar Proveedor del Articulo");
                 result = false;
             }
 
@@ -452,11 +546,6 @@ namespace pjPalmera.PL
             this.txtCodigo.Text=Convert.ToString(OpServices.NumberGeneratorCode());
         }
 
-        private void cmbFabrincante_DropDown(object sender, EventArgs e)
-        {
-            LoadProveedor();
-        }
-
         private void cmbFamilia_DropDown(object sender, EventArgs e)
         {
             Categories();
@@ -475,6 +564,16 @@ namespace pjPalmera.PL
                 MessageBox.Show("La longitud maxima es de 23 caracteres (a...z, etc)", "Mensaje del Sistema", 
                                  MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+        }
+
+        private void cmbEstado_DropDown(object sender, EventArgs e)
+        {
+            LoadStatusProduct();
+        }
+
+        private void cmbDistribuidor_DropDown(object sender, EventArgs e)
+        {
+            LoadProveedor();
         }
     }
 }

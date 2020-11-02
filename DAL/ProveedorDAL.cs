@@ -22,15 +22,15 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql = @"INSERT INTO fabricante (nombre_fab, telefono, nom_contacto, tel_contacto, direccion_fab, rnc, limitecredito, created, createby)
-                               VALUE (@nombre_fab, @nom_contacto, @telefono, @tel_contacto, @direccion_fab, @rnc, @limitecredito, @created, @createby)";
+                string sql = @"INSERT INTO proveedor (nombre_prob, telefono, nom_contacto, tel_contacto, direccion_prob, rnc, limitecredito, created, createby)
+                               VALUE (@nombre_prob, @nom_contacto, @telefono, @tel_contacto, @direccion_prob, @rnc, @limitecredito, @created, @createby)";
 
                 MySqlCommand cmd = new MySqlCommand(sql, con);
 
-                cmd.Parameters.AddWithValue("@nombre_fab", Proveedor.Nombre_proveedor);
+                cmd.Parameters.AddWithValue("@nombre_prob", Proveedor.Nombre_proveedor);
                 cmd.Parameters.AddWithValue("@nom_contacto", Proveedor.Nombre_contacto);
                 cmd.Parameters.AddWithValue("@tel_contacto", Proveedor.Tel_contacto);
-                cmd.Parameters.AddWithValue("@direccion_fab", Proveedor.Direccion_fab);
+                cmd.Parameters.AddWithValue("@direccion_prob", Proveedor.Direccion_prob);
                 cmd.Parameters.AddWithValue("@telefono", Proveedor.Tel_proveedor);
                 cmd.Parameters.AddWithValue("@rnc", Proveedor.Rnc);
                 cmd.Parameters.AddWithValue("@limitecredito", Proveedor.Limitecredito);
@@ -45,6 +45,41 @@ namespace pjPalmera.DAL
 
 
         /// <summary>
+        /// Verify if exits Proveedor
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static bool ProveedorExits(string number)
+        {
+            bool resp = false;
+            int vnum = 0;
+
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                using (var cmd = new MySqlCommand("spSearchExistProveedor", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@prnc", number);
+                    cmd.Parameters.Add("@resp", MySqlDbType.Int32);
+                    cmd.Parameters["@resp"].Direction = ParameterDirection.Output;
+                    cmd.ExecuteNonQuery();
+                    vnum = (Int32)cmd.Parameters["@resp"].Value;
+
+                    if (vnum == 1)
+                    {
+                        return resp = true;
+                    }
+                    else if (vnum == 0)
+                    {
+                        return resp = false;
+                    }
+                }
+            }
+            return resp;
+        }
+
+
+        /// <summary>
         /// Get All
         /// </summary>
         /// <returns></returns>
@@ -52,46 +87,48 @@ namespace pjPalmera.DAL
         {
             List<ProveedorEntity> list = new List<ProveedorEntity>();
 
-            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
-                con.Open();
-                string sql = @"SELECT * FROM fabricante ORDER BY nombre_fab ASC";
-
-                MySqlCommand cmd = new MySqlCommand(sql, con);
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (var cmd = new MySqlCommand("spGet_proveedores", con))
                 {
-                    list.Add(LoadProveedor(reader));
+                    con.Open();
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        list.Add(LoadProveedor(reader));
+                    }
                 }
             }
-             return list;
+            return list;
         }
 
 
-
         /// <summary>
-        /// Get All only: nombre
+        /// Get All Preveedor by Name
         /// </summary>
         /// <returns></returns>
-        public static List<ProveedorEntity> GetAllByName()
+        public static List<ProveedorEntity> GetProveedorsByName()
         {
-            List<ProveedorEntity> list = new List<ProveedorEntity>();
+            var list = new List<ProveedorEntity>();
 
-            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
-                con.Open();
-                string sql = @"SELECT nombre_fab FROM fabricante ORDER BY nombre_fab ASC ";
-
-                MySqlCommand cmd = new MySqlCommand(sql, con);
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (var cmd = new MySqlCommand("spGet_proveedores", con))
                 {
-                    list.Add(LoadProveed(reader));
+                    con.Open();
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        list.Add(LoadProveed(reader));
+                        
+                    }
                 }
             }
-
             return list;
         }
 
@@ -100,13 +137,13 @@ namespace pjPalmera.DAL
         /// Filter proveedor by rnc
         /// </summary>
         /// <param name="code"></param>
-        public static List<ProveedorEntity> FilterByRnc(Int64 code)
+        public static List<ProveedorEntity> FilterByRnc(long code)
         {
-             List <ProveedorEntity> proveedor = new List<ProveedorEntity>();
+             List <ProveedorEntity> list = new List<ProveedorEntity>();
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = @"select * from fabricante WHERE fabricante.rnc=@rnc";
+                string query = @"select * from proveedor WHERE proveedor.rnc=@rnc";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
@@ -116,11 +153,11 @@ namespace pjPalmera.DAL
 
                 if (reader.Read())
                 {
-                    proveedor.Add(LoadProveedor(reader));
+                    list.Add(LoadProveedor(reader));
                 }
             }
 
-            return proveedor;
+            return list;
         }
 
 
@@ -128,17 +165,17 @@ namespace pjPalmera.DAL
         /// Remove proveedor from DataBases
         /// </summary>
         /// <param name="code"></param>
-        public static void RemoveProveedor(Int64 code)
+        public static void RemoveProveedor(long code)
         {
            // ProveedorEntity proveedor = new ProveedorEntity();
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = @"DELETE from fabricante WHERE idfabricante=@idfabricante";
+                string query = @"DELETE from proveedor WHERE idproveedor=@idproveedor";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
-                cmd.Parameters.AddWithValue("@idfabricante", code);
+                cmd.Parameters.AddWithValue("@idproveedor", code);
 
                 //MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -152,7 +189,7 @@ namespace pjPalmera.DAL
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        public static ProveedorEntity SearchByCodeUpdate(Int64 code)
+        public static ProveedorEntity SearchByCodeUpdate(long code)
         {
              ProveedorEntity proveedor = new ProveedorEntity();
             //List<ProveedorEntity> list = new List<ProveedorEntity>();
@@ -160,11 +197,11 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql = @"SELECT * FROM fabricante WHERE fabricante.idfabricante=@idfabricante";
+                string sql = @"SELECT * FROM proveedor WHERE proveedor.idproveedor=@idproveedor";
 
                 MySqlCommand cmd = new MySqlCommand(sql, con);
 
-                cmd.Parameters.AddWithValue("@idfabricante", code);
+                cmd.Parameters.AddWithValue("@idproveedor", code);
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -187,19 +224,19 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection (SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = @"UPDATE fabricante SET fabricante.nombre_fab=@nombre_fab, telefono=@telefono, fabricante.nom_contacto=@nom_contacto, fabricante.tel_contacto=@tel_contacto, 
-                                                       fabricante.direccion_fab=@direccion_fab, fabricante.rnc=@rnc, fabricante.limitecredito=@limitecredito
-                                WHERE idfabricante=@idfabricante ";
+                string query = @"UPDATE proveedor SET proveedor.nombre=@nombre_prob, telefono=@telefono, proveedor.nom_contacto=@nom_contacto, proveedor.tel_contacto=@tel_contacto, 
+                                                       proveedor.direccion_prob=@direccion_prob, proveedor.rnc=@rnc, fabricante.limitecredito=@limitecredito
+                                WHERE proveedor.id=@idproveedor ";
                                                                         
 
                 MySqlCommand cmd = new MySqlCommand(query,con);
 
                 cmd.Parameters.AddWithValue("@idfabricante", Proveedor.Idproveedor);
-                cmd.Parameters.AddWithValue("@nombre_fab", Proveedor.Nombre_proveedor);
+                cmd.Parameters.AddWithValue("@nombre_prob", Proveedor.Nombre_proveedor);
                 cmd.Parameters.AddWithValue("@telefono", Proveedor.Tel_proveedor);
                 cmd.Parameters.AddWithValue("@nom_contacto", Proveedor.Nombre_contacto);
                 cmd.Parameters.AddWithValue("@tel_contacto", Proveedor.Tel_contacto);
-                cmd.Parameters.AddWithValue("@direccion_fab", Proveedor.Direccion_fab);
+                cmd.Parameters.AddWithValue("@direccion_prob", Proveedor.Direccion_prob);
                 cmd.Parameters.AddWithValue("@rnc", Proveedor.Rnc);
                 cmd.Parameters.AddWithValue("@limitecredito", Proveedor.Limitecredito);
                 cmd.Parameters.AddWithValue("@modificated", DateTime.Now);
@@ -213,7 +250,7 @@ namespace pjPalmera.DAL
         ///  Search proveedor by code
         ///  </summary>
         /// <returns></returns>
-        public static List<ProveedorEntity> SearchByCode(Int64 code)
+        public static List<ProveedorEntity> SearchByCode(long code)
         {
            // ProveedorEntity proveedor = new ProveedorEntity();
            List<ProveedorEntity> list = new List<ProveedorEntity>();
@@ -221,7 +258,7 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();                
-                string sql = @"SELECT * FROM fabricante WHERE fabricante.idfabricante=@idfabricante";
+                string sql = @"SELECT * FROM proveedor WHERE proveedor.id=@idproveedor";
 
                 MySqlCommand cmd = new MySqlCommand(sql, con);
 
@@ -250,11 +287,11 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql = @"SELECT * FROM fabricante WHERE fabricante.nombre_fab LIKE '@nombre_fab%'";
+                string sql = @"SELECT * FROM proveedor WHERE proveedor.nombre_fab LIKE '@nombre_prob%'";
 
                 MySqlCommand cmd = new MySqlCommand(sql, con);
 
-                cmd.Parameters.AddWithValue("@nombre_fab", name);
+                cmd.Parameters.AddWithValue("@nombre_prob", name);
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -275,7 +312,10 @@ namespace pjPalmera.DAL
         private static ProveedorEntity LoadProveed(IDataReader Reader)
         {
             ProveedorEntity Proveedor = new ProveedorEntity();
-            Proveedor.Nombre_proveedor = Convert.ToString(Reader["nombre_fab"]);
+
+            Proveedor.Idproveedor = Convert.ToInt32(Reader["id"]);
+            Proveedor.Nombre_proveedor = Convert.ToString(Reader["nombre"]);
+            
 
             return Proveedor;
         }
@@ -289,13 +329,13 @@ namespace pjPalmera.DAL
         {
             ProveedorEntity Proveedor = new ProveedorEntity();
 
-            Proveedor.Idproveedor = Convert.ToInt32(Reader["idfabricante"]);
-            Proveedor.Nombre_proveedor = Convert.ToString(Reader["nombre_fab"]);
-            Proveedor.Tel_proveedor = Convert.ToString(Reader["telefono"]);
+            Proveedor.Idproveedor = Convert.ToInt32(Reader["id"]);
+            Proveedor.Nombre_proveedor = Convert.ToString(Reader["nombre"]);
             Proveedor.Nombre_contacto = Convert.ToString(Reader["nom_contacto"]);
             Proveedor.Tel_contacto = Convert.ToString(Reader["tel_contacto"]);
-            Proveedor.Direccion_fab = Convert.ToString(Reader["direccion_fab"]);
+            Proveedor.Direccion_prob = Convert.ToString(Reader["direccion_prob"]);
             Proveedor.Rnc = Convert.ToInt64(Reader["rnc"]);
+            Proveedor.Tel_proveedor = Convert.ToString(Reader["telefono"]);
             Proveedor.Limitecredito = Convert.ToDecimal(Reader["limitecredito"]);
             Proveedor.Created = Convert.ToDateTime(Reader["created"]);
             //Proveedor.Createby =

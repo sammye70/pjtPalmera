@@ -109,7 +109,7 @@ namespace pjPalmera.PL
                 fproveedor.txtIdProveedor.Text = Convert.ToString(Proveedor.Idproveedor);
                 fproveedor.txtRnc.Text = Convert.ToString(Proveedor.Rnc);
                 fproveedor.txtNomProveedor.Text = Proveedor.Nombre_proveedor;
-                fproveedor.txtDirProveedor.Text = Proveedor.Direccion_fab;
+                fproveedor.txtDirProveedor.Text = Proveedor.Direccion_prob;
                 fproveedor.mktLimiteCredito.Text = Convert.ToString(Proveedor.Limitecredito);
                 fproveedor.txtNomRepresentante.Text = Proveedor.Nombre_contacto;
                 fproveedor.mktTelefRepresentante.Text = Proveedor.Tel_contacto;

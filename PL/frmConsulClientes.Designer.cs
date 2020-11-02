@@ -36,13 +36,12 @@
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.rbApellidos = new System.Windows.Forms.RadioButton();
+            this.rbNombre = new System.Windows.Forms.RadioButton();
+            this.rbCedula = new System.Windows.Forms.RadioButton();
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblCriterio = new System.Windows.Forms.Label();
             this.txtCriterioBusqueda = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientConsultar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -75,7 +74,7 @@
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.btnEditar);
             this.panel1.Controls.Add(this.btnSearch);
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.lblCriterio);
             this.panel1.Controls.Add(this.txtCriterioBusqueda);
             this.panel1.Location = new System.Drawing.Point(12, 3);
             this.panel1.Name = "panel1";
@@ -104,10 +103,9 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.radioButton4);
-            this.groupBox1.Controls.Add(this.radioButton3);
-            this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Controls.Add(this.radioButton1);
+            this.groupBox1.Controls.Add(this.rbApellidos);
+            this.groupBox1.Controls.Add(this.rbNombre);
+            this.groupBox1.Controls.Add(this.rbCedula);
             this.groupBox1.Location = new System.Drawing.Point(655, 9);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(381, 46);
@@ -115,49 +113,41 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtrar por";
             // 
-            // radioButton4
+            // rbApellidos
             // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(100, 19);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(58, 17);
-            this.radioButton4.TabIndex = 14;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "Codigo";
-            this.radioButton4.UseVisualStyleBackColor = true;
+            this.rbApellidos.AutoSize = true;
+            this.rbApellidos.Location = new System.Drawing.Point(178, 19);
+            this.rbApellidos.Name = "rbApellidos";
+            this.rbApellidos.Size = new System.Drawing.Size(67, 17);
+            this.rbApellidos.TabIndex = 13;
+            this.rbApellidos.TabStop = true;
+            this.rbApellidos.Text = "Apellidos";
+            this.rbApellidos.UseVisualStyleBackColor = true;
+            this.rbApellidos.CheckedChanged += new System.EventHandler(this.rbApellidos_CheckedChanged);
             // 
-            // radioButton3
+            // rbNombre
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(260, 19);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(67, 17);
-            this.radioButton3.TabIndex = 13;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Apellidos";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.rbNombre.AutoSize = true;
+            this.rbNombre.Location = new System.Drawing.Point(101, 19);
+            this.rbNombre.Name = "rbNombre";
+            this.rbNombre.Size = new System.Drawing.Size(62, 17);
+            this.rbNombre.TabIndex = 12;
+            this.rbNombre.TabStop = true;
+            this.rbNombre.Text = "Nombre";
+            this.rbNombre.UseVisualStyleBackColor = true;
+            this.rbNombre.CheckedChanged += new System.EventHandler(this.rbNombre_CheckedChanged);
             // 
-            // radioButton2
+            // rbCedula
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(173, 19);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(62, 17);
-            this.radioButton2.TabIndex = 12;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Nombre";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(27, 19);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(58, 17);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Cedula";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.rbCedula.AutoSize = true;
+            this.rbCedula.Location = new System.Drawing.Point(27, 19);
+            this.rbCedula.Name = "rbCedula";
+            this.rbCedula.Size = new System.Drawing.Size(58, 17);
+            this.rbCedula.TabIndex = 0;
+            this.rbCedula.TabStop = true;
+            this.rbCedula.Text = "Cédula";
+            this.rbCedula.UseVisualStyleBackColor = true;
+            this.rbCedula.CheckedChanged += new System.EventHandler(this.rbCedula_CheckedChanged);
             // 
             // btnEditar
             // 
@@ -177,15 +167,16 @@
             this.btnSearch.Size = new System.Drawing.Size(56, 43);
             this.btnSearch.TabIndex = 7;
             this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // label1
+            // lblCriterio
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 26);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Cedula";
+            this.lblCriterio.AutoSize = true;
+            this.lblCriterio.Location = new System.Drawing.Point(16, 26);
+            this.lblCriterio.Name = "lblCriterio";
+            this.lblCriterio.Size = new System.Drawing.Size(49, 13);
+            this.lblCriterio.TabIndex = 6;
+            this.lblCriterio.Text = "lblCriterio";
             // 
             // txtCriterioBusqueda
             // 
@@ -217,21 +208,19 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView dgvClientConsultar;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblCriterio;
         private System.Windows.Forms.TextBox txtCriterioBusqueda;
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton radioButton4;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton rbCedula;
+        private System.Windows.Forms.RadioButton rbApellidos;
+        private System.Windows.Forms.RadioButton rbNombre;
         public System.Windows.Forms.Button btnRefresh;
         public System.Windows.Forms.Button btnEliminar;
+        public System.Windows.Forms.DataGridView dgvClientConsultar;
     }
 }

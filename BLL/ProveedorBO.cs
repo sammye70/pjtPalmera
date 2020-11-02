@@ -11,6 +11,13 @@ namespace pjPalmera.BLL
 {
     public class ProveedorBO
     {
+
+
+        /// <summary>
+        /// Messeger to Result from ProvinciaBO
+        /// </summary>
+        public static string strMessage;
+
         /// <summary>
         /// Save Proveedor
         /// </summary>
@@ -51,11 +58,11 @@ namespace pjPalmera.BLL
         /// Get All Preveedor by Name
         /// </summary>
         /// <returns></returns>
-        public static List<ProveedorEntity> GetAllByName()
+        public static List<ProveedorEntity> GetProveedorsByName()
         {
             try
             {
-                return ProveedorDAL.GetAllByName();
+                return ProveedorDAL.GetProveedorsByName();
             }
             catch (Exception ex)
             {
@@ -102,7 +109,7 @@ namespace pjPalmera.BLL
         /// Remove Proveedor from DataBases
         /// </summary>
         /// <param name="code"></param>
-        public static void RemoveProveedor(Int64 code)
+        public static void RemoveProveedor(long code)
         {
             try
             {
@@ -169,6 +176,29 @@ namespace pjPalmera.BLL
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Verify if exits Proveedor
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static bool ProveedorExits(string number)
+        {
+            var valcriterio = ProveedorDAL.ProveedorExits(number);
+
+            if (valcriterio == true)
+            {
+                strMessage = "El Proveedor indicado fue registrado anteriormente.";
+                return valcriterio;
+            }
+            else if (valcriterio == false)
+            {
+                strMessage = "No existen proveedores asociados al que se indica.";
+                return valcriterio;
+            }
+
+            return valcriterio;
         }
 
     }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using pjPalmera.Entities;
 using pjPalmera.BLL;
+using System.IO;
 
 namespace pjPalmera.PL
 {
@@ -22,18 +23,16 @@ namespace pjPalmera.PL
             InitializeComponent();
         }
         private long _numero;
+        private decimal _quantity;
         
         public long Orden
         {
             get { return _numero; }
         }
 
-
-        private void btnCancelar_Click(object sender, EventArgs e)
+        public decimal getQuantity
         {
-            this.dgvProdConsultar.DataSource = null;
-            this.txtCriterioBusqueda.Clear();
-            this.Close();
+            get { return _quantity; }        
         }
 
         private void frmConsultarProductos_Load(object sender, EventArgs e)
@@ -44,20 +43,16 @@ namespace pjPalmera.PL
             DetailControls();
             this.dgvProdConsultar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
-            StockUnit();
-            this.dgvProductOnlyActive.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            //StockUnit();
+            //this.dgvProductOnlyActive.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dgvProductOnlyActive.DataSource = ProductosBO.OnlyActive();
             AutoSizeCells();
-            AmountAllProduct();
-            this.rbCodigo.Checked = true;
-            this.txtCriterioBusqueda.Focus();
+            //AmountAllProduct();
+            InitialControls();
         }
 
-        private void txtCriterioBusqueda_TextChanged(object sender, EventArgs e)
-        {
 
-        }
-
+     
 
         /// <summary>
         /// All Controls  Descriptions
@@ -67,6 +62,7 @@ namespace pjPalmera.PL
             this.toolTip1.SetToolTip(this.btnEditarProd, "Editar Articulos Seleccionado");
             this.toolTip1.SetToolTip(this.btnRefrescar, "Actualizar Lista de Articulos Mostrados");
             this.toolTip1.SetToolTip(this.btnRemove, "Eliminar Articulo Seleccionado");
+            this.toolTip1.SetToolTip(this.btnSearch, "Realiza la acción de búsqueda para el filtro seleccionado");
         }
 
 
@@ -104,7 +100,6 @@ namespace pjPalmera.PL
         /// </summary>
         public void IniControls()
         {
-            this.btnExpExcel.Visible = false;
             this.lblMensaje.Visible = true;
             this.dgvProductOnlyActive.Visible = true;
             this.dgvProdConsultar.Visible = false;
@@ -118,6 +113,9 @@ namespace pjPalmera.PL
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.rbCodigo.Focus();
+            this.btnSearch.Visible = false;
+            this.dgvProdConsultar.Visible = false;
+            this.dgvProductOnlyActive.DataSource = ProductosBO.OnlyActive();
         }
 
         /// <summary>
@@ -126,6 +124,7 @@ namespace pjPalmera.PL
         private void NewSearch()
         {
             this.txtCriterioBusqueda.Text = "";
+            this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
         }
 
         /// <summary>
@@ -159,45 +158,39 @@ namespace pjPalmera.PL
             //this.MinimizeBox = false;
             this.dgvProdConsultar.ReadOnly = true;
             this.dgvProductOnlyActive.ReadOnly = true;
+            this.lblCostoAllProductos.Visible = false;
+            this.lblCostoTotalProductRes.Visible = false;
+            this.lblCantidadProdRes.Visible = false;
+            this.lblTotalProductos.Visible = false;
         }
 
 
         /// <summary>
-        /// Filter product by code
+        /// Filter product by code or descripcion
         /// </summary>
-        private void FilterProduct()
+        public void FilterProduct()
         {
-            if ((this.rbCodigo.Checked == true) && (this.txtCriterioBusqueda.Text != string.Empty) && (this.rbDescription.Checked == false))
+ 
+            if ((this.rbDescription.Checked == true) && (this.txtCriterioBusqueda.Text != string.Empty) && (this.rbCodigo.Checked == false) && (this.rbCategory.Checked == false))
             {
-                productos.Idproducto = Convert.ToInt64(this.txtCriterioBusqueda.Text);
-                this.dgvProdConsultar.DataSource = ProductosBO.FilterProductbyCode(productos.Idproducto); //----------------------->Here
-                this.dgvProductOnlyActive.DataSource = ProductosBO.FilterProductbyCode(productos.Idproducto);
+                this.btnSearch.Visible = false;
+                var values = this.txtCriterioBusqueda.Text;
+                this.dgvProdConsultar.DataSource = ProductosBO.FilterProductbyDescp(values);
+                this.dgvProductOnlyActive.DataSource = ProductosBO.FilterProductbyDescp(values);
             }
-            else if ((this.rbDescription.Checked == true) && (this.txtCriterioBusqueda.Text != string.Empty) && (this.rbCodigo.Checked == false))
+            else if ((this.rbCodigo.Checked == true) && (this.txtCriterioBusqueda.Text != string.Empty) && (this.rbDescription.Checked == false))
             {
-                productos.Descripcion = this.txtCriterioBusqueda.Text;
-                this.dgvProdConsultar.DataSource = ProductosBO.FilterProductbyDescp(productos.Descripcion);
-                this.dgvProductOnlyActive.DataSource = ProductosBO.FilterProductbyDescp(productos.Descripcion); //------------------------> Here
-                 MessageBox.Show("Indicar Descripcion del producto");
+                this.btnSearch.Visible = false;
+                var values = this.txtCriterioBusqueda.Text;
+                this.dgvProdConsultar.DataSource = ProductosBO.FilterProductbyCodeAll(Convert.ToInt64(values));
+                this.dgvProdConsultar.DataSource = ProductosBO.FilterProductbyCodeOnlyAct(Convert.ToInt64(values));
+                this.dgvProductOnlyActive.DataSource = ProductosBO.FilterProductbyCodeOnlyAct(Convert.ToInt64(values));
             }
             else
             {
                 this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
                 this.dgvProductOnlyActive.DataSource = ProductosBO.GetAll();
             }
-            //if (this.txtCriterioBusqueda.Text != string.Empty)
-            //{
-            //    productos.Idproducto = Convert.ToInt64(this.txtCriterioBusqueda.Text);
-
-            //    this.dgvProdConsultar.DataSource = ProductosBO.FilterProductbyCode(productos.Idproducto);
-            //    this.dgvProductOnlyActive.DataSource = ProductosBO.FilterProductbyCode(productos.Idproducto);
-            //}
-            //else
-            //{
-            //    this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
-            //    this.dgvProductOnlyActive.DataSource = ProductosBO.GetAll();
-            //    this.txtCriterioBusqueda.Focus();
-            //}
         }
 
 
@@ -224,16 +217,16 @@ namespace pjPalmera.PL
                 productos = ProductosBO.SearchByOrden(this.Orden);
 
                 ffproductos.txtOrden.Text = Convert.ToString(productos.Orden);
-                ffproductos.txtCodigo.Text = Convert.ToString(productos.Idproducto);
+                ffproductos.txtCodigo.Text = Convert.ToString(productos.Codigo);
                 ffproductos.txtDescripcion.Text = productos.Descripcion;
-                ffproductos.cmbFabrincante.Text = productos.Fabricante;
+                ffproductos.cmbDistribuidor.Text = productos.Proveedor;
                 ffproductos.cmbFamilia.Text = productos.Categoria;
                 ffproductos.dateTimePicker1.Text = Convert.ToString(productos.Vencimiento);
                 ffproductos.txtCosto.Text = Convert.ToString(productos.Costo);
                 ffproductos.txtPrecioVenta.Text = Convert.ToString(productos.Precio_venta);
                 ffproductos.txtStockInicial.Text = Convert.ToString(productos.Stock);
                 ffproductos.txtStockMinimo.Text = Convert.ToString(productos.Stockminimo);
-                ffproductos.cmbEstado.Text = productos.Status;
+                // ffproductos.cmbEstado.Text = productos.Estado;
 
                 //ffproductos.LoadProveedor();
                 //ffproductos.Categories(); 
@@ -248,26 +241,25 @@ namespace pjPalmera.PL
 
         private void dgvProdConsultar_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            //Check Stock if < 1 messager
 
-            decimal cvalor = Convert.ToDecimal (this.dgvProdConsultar.Rows[e.RowIndex].Cells["Stock"].Value);
+            _quantity = Convert.ToDecimal (this.dgvProdConsultar.Rows[e.RowIndex].Cells["Stock"].Value);
+
+            var chkstock = ProductosBO.getCheckStock(this.getQuantity);
 
             try
             {
-                if (cvalor <= 0)
+                if (chkstock == true)
                 {
-                    //  if (e.RowIndex == -1)
-                    //    return;
 
                     _numero = Convert.ToInt64(dgvProdConsultar.Rows[e.RowIndex].Cells["Orden"].Value);
 
-                    MessageBox.Show("No hay Stock disponible del producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(ProductosBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     this.dgvProdConsultar.DataSource = null;
                     this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
                     return;
                 } 
 
-                else
+                else if(chkstock == false)
                 {
                     if (e.RowIndex == -1)
                         return;
@@ -285,27 +277,6 @@ namespace pjPalmera.PL
 
         }
 
-        /// <summary>
-        /// Get Product by Status
-        /// </summary>
-        private void LoadProductStatus()
-        {
-            if (this.cmbEstado.Text == "Activo")
-            {
-                this.dgvProdConsultar.DataSource = ProductosBO.GetProductosActive(productos);
-            }
-            else if (this.cmbEstado.Text == "Inactivo")
-            {
-                this.dgvProdConsultar.DataSource = ProductosBO.GetProductosDesable(productos);
-            }
-            else
-            {
-                MessageBox.Show("No hay productos que Mostrar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
-            }
-        }
-
-
 
         private void txtCriterioBusqueda_TextChanged_1(object sender, EventArgs e)
         {
@@ -314,10 +285,97 @@ namespace pjPalmera.PL
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-           
+            bool error = false;
+
+            if ((this.rbCategory.Checked == true) && (this.cmbCategories.Text != null))
+            {
+                try
+                {
+                    var values = this.cmbCategories.SelectedValue;
+                    this.dgvProdConsultar.DataSource = ProductosBO.GetProductByCategory((Int32)values);
+                    this.dgvProductOnlyActive.DataSource = ProductosBO.GetProductByCategory((Int32)values);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    error = true;
+
+                }
+                finally
+                {
+                    if (error == true)
+                    {
+                        MessageBox.Show("Verificar la informaciones indicadas.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+
+            }
+            else if ((this.rbCategory.Checked == true) || (this.cmbCategories.Text == null))
+            {
+                MessageBox.Show("Debe indicar una categoria para poder realizar el Filtrado de los Productos.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.cmbCategories.Focus();
+            }
+
+
+            if ((this.rbStatus.Checked == true) && (this.cmbEstado.Text != string.Empty))
+            {
+                try
+                {
+                    var values = this.cmbEstado.SelectedValue.ToString();
+                    this.dgvProdConsultar.DataSource = ProductosBO.GetProductosByStatus(Convert.ToInt32(values));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    error = true;
+
+                }
+                finally
+                {
+                    if (error == true)
+                    {
+                        MessageBox.Show("Verificar la informaciones indicadas.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+            }
+            else if ((this.rbStatus.Checked == true) && (this.txtCriterioBusqueda.Text == string.Empty))
+            {
+                MessageBox.Show("Debe indicar un estado para poder realizar el Filtrado de los Productos.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.txtCriterioBusqueda.Focus();
+            }
+
+
+            if ((this.rbDescription.Checked == true) && (this.txtCriterioBusqueda.Text != string.Empty))
+            {
+                try
+                {
+                    var values = this.txtCriterioBusqueda.Text;
+                    this.dgvProdConsultar.DataSource = ProductosBO.FilterProductbyDescp(values);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    error = true;
+
+                }
+                finally
+                {
+                    if (error == true)
+                    {
+                        MessageBox.Show("Verificar la informaciones indicadas.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+
+            }
+            else if ((this.rbDescription.Checked == true) && (this.txtCriterioBusqueda.Text == string.Empty))
+            {
+                MessageBox.Show("Debe indicar una descripcion para poder realizar el Filtrado de los Productos.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.txtCriterioBusqueda.Focus();
+            }
+
         }
 
-        private void dgvProductOnlyActive_CellContentClick(object sender, DataGridViewCellEventArgs e)
+         private void dgvProductOnlyActive_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // Evaluate item stock
             // cvalor is number the item in storage
@@ -328,32 +386,32 @@ namespace pjPalmera.PL
             // Modificated:
             // Create:
 
-            decimal cvalor = Convert.ToDecimal(this.dgvProdConsultar.Rows[e.RowIndex].Cells["Stock"].Value);
+            _quantity = Convert.ToDecimal(this.dgvProdConsultar.Rows[e.RowIndex].Cells["Stock"].Value);
+
+            var chkstock = ProductosBO.getCheckStock(this.getQuantity);
 
             try
             {
-                if (cvalor <= 0)
+                if (chkstock == true)
                 {
-                    //  if (e.RowIndex == -1)
-                    //    return;
 
-                    _numero = Convert.ToInt64(this.dgvProductOnlyActive.Rows[e.RowIndex].Cells["Orden"].Value);
+                    _numero = Convert.ToInt64(dgvProdConsultar.Rows[e.RowIndex].Cells["Orden"].Value);
 
-                    MessageBox.Show("No hay Stock disponible del producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    this.dgvProductOnlyActive.DataSource = null;
-                    this.dgvProductOnlyActive.DataSource = ProductosBO.GetAll();
+                    MessageBox.Show(ProductosBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    this.dgvProdConsultar.DataSource = null;
+                    this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
                     return;
                 }
-                else 
+
+                else if (chkstock == false)
                 {
                     if (e.RowIndex == -1)
                         return;
 
-                    _numero = Convert.ToInt64(this.dgvProductOnlyActive.Rows[e.RowIndex].Cells["Orden"].Value);
-                    
+                    _numero = Convert.ToInt64(dgvProdConsultar.Rows[e.RowIndex].Cells["Orden"].Value);
+
                     this.DialogResult = DialogResult.OK;
                     this.Close();
-                   
                 }
             }
             catch (Exception ex)
@@ -400,6 +458,71 @@ namespace pjPalmera.PL
         }
 
 
+        /// <summary>
+        /// Load Categories for Products
+        /// </summary>
+        public void Categories()
+        {
+            try
+            {
+                this.cmbCategories.DisplayMember = "Categoria";
+                this.cmbCategories.ValueMember = "Id";
+                this.cmbCategories.DataSource = CategoriaBO.GetCategories();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+
+
+
+
+        /// <summary>
+        /// Initization all controls
+        /// </summary>
+        private void InitialControls()
+        {
+            this.rbCodigo.Checked = true;
+            this.txtCriterioBusqueda.Focus();
+            this.btnSearch.Visible = false;
+            
+
+            // BackColor 
+            this.txtCriterioBusqueda.BackColor = Color.Bisque;
+            this.cmbEstado.BackColor = Color.Bisque;
+            this.cmbCategories.BackColor = Color.Bisque;
+            this.dgvProdConsultar.DefaultCellStyle.BackColor = Color.Bisque;
+            this.dgvProductOnlyActive.DefaultCellStyle.BackColor = Color.Bisque;
+
+            // ForeColor
+            this.txtCriterioBusqueda.ForeColor = Color.Maroon;
+            this.cmbEstado.ForeColor = Color.Maroon;
+            this.cmbCategories.ForeColor = Color.Maroon;
+            this.dgvProdConsultar.ForeColor = Color.Maroon;
+            this.dgvProductOnlyActive.ForeColor = Color.Maroon;
+        }
+
+
+        /// <summary>
+        ///  Load Product Status
+        /// </summary>
+        public void LoadStatusProduct()
+        {
+            try
+            {
+                this.cmbEstado.DisplayMember = "status";
+                this.cmbEstado.ValueMember = "id";
+                this.cmbEstado.DataSource = ProductosBO.GetStatusProduct();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
         private void btnExpExcel_Click(object sender, EventArgs e)
         {
             frmRepProductos repProductos = new frmRepProductos();
@@ -445,7 +568,10 @@ namespace pjPalmera.PL
                 this.lblCriterio.Text = "Código";
                 NewSearch();
                 this.cmbEstado.Visible = false;
+                this.cmbCategories.Visible = false;
+                this.btnSearch.Visible = true;
                 this.txtCriterioBusqueda.Visible = true;
+                this.txtCriterioBusqueda.Text = "";
                 this.txtCriterioBusqueda.Focus();
             }
         }
@@ -457,7 +583,10 @@ namespace pjPalmera.PL
                 this.lblCriterio.Text = "Descripción";
                 NewSearch();
                 this.cmbEstado.Visible = false;
+                this.btnSearch.Visible = false;
                 this.txtCriterioBusqueda.Visible = true;
+                this.cmbCategories.Visible = false;
+                this.txtCriterioBusqueda.Text = "";
                 this.txtCriterioBusqueda.Focus();
             }
         }
@@ -469,14 +598,38 @@ namespace pjPalmera.PL
                 this.lblCriterio.Text = "Estado";
                 NewSearch();
                 this.txtCriterioBusqueda.Visible = false;
+                this.cmbCategories.Visible = false;
                 this.cmbEstado.Visible = true;
+                this.btnSearch.Visible = true;
+                this.cmbEstado.Text = "";
                 this.cmbEstado.Focus();
             }
         }
 
-        private void cmbEstado_SelectedIndexChanged(object sender, EventArgs e)
+
+        private void cmbEstado_DropDown(object sender, EventArgs e)
         {
-            LoadProductStatus();
+            LoadStatusProduct();
         }
+
+        private void rbCategory_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.rbCategory.Checked == true)
+            {
+                this.lblCriterio.Text = "Categorias";
+                NewSearch();
+                this.txtCriterioBusqueda.Visible = false;
+                this.cmbCategories.Visible = true;
+                this.btnSearch.Visible = true;
+                this.cmbCategories.Text = "";
+                this.cmbCategories.Focus();
+            }
+        }
+
+        private void cmbCategories_DropDown(object sender, EventArgs e)
+        {
+            Categories();
+        }
+
     }
 }

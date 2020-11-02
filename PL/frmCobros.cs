@@ -7,17 +7,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Entities;
+using pjPalmera.BLL;
 using pjPalmera.Entities;
 
 namespace pjPalmera.PL
 {
     public partial class frmCobros : Form
     {
-       
+       // public decimal cobrar, efectivo;
+        private decimal _recibido;
+        private decimal _devuelta;
+       // private int _typepay;
 
-        
+        /// <summary>
+        /// Get change from Cobros
+        /// </summary>
+        public decimal getRecibido
+        {
+            get { return _recibido; }
+        }
 
-        public decimal cobrar, efectivo;
+        /// <summary>
+        /// Get cash from Cobros
+        /// </summary>
+        public decimal getDevuelta
+        {
+            get { return _devuelta; }
+        }
+
+        /// <summary>
+        /// Get Pay Method from Cobros
+        /// </summary>
+        //public int getTypePay
+        //{
+        //    get { return _typepay; }
+        //}
 
         public frmCobros()
         {
@@ -35,10 +60,21 @@ namespace pjPalmera.PL
         {
 
             DesableControls();
-            this.txtTotalCobrar.Focus();
+            DescControls();
+            IniControls();
+            this.txtEfectivoRecibido.Focus();
            
         }
 
+
+        /// <summary>
+        /// Describe all Controls in current form
+        /// </summary>
+        private void DescControls()
+        {
+            this.toolTip1.SetToolTip(this.btnCancelarPago, "Cancelar el Proceso de Cobro");
+            this.toolTip1.SetToolTip(this.btnProcesarPagos, "Procesar la Venta y Cobrar");
+        }
 
         /// <summary>
         /// Desable All Controls
@@ -48,6 +84,8 @@ namespace pjPalmera.PL
             this.MinimizeBox = false;
             this.MaximizeBox = false;
             this.txtDevueltaEfectivo.ReadOnly = true;
+            this.txtAprobacionNo.Visible = false;
+            this.lblAprobacion.Visible = false;
         }
 
         /// <summary>
@@ -57,7 +95,26 @@ namespace pjPalmera.PL
         {
             this.txtDevueltaEfectivo.Text = "";
             this.txtEfectivoRecibido.Text = "";
+            this.lblDevueltaEfectivo.Text = "";
             this.txtTotalCobrar.Text = "";
+        }
+
+        /// <summary>
+        /// Set initial values of Controls
+        /// </summary>
+        private void IniControls()
+        {
+             // this.lblTotalCobrar.Text = "0.00";
+            this.lblDevueltaEfectivo.Text = "0.00";
+
+            //var tpay = new type_payEntity();
+
+            //tpay.setMethod();
+
+            //for (int i = 0; i < tpay.arr_pay.Length; i++)
+            //{
+            //    this.cmbfPagos.DataSource = tpay.getMethod(i);
+            //}
         }
 
         private const int CP_NOCLOSE_BUTTON = 0x200;
@@ -76,9 +133,11 @@ namespace pjPalmera.PL
         {
             try
             {
-                cobrar = decimal.Parse(this.txtTotalCobrar.Text);
-                efectivo = decimal.Parse(this.txtEfectivoRecibido.Text);
-                this.txtDevueltaEfectivo.Text = Convert.ToString(efectivo - cobrar);
+                var cobrar = decimal.Parse(this.lblTotalCobrar.Text);
+                var efectivo = decimal.Parse(this.txtEfectivoRecibido.Text);
+                // this.txtDevueltaEfectivo.Text = Convert.ToString(efectivo - cobrar);
+                this.lblDevueltaEfectivo.Text = "";
+                this.lblDevueltaEfectivo.Text = Convert.ToString(efectivo - cobrar);
             }
             catch
             {
@@ -87,37 +146,132 @@ namespace pjPalmera.PL
             }
         }
 
+
+
+        /// <summary>
+        /// Get All Pay Methods
+        /// </summary>
+        private void LoadMethodPay()
+        {
+            this.cmbfPagos.DataSource = FacturaBO.GetType_Pays();
+            this.cmbfPagos.DisplayMember = "Nombre";
+            this.cmbfPagos.ValueMember = "Id";
+            
+        }
+
+
+        private void txtEfectivoRecibido_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyData == Keys.Enter)
+            {
+                this.btnProcesarPagos.Focus();
+            }
+        }
+
         // 
         private void btnProcesarPagos_Click(object sender, EventArgs e)
         {
-            frmVenta fventa = new frmVenta();
+            // Falta agregar la verificacion del credito si el monto acumulado hasta la fecha 
+            // le permite que le procesen la venta (Agregar Regla de Negocio en BLL)
+            //
 
-            if ((this.txtTotalCobrar.Text == string.Empty) || (this.txtEfectivoRecibido.Text == string.Empty))
+            frmVenta invoice = new frmVenta();
+
+            if ((this.txtEfectivoRecibido.Text == string.Empty) && (this.cmbfPagos.Text == "efectivo"))
             {
                 MessageBox.Show("Verificar los valor indicados de la Venta", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.txtTotalCobrar.Focus();
+                this.txtEfectivoRecibido.Focus();
                 return;
             }
-            else
-
+            else if ((this.cmbfPagos.Text == "tarjeta"))
+            {
                 try
-                {            
-                    fventa.Save_Invoices();
-                    fventa.PrintTicket();
-                    fventa.NewInvoice();
+                {
+                    _recibido = decimal.Parse(this.txtEfectivoRecibido.Text);
+                    _devuelta = decimal.Parse(this.lblDevueltaEfectivo.Text);
+
+                    invoice.ProcessSell();
                     CleanControls();
-                    this.Close();
                     MessageBox.Show("Venta Efectuada Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
                 }
                 catch (Exception ex)
                 {
-
                     MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     this.txtTotalCobrar.Focus();
                     return;
-                   
                 }
+            }
+            else
+            {
+                try
+                {
+                    _recibido = decimal.Parse(this.txtEfectivoRecibido.Text);
+                    _devuelta = decimal.Parse(this.lblDevueltaEfectivo.Text);
+
+                    invoice.ProcessSell();
+                    CleanControls();
+                    MessageBox.Show("Venta Efectuada Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    this.txtTotalCobrar.Focus();
+                    return;
+                }
+            }
         }
 
+        private void cmbfPagos_DropDown(object sender, EventArgs e)
+        {
+            this.LoadMethodPay();
+        }
+
+        private void cmbfPagos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            var type = this.cmbfPagos.Text;
+
+            switch (type)
+            {
+                case "efectivo":
+                    this.txtAprobacionNo.Visible = false;
+                    this.lblAprobacion.Visible = false;
+                    this.btnProcesarPagos.Focus();
+                    break;
+
+                case "tarjeta":
+                    this.txtAprobacionNo.Visible = true;
+                    this.lblAprobacion.Visible = true;
+                    this.txtAprobacionNo.Focus();
+                    break;
+                default :
+                    return;
+            }
+            #region Old Method Pay
+            //var typeP = new type_payEntity();
+            //var invoice = new VentaEntity();
+            //var method = this.cmbfPagos.Text;
+
+            //if (method == "efectivo")
+            //{ 
+            //    _typepay = 1;
+
+            //    invoice.method_pago = this.getTypePay;
+
+
+            //    // set
+            //}
+            //else if ( method == "tarjeta")
+            //{
+            //    _typepay = 2;
+
+            //    invoice.method_pago = this.getTypePay;
+
+            //    // set
+            //} 
+            #endregion
+        }
     }
 }

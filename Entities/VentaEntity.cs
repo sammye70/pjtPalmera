@@ -28,7 +28,7 @@ namespace pjPalmera.Entities
         //Fields and Properties
         public int id { get; set; }
         public string clientes { get; set; }
-        public string apellidos { get; set; }
+       // public string apellidos { get; set; }
         public DateTime fecha { get; set; }
         public string vendedor { get; set; }
         public int ncf { get; set; }
@@ -44,6 +44,7 @@ namespace pjPalmera.Entities
         public int id_caja { get; set; }
         public DateTime modificado { get; set;}
         public int id_vendedor { get; set; }
+        public int method_pago { get; set; }
         private List<DetalleVentaEntity> item;
 
 
@@ -97,7 +98,7 @@ namespace pjPalmera.Entities
         public void RemoveItem(int item)
         {
             listProductos.RemoveAt(item);
-            listProductos.Sort();
+            //listProductos.Sort();
 
         }
 

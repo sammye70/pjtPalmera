@@ -32,6 +32,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ventasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.efectuarVentaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ventaACréditoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notasDeCreditoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
             this.facturasEmitidasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,6 +41,7 @@
             this.operacionesDeLaFacturaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.activarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.anularToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.devolucionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consultarFacturasAnuladasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripSeparator();
             this.historialArticulosVendidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,6 +58,7 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.ingresarPedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
+            this.despachoDeMercanciaAClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.proveedorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.crearProveedorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editarProveedorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,35 +87,52 @@
             this.operacionesDeCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.abrirCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cierreDeCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripSeparator();
+            this.consultarHistorialDeAperturaDeCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.consultarHistorialDeCierreDeLaCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pbExitApp = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportesToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportesToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExitApp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
+            this.tabPage9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -136,6 +156,7 @@
             // 
             this.ventasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.efectuarVentaToolStripMenuItem1,
+            this.ventaACréditoToolStripMenuItem,
             this.notasDeCreditoToolStripMenuItem,
             this.toolStripMenuItem6,
             this.facturasEmitidasToolStripMenuItem,
@@ -146,6 +167,7 @@
             this.toolStripMenuItem14,
             this.historialArticulosVendidosToolStripMenuItem,
             this.toolStripMenuItem3,
+            this.reportesToolStripMenuItem3,
             this.balanceVentasDelDiaToolStripMenuItem,
             this.balanceVentasDelMesToolStripMenuItem,
             this.balanceVentasDelAnoToolStripMenuItem});
@@ -156,53 +178,61 @@
             // efectuarVentaToolStripMenuItem1
             // 
             this.efectuarVentaToolStripMenuItem1.Name = "efectuarVentaToolStripMenuItem1";
-            this.efectuarVentaToolStripMenuItem1.Size = new System.Drawing.Size(271, 22);
-            this.efectuarVentaToolStripMenuItem1.Text = "Efectuar Venta";
+            this.efectuarVentaToolStripMenuItem1.Size = new System.Drawing.Size(261, 22);
+            this.efectuarVentaToolStripMenuItem1.Text = "Efectuar Venta al Contado";
             this.efectuarVentaToolStripMenuItem1.Click += new System.EventHandler(this.efectuarVentaToolStripMenuItem1_Click);
+            // 
+            // ventaACréditoToolStripMenuItem
+            // 
+            this.ventaACréditoToolStripMenuItem.Name = "ventaACréditoToolStripMenuItem";
+            this.ventaACréditoToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
+            this.ventaACréditoToolStripMenuItem.Text = "Efectuar Venta a Crédito";
+            this.ventaACréditoToolStripMenuItem.Click += new System.EventHandler(this.ventaACréditoToolStripMenuItem_Click);
             // 
             // notasDeCreditoToolStripMenuItem
             // 
             this.notasDeCreditoToolStripMenuItem.Name = "notasDeCreditoToolStripMenuItem";
-            this.notasDeCreditoToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
+            this.notasDeCreditoToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
             this.notasDeCreditoToolStripMenuItem.Text = "Notas de Crédito";
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(268, 6);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(258, 6);
             // 
             // facturasEmitidasToolStripMenuItem
             // 
             this.facturasEmitidasToolStripMenuItem.Name = "facturasEmitidasToolStripMenuItem";
-            this.facturasEmitidasToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
+            this.facturasEmitidasToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
             this.facturasEmitidasToolStripMenuItem.Text = "Consultar Facturas Contado";
             this.facturasEmitidasToolStripMenuItem.Click += new System.EventHandler(this.facturasEmitidasToolStripMenuItem_Click_1);
             // 
             // consultarFacturasCreditoToolStripMenuItem
             // 
             this.consultarFacturasCreditoToolStripMenuItem.Name = "consultarFacturasCreditoToolStripMenuItem";
-            this.consultarFacturasCreditoToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
+            this.consultarFacturasCreditoToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
             this.consultarFacturasCreditoToolStripMenuItem.Text = "Consultar Facturas Crédito";
             this.consultarFacturasCreditoToolStripMenuItem.Click += new System.EventHandler(this.consultarFacturasCreditoToolStripMenuItem_Click);
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(268, 6);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(258, 6);
             // 
             // operacionesDeLaFacturaToolStripMenuItem
             // 
             this.operacionesDeLaFacturaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.activarToolStripMenuItem,
-            this.anularToolStripMenuItem});
+            this.anularToolStripMenuItem,
+            this.devolucionesToolStripMenuItem});
             this.operacionesDeLaFacturaToolStripMenuItem.Name = "operacionesDeLaFacturaToolStripMenuItem";
-            this.operacionesDeLaFacturaToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
-            this.operacionesDeLaFacturaToolStripMenuItem.Text = "Operaciones de la Factura al Contado";
+            this.operacionesDeLaFacturaToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
+            this.operacionesDeLaFacturaToolStripMenuItem.Text = "Operaciones de la Venta al Contado";
             // 
             // activarToolStripMenuItem
             // 
             this.activarToolStripMenuItem.Name = "activarToolStripMenuItem";
-            this.activarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.activarToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.activarToolStripMenuItem.Text = "Activar";
             this.activarToolStripMenuItem.Visible = false;
             this.activarToolStripMenuItem.Click += new System.EventHandler(this.activarToolStripMenuItem_Click);
@@ -210,50 +240,57 @@
             // anularToolStripMenuItem
             // 
             this.anularToolStripMenuItem.Name = "anularToolStripMenuItem";
-            this.anularToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.anularToolStripMenuItem.Text = "Anular Factura";
+            this.anularToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.anularToolStripMenuItem.Text = "Devoluciones";
             this.anularToolStripMenuItem.Click += new System.EventHandler(this.anularToolStripMenuItem_Click);
+            // 
+            // devolucionesToolStripMenuItem
+            // 
+            this.devolucionesToolStripMenuItem.Name = "devolucionesToolStripMenuItem";
+            this.devolucionesToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.devolucionesToolStripMenuItem.Text = "Cambios";
+            this.devolucionesToolStripMenuItem.Click += new System.EventHandler(this.devolucionesToolStripMenuItem_Click);
             // 
             // consultarFacturasAnuladasToolStripMenuItem
             // 
             this.consultarFacturasAnuladasToolStripMenuItem.Name = "consultarFacturasAnuladasToolStripMenuItem";
-            this.consultarFacturasAnuladasToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
+            this.consultarFacturasAnuladasToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
             this.consultarFacturasAnuladasToolStripMenuItem.Text = "Consultar Facturas Anuladas";
             this.consultarFacturasAnuladasToolStripMenuItem.Click += new System.EventHandler(this.consultarFacturasAnuladasToolStripMenuItem_Click);
             // 
             // toolStripMenuItem14
             // 
             this.toolStripMenuItem14.Name = "toolStripMenuItem14";
-            this.toolStripMenuItem14.Size = new System.Drawing.Size(268, 6);
+            this.toolStripMenuItem14.Size = new System.Drawing.Size(258, 6);
             // 
             // historialArticulosVendidosToolStripMenuItem
             // 
             this.historialArticulosVendidosToolStripMenuItem.Name = "historialArticulosVendidosToolStripMenuItem";
-            this.historialArticulosVendidosToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
+            this.historialArticulosVendidosToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
             this.historialArticulosVendidosToolStripMenuItem.Text = "Historial Articulos Vendidos";
             this.historialArticulosVendidosToolStripMenuItem.Click += new System.EventHandler(this.historialArticulosVendidosToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(268, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(258, 6);
             // 
             // balanceVentasDelDiaToolStripMenuItem
             // 
             this.balanceVentasDelDiaToolStripMenuItem.Name = "balanceVentasDelDiaToolStripMenuItem";
-            this.balanceVentasDelDiaToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
+            this.balanceVentasDelDiaToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
             this.balanceVentasDelDiaToolStripMenuItem.Text = "Balance Ventas del día";
             // 
             // balanceVentasDelMesToolStripMenuItem
             // 
             this.balanceVentasDelMesToolStripMenuItem.Name = "balanceVentasDelMesToolStripMenuItem";
-            this.balanceVentasDelMesToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
+            this.balanceVentasDelMesToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
             this.balanceVentasDelMesToolStripMenuItem.Text = "Balance Ventas del Mes";
             // 
             // balanceVentasDelAnoToolStripMenuItem
             // 
             this.balanceVentasDelAnoToolStripMenuItem.Name = "balanceVentasDelAnoToolStripMenuItem";
-            this.balanceVentasDelAnoToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
+            this.balanceVentasDelAnoToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
             this.balanceVentasDelAnoToolStripMenuItem.Text = "Balance Ventas del Año";
             // 
             // almacenToolStripMenuItem
@@ -266,7 +303,9 @@
             this.articulosAVencerToolStripMenuItem,
             this.toolStripMenuItem2,
             this.ingresarPedidosToolStripMenuItem,
-            this.toolStripMenuItem4});
+            this.toolStripMenuItem4,
+            this.despachoDeMercanciaAClientesToolStripMenuItem,
+            this.reportesToolStripMenuItem2});
             this.almacenToolStripMenuItem.Name = "almacenToolStripMenuItem";
             this.almacenToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.almacenToolStripMenuItem.Text = "Almacen";
@@ -313,13 +352,19 @@
             // 
             this.ingresarPedidosToolStripMenuItem.Name = "ingresarPedidosToolStripMenuItem";
             this.ingresarPedidosToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
-            this.ingresarPedidosToolStripMenuItem.Text = "Ingresar Pedidos";
+            this.ingresarPedidosToolStripMenuItem.Text = "Ingresar Pedidos por la Empresa";
             this.ingresarPedidosToolStripMenuItem.Click += new System.EventHandler(this.ingresarPedidosToolStripMenuItem_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
             this.toolStripMenuItem4.Size = new System.Drawing.Size(270, 6);
+            // 
+            // despachoDeMercanciaAClientesToolStripMenuItem
+            // 
+            this.despachoDeMercanciaAClientesToolStripMenuItem.Name = "despachoDeMercanciaAClientesToolStripMenuItem";
+            this.despachoDeMercanciaAClientesToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
+            this.despachoDeMercanciaAClientesToolStripMenuItem.Text = "Despacho de Mercancia a Clientes";
             // 
             // proveedorToolStripMenuItem
             // 
@@ -378,7 +423,8 @@
             this.consultarPedidosToolStripMenuItem,
             this.toolStripMenuItem11,
             this.generarPedidosToolStripMenuItem,
-            this.toolStripMenuItem12});
+            this.toolStripMenuItem12,
+            this.reportesToolStripMenuItem1});
             this.comprasToolStripMenuItem.Name = "comprasToolStripMenuItem";
             this.comprasToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
             this.comprasToolStripMenuItem.Text = "Compras";
@@ -415,7 +461,8 @@
             // 
             this.gestionarClientesToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.crearNuevoToolStripMenuItem,
-            this.consultarClientesToolStripMenuItem1});
+            this.consultarClientesToolStripMenuItem1,
+            this.reportesToolStripMenuItem});
             this.gestionarClientesToolStripMenuItem1.Name = "gestionarClientesToolStripMenuItem1";
             this.gestionarClientesToolStripMenuItem1.Size = new System.Drawing.Size(114, 20);
             this.gestionarClientesToolStripMenuItem1.Text = "Gestionar Clientes";
@@ -505,7 +552,10 @@
             // 
             this.operacionesDeCajaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.abrirCajaToolStripMenuItem,
-            this.cierreDeCajaToolStripMenuItem});
+            this.cierreDeCajaToolStripMenuItem,
+            this.toolStripMenuItem13,
+            this.consultarHistorialDeAperturaDeCajaToolStripMenuItem,
+            this.consultarHistorialDeCierreDeLaCajaToolStripMenuItem});
             this.operacionesDeCajaToolStripMenuItem.Name = "operacionesDeCajaToolStripMenuItem";
             this.operacionesDeCajaToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.operacionesDeCajaToolStripMenuItem.Text = "Operaciones de Caja";
@@ -513,16 +563,33 @@
             // abrirCajaToolStripMenuItem
             // 
             this.abrirCajaToolStripMenuItem.Name = "abrirCajaToolStripMenuItem";
-            this.abrirCajaToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.abrirCajaToolStripMenuItem.Size = new System.Drawing.Size(279, 22);
             this.abrirCajaToolStripMenuItem.Text = "Abrir Caja";
             this.abrirCajaToolStripMenuItem.Click += new System.EventHandler(this.abrirCajaToolStripMenuItem_Click);
             // 
             // cierreDeCajaToolStripMenuItem
             // 
             this.cierreDeCajaToolStripMenuItem.Name = "cierreDeCajaToolStripMenuItem";
-            this.cierreDeCajaToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.cierreDeCajaToolStripMenuItem.Size = new System.Drawing.Size(279, 22);
             this.cierreDeCajaToolStripMenuItem.Text = "Cierre de Caja";
             this.cierreDeCajaToolStripMenuItem.Click += new System.EventHandler(this.cierreDeCajaToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem13
+            // 
+            this.toolStripMenuItem13.Name = "toolStripMenuItem13";
+            this.toolStripMenuItem13.Size = new System.Drawing.Size(276, 6);
+            // 
+            // consultarHistorialDeAperturaDeCajaToolStripMenuItem
+            // 
+            this.consultarHistorialDeAperturaDeCajaToolStripMenuItem.Name = "consultarHistorialDeAperturaDeCajaToolStripMenuItem";
+            this.consultarHistorialDeAperturaDeCajaToolStripMenuItem.Size = new System.Drawing.Size(279, 22);
+            this.consultarHistorialDeAperturaDeCajaToolStripMenuItem.Text = "Consultar Historial de Apertura de Caja";
+            // 
+            // consultarHistorialDeCierreDeLaCajaToolStripMenuItem
+            // 
+            this.consultarHistorialDeCierreDeLaCajaToolStripMenuItem.Name = "consultarHistorialDeCierreDeLaCajaToolStripMenuItem";
+            this.consultarHistorialDeCierreDeLaCajaToolStripMenuItem.Size = new System.Drawing.Size(279, 22);
+            this.consultarHistorialDeCierreDeLaCajaToolStripMenuItem.Text = "Consultar Historial de Cierre de la Caja";
             // 
             // ayudaToolStripMenuItem
             // 
@@ -535,7 +602,7 @@
             // acercaDeToolStripMenuItem
             // 
             this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
-            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.acercaDeToolStripMenuItem.Text = "Acerca de..";
             this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.acercaDeToolStripMenuItem_Click);
             // 
@@ -561,9 +628,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.pictureBox4);
-            this.panel1.Controls.Add(this.pictureBox3);
             this.panel1.Controls.Add(this.pbExitApp);
-            this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(989, 84);
@@ -580,17 +645,6 @@
             this.pictureBox4.TabStop = false;
             this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
             // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::PL.Properties.Resources.poor;
-            this.pictureBox3.Location = new System.Drawing.Point(83, 11);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(73, 63);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 3;
-            this.pictureBox3.TabStop = false;
-            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click_1);
-            // 
             // pbExitApp
             // 
             this.pbExitApp.Dock = System.Windows.Forms.DockStyle.Right;
@@ -606,7 +660,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::PL.Properties.Resources.cart_13;
-            this.pictureBox2.Location = new System.Drawing.Point(8, 11);
+            this.pictureBox2.Location = new System.Drawing.Point(8, 16);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(69, 63);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -629,6 +683,7 @@
             // 
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPage9);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
@@ -643,9 +698,55 @@
             this.tabControl1.Size = new System.Drawing.Size(989, 111);
             this.tabControl1.TabIndex = 5;
             // 
+            // tabPage9
+            // 
+            this.tabPage9.Controls.Add(this.pictureBox7);
+            this.tabPage9.Controls.Add(this.pictureBox6);
+            this.tabPage9.Controls.Add(this.pictureBox5);
+            this.tabPage9.Location = new System.Drawing.Point(4, 22);
+            this.tabPage9.Name = "tabPage9";
+            this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage9.Size = new System.Drawing.Size(981, 85);
+            this.tabPage9.TabIndex = 8;
+            this.tabPage9.Text = "Inicio";
+            this.tabPage9.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox7
+            // 
+            this.pictureBox7.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pictureBox7.Image = global::PL.Properties.Resources._56_512;
+            this.pictureBox7.Location = new System.Drawing.Point(920, 3);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(58, 79);
+            this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox7.TabIndex = 9;
+            this.pictureBox7.TabStop = false;
+            this.pictureBox7.Click += new System.EventHandler(this.pictureBox7_Click);
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Image = global::PL.Properties.Resources.poor;
+            this.pictureBox6.Location = new System.Drawing.Point(93, 11);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(73, 63);
+            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox6.TabIndex = 7;
+            this.pictureBox6.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::PL.Properties.Resources.cart_13;
+            this.pictureBox5.Location = new System.Drawing.Point(8, 11);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(69, 63);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox5.TabIndex = 6;
+            this.pictureBox5.TabStop = false;
+            // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPage1.Controls.Add(this.pictureBox2);
             this.tabPage1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -656,6 +757,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.pictureBox3);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -663,6 +765,16 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Almacen";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::PL.Properties.Resources.poor;
+            this.pictureBox3.Location = new System.Drawing.Point(11, 11);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(73, 63);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 4;
+            this.pictureBox3.TabStop = false;
             // 
             // tabPage3
             // 
@@ -719,6 +831,30 @@
             this.tabPage8.Text = "Ayuda (?)";
             this.tabPage8.UseVisualStyleBackColor = true;
             // 
+            // reportesToolStripMenuItem
+            // 
+            this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
+            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.reportesToolStripMenuItem.Text = "Reportes";
+            // 
+            // reportesToolStripMenuItem1
+            // 
+            this.reportesToolStripMenuItem1.Name = "reportesToolStripMenuItem1";
+            this.reportesToolStripMenuItem1.Size = new System.Drawing.Size(213, 22);
+            this.reportesToolStripMenuItem1.Text = "Reportes";
+            // 
+            // reportesToolStripMenuItem2
+            // 
+            this.reportesToolStripMenuItem2.Name = "reportesToolStripMenuItem2";
+            this.reportesToolStripMenuItem2.Size = new System.Drawing.Size(273, 22);
+            this.reportesToolStripMenuItem2.Text = "Reportes";
+            // 
+            // reportesToolStripMenuItem3
+            // 
+            this.reportesToolStripMenuItem3.Name = "reportesToolStripMenuItem3";
+            this.reportesToolStripMenuItem3.Size = new System.Drawing.Size(261, 22);
+            this.reportesToolStripMenuItem3.Text = "Reportes es este apartado";
+            // 
             // frmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -741,11 +877,17 @@
             this.statusStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExitApp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabControl1.ResumeLayout(false);
+            this.tabPage9.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -775,10 +917,8 @@
         private System.Windows.Forms.ToolStripMenuItem registroDePersonasToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.PictureBox pbExitApp;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
         private System.Windows.Forms.ToolStripMenuItem operacionesDeCajaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem abrirCajaToolStripMenuItem;
@@ -792,7 +932,6 @@
         private System.Windows.Forms.ToolStripMenuItem consultarPedidosToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem11;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem12;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem stockMinimosToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
         private System.Windows.Forms.ToolStripMenuItem contabilidadToolStripMenuItem;
@@ -828,5 +967,22 @@
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.TabPage tabPage7;
         private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.ToolStripMenuItem devolucionesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem despachoDeMercanciaAClientesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem13;
+        private System.Windows.Forms.ToolStripMenuItem consultarHistorialDeAperturaDeCajaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem consultarHistorialDeCierreDeLaCajaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ventaACréditoToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPage9;
+        private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pictureBox6;
+        private System.Windows.Forms.PictureBox pbExitApp;
+        private System.Windows.Forms.PictureBox pictureBox7;
+        private System.Windows.Forms.ToolStripMenuItem reportesToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem reportesToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem reportesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reportesToolStripMenuItem3;
     }
 }

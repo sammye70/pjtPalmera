@@ -49,19 +49,19 @@ namespace pjPalmera.PL
             //    if ((usuario.User_name == this.txtUserName.Text) && (usuario.Password == this.txtPassword.Text))
             //    {
             //        MessageBox.Show("Puede Iniciar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                      this.Close();
+            //        this.Close();
             //    }
             //    else
             //    {
-            //       MessageBox.Show("Indicar Usuario y Contraseña sean Validos!", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                   
+            //        MessageBox.Show("Indicar Usuario y Contraseña sean Validos!", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             //    }
             //}
             //catch (Exception ex)
             //{
             //    MessageBox.Show(ex.Message, "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             //}
-            
+
         }
     }
 }

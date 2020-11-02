@@ -8,11 +8,15 @@ using System.Windows.Forms; //
 using pjPalmera.Entities;
 using pjPalmera.DAL;
 using System.Runtime.CompilerServices;
+using System.ComponentModel;
 
 namespace pjPalmera.BLL
 {
     public class FacturaBO
     {
+        /// <summary>
+        /// messeger about result after checked business rules
+        /// </summary>
         public static string strMensajeBO; //
 
 
@@ -34,12 +38,43 @@ namespace pjPalmera.BLL
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type_pay"></param>
+        /// <param name="amount"></param>
+        /// <param name="descount"></param>
+        /// <returns></returns>
+        public static decimal GetAmountPay(int type_pay, decimal amount, decimal descount)
+        {
+            return 0;
+        }
+
+
 
         /// <summary>
-        /// Amount Total All Invoices where Active and type iqual Credit
+        /// Get type pay
         /// </summary>
         /// <returns></returns>
-        public static decimal AmountAllInvoicesCr()
+        public static List<type_payEntity> GetType_Pays()
+        {
+            try
+            {
+                return FacturasDAL.GetType_Pays();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
+        }
+
+
+            /// <summary>
+            /// Amount Total All Invoices where Active and type iqual Credit
+            /// </summary>
+            /// <returns></returns>
+            public static decimal AmountAllInvoicesCr()
         {
             try
             {
@@ -214,7 +249,7 @@ namespace pjPalmera.BLL
         //-------------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        /// Verificaty Invoices if Exits or not (Only enable invoices )
+        /// Verificaty Invoices if Exits or not (Only enable invoices, and temporal)
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
@@ -236,13 +271,13 @@ namespace pjPalmera.BLL
         }
 
         /// <summary>
-        /// Verificaty Invoices if Exits or not (Only desable invoices )
+        /// Verificaty Invoices if Exits or not (Permanent invoices)
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
         public static bool ExitsInvoiceDes(int number)
         {
-            var MensajeDAL = FacturasDAL.ExitsInvoiceAct(number);
+            var MensajeDAL = FacturasDAL.ExitsInvoiceDes(number);
 
             if (MensajeDAL == true)
             {

@@ -106,6 +106,12 @@
     <Compile Include="frmAnularFactura.Designer.cs">
       <DependentUpon>frmAnularFactura.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCambios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCambios.Designer.cs">
+      <DependentUpon>frmCambios.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmConsulArticulosExpirar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -250,6 +256,12 @@
     <Compile Include="frmPrincipal.Designer.cs">
       <DependentUpon>frmPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmProcesarCambios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProcesarCambios.Designer.cs">
+      <DependentUpon>frmProcesarCambios.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmRegArticulos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -285,6 +297,12 @@
     </Compile>
     <Compile Include="frmRepProductos.Designer.cs">
       <DependentUpon>frmRepProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSearchCategory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSearchCategory.Designer.cs">
+      <DependentUpon>frmSearchCategory.cs</DependentUpon>
     </Compile>
     <Compile Include="frmStockMinimo.cs">
       <SubType>Form</SubType>
@@ -331,6 +349,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAnularFactura.resx">
       <DependentUpon>frmAnularFactura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCambios.resx">
+      <DependentUpon>frmCambios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmConsulArticulosExpirar.resx">
       <DependentUpon>frmConsulArticulosExpirar.cs</DependentUpon>
@@ -401,6 +422,9 @@
     <EmbeddedResource Include="frmPrincipal.resx">
       <DependentUpon>frmPrincipal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmProcesarCambios.resx">
+      <DependentUpon>frmProcesarCambios.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmRegArticulos.resx">
       <DependentUpon>frmRegArticulos.cs</DependentUpon>
     </EmbeddedResource>
@@ -418,6 +442,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmRepProductos.resx">
       <DependentUpon>frmRepProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSearchCategory.resx">
+      <DependentUpon>frmSearchCategory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmStockMinimo.resx">
       <DependentUpon>frmStockMinimo.cs</DependentUpon>
@@ -575,6 +602,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="folder_summer_13091.ico" />
+    <None Include="Resources\6450271_preview.png" />
+    <None Include="Resources\objects.ico" />
     <None Include="Resources\documents2.ico" />
     <None Include="Resources\documents1.ico" />
     <None Include="Resources\calculator.ico" />

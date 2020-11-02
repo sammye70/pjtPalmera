@@ -21,7 +21,8 @@ namespace pjPalmera.Entities
         private decimal limite_credito;
         private int createby;
         private DateTime created;
-        private int cxc;
+        private string status;
+        //private int cxc;
 
         //Constructor
         public ClientesEntity()
@@ -41,7 +42,7 @@ namespace pjPalmera.Entities
             this.Limite_credito = limite_credito;
             this.Createby = createby;
             this.Created = created;
-            this.Cxc = cxc;
+     
         }
 
         //Properties
@@ -100,10 +101,10 @@ namespace pjPalmera.Entities
             set { limite_credito = value; }
         }
 
-        public int Cxc
+        public string Estado
         {
-            get { return cxc; }
-            set { cxc = value; }
+            get { return status; }
+            set { status = value; }
         }
 
         public int Createby

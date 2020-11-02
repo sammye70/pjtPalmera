@@ -11,7 +11,19 @@ namespace pjPalmera.Entities
         private int category_id;
         private string category;
 
-        public int Category_id
+
+        public CategoriaEntity()
+        {
+        }
+
+        public CategoriaEntity(int category_id, string category)
+        {
+            this.Id = category_id;
+            this.Categoria = category;
+        }
+
+
+        public int Id
         {
             get
             {
@@ -24,7 +36,7 @@ namespace pjPalmera.Entities
             }
         }
 
-        public string Category
+        public string Categoria
         {
             get
             {
@@ -37,14 +49,6 @@ namespace pjPalmera.Entities
             }
         }
 
-        public CategoriaEntity()
-        {
-        }
 
-        public CategoriaEntity(int Category_id, string Category)
-        {
-            this.Category_id = category_id;
-            this.Category = category;
-        }
     }
 }

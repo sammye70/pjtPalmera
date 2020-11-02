@@ -16,10 +16,10 @@ namespace pjPalmera.Entities
     public class DetalleVentaEntity
     {
         //Fields
-        //private int no;
+       // private int no;
         private long id;
         private string description;
-        private float quality;
+        private float quantity;
         private decimal price;
         private decimal itbis;
         private decimal amount;
@@ -37,8 +37,8 @@ namespace pjPalmera.Entities
         #endregion
 
         //Properties
-        //public int No 
-        //{ 
+        //public int No
+        //{
         //    get { return no; }
         //    set { no = value; }
         //}
@@ -56,8 +56,8 @@ namespace pjPalmera.Entities
 
         public float CANTIDAD 
         {
-            get { return quality; }
-            set { quality = value; }
+            get { return quantity; }
+            set { quantity = value; }
         }
 
         public decimal PRECIO 
@@ -74,7 +74,7 @@ namespace pjPalmera.Entities
 
         public decimal IMPORTE 
         { 
-            get { return amount = price * (decimal)quality; } 
+            get { return amount = price * (decimal)quantity; } 
             set { amount = value; } 
         }
 
@@ -84,7 +84,7 @@ namespace pjPalmera.Entities
             set { id_venta = value; }
         }
 
-        public DateTime CREATED
+        public DateTime MODIFICADO
         {
             get { return created; }
             set { created = value; }

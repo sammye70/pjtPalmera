@@ -7,6 +7,8 @@ using MySql.Data;
 using System.Data;
 using MySql.Data.MySqlClient;
 using pjPalmera.Entities;
+using Entities;
+using System.Configuration;
 
 
 namespace pjPalmera.DAL
@@ -16,60 +18,51 @@ namespace pjPalmera.DAL
         /// <summary>
         /// Create New Costumer
         /// </summary>
-        /// <returns></returns>
-        public static ClientesEntity Create(ClientesEntity Costumer)
+        /// <param name="Costumer"></param>
+        /// <returns>Number 1 or than if create</returns>
+        public static String Create(ClientesEntity Costumer)
         {
+            int ResRequest;
+            var valMessage = new ResultEntity();
+            string strMessage =null;
 
-            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
-            {
-                con.Open();
-                string sql = @"INSERT INTO clientes (cedula, nombre, apellidos, telefono, direccion, ciudad, provincia, limitecredito, createby, created, cxc)
-                                VALUES (@cedula, @nombre, @apellidos, @telefono, @direccion, @ciudad, @provincia, @limitecredito, @createby, @created, @cxc)";
-                MySqlCommand cmd = new MySqlCommand(sql, con);
+                using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+                {
+                    using (var cmd = new MySqlCommand("spCreateCostumer", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
 
-                cmd.Parameters.AddWithValue("@cedula", Costumer.Cedula);
-                cmd.Parameters.AddWithValue("@nombre", Costumer.Nombre);
-                cmd.Parameters.AddWithValue("@apellidos", Costumer.Apellidos);
-                cmd.Parameters.AddWithValue("@telefono", Costumer.Telefono);
-                cmd.Parameters.AddWithValue("@direccion", Costumer.Direccion);
-                cmd.Parameters.AddWithValue("@ciudad", Costumer.Ciudad);
-                cmd.Parameters.AddWithValue("@provincia", Costumer.Provincia);
-                cmd.Parameters.AddWithValue("@limitecredito", Costumer.Limite_credito);
-                cmd.Parameters.AddWithValue("@createby", Costumer.Createby);
-                cmd.Parameters.AddWithValue("@created", DateTime.Now);
-                cmd.Parameters.AddWithValue("@cxc", Costumer.Cxc);
+                        cmd.Parameters.AddWithValue("@pcedula", Costumer.Cedula);
+                        cmd.Parameters.AddWithValue("@pnombre", Costumer.Nombre);
+                        cmd.Parameters.AddWithValue("@papellidos", Costumer.Apellidos);
+                        cmd.Parameters.AddWithValue("@ptelefono", Costumer.Telefono);
+                        cmd.Parameters.AddWithValue("@pdireccion", Costumer.Direccion);
+                        cmd.Parameters.AddWithValue("@pciudad", Costumer.Ciudad);
+                        cmd.Parameters.AddWithValue("@pprovincia", Costumer.Provincia);
+                        cmd.Parameters.AddWithValue("@plimitedecredito", Costumer.Limite_credito);
+                        cmd.Parameters.AddWithValue("@pcreatedby", Costumer.Createby);
+                        cmd.Parameters.AddWithValue("@pcreated", DateTime.Now);
+                        cmd.Parameters.AddWithValue("pstatus", 1);
 
-                cmd.ExecuteNonQuery();
+                        ResRequest = Convert.ToInt32(cmd.ExecuteNonQuery());
 
-                //      Costumer.Id = Convert.ToInt32(cmd.ExecuteScalar());
-
-            }
-            return Costumer;
+                    if (ResRequest == 1)
+                    {
+                        //strMessage = valMessage.StrResult = setResult.Satisfactoriamente.ToString();
+                        return strMessage;
+                         
+                    }
+                    else if (ResRequest == 0)
+                    {
+                       // strMessage = valMessage.StrResult = setResult.NoSatisfactoriamente.ToString();
+                       return strMessage;
+                    }
+                }
+                }
+            return strMessage;
         }
 
-        /// <summary>
-        /// Search idCostumer
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public static bool Exits(int id)
-        {
-            int nrecord = 0;
-            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
-            {
-                con.Open();
-                string sql = @"SELECT id, cedula, nombre, apellidos
-                            FROM clientes 
-                            WHERE id=@idcliente";
-                MySqlCommand cmd = new MySqlCommand(sql, con);
-
-                cmd.Parameters.AddWithValue("@idclientes", id);
-
-                nrecord = Convert.ToInt32(cmd.ExecuteScalar());
-            }
-
-            return nrecord > 0;
-        }
 
         /// <summary>
         ///  Update costumer information
@@ -81,34 +74,135 @@ namespace pjPalmera.DAL
             using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql = @"UPDATE clientes SET
-                               clientes.cedula=@cedula,
-                                clientes.nombre=@nombre, clientes.apellidos=@apellidos, clientes.telefono=@telefono,
-                                clientes.direccion=@direccion, clientes.ciudad=@ciudad, clientes.provincia=@provincia, clientes.limitecredito=@limitecredito
-                               WHERE id=@idclientes                                
-                              ";
 
-                using (var cmd = new MySqlCommand(sql, con))
+                using (var cmd = new MySqlCommand("UpdateInfoCustomer", con))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@idclientes", costumer.Id);
-                    cmd.Parameters.AddWithValue("@cedula", costumer.Cedula);
-                    cmd.Parameters.AddWithValue("@nombre", costumer.Nombre);
-                    cmd.Parameters.AddWithValue("@apellidos", costumer.Apellidos);
-                    cmd.Parameters.AddWithValue("@telefono", costumer.Telefono);
-                    cmd.Parameters.AddWithValue("@direccion", costumer.Direccion);
-                    cmd.Parameters.AddWithValue("@ciudad", costumer.Ciudad);
-                    cmd.Parameters.AddWithValue("@provincia", costumer.Provincia);
-                    cmd.Parameters.AddWithValue("@limitecredito", costumer.Limite_credito);
+                    cmd.Parameters.AddWithValue("@pidcliente", costumer.Id);
+                    cmd.Parameters.AddWithValue("@pcedula", costumer.Cedula);
+                    cmd.Parameters.AddWithValue("@pnombre", costumer.Nombre);
+                    cmd.Parameters.AddWithValue("@papellidos", costumer.Apellidos);
+                    cmd.Parameters.AddWithValue("@ptelefono", costumer.Telefono);
+                    cmd.Parameters.AddWithValue("@pdireccion", costumer.Direccion);
+                    cmd.Parameters.AddWithValue("@pciudad", costumer.Ciudad);
+                    cmd.Parameters.AddWithValue("@pprovincia", costumer.Provincia);
+                    cmd.Parameters.AddWithValue("@plimitecredito", costumer.Limite_credito);
 
                     cmd.ExecuteNonQuery();
                 }
             }
+
             return costumer;
         }
 
+
         /// <summary>
-        ///Delete Client by Id 
+        /// Check if exits costumer cedula
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static bool ExitsCedula(string cedula)
+        {
+            var result = true;
+            string strMsg;
+
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                using (var cmd = new MySqlCommand("spSearchExistCedula", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    con.Open();
+                    cmd.Parameters.AddWithValue("@pcedula", cedula);
+                    cmd.Parameters["@pcedula"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.Add("@resp", MySqlDbType.VarChar);
+                    cmd.Parameters["@resp"].Direction = ParameterDirection.Output;
+                    cmd.ExecuteNonQuery();
+                    strMsg = (string) cmd.Parameters["@resp"].Value;
+
+                 // strMsg =Convert.ToString(cmd.ExecuteScalar());
+
+                    if (strMsg == "Existe")
+                    {
+                        result = true;
+                    }
+                    else if( strMsg == "No Existe")
+                    {
+                        result = false;
+                    }
+                }
+                return result;
+            }
+        }
+
+
+        /// <summary>
+        /// Filter Customer by Cedula 
+        /// </summary>
+        /// <returns></returns>
+        public static List<ClientesEntity> GetCustomerByCedula(string cedula)
+        {
+            var list = new List<ClientesEntity>();
+
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+                
+                using (var cmd = new MySqlCommand("spSearchCustomerByCedula", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@pcedula", cedula);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        list.Add(LoadCostumer(reader));
+                    }
+                }
+            }
+           return list;
+        }
+
+
+        /// <summary>
+        /// Check if Exits Costumer Code
+        /// </summary>
+        /// <returns></returns>
+        public static bool ExitsCode(string code)
+        {
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                var result = true;
+                var query = "SELECT * FROM Clientes WHERE id=@code";
+
+                con.Open();
+                
+                using (var cmd = new MySqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@code", code);
+
+                    result = Convert.ToBoolean(cmd.ExecuteScalar());
+
+                    if (result == true)
+                    {
+                        return true;
+                    }
+                    else if (result == false)
+                    {
+                        return false;
+                    }
+                }
+                return result;
+            }
+        }
+
+   
+
+        /// <summary>
+        ///Delete Client by Id
         /// </summary>
         /// <param name="id"></param>
         public static void Delete(long id)
@@ -116,42 +210,38 @@ namespace pjPalmera.DAL
             using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                var query = @"DELETE FROM clientes WHERE id=@idclientes";
 
-                using (var cmd = new MySqlCommand(query, con))
+                using (var cmd = new MySqlCommand("DeleteCustomer", con))
                 {
-                    cmd.Parameters.AddWithValue("@idclientes", id);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@pidcliente", id);
                     cmd.ExecuteNonQuery();
                 }
-            
             }
-        
         }
 
 
         /// <summary>
-        /// Get All Costumer Order by LastName
+        /// Get All Custumer Order by LastName
         /// </summary>
         /// <returns></returns>
         public static List<ClientesEntity> All
         {
             get
             {
-                List<ClientesEntity> list = new List<ClientesEntity>();
+                var list = new List<ClientesEntity>();
 
                 using (var con = new MySqlConnection(SettingDAL.connectionstring))
                 {
                     con.Open();
-                    string sql = @"SELECT id, cedula, nombre, apellidos, telefono, direccion, ciudad, provincia, created, limitecredito, cxc 
-                                FROM clientes";
-
-                    MySqlCommand cmd = new MySqlCommand(sql, con);
-
-                    MySqlDataReader Reader = cmd.ExecuteReader();
-
-                    while (Reader.Read())
+                    using (var cmd = new MySqlCommand("spGetAllCustomer", con))
                     {
-                        list.Add(LoadCostumer(Reader));
+                        MySqlDataReader reader = cmd.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            list.Add(LoadCostumer(reader));
+                        }
                     }
                 }
                 return list;
@@ -159,43 +249,42 @@ namespace pjPalmera.DAL
         }
 
         /// <summary>
-        /// Get User by Id for Update Information
+        /// Get Costumer by Id for Update Information
         /// </summary>
         /// <returns></returns>
         public static ClientesEntity GetbyCodeUpdate(long Id)
         {
-            ClientesEntity Clientes = new ClientesEntity();
+            var costumer = new ClientesEntity();
 
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql = @"SELECT *
-                                FROM clientes
-                                WHERE id = @idcliente";
-
-                MySqlCommand cmd = new MySqlCommand(sql, con);
-                cmd.Parameters.AddWithValue("idcliente", Id);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
+          
+                using (MySqlCommand cmd = new MySqlCommand("spSearchCustomerByCode", con))
                 {
-                    Clientes = LoadCostumer(reader);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@pidcliente", Id);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        costumer = LoadCostumer(reader);
+                    }
                 }
+                return costumer;
             }
-            return Clientes;
         }
 
 
-
-
         /// <summary>
-        /// Get User by Id
+        /// Get Costumer by Id (List)
         /// </summary>
         /// <returns></returns>
-        public static ClientesEntity GetbyId(long Id)
+        public static List<ClientesEntity> GetbyIdList(long Id)
         {
-            ClientesEntity Clientes = null;
+            List<ClientesEntity> list = new List<ClientesEntity>();
 
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
@@ -204,17 +293,19 @@ namespace pjPalmera.DAL
                                 FROM clientes
                                 WHERE id = @idcliente";
 
-                MySqlCommand cmd = new MySqlCommand(sql, con);
-                cmd.Parameters.AddWithValue("idcliente", Id);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
+                using (var cmd = new MySqlCommand(sql, con))
                 {
-                    Clientes = LoadCostumers(reader);
+                    cmd.Parameters.AddWithValue("idcliente", Id);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        list.Add(LoadCostumers(reader));
+                    }
                 }
             }
-                return Clientes;
+                return list;
         }
 
         /// <summary>
@@ -248,7 +339,64 @@ namespace pjPalmera.DAL
         }
 
         /// <summary>
-        /// 
+        ///  Filter Costumer by Lastname (List)
+        /// </summary>
+        /// <returns></returns>
+        public static List<ClientesEntity> GetbyApellidos(string lastname)
+        {
+            var list = new List<ClientesEntity>();
+
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+
+                using (var cmd = new MySqlCommand("spSearchCustomerByApellidos", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@plastname", lastname);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        list.Add(LoadCostumer(reader));
+                    }
+                }
+
+                return list;
+            }
+        }
+
+        /// <summary>
+        ///  Filter Costumer by Firstname (List)
+        /// </summary>
+        /// <returns></returns>
+        public static List<ClientesEntity> GetbyNombre(string fistname)
+        {
+            List<ClientesEntity> list = new List<ClientesEntity>();
+
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+
+                using (var cmd = new MySqlCommand("spSearchCustomerByNombre", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@pfirstname", fistname);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        list.Add(LoadCostumer(reader));
+                    }
+                }
+
+                return list;
+            }
+        }
+
+        /// <summary>
+        /// Load basic detail customer
         /// </summary>
         /// <param name="Reader"></param>
         /// <returns></returns>
@@ -266,7 +414,7 @@ namespace pjPalmera.DAL
 
 
         /// <summary>
-        /// 
+        ///  Load complete customers in Reader
         /// </summary>
         /// <param name="Reader"></param>
         /// <returns></returns>
@@ -284,7 +432,7 @@ namespace pjPalmera.DAL
             costumer.Provincia = Convert.ToString(Reader["provincia"]);
             costumer.Limite_credito = Convert.ToDecimal(Reader["limitecredito"]);
             costumer.Created = Convert.ToDateTime(Reader["created"]);
-            costumer.Cxc = Convert.ToInt32(Reader["cxc"]);
+            costumer.Estado = Convert.ToString(Reader["status"]);
 
             return costumer;
         } 

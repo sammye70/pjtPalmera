@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.SqlServer.Server;
 using pjPalmera.BLL;
 using pjPalmera.Entities;
 
@@ -28,6 +29,8 @@ namespace pjPalmera.PL
         {
             CleanControls();
             DesableControls();
+            DetailControls();
+            InitialControls();
             this.btnNuevo.Focus();
         }
 
@@ -41,29 +44,86 @@ namespace pjPalmera.PL
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (this.txtNombreCiudad.Text != string.Empty)
-            {
-                try
-                {
-                    NewCiudad();
-                    CleanControls();
-                    DesableControls();
-                    this.btnNuevo.Focus();
-                    MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Mensaje:" + ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            var name = this.txtNombreCiudad.Text;
 
+            if (name == string.Empty)
+            {
+                MessageBox.Show("Ingresar un Nombre Válido", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.txtNombreCiudad.Focus();
             }
             else
             {
-                MessageBox.Show("Ingresar un Nombre Valido", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.txtNombreCiudad.Focus();
+                var verify = CiudadBO.CiudadExits(name);
+
+                if (verify == false)
+                {
+                    bool error = false;
+                    var message = new DialogResult();
+
+                    message = MessageBox.Show("Se dispone a Guardar el nombre de la ciudad" + "'" + name + "'." + " Seguro desea hacerlo?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (message == DialogResult.Yes)
+                    {
+                        try
+                        {
+                            NewCiudad();
+                            CleanControls();
+                            DesableControls();
+                            this.btnNuevo.Focus();
+                            MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Mensaje:" + ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            error = true;
+                        }
+                        finally
+                        {
+                            if (error == true)
+                            {
+                                MessageBox.Show("Indicar información válida.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                this.txtNombreCiudad.Focus();
+                            }
+                        }
+
+                    }
+                    else if (message == DialogResult.No)
+                    {
+                        this.txtNombreCiudad.Focus();
+                        return;
+                    }
+                }
+                else if (verify == true)
+                {
+                    MessageBox.Show(CiudadBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    this.txtNombreCiudad.Focus();
+                }
             }
+
+                
         }
 
+        /// <summary>
+        /// Set Initial Controls
+        /// </summary>
+        private void InitialControls()
+        {
+            //Backcolor
+            this.txtNombreCiudad.BackColor = Color.Bisque;
+
+            //Fonts Color
+            this.txtNombreCiudad.ForeColor = Color.Maroon;
+        }
+
+        /// <summary>
+        /// Describe All Controls
+        /// </summary>
+        private void DetailControls()
+        {
+            this.toolTip1.SetToolTip(this.btnNuevo, "Permite preparar para Crear un nuevo Registro");
+            this.toolTip1.SetToolTip(this.btnGuardar, "Salva el Nombre indicado de la Ciudad");
+            this.toolTip1.SetToolTip(this.txtNombreCiudad, "Aquí se indica el Nombre de la Ciudad que desea Guardar");
+        }
 
 
         /// <summary>

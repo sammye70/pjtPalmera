@@ -15,7 +15,7 @@ namespace pjPalmera.Entities
         private long idproducto;
         private string descripcion;
         private string categoria;
-        private string fabricante;
+        private string proveedor;
         private float stock;
         private float stockminimo;
         private DateTime vencimiento;
@@ -32,22 +32,22 @@ namespace pjPalmera.Entities
         {
         }
 
-        public ProductosEntity(long orden, long idproducto, string descripcion, string categoria, string fabricante, float stock_actual, float stock, float stock_minimo,
+        public ProductosEntity(long orden, long idproducto, string descripcion, string categoria, string proveedor, float stock_actual, float stock, float stock_minimo,
             DateTime vencimiento, decimal costo, decimal precio_venta, string status, int createby, DateTime created)
         {
             this.Orden = orden;
-            this.Idproducto = idproducto;
+            this.Codigo = idproducto;
             this.Descripcion = descripcion;
             this.Categoria = categoria;
-            this.Fabricante = fabricante;
+            this.proveedor = proveedor;
             this.Stock = stock;
             this.Stockminimo = stock_minimo;
             this.Vencimiento = vencimiento;
             this.Costo = Costo;
             this.Precio_venta = precio_venta;
-            this.Status = status;
-            this.Createby = createby;
-            this.Created = created;
+            this.Estado = status;
+            this.Creado_por = createby;
+            this.Creado = created;
         }
 
         //Properties
@@ -59,7 +59,7 @@ namespace pjPalmera.Entities
         }
 
 
-        public long Idproducto
+        public long Codigo
         {
             get
             {
@@ -98,16 +98,16 @@ namespace pjPalmera.Entities
             }
         }
 
-        public string Fabricante
+        public string Proveedor
         {
             get
             {
-                return fabricante;
+                return proveedor;
             }
 
             set
             {
-                fabricante = value;
+                proveedor = value;
             }
         }
 
@@ -176,7 +176,7 @@ namespace pjPalmera.Entities
             }
         }
 
-        public int Createby
+        public int Creado_por
         {
             get
             {
@@ -189,7 +189,7 @@ namespace pjPalmera.Entities
             }
         }
 
-        public DateTime Created
+        public DateTime Creado
         {
             get
             {
@@ -202,7 +202,7 @@ namespace pjPalmera.Entities
             }
         }
 
-        public String Status
+        public String Estado
         {
             get { return status; }
             set { status = value; }

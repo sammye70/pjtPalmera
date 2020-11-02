@@ -37,25 +37,48 @@ namespace pjPalmera.PL
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-
-            if (this.txtNombreFamilia.Text == string.Empty)
+            var name = this.txtNombreFamilia.Text;
+            
+            if (name == string.Empty)
             {
-                MessageBox.Show("Por favor introducir una catogiria Valida", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Por favor introducir una categoría Válida", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.txtNombreFamilia.Focus();
             }
             else
             {
-                try
+                var verify = CategoriaBO.ExitsCategory(name);
+
+                if (verify == false)
                 {
-                    NewCategory();
-                    CleanControls();
-                    DesableControls();
-                    MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.btnNuevo.Focus();
+                    var message = new DialogResult();
+
+                    message = MessageBox.Show("Esta a punto de crear una nueva categoría. Seguro desea continuar?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (message == DialogResult.Yes)
+                    {
+                        try
+                        {
+                            NewCategory();
+                            CleanControls();
+                            DesableControls();
+                            MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.btnNuevo.Focus();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+                    }
+                    else if (message == DialogResult.No)
+                    {
+                        this.txtNombreFamilia.Focus();
+                        return;
+                    }
                 }
-                catch (Exception ex)
+                else if (verify == true)
                 {
-                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(CategoriaBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    this.txtNombreFamilia.Focus();
                 }
             }
 
@@ -98,7 +121,7 @@ namespace pjPalmera.PL
             {
                 categoria = new CategoriaEntity();
 
-                categoria.Category = this.txtNombreFamilia.Text;
+                categoria.Categoria = this.txtNombreFamilia.Text;
 
                 CategoriaBO.Save(categoria);
 

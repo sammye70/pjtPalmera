@@ -25,6 +25,7 @@ namespace pjPalmera.PL
         {
             CleanControls();
             DesableControls();
+            SetTooltipControls();
             this.btnNuevo.Focus();
         }
 
@@ -44,26 +45,51 @@ namespace pjPalmera.PL
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (this.txtNomProvincia.Text != string.Empty)
+            var question = new DialogResult();
+            var name = this.txtNomProvincia.Text;
+
+            if (name == string.Empty)
             {
-                try
-                {
-                    Newprovincia();
-                    CleanControls();
-                    DesableControls();
-                    MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.btnNuevo.Focus();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
+                MessageBox.Show("Ingrese un Nombre Válido", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.txtNomProvincia.Focus();
             }
             else
             {
-                MessageBox.Show("Ingrese un Nombre Valido", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.txtNomProvincia.Focus();
+                var verify = ProvinciaBO.ExitsProvincia(name);
+
+                if (verify == false)
+                {
+                    question = MessageBox.Show("Seguro desea Guardar La Provincia indicada?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (question == DialogResult.Yes)
+                    {
+                        try
+                        {
+                            Newprovincia();
+                            CleanControls();
+                            DesableControls();
+                            MessageBox.Show("Guardado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.btnNuevo.Focus();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            this.txtNomProvincia.Focus();
+                        }
+                    }
+                    else if (question == DialogResult.No)
+                    {
+                        this.txtNomProvincia.Focus();
+                        return;
+                    }
+                }
+                else if (verify == true)
+                {
+                    MessageBox.Show(ProvinciaBO.strMessage, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.txtNomProvincia.Focus();
+                }
             }
+
 
         }
 

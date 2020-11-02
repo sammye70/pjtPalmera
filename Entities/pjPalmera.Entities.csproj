@@ -52,11 +52,14 @@
     <Compile Include="PagosEntity.cs" />
     <Compile Include="PedidosEntity.cs" />
     <Compile Include="ProductosVendidosEntity.cs" />
+    <Compile Include="ProductStatusEntity.cs" />
+    <Compile Include="ResultEntity.cs" />
     <Compile Include="TicketVentaEntity.cs" />
     <Compile Include="ProveedorEntity.cs" />
     <Compile Include="ProvinciaEntity.cs" />
     <Compile Include="PersonasEntity.cs" />
     <Compile Include="TransactionsEntity.cs" />
+    <Compile Include="type_payEntity.cs" />
     <Compile Include="UsuariosEntity.cs" />
     <Compile Include="ProductosEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -8,14 +8,13 @@ using System.Data;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using pjPalmera.Entities;
-
+using System.ComponentModel;
+using Entities;
 
 namespace pjPalmera.DAL
 {
     public class FacturasDAL
     {
-
-
 
         /***********************************************************************************************************
         // Name: Create New Invoice (Head and Detail)
@@ -47,8 +46,8 @@ namespace pjPalmera.DAL
                 using (MySqlCommand cmd = new MySqlCommand(sql_head, con))
                 {
                     cmd.Parameters.AddWithValue("@id_cliente", Venta.id_cliente);
-                    cmd.Parameters.AddWithValue("@nombre", Venta.clientes);
-                    cmd.Parameters.AddWithValue("@apellidos", Venta.apellidos);
+                    cmd.Parameters.AddWithValue("@clientes", Venta.clientes);
+                   // cmd.Parameters.AddWithValue("@apellidos", Venta.apellidos);
                     cmd.Parameters.AddWithValue("@total", Venta.total);
                     cmd.Parameters.AddWithValue("@created", DateTime.Now);
                     cmd.Parameters.AddWithValue("@status", Venta.status);
@@ -182,6 +181,32 @@ namespace pjPalmera.DAL
 
         //--------------------------------------------- Until Method Daily Transactions ------------------------------------------ 
 
+
+        /// <summary>
+        /// Get type pay
+        /// </summary>
+        /// <returns></returns>
+        public static List<type_payEntity> GetType_Pays()
+        {
+            var list = new List<type_payEntity>();
+
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+
+                using (var cmd = new MySqlCommand("spGetTypePay", con))
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while(reader.Read())
+                    {
+                        list.Add(LoadTypePay(reader));
+                    }
+                }
+
+                return list;
+            }
+        }
 
 
         /// <summary>
@@ -330,8 +355,8 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = "select * from venta WHERE venta.tipo='1' AND venta.status='1' ORDER BY created DESC;" +
-                                "DELETE FROM detail_venta  WHERE idproducto = 0; ";
+                string query = @"SELECT * FROM ventas WHERE status =1 AND tipo = 1; " +
+                     "DELETE FROM detail_venta  WHERE idproducto = 0; ";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
@@ -556,7 +581,7 @@ namespace pjPalmera.DAL
                         cmd.Parameters.AddWithValue("@itbis", dvental.ITBIS);
                         cmd.Parameters.AddWithValue("@importe", dvental.IMPORTE);
                         cmd.Parameters.AddWithValue("@id_venta", dvental.ID_FACTURA);   ///
-                        cmd.Parameters.AddWithValue("@created", dvental.CREATED);  //
+                        cmd.Parameters.AddWithValue("@created", dvental.MODIFICADO);  //
                         cmd.Parameters.AddWithValue("@modificated", DateTime.Now);
 
                         cmd.ExecuteNonQuery();
@@ -761,6 +786,21 @@ namespace pjPalmera.DAL
         }
 
         /// <summary>
+        /// Load Type Pay for
+        /// </summary>
+        /// <param name="Reader"></param>
+        /// <returns></returns>
+        private static type_payEntity LoadTypePay(IDataReader Reader)
+        {
+            var tpay = new type_payEntity();
+
+            tpay.Id = Convert.ToInt32(Reader["id"]);
+            tpay.Nombre = Convert.ToString(Reader["type_pay"]);
+
+            return tpay;
+        }
+
+        /// <summary>
         /// Load All Product in Invoices  (Short Description)
         /// </summary>
         /// <returns></returns>
@@ -787,7 +827,7 @@ namespace pjPalmera.DAL
 
             venta.id = Convert.ToInt32(reader["id"]);
             venta.clientes = Convert.ToString(reader["nombre"]);
-            venta.apellidos = Convert.ToString(reader["apellidos"]);
+           // venta.apellidos = Convert.ToString(reader["apellidos"]);
             venta.fecha = Convert.ToDateTime(reader["created"]);
             venta.total = Convert.ToDecimal(reader["total"]);
             venta.status = Convert.ToInt32(reader["status"]);
@@ -820,7 +860,7 @@ namespace pjPalmera.DAL
             detalle.PRECIO = Convert.ToDecimal(reader["precio"]);
             detalle.ITBIS = Convert.ToDecimal(reader["itbis"]);
             detalle.IMPORTE = Convert.ToDecimal(reader["importe"]);
-            detalle.CREATED = Convert.ToDateTime(reader["created"]);
+            detalle.MODIFICADO = Convert.ToDateTime(reader["created"]);
 
             return detalle;
         }

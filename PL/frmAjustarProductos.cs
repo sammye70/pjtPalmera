@@ -48,8 +48,8 @@ namespace pjPalmera.PL
             try
             {
                
-                productos.Idproducto = Convert.ToInt64(this.txtCodigoProducto.Text);
-                this.dgvProductos.DataSource = ProductosBO.FilterProductbyCode(productos.Idproducto);
+                productos.Codigo = Convert.ToInt64(this.txtCodigoProducto.Text);
+                //this.dgvProductos.DataSource = ProductosBO.FilterProductbyCode(productos.Codigo);
             }
             catch (Exception ex)
             {
@@ -78,7 +78,7 @@ namespace pjPalmera.PL
             //
             productos = new ProductosEntity();
 
-            productos.Idproducto = Convert.ToInt64(this.txtCodigoProducto.Text);
+            productos.Codigo = Convert.ToInt64(this.txtCodigoProducto.Text);
             productos.Stock = Convert.ToUInt32(txtCantidad.Text);
 
             ProductosBO.Increment_Stock(productos); //

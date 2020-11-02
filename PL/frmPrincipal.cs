@@ -102,7 +102,7 @@ namespace pjPalmera.PL
             //frmlogin login = new frmlogin();
             //login.ShowDialog();
 
-            this.tabControl1.Visible = false;
+            this.tabControl1.Visible = true;
             DetailControls();
         }
 
@@ -312,6 +312,26 @@ namespace pjPalmera.PL
         {
             frmConsultFactAnuladas FactAnuladas = new frmConsultFactAnuladas();
             FactAnuladas.ShowDialog(this);
+        }
+
+        private void devolucionesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmCambios cambios = new frmCambios();
+            cambios.ShowDialog(this);
+        }
+
+        private void ventaACréditoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmVenta ventas = new frmVenta();
+            
+            ventas.Text = "Ventas a Crédito";
+            ventas.ShowDialog(this);
+
+        }
+
+        private void pictureBox7_Click(object sender, EventArgs e)
+        {
+            AppExit();
         }
     }
 }

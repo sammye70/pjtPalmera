@@ -10,11 +10,11 @@ namespace pjPalmera.Entities
     {
         //Fields
         private int idproveedor;
-        private string nombre_proveedor;
+        private string nombre;
         private string nombre_contacto;
         private string tel_proveedor;
         private string tel_contacto;
-        private string direccion_fab;
+        private string direccion_prob;
         private long rnc;
         private decimal limitecredito;
         private DateTime created;
@@ -27,14 +27,14 @@ namespace pjPalmera.Entities
         }
 
         public ProveedorEntity(int idproveedor, string nombre_proveedor, string nombre_contacto, string tel_proveedor, string tel_contacto, 
-            string direccion_fab, long rnc, decimal limitecredito, DateTime created, int createby)
+            string direccion_prob, long rnc, decimal limitecredito, DateTime created, int createby)
         {
             this.Idproveedor = idproveedor;
             this.Nombre_proveedor = nombre_proveedor;
             this.Nombre_contacto = nombre_contacto;
             this.Tel_contacto = tel_contacto;
             this.Tel_proveedor = tel_proveedor;
-            this.Direccion_fab = direccion_fab;
+            this.direccion_prob = direccion_prob;
             this.Rnc = rnc;
             this.Limitecredito = limitecredito;
             this.Created = created;
@@ -50,9 +50,9 @@ namespace pjPalmera.Entities
 
         public string Nombre_proveedor
         {
-            get { return nombre_proveedor; }
+            get { return nombre; }
 
-            set { nombre_proveedor = value; }
+            set { nombre = value; }
         }
 
         public string Nombre_contacto
@@ -69,14 +69,14 @@ namespace pjPalmera.Entities
             set { tel_contacto = value; }
         }
 
-        public string Direccion_fab
+        public string Direccion_prob
         {
-            get { return direccion_fab; }
+            get { return direccion_prob; }
 
-            set { direccion_fab = value; }
+            set { direccion_prob = value; }
         }
 
-        public Int64 Rnc
+        public long Rnc
         {
             get { return rnc; }
 

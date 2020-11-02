@@ -80,7 +80,7 @@ namespace pjPalmera.PL
             frmClientCredPend CuentasPend = new frmClientCredPend();
             if (CuentasPend.ShowDialog() == DialogResult.OK)
             {
-                clientes = ClientesBO.GetbyId(CuentasPend.Id);
+               // clientes = ClientesBO.GetbyId(CuentasPend.Id);
 
                 this.txtIdClient.Text = Convert.ToString(CuentasPend.Id);
                 this.txtNombre.Text = clientes.Nombre;

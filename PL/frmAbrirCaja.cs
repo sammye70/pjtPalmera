@@ -179,25 +179,40 @@ namespace pjPalmera.PL
         /// </summary>
         private void OpenBox()
         {
-            
-            if (opcaja == null)
+
+            //this method need to valitate if box is open, in this case send a message that is open o close
+            //
+
+            try
             {
-                opcaja = new AperturaCajaEntity();
+                if (opcaja == null)
+                {
+                    opcaja = new AperturaCajaEntity();
 
-                opcaja.Uno = Convert.ToInt32(this.txtMonedas1.Text);
-                opcaja.Cinco = Convert.ToInt32(this.txtMonedas5.Text);
-                opcaja.Diez = Convert.ToInt32(this.txtMonedas10.Text);
-                opcaja.Venticinco = Convert.ToInt32(this.txtMonedas25.Text);
-                opcaja.Cincuenta = Convert.ToInt32(this.txtBilletes50.Text);
-                opcaja.Cien = Convert.ToInt32(this.txtBilletes100.Text);
-                opcaja.Doscientos = Convert.ToInt32(this.txtBilletes200.Text);
-                opcaja.Quinientos = Convert.ToInt32(this.txtBilletes500.Text);
-                opcaja.Mil = Convert.ToInt32(this.txtBilletes1000.Text);
-                opcaja.Dosmil = Convert.ToInt32(this.txtBilletes2000.Text);
-                opcaja.Monto = Convert.ToDecimal(this.lblMontoTotal.Text);
+                    opcaja.Uno = Convert.ToInt32(this.txtMonedas1.Text);
+                    opcaja.Cinco = Convert.ToInt32(this.txtMonedas5.Text);
+                    opcaja.Diez = Convert.ToInt32(this.txtMonedas10.Text);
+                    opcaja.Venticinco = Convert.ToInt32(this.txtMonedas25.Text);
+                    opcaja.Cincuenta = Convert.ToInt32(this.txtBilletes50.Text);
+                    opcaja.Cien = Convert.ToInt32(this.txtBilletes100.Text);
+                    opcaja.Doscientos = Convert.ToInt32(this.txtBilletes200.Text);
+                    opcaja.Quinientos = Convert.ToInt32(this.txtBilletes500.Text);
+                    opcaja.Mil = Convert.ToInt32(this.txtBilletes1000.Text);
+                    opcaja.Dosmil = Convert.ToInt32(this.txtBilletes2000.Text);
+                    opcaja.Monto = Convert.ToDecimal(this.lblMontoTotal.Text);
 
-                AperturaCajaBO.CreateOpenBox(opcaja);     //
-                AperturaCajaBO.CreateHistoryOpenBox(opcaja); //
+                    AperturaCajaBO.CreateOpenBox(opcaja);     //
+                    AperturaCajaBO.CreateHistoryOpenBox(opcaja); //
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally 
+            {
+                this.txtMonedas1.Focus();
             }
             
         }
@@ -229,7 +244,7 @@ namespace pjPalmera.PL
 
                 if (Answer == DialogResult.Yes)
                 {
-                    if (Validator() == true)
+                    if (Validate() == true)
                     {
                         //Missing function valide if current box was opened
 
@@ -238,7 +253,7 @@ namespace pjPalmera.PL
                         CleanControls();
                         this.Close();
                     }
-                    else if (Validator() != true)
+                    else if (Validate() != true)
                     {
                         MessageBox.Show("Debe Revisar los Valor Ingresados. Para poder Aperturar la Caja", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
@@ -253,6 +268,7 @@ namespace pjPalmera.PL
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.txtMonedas1.Focus();
                 
             }
             finally 

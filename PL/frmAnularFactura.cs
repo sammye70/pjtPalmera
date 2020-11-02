@@ -118,18 +118,6 @@ namespace pjPalmera.PL
         }
 
         /// <summary>
-        /// Change to Status Desable current Invoice (head)
-        /// </summary>
-        private void ProcessDesableInvoice(int numero)
-        {
-            var invoice = new VentaEntity();
-            //var number = Convert.ToInt64(this.txtNoFactAnular.Text);
-            invoice.id = numero;
-            invoice.status = 2;
-            FacturaBO.DesableInvoices(invoice);
-        }
-
-        /// <summary>
         /// Load Invoice for Desable
         /// </summary>
         /// <param name="number"></param>

@@ -147,16 +147,16 @@ namespace pjPalmera.PL
                 productos = ProductosBO.SearchByOrden(this.Orden);
 
                 ffproductos.txtOrden.Text = Convert.ToString(productos.Orden);
-                ffproductos.txtCodigo.Text = Convert.ToString(productos.Idproducto);
+                ffproductos.txtCodigo.Text = Convert.ToString(productos.Codigo);
                 ffproductos.txtDescripcion.Text = productos.Descripcion;
-                ffproductos.cmbFabrincante.Text = productos.Fabricante;
+                ffproductos.cmbDistribuidor.Text = productos.Proveedor;
                 ffproductos.cmbFamilia.Text = productos.Categoria;
                 ffproductos.dateTimePicker1.Text = Convert.ToString(productos.Vencimiento);
                 ffproductos.txtCosto.Text = Convert.ToString(productos.Costo);
                 ffproductos.txtPrecioVenta.Text = Convert.ToString(productos.Precio_venta);
                 ffproductos.txtStockInicial.Text = Convert.ToString(productos.Stock);
                 ffproductos.txtStockMinimo.Text = Convert.ToString(productos.Stockminimo);
-                ffproductos.cmbEstado.Text = productos.Status;
+                ffproductos.cmbEstado.Text = productos.Estado;
 
                 //ffproductos.LoadProveedor();
                 //ffproductos.Categories(); 
@@ -180,8 +180,8 @@ namespace pjPalmera.PL
             {
                 try
                 {
-                    productos.Idproducto = Convert.ToInt64(this.txtCriterioBusqueda.Text);
-                    this.dgvProdConsultar.DataSource = ProductosBO.FilterProductbyCode(productos.Idproducto);
+                    productos.Codigo = Convert.ToInt64(this.txtCriterioBusqueda.Text);
+                   // this.dgvProdConsultar.DataSource = ProductosBO.FilterProductbyCode(productos.Codigo);
                 }
                 catch
                 {
@@ -290,8 +290,8 @@ namespace pjPalmera.PL
         {
             try
             {
-                productos.Status = this.cmbEstado.Text;
-                this.dgvProdConsultar.DataSource = ProductosBO.FilterByStatus(productos.Status);
+                productos.Estado = this.cmbEstado.Text;
+                this.dgvProdConsultar.DataSource = ProductosBO.FilterByStatus(productos.Estado);
             }
             catch
             {

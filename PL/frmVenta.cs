@@ -1,40 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using pjPalmera.Entities;
 using pjPalmera.BLL;
+using Entities;
+
+/*
 using System.Runtime.Remoting.Messaging;
 using System.Runtime.CompilerServices;
 using System.Web.UI.WebControls;
 using MySqlX.XDevAPI.Relational;
+*/
 
 namespace pjPalmera.PL
 {
     public partial class frmVenta : Form
     {
+        //
         public VentaEntity venta = null;
-        //VentaEntity detail = new VentaEntity();
+        // VentaEntity detail = new VentaEntity();
         ProductosEntity producto = new ProductosEntity();
         TransactionsEntity Transactions = new TransactionsEntity();
         public ClientesEntity clientes = new ClientesEntity();
+
+        // 
+        frmCobros cobros = new frmCobros();
+
+        //
         public decimal precio = 0;
         public float cantidad = 0;
         public long id;
         public Decimal t_pagar = 0;
         public int _iditem;
         public decimal _importe;
-        public decimal Amount;
+        public decimal _amount;
         public int indx = 0;
         public int id_venta;
 
-  
+
 
         public int Iditem
         {
@@ -52,6 +58,11 @@ namespace pjPalmera.PL
             get { return id_venta; }
         }
 
+        public decimal Amount_
+        {
+            get { return _amount; }        
+        }
+
         public frmVenta()
         {
             InitializeComponent();
@@ -67,6 +78,7 @@ namespace pjPalmera.PL
             this.txtItbis.Visible = false;
             this.label9.Visible = false;
             SetToolControls();
+            InitialControls();
             DiscountAverageInvoice();
             this.btnNuevo.Focus();
         }
@@ -83,25 +95,6 @@ namespace pjPalmera.PL
             venta = new VentaEntity();
             dgvDetalle.DataSource = venta.listProductos;
         }
-
-
-        private void btnNuevo_Click(object sender, EventArgs e)
-        {
-            FacturaBO.DeleteEmptyRow();
-            Amount = AperturaCajaBO.GetAmount(); //Get Current Amount Invoices after Open Box
-            //Amount = 1000;  //------> This variable is use to development
-
-            if (Amount != 0)
-            {
-                NewInvoice();
-                LimpiarEfectivo();
-            }
-            else
-            {
-                MessageBox.Show("Debe Abrir la Caja Antes para poder Realizar Ventas", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-        }
-
 
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -126,16 +119,7 @@ namespace pjPalmera.PL
 
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            // Limpiar();
-            this.dgvDetalle.Rows.Clear();
-            this.dgvDetalle.Refresh();
-            this.txtProductos.Focus();
-            //Deshabilitar();
-            //this.btnNuevo.Focus();
-        }
-
+      
         private void timer1_Tick(object sender, EventArgs e)
         {
             label14.Text = DateTime.Now.ToString("hh:mm:ss tt");
@@ -155,11 +139,41 @@ namespace pjPalmera.PL
             descuento = venta.Descuento(subtotal);
             t_pagar = venta.Pagar(subtotal);
 
-            this.txtSubtotal.Text = Convert.ToString(subtotal);
+            this.lblSubtotal.Text = Convert.ToString(subtotal);
             this.txtItbis.Text = Convert.ToString(itbis);
-            this.txtTotalPagar.Text = string.Format("{0}", t_pagar);
-            this.txtDescuento.Text = Convert.ToString(descuento);
+            this.lblTotalPagar.Text = string.Format("{0}", t_pagar);
+            this.lblDescuento.Text = Convert.ToString(descuento);
         }
+
+        /// <summary>
+        /// Initialize All Controls
+        /// </summary>
+        private void InitialControls()
+        {
+            //
+            // this.BackColor = Color.AliceBlue;
+
+            //BackColor
+           // this.txtApClientes.BackColor = Color.Bisque;
+            this.txtClientes.BackColor = Color.Bisque;
+            this.txtProductos.BackColor = Color.Bisque;
+            this.txtDescripcion.BackColor = Color.Bisque;
+            this.txtPrecio.BackColor = Color.Bisque;
+            this.txtCantidad.BackColor = Color.Bisque;
+            this.cmbDescPostVentaExt.BackColor = Color.Bisque;
+            this.dgvDetalle.DefaultCellStyle.BackColor = Color.Bisque;
+
+            //ForeColor
+          //  this.txtApClientes.ForeColor = Color.Maroon;
+            this.txtClientes.ForeColor = Color.Maroon;
+            this.txtProductos.ForeColor = Color.Maroon;
+            this.txtDescripcion.ForeColor = Color.Maroon;
+            this.txtPrecio.ForeColor = Color.Maroon;
+            this.txtCantidad.ForeColor = Color.Maroon;
+            this.cmbDescPostVentaExt.ForeColor = Color.Maroon;
+            this.dgvDetalle.ForeColor = Color.Maroon;
+        }
+
 
         private void btnPagar_Click(object sender, EventArgs e)
         {
@@ -180,8 +194,8 @@ namespace pjPalmera.PL
             else if (answer == DialogResult.Yes)
             {
                 RemoveItems();
-                //RemoveItem();
-                MessageBox.Show("Se Elimino el Producto del Carrito", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               // RemoveItem();
+                MessageBox.Show("Se Eliminó el Producto del Carrito", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.txtProductos.Focus();
             }
 
@@ -211,7 +225,22 @@ namespace pjPalmera.PL
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            ProcessSell();
+            try
+            {
+                if (!ValidatorPost())
+                return;
+
+                _amount = Convert.ToDecimal(this.lblTotalPagar.Text);
+                // cobros.txtTotalCobrar.Text = this.Amount_.ToString();
+                cobros.lblTotalCobrar.Text = this.Amount_.ToString();
+                cobros.ShowDialog(this);
+                // ProcessSell();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
         }
 
 
@@ -220,7 +249,7 @@ namespace pjPalmera.PL
             try
             {
                 decimal efectivo, cobrar;
-                cobrar = decimal.Parse(this.txtTotalPagar.Text);
+                cobrar = decimal.Parse(this.lblTotalPagar.Text);
                 efectivo = decimal.Parse(this.txtEfectivoRecibido.Text);
                 this.txtDevueltaEfectivo.Text = Convert.ToString(efectivo - cobrar);
             }
@@ -236,7 +265,7 @@ namespace pjPalmera.PL
             try
             {
                this.txtPrecio.Text = Convert.ToString(venta.SetDescountInvoice(Convert.ToDecimal(this.txtPrecio.Text), +
-                   Convert.ToDecimal(this.cmbDescuentoPostVenta.Text)));
+                   Convert.ToDecimal(this.cmbDescPostVentaExt.Text)));
             }
             catch
             {
@@ -250,20 +279,27 @@ namespace pjPalmera.PL
         /// </summary>
         public bool ValidatorPost()
         {
+            var cash = cobros.txtEfectivoRecibido.Text;
+            var type_pay = cobros.cmbfPagos.Text;
+            var tpay = new type_payEntity();
+
             bool resul = true;
 
-            if (this.txtTotalPagar.Text == "0.00")
+            if (this.lblTotalPagar.Text == "0.00")
             {
                 MessageBox.Show("No se puede procesar la venta. Debe Efectuar una antes.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.btnNuevo.Focus();
                 resul = false;
             }
 
-            if (this.txtEfectivoRecibido.Text == string.Empty)
+            if (type_pay == tpay.getMethod(0).ToString())
             {
-                MessageBox.Show("Indicar el efectivo recibido por el cliente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.txtEfectivoRecibido.Focus();
-                resul = false;
+                 if (( cash == string.Empty) && (cash == "0.00"))
+                 {
+                    MessageBox.Show("Indicar el efectivo recibido por el cliente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    cobros.txtTotalCobrar.Focus();
+                    resul = false;
+                 }
             }
 
             return resul;
@@ -280,9 +316,9 @@ namespace pjPalmera.PL
             this.txtDescripcion.Clear();
             this.txtPrecio.Clear();
             this.txtCantidad.Clear();
-            this.cmbDescuentoPostVenta.Text = "";
-            //this.txtSubtotal.Clear();
-            //this.txtTotalPagar.Clear();
+            this.cmbDescPostVentaExt.Text = "";
+            //this.lblDescuento.Clear();
+            //this.lblTotalPagar.Clear();
             // this.txtItbis.Clear();
         }
 
@@ -297,22 +333,22 @@ namespace pjPalmera.PL
             this.txtProductos.Enabled = false;
             this.btnAgregar.Enabled = false;
             this.btnPagar.Enabled = false;
-            this.btnCancelar.Enabled = false;
+           // this.btnNuevo.Enabled = false;
             this.cmbTipoVenta.Enabled = false;
             this.txtDescripcion.Enabled = false;
             this.txtItbis.Enabled = false;
-            this.txtSubtotal.Enabled = false;
-            this.txtTotalPagar.Enabled = false;
-            this.txtDescuento.Enabled = false;
+            this.lblDescuento.Enabled = false;
+            this.lblTotalPagar.Enabled = false;
+            this.lblSubtotal.Enabled = false;
             this.chbDescuento.Enabled = false;
             this.btnBuscarProducto.Enabled = false;
             this.btnBuscarClientes.Enabled = false;
             this.btnEliminar.Enabled = false;
-            this.txtApClientes.Enabled = false;
+           // this.txtApClientes.Enabled = false;
             this.btnGuardar.Enabled = false;
             this.txtEfectivoRecibido.Enabled = false;
             this.txtDevueltaEfectivo.Enabled = false;
-            this.cmbDescuentoPostVenta.Enabled = false;
+            this.cmbDescPostVentaExt.Enabled = false;
         }
 
         /// <summary>
@@ -329,29 +365,31 @@ namespace pjPalmera.PL
             this.cmbTipoVenta.Enabled = true;
             this.txtDescripcion.Enabled = true;
             this.txtItbis.Enabled = true;
-            this.txtSubtotal.Enabled = true;
-            this.txtTotalPagar.Enabled = true;
-            this.txtDescuento.Enabled = true;
-            this.btnCancelar.Enabled = true;
+            this.lblDescuento.Enabled = true;
+            this.lblTotalPagar.Enabled = true;
+            this.lblSubtotal.Enabled = true;
+            this.lblDescuento.Enabled = true;
+            // this.btnNuevo.Enabled = true;
             this.btnBuscarProducto.Enabled = true;
             this.btnBuscarClientes.Enabled = true;
             this.btnEliminar.Enabled = true;
-            this.txtApClientes.Enabled = true;
+         //   this.txtApClientes.Enabled = true;
             this.btnGuardar.Enabled = true;
             this.txtEfectivoRecibido.Enabled = true;
             this.txtDevueltaEfectivo.Enabled = true;
-            this.cmbDescuentoPostVenta.Enabled = true;
+            this.cmbDescPostVentaExt.Enabled = true;
         }
 
+
         /// <summary>
-        /// Loop until x value, and average discount
+        /// Loop until x value, and average descount
         /// </summary>
         private void DiscountAverageInvoice()
         {
             int x = 100;
             for (int i = 1; i <= x; i++)
             {
-                this.cmbDescuentoPostVenta.Items.Add(i);
+                this.cmbDescPostVentaExt.Items.Add(i);
             }
         }
 
@@ -360,11 +398,8 @@ namespace pjPalmera.PL
         /// </summary>
         private void OnlyRead()
         {
-            this.txtSubtotal.ReadOnly = true;
-            this.txtTotalPagar.ReadOnly = true;
             this.txtItbis.ReadOnly = true;
-            this.txtDescuento.ReadOnly = true;
-            this.txtApClientes.ReadOnly = true;
+           // this.txtApClientes.ReadOnly = true;
             this.txtClientes.ReadOnly = true;
             this.txtDevueltaEfectivo.ReadOnly = true;
             this.txtPrecio.ReadOnly = true;
@@ -405,10 +440,10 @@ namespace pjPalmera.PL
                 {
                     _importe = Convert.ToDecimal(this.dgvDetalle.Rows[x.Index].Cells[4].Value);
 
-                    result = OpServices.UpdateSubAmount(Convert.ToDecimal(this.txtSubtotal.Text), Convert.ToDecimal(this.Importe));
-                    this.txtSubtotal.Text = Convert.ToString(result);
-                    this.txtTotalPagar.Text= Convert.ToString(OpServices.UpdateAmount(result));
-                    this.txtDescuento.Text= Convert.ToString(OpServices.UpdateDescountAmount(result));
+                    result = OpServices.UpdateSubAmount(Convert.ToDecimal(this.lblSubtotal.Text), Convert.ToDecimal(this.Importe));
+                    this.lblSubtotal.Text = Convert.ToString(result);
+                    this.lblTotalPagar.Text= Convert.ToString(OpServices.UpdateAmount(result));
+                    this.lblDescuento.Text= Convert.ToString(OpServices.UpdateDescountAmount(result));
 
                     this.dgvDetalle.Rows.RemoveAt(ci);
                    // i--;
@@ -443,9 +478,9 @@ namespace pjPalmera.PL
             _iditem = Convert.ToInt32(this.dgvDetalle.Rows[x.Index].Cells["No"].Value);   // -------------------->
             _importe = Convert.ToDecimal(this.dgvDetalle.Rows[x.Index].Cells["IMPORTE"].Value);
             decimal subtotal, diferencia, descuento, total, tdescuento, rdescuento, pdescuento;
-            total = Convert.ToDecimal(this.txtTotalPagar.Text);
-            subtotal = Convert.ToDecimal(this.txtSubtotal.Text);
-            descuento = Convert.ToDecimal(this.txtDescuento.Text);
+            total = Convert.ToDecimal(this.lblTotalPagar.Text);
+            subtotal = Convert.ToDecimal(this.lblDescuento.Text);
+            descuento = Convert.ToDecimal(this.lblDescuento.Text);
 
 
             try
@@ -462,9 +497,9 @@ namespace pjPalmera.PL
                     tdescuento = total - diferencia; // not important this line
                     pdescuento = (diferencia * 10) / 100;
                     rdescuento = diferencia - pdescuento;
-                    this.txtTotalPagar.Text = Convert.ToString(rdescuento); //Refrest Amount after remove item from the list
-                    this.txtSubtotal.Text = Convert.ToString(diferencia); // Refrest Sub Amount after remove item from the list 
-                    this.txtDescuento.Text = Convert.ToString(pdescuento); // Refrest  Descount  Amount  after remove item from the list          
+                    this.lblTotalPagar.Text = Convert.ToString(rdescuento); //Refrest Amount after remove item from the list
+                    this.lblDescuento.Text = Convert.ToString(diferencia); // Refrest Sub Amount after remove item from the list 
+                    this.lblDescuento.Text = Convert.ToString(pdescuento); // Refrest  Descount  Amount  after remove item from the list          
                 }
                 else
                 {
@@ -490,12 +525,12 @@ namespace pjPalmera.PL
 
             this.txtDevueltaEfectivo.Text = "";
             this.txtEfectivoRecibido.Text = "";
-            this.cmbDescuentoPostVenta.Text = "";
+            this.cmbDescPostVentaExt.Text = "";
             //this.txtRecibidoEfectivo.Text = "";
-            this.txtDescuento.Text = "0.00";
-            this.txtTotalPagar.Text = "0.00";
+            this.lblTotalPagar.Text = "0.00";
             this.txtItbis.Text = "0.00";
-            this.txtSubtotal.Text = "0.00";
+            this.lblSubtotal.Text = "0.00";
+            this.lblDescuento.Text = "0.00";
             // this.txtRecibidoEfectivo.Text="0.0";
         }
 
@@ -511,7 +546,7 @@ namespace pjPalmera.PL
             // BuildDataGrid();    // ----> New Method  to Initial DataGridView
             // LoadHeadGrid();     // ----> New Method to Initial Head in DataGridView
             this.txtClientes.Text = "CONTADO";
-            this.txtApClientes.Text = "CONTADO";
+            // this.txtApClientes.Text = "CONTADO";
             this.txtIdCliente.Text = "1";
             venta = new VentaEntity(); //Head invoice
             this.dgvDetalle.Rows.Clear();
@@ -565,11 +600,11 @@ namespace pjPalmera.PL
 
             if (Con_Clientes.ShowDialog() == DialogResult.OK)
             {
-                clientes = ClientesBO.GetbyId(Con_Clientes.Orden);
+              //  clientes = ClientesBO.GetbyId(Con_Clientes.Orden);
 
                 this.txtIdCliente.Text = Convert.ToString(Con_Clientes.Orden);
                 this.txtClientes.Text = clientes.Nombre;
-                this.txtApClientes.Text = clientes.Apellidos;
+               // this.txtApClientes.Text = clientes.Apellidos;
                 this.txtProductos.Focus(); //
             }
         }
@@ -583,13 +618,14 @@ namespace pjPalmera.PL
             {
                 frmConsultarProductos consulProductos = new frmConsultarProductos();
                 consulProductos.IniControls();
+                consulProductos.FilterProduct();
 
 
-                if (consulProductos.ShowDialog() == DialogResult.OK)
+                if (consulProductos.ShowDialog() == DialogResult.OK )
                 {
                     producto = ProductosBO.SearchByOrden(consulProductos.Orden);
 
-                    this.txtProductos.Text = Convert.ToString(producto.Idproducto);
+                    this.txtProductos.Text = Convert.ToString(producto.Codigo);
                     this.txtDescripcion.Text = producto.Descripcion;
                     this.txtPrecio.Text = Convert.ToString(producto.Precio_venta);
                     this.txtCantidad.Focus();
@@ -613,7 +649,7 @@ namespace pjPalmera.PL
             {
                 ProductosBO.SearchByCode(code);   //Search Product Code Number become with this.
 
-                producto.Idproducto = Convert.ToInt64(this.txtProductos.Text);
+                producto.Codigo = Convert.ToInt64(this.txtProductos.Text);
                 this.txtDescripcion.Text = producto.Descripcion;
                 this.txtPrecio.Text = Convert.ToString(producto.Precio_venta);
                 this.txtCantidad.Focus();
@@ -631,8 +667,8 @@ namespace pjPalmera.PL
             TicketVentaEntity caja = new TicketVentaEntity();
             var Answer = new DialogResult();
 
-            if (!ValidatorPost())
-                return;
+            //if (!ValidatorPost())
+            //    return;
 
             Answer = MessageBox.Show("Imprimir Recibo", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -641,7 +677,7 @@ namespace pjPalmera.PL
                 CreateInvoice();
                 PrintTicket();
                 FacturaBO.DeleteEmptyRow();
-                //MessageBox.Show("Se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // MessageBox.Show("Se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MessageBox.Show("Venta Procesada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 NewInvoice();
                 LimpiarEfectivo();
@@ -706,8 +742,8 @@ namespace pjPalmera.PL
         /// <param name="e"></param>
         private void Pd_PrintPage(object sender, PrintPageEventArgs e)
         {
-            //TicketVentaEntity tk = new TicketVentaEntity();
-            //Parameters
+            // TicketVentaEntity tk = new TicketVentaEntity();
+            // Parameters
             Font fBody = new Font("Lucida Console", 8, FontStyle.Regular);// Format Font for Body
             Font ffTitle = new Font("Lucida Console", 11, FontStyle.Bold); // Format Font for Title Company Name
             Font fTitle = new Font("Lucida Console", 8, FontStyle.Bold); // Format Font for Title
@@ -716,7 +752,7 @@ namespace pjPalmera.PL
             Font fpBody = new Font("Lucida Console", 8, FontStyle.Bold);// Format number Amount
             Font tbottom = new Font("Lucida Console", 6, FontStyle.Regular); // Format Font Messege Bottom
             Font tblank = new Font("Lucida Console", 19, FontStyle.Bold); // Format Font  Bottom
-            Font fdTitle = new Font("Lucida Console", 8, FontStyle.Regular);//Format Font for Detail Title (Address,Telephone, etc.. About Company Information)
+            Font fdTitle = new Font("Lucida Console", 8, FontStyle.Regular); // Format Font for Detail Title (Address,Telephone, etc.. About Company Information)
             Graphics g = e.Graphics;
             SolidBrush sb = new SolidBrush(Color.Black); // Set Brush color for Drawing Charaters
 
@@ -728,7 +764,7 @@ namespace pjPalmera.PL
 
             RawPrinterHelper j = new RawPrinterHelper(); //
 
-            //Header invoice
+            // Header invoice
             
             //int AutoScrollOffset1= -100;
             //AutoScrollOffset1 = AutoScrollOffset1 -100;
@@ -745,19 +781,19 @@ namespace pjPalmera.PL
             g.DrawString(DateTime.Now.ToShortTimeString(), fBody, sb, 195, 210);
             g.DrawString("CLIENTE:", fTitle, sb, 10, 220);
             g.DrawString(this.txtClientes.Text, fBody, sb, 80, 220);
-            g.DrawString(this.txtApClientes.Text, fBody, sb, 180, 220);
+           // g.DrawString(this.txtApClientes.Text, fBody, sb, 180, 220);
             g.DrawString("NCF:", fTitle, sb, 10, 232);
             g.DrawString("NIF:", fTitle, sb, 10, 244);
             g.DrawString(this.txtId_Invoice.Text, fBody, sb, 50, 244);
 
-            if ((this.txtClientes.Text != "CONTADO") && (this.txtApClientes.Text != "CONTADO"))
+            if (this.txtClientes.Text != "CONTADO") 
             {
-                Type = "FACTURA A CREDITO";
+                Type = "FACTURA A CONTADO";
             }
 
             g.DrawString(Type, fTitle, sb, 75, 255);
 
-            //Detail Invoice
+            // Detail Invoice
             g.DrawString("----------------------------------------", fBody, sb, 5, 280);
             g.DrawString("DESCRIPCION        CANT  PRECIO IMPORTE ", fdpTitle, sb, 10, 290);
             g.DrawString("----------------------------------------", fBody, sb, 5, 298);
@@ -774,24 +810,24 @@ namespace pjPalmera.PL
                 g.DrawString(Convert.ToString(this.dgvDetalle.Rows[i].Cells[4].Value), fpTitle, sb, 225, 305 + AutoScrollOffset); // Total Price x Unit
                 AutoScrollOffset = AutoScrollOffset + 12;
             }
-            
-            //Paid Detail
+
+            // Paid Detail
             AutoScrollOffset = AutoScrollOffset + 12;
             g.DrawString("SubTotal:", fdpTitle, sb, 100, 330 + AutoScrollOffset);   // 
-            g.DrawString(this.txtSubtotal.Text, fBody, sb, 200, 330 + AutoScrollOffset);  //
+            g.DrawString(this.lblDescuento.Text, fBody, sb, 200, 330 + AutoScrollOffset);  //
             g.DrawString("Descuento:", fdpTitle, sb, 100, 350 + AutoScrollOffset); 
-            g.DrawString(this.txtDescuento.Text, fBody, sb, 200, 350 + AutoScrollOffset); //
+            g.DrawString(this.lblDescuento.Text, fBody, sb, 200, 350 + AutoScrollOffset); //
             g.DrawString("Total a Pagar:", fpTitle, sb, 100, 368 + AutoScrollOffset); //
-            g.DrawString(this.txtTotalPagar.Text, fpBody, sb, 200, 368 + AutoScrollOffset);  //
+            g.DrawString(this.lblTotalPagar.Text, fpBody, sb, 200, 368 + AutoScrollOffset);  //
             g.DrawString("", fdpTitle, sb, 100, 370 + AutoScrollOffset);
             g.DrawString("Recibido:", fdpTitle, sb, 100, 389 + AutoScrollOffset); //
-            g.DrawString(this.txtEfectivoRecibido.Text, fBody, sb, 200, 389 + AutoScrollOffset); //
+            g.DrawString(cobros.getRecibido.ToString(), fBody, sb, 200, 389 + AutoScrollOffset); //
             g.DrawString("Devuelta:", fdpTitle, sb, 100, 405 + AutoScrollOffset); //
-            g.DrawString(this.txtDevueltaEfectivo.Text, fBody, sb, 200, 405 + AutoScrollOffset); //
+            g.DrawString(cobros.getDevuelta.ToString(), fBody, sb, 200, 405 + AutoScrollOffset); //
 
-            //Feet Messenge
+            // Feet Messenge
             AutoScrollOffset = AutoScrollOffset + 8;
-            g.DrawString("Atendido por:", fBody, sb, 5, 420 + AutoScrollOffset);
+            g.DrawString("Le Atendio:", fBody, sb, 5, 420 + AutoScrollOffset);
             g.DrawString("Alexander Evangelista", fpBody, sb, 100, 420 + AutoScrollOffset);
             g.DrawString("Nota: no hacemos devoluciones después de la 24 horas,", tbottom, sb, 5, 440 + AutoScrollOffset);
             g.DrawString("y mucho menos si los medicamentos se encuentran en", tbottom, sb, 5, 450 + AutoScrollOffset);
@@ -899,8 +935,6 @@ namespace pjPalmera.PL
         }
         #endregion
 
-
-
         #region Insert Rows on the List  (New Code) ---> Modificated: 16/04/2020 - 15:45  
         /// <summary>
         /// Insert Item on the List  (New Code)  
@@ -908,46 +942,57 @@ namespace pjPalmera.PL
         public void InsertNewItem()
         {
             var venta = new VentaEntity();
-           // var Detail = new DetalleVentaEntity();
+            var stock = ProductosBO.getStock(Convert.ToInt64(this.txtProductos.Text));
+            var quantity = decimal.Parse(this.txtCantidad.Text);
+            var evStockQuantity = ProductosBO.getStockQuantity(stock, quantity);
+
 
             if (!Validator())
                 return;
-            try
+
+
+            if (evStockQuantity == true)
             {
-                decimal importT, amount = 0;
-                int x = this.dgvDetalle.RowCount; 
-
-                for (int i = 1; i > x; i++)
-                {
-                    x = x++;
-                }
-
-                importT = venta.ProductValue(Convert.ToDecimal(this.txtCantidad.Text), Convert.ToDecimal(this.txtPrecio.Text));
-                this.dgvDetalle.Rows.Add(this.txtProductos.Text, this.txtDescripcion.Text, this.txtCantidad.Text, this.txtPrecio.Text, importT);
-
-                ////Add prices all elements in list
-                foreach (DataGridViewRow row in this.dgvDetalle.Rows)
-                {
-                    amount += Convert.ToDecimal(row.Cells[4].Value);
-                }
-
-                this.txtSubtotal.Text = Convert.ToString(amount);
-                this.txtDescuento.Text = Convert.ToString(venta.Descuento(amount));
-                this.txtTotalPagar.Text = Convert.ToString(venta.Pagar(amount));
-
-                Limpiar();
-                this.txtProductos.Focus();
+                MessageBox.Show(ProductosBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.txtCantidad.Focus();
             }
-            catch (Exception ex)
+            else if (evStockQuantity == false)
             {
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
+                try
+                {
+                    decimal importT, amount = 0;
+                    int x = this.dgvDetalle.RowCount;
 
+                    for (int i = 1; i > x; i++)
+                    {
+                        x = x++;
+                    }
+
+                    importT = venta.ProductValue(Convert.ToDecimal(this.txtCantidad.Text), Convert.ToDecimal(this.txtPrecio.Text));
+                    this.dgvDetalle.Rows.Add(this.txtProductos.Text, this.txtDescripcion.Text, this.txtCantidad.Text, this.txtPrecio.Text, importT);
+
+                    ////Add prices all elements in list
+                    foreach (DataGridViewRow row in this.dgvDetalle.Rows)
+                    {
+                        amount += Convert.ToDecimal(row.Cells[4].Value);
+                    }
+
+                    this.lblSubtotal.Text = Convert.ToString(amount);
+                    this.lblDescuento.Text = Convert.ToString(venta.Descuento(amount));
+                    this.lblTotalPagar.Text = Convert.ToString(venta.Pagar(amount));
+
+                    Limpiar();
+                    this.txtProductos.Focus();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+            }
         }
 
         #endregion
-
-
 
         #region Insert item the list (Old Code for this Process, Note: It's functional)
         /// <summary>
@@ -996,7 +1041,7 @@ namespace pjPalmera.PL
         }
         #endregion
 
-        #region Save Invoice
+        #region Save Invoice Old Code Not Functional
 
         /// <summary>
         /// Save Invoices Head and Detail
@@ -1012,16 +1057,15 @@ namespace pjPalmera.PL
 
         #region New Create Invoice code
 
-
         enum Type_invoices { cash=1, credit = 2 }
 
         /// <summary>
         ///  Code Create Invoice (New Process)
         /// </summary>
         /// 
-        private void CreateInvoice()
+        public void CreateInvoice()
         {
-            int x = this.dgvDetalle.Rows.Count; //Rows counter in DataGridView Items List
+            int x = this.dgvDetalle.Rows.Count; // Rows counter in DataGridView Items List
 
             int status = 1;
             //var c = 1;
@@ -1030,34 +1074,36 @@ namespace pjPalmera.PL
             {
                 var ventas = new VentaEntity();
 
-                //Validate type of Invoices (Cash or Credit) --> In this case is Cash
-                if ((this.txtClientes.Text == "CONTADO") && (this.txtApClientes.Text == "CONTADO"))
+                // Validate type of Invoices (Cash or Credit) --> In this case is Cash
+                if (this.txtClientes.Text == "CONTADO")
                 {
                     ventas.id_caja = 1;
                     ventas.id_vendedor = 1;
                     ventas.tipo = ventas.set_Type_invoice(Convert.ToString(Type_invoices.cash));
                     ventas.id_cliente = Convert.ToInt32(this.txtIdCliente.Text);
                     ventas.clientes = this.txtClientes.Text; //
-                    ventas.apellidos = this.txtApClientes.Text; //
-                    ventas.total = decimal.Parse(this.txtTotalPagar.Text); //
+                    // ventas.apellidos = this.txtApClientes.Text; //
+                    ventas.total = decimal.Parse(this.lblTotalPagar.Text); //
                     ventas.status = status; //
-                    ventas.descuento = decimal.Parse(this.txtDescuento.Text); //
-                    ventas.subtotal = decimal.Parse(this.txtSubtotal.Text); //
+                    ventas.descuento = decimal.Parse(this.lblDescuento.Text); //
+                    ventas.subtotal = decimal.Parse(this.lblSubtotal.Text); //
                     ventas.total_itbis = decimal.Parse(this.txtItbis.Text); //
-                    ventas.recibido = decimal.Parse(this.txtEfectivoRecibido.Text);//
-                    ventas.devuelta = decimal.Parse(this.txtDevueltaEfectivo.Text);//
+                    ventas.recibido = decimal.Parse(cobros.getRecibido.ToString()); //
+                    ventas.devuelta = decimal.Parse(cobros.getDevuelta.ToString()); //
+                    ventas.method_pago = (Int32) cobros.cmbfPagos.SelectedValue;
+                    //ventas.method_pago = cobros.getTypePay; //
 
 
                     for (int i = 0; i < x; i++)
                     { 
                         var Detail = new DetalleVentaEntity();
 
-                        Detail.CODIGO = Convert.ToInt64(this.dgvDetalle.Rows[i].Cells[0].Value); //Id
-                        Detail.DESCRIPCION = Convert.ToString(this.dgvDetalle.Rows[i].Cells[1].Value); //Description
-                        Detail.CANTIDAD = Convert.ToInt32(this.dgvDetalle.Rows[i].Cells[2].Value); //Quantity
-                        Detail.PRECIO = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[3].Value); //Price
-                        //Detail.ITBIS = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells["ITBIS"].Value); //Itbis
-                        Detail.IMPORTE = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[4].Value); //amount 
+                        Detail.CODIGO = Convert.ToInt64(this.dgvDetalle.Rows[i].Cells[0].Value); // Id
+                        Detail.DESCRIPCION = Convert.ToString(this.dgvDetalle.Rows[i].Cells[1].Value); // Description
+                        Detail.CANTIDAD = Convert.ToInt32(this.dgvDetalle.Rows[i].Cells[2].Value); // Quantity
+                        Detail.PRECIO = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[3].Value); // Price
+                        // Detail.ITBIS = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells["ITBIS"].Value); // Itbis
+                        Detail.IMPORTE = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[4].Value); // amount 
 
                         ventas.addProduct(Detail);
                     }
@@ -1067,30 +1113,31 @@ namespace pjPalmera.PL
                     FacturaBO.CreateTranst(ventas);
                     id_venta = ventas.id;
                 }
-                else
-                {
-                    venta.tipo = Type_invoices.credit.ToString();
-                    var id = Convert.ToInt32(this.txtIdCliente.Text);
+                //else if ((this.txtClientes.Text != "CONTADO") || (this.txtClientes.Text != "Contado") || (this.txtClientes.Text != "contado"))
+                //{
+                    
+                //    venta.tipo = ventas.set_Type_invoice(Convert.ToString(Type_invoices.credit));
+                //    var id = Convert.ToInt32(this.txtIdCliente.Text);
 
-                    for (int i = 0; i < x; i++)
-                    {
-                        var Detail = new DetalleVentaEntity();
+                //    for (int i = 0; i < x; i++)
+                //    {
+                //        var Detail = new DetalleVentaEntity();
 
-                        Detail.CODIGO = Convert.ToInt64(this.dgvDetalle.Rows[i].Cells[0].Value); //Id
-                        Detail.DESCRIPCION = this.dgvDetalle.Rows[i].Cells[1].Value.ToString(); //Description
-                        Detail.CANTIDAD = Convert.ToInt32(this.dgvDetalle.Rows[i].Cells[2].Value); //Quality
-                        Detail.PRECIO = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[3].Value); //Price
-                        //Detail.ITBIS = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[5].Value.ToString()); //Itbis
-                        Detail.IMPORTE = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[4].Value); //amount      
+                //        Detail.CODIGO = Convert.ToInt64(this.dgvDetalle.Rows[i].Cells[0].Value); //Id
+                //        Detail.DESCRIPCION = this.dgvDetalle.Rows[i].Cells[1].Value.ToString(); //Description
+                //        Detail.CANTIDAD = Convert.ToInt32(this.dgvDetalle.Rows[i].Cells[2].Value); //Quality
+                //        Detail.PRECIO = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[3].Value); //Price
+                //        //Detail.ITBIS = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[5].Value.ToString()); //Itbis
+                //        Detail.IMPORTE = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[4].Value); //amount      
 
-                        venta.addProduct(Detail);
-                    }
+                //        venta.addProduct(Detail);
+                //    }
 
-                    FacturaBO.CreateInvoice(ventas);  // Cash Invoices (Save history all invoices)            -----------> Here Continue to Work
-                    //  CuentasBO.StatusCxc(c, id); // Set value cxc to client  
-                    // FacturaBO.Create(venta); // Save all invoices
-                    //  FacturaBO.CreateCr(venta); // Credit Invoices
-                 }
+                //    FacturaBO.CreateInvoice(ventas);  // Cash Invoices (Save history all invoices)            -----------> Here Continue to Work
+                //                                      ////  CuentasBO.StatusCxc(c, id); // Set value cxc to client  
+                //                                      //// FacturaBO.Create(venta); // Save all invoices
+                //                                      ////  FacturaBO.CreateCr(venta); // Credit Invoices
+                //}
 
                     /*-----------------------------------------------------------------------------------------------*/
 
@@ -1143,12 +1190,12 @@ namespace pjPalmera.PL
             Transactions = new TransactionsEntity();
 
             Transactions.Status = status;
-            Transactions.Total = Convert.ToDecimal(this.txtTotalPagar.Text);
-            Transactions.Descuento = Convert.ToDecimal(this.txtDescuento.Text);
+            Transactions.Total = Convert.ToDecimal(this.lblTotalPagar.Text);
+            Transactions.Descuento = Convert.ToDecimal(this.lblDescuento.Text);
             Transactions.Devuelta = Convert.ToDecimal(this.txtDevueltaEfectivo.Text);
             Transactions.Recibido =Convert.ToDecimal (this.txtEfectivoRecibido.Text);
 
-            if ((this.txtClientes.Text == "CONTADO") && (this.txtApClientes.Text == "CONTADO"))
+            if (this.txtClientes.Text == "CONTADO") 
             {
                 venta.tipo = "1";
             }
@@ -1170,7 +1217,7 @@ namespace pjPalmera.PL
         {
             this.toolTip1.SetToolTip(this.btnBuscarClientes, "Buscar Clientes");
             this.toolTip1.SetToolTip(this.btnBuscarProducto, "Buscar Productos");
-            this.toolTip1.SetToolTip(this.btnCancelar, "Limpia de los campos de cliente, y producto a ser agregados");
+            this.toolTip1.SetToolTip(this.btnNuevo, "Limpia de los campos de cliente, y producto a ser agregados");
             this.toolTip1.SetToolTip(this.btnEliminar, "Eliminar item del carro de compra");
             this.toolTip1.SetToolTip(this.btnPagar, "Efectuar pago de la compra ");
             this.toolTip1.SetToolTip(this.btnAgregar, "Agregar Items a la compra");
@@ -1200,14 +1247,14 @@ namespace pjPalmera.PL
         //            descuento = venta.Descuento();
         //            t_itbis_c_pagar = total_pagar + t_itbis;
         //            td_pagar = t_itbis_c_pagar - descuento;
-        //            this.txtDescuento.Text = string.Format("{0:C2}", descuento);
-        //            this.txtTotalPagar.Text = string.Format("{0:C2}", td_pagar);
+        //            this.lblDescuento.Text = string.Format("{0:C2}", descuento);
+        //            this.lblTotalPagar.Text = string.Format("{0:C2}", td_pagar);
         //        }
         //        else
         //        {
         //            t_itbis_c_pagar = t_itbis + total_pagar;
-        //            this.txtTotalPagar.Text = string.Format("{0:C2}", t_itbis_c_pagar);
-        //            txtDescuento.Clear();
+        //            this.lblTotalPagar.Text = string.Format("{0:C2}", t_itbis_c_pagar);
+        //            lblDescuento.Clear();
         //            return;
         //        }
         //    }
@@ -1266,6 +1313,23 @@ namespace pjPalmera.PL
             if (e.KeyData == Keys.F4)
             {
                 InsertNewItem();
+            }
+        }
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            FacturaBO.DeleteEmptyRow();
+            //var Amount = AperturaCajaBO.GetAmount(); //Get Current Amount Invoices after Open Box
+            decimal Amount = 1000;  //------> This variable is use to development
+
+            if (Amount != 0)
+            {
+                NewInvoice();
+                LimpiarEfectivo();
+            }
+            else
+            {
+                MessageBox.Show("Debe Abrir la Caja Antes para poder Realizar Ventas", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
     }

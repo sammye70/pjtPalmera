@@ -8,6 +8,7 @@ using System.Data;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using pjPalmera.Entities;
+using System.Net.Http.Headers;
 
 namespace pjPalmera.DAL
 {
@@ -23,15 +24,15 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql = @"INSERT INTO productos (idproducto, idfabricante, descripcion,idfamilia, stock, stockminimo, 
+                string sql = @"INSERT INTO productos (idproducto, idproveedor, descripcion,idfamilia, stock, stockminimo, 
                                                       f_vencimiento, costo, p_venta, createby, created, status)
-                                VALUES(@idproducto, @idfabricante, @descripcion, @idfamilia, @stock, @stockminimo, 
+                                VALUES(@idproducto, @idproveedor, @descripcion, @idfamilia, @stock, @stockminimo, 
                                        @f_vencimiento, @costo, @p_venta, @createby, @created, @status)";
 
                 MySqlCommand cmd = new MySqlCommand(sql,con);
 
-                cmd.Parameters.AddWithValue("@idproducto", Producto.Idproducto);
-                cmd.Parameters.AddWithValue("@idfabricante", Producto.Fabricante);
+                cmd.Parameters.AddWithValue("@idproducto", Producto.Codigo);
+                cmd.Parameters.AddWithValue("@idproveedor", Producto.Proveedor);
                 cmd.Parameters.AddWithValue("@descripcion", Producto.Descripcion);
                 cmd.Parameters.AddWithValue("@idfamilia", Producto.Categoria);
                 cmd.Parameters.AddWithValue("@stock", Producto.Stock);
@@ -39,14 +40,71 @@ namespace pjPalmera.DAL
                 cmd.Parameters.AddWithValue("@f_vencimiento", Producto.Vencimiento);
                 cmd.Parameters.AddWithValue("@costo", Producto.Costo);
                 cmd.Parameters.AddWithValue("@p_venta", Producto.Precio_venta);
-                cmd.Parameters.AddWithValue("@createby", Producto.Createby);
+                cmd.Parameters.AddWithValue("@createby", Producto.Creado_por);
                 cmd.Parameters.AddWithValue("@created", DateTime.Now);
-                cmd.Parameters.AddWithValue("@status",Producto.Status);
+                cmd.Parameters.AddWithValue("@status",Producto.Estado);
 
                 //Producto.Id=Convert.ToInt32(cmd.ExecuteScalar());
                 cmd.ExecuteNonQuery();
             }
           return Producto;
+        }
+
+        /// <summary>
+        ///  Get Category Status Product
+        /// </summary>
+        public static List<ProductStatusEntity> GetStatusProduct
+        {
+            get 
+            {
+                List<ProductStatusEntity> list = new List<ProductStatusEntity>();
+
+                using (var con = new MySqlConnection(SettingDAL.connectionstring))
+                {
+                    using (var cmd = new MySqlCommand("spGet_statusProd", con))
+                    {
+                        con.Open();
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        MySqlDataReader reader = cmd.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            list.Add(LoadStatus(reader));
+                        }
+                    }
+                    return list;
+                }
+            }
+        }
+
+        /// <summary>
+        ///  Filter Product by Category
+        /// </summary>
+        /// <returns></returns>
+        public static List<ProductosEntity> GetProductByCategory(int number)
+        {
+            var list = new List<ProductosEntity>();
+
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                con.Open();
+
+                using (var cmd = new MySqlCommand("spSearchByCategory", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@category", number);
+                    
+                    MySqlDataReader Reader = cmd.ExecuteReader();
+
+                    while (Reader.Read())
+                    {
+                        list.Add(LoadProduct(Reader));
+                    }  
+                }
+
+                return list;
+            }
         }
 
 
@@ -63,11 +121,10 @@ namespace pjPalmera.DAL
 
                 using (var con = new MySqlConnection(SettingDAL.connectionstring))
                 {
+                    MySqlCommand cmd = new MySqlCommand("spGet_AllProduct", con);
                     con.Open();
-                    string sql = @"SELECT * FROM productos 
-                                     ORDER BY descripcion ASC";
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                    MySqlCommand cmd = new MySqlCommand(sql, con);
                     MySqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
@@ -79,6 +136,34 @@ namespace pjPalmera.DAL
             }
         }
 
+  
+        /// <summary>
+        /// Get Stock for current product
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public static decimal getStock(long code)
+        {
+            decimal result;
+
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                
+                using (var cmd = new MySqlCommand("spGet_stock_product", con))
+                {
+                    con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@idproducto", code);
+
+                    result = Convert.ToDecimal(cmd.ExecuteScalar());
+                }
+                
+                return result;
+            }
+         
+        }
+
+        //----------------------------------------
         /// <summary>
         /// Amount Total Cost All Products where only status Active
         /// </summary>
@@ -109,16 +194,16 @@ namespace pjPalmera.DAL
             List<ProductosEntity> list = new List<ProductosEntity>();
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
-                con.Open();
-                string sql = @"SELECT * FROM productos 
-                                 WHERE productos.status='Activo'  ORDER BY descripcion ASC";
-
-                MySqlCommand cmd = new MySqlCommand(sql, con);
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (var cmd = new MySqlCommand("spGet_ActProduct", con))
                 {
-                    list.Add(LoadProduct(reader));
+                    con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        list.Add(LoadProduct(reader));
+                    }
                 }
             }
             return list;
@@ -205,33 +290,35 @@ namespace pjPalmera.DAL
 
                 MySqlCommand cmd = new MySqlCommand(update_stock, con);
 
-                cmd.Parameters.AddWithValue("@idproducto",producto.Idproducto);
+                cmd.Parameters.AddWithValue("@idproducto",producto.Codigo);
                 cmd.Parameters.AddWithValue("@cantidad", producto.Stock);
                 cmd.Parameters.AddWithValue("@modificated", DateTime.Now);
 
                 // cmd.ExecuteNonQuery();
 
-                producto.Idproducto = Convert.ToInt64(cmd.ExecuteScalar());
+                producto.Codigo = Convert.ToInt64(cmd.ExecuteScalar());
                 //con.Close();   
             }
         }
 
         /// <summary>
-        /// Get Product Where Status Active
+        /// Get Product Where Status Active/Desable
         /// </summary>
         /// <param name="productos"></param>
         /// <returns></returns>
-        public static List<ProductosEntity> GetProductosActive(ProductosEntity productos)
+        public static List<ProductosEntity> GetProductosByStatus( int status)
         {
             List<ProductosEntity> list = new List<ProductosEntity>();
 
             using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
-                con.Open();
-                var query = @"SELECT * FROM productos WHERE status='Activo'";
-
-                using (var cmd = new MySqlCommand (query, con))
+                
+                using (var cmd = new MySqlCommand ("spGet_ProductByStatus", con))
                 {
+                    con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@statusp", status);
+
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     { 
@@ -268,7 +355,6 @@ namespace pjPalmera.DAL
                     }
                 }
             }
-
             return list;
         }
 
@@ -307,7 +393,7 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = @"SELECT  * FROM productos WHERE stock <= stockminimo AND status ='Activo' ORDER BY productos.idfabricante ";
+                string query = @"SELECT  * FROM productos WHERE stock <= stockminimo AND status ='Activo' ORDER BY productos.idproveedor ";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 //cmd.Parameters.AddWithValue("@DateExpire", DateExpire);
@@ -336,7 +422,10 @@ namespace pjPalmera.DAL
                 using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
                 {
                     con.Open();
-                    string query = @"SELECT * FROM productos WHERE productos.status='Activo' AND idfamilia !='Escolar'  ORDER BY productos.f_vencimiento ASC ";
+                    string query = @"SELECT * 
+                                    FROM productos 
+                                    WHERE productos.status='Activo' AND idfamilia !='Escolar'  
+                                    ORDER BY productos.f_vencimiento ASC; ";
 
                     MySqlCommand cmd = new MySqlCommand(query, con);
                     //cmd.Parameters.AddWithValue("@DateExpire", DateExpire);
@@ -361,28 +450,28 @@ namespace pjPalmera.DAL
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string query = @"UPDATE productos SET productos.numero=@numero, productos.idproducto=@idproducto, productos.descripcion=@descripcion, productos.f_vencimiento=@f_vencimiento,
-                                        productos.p_venta=@p_venta, productos.costo=@costo, productos.idfamilia=@idfamilia, productos.idfabricante=@idfabricante,
+                string query = @"UPDATE productos 
+                                SET productos.numero=@numero, productos.idproducto=@idproducto, productos.descripcion=@descripcion, productos.f_vencimiento=@f_vencimiento,
+                                        productos.p_venta=@p_venta, productos.costo=@costo, productos.idfamilia=@idfamilia, productos.idproveedor=@idproveedor,
                                         productos.stock=@stock, productos.stockminimo=@stockminimo, productos.modificated=@modificated, productos.status=@status   
                                 WHERE numero=@numero";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
                 cmd.Parameters.AddWithValue("numero", productos.Orden);
-                cmd.Parameters.AddWithValue("@idproducto", productos.Idproducto);
+                cmd.Parameters.AddWithValue("@idproducto", productos.Codigo);
                 cmd.Parameters.AddWithValue("@descripcion", productos.Descripcion);
                 cmd.Parameters.AddWithValue("@f_vencimiento", productos.Vencimiento);
                 cmd.Parameters.AddWithValue("@p_venta", productos.Precio_venta);
                 cmd.Parameters.AddWithValue("@costo", productos.Costo);
                 cmd.Parameters.AddWithValue("@idfamilia", productos.Categoria);
-                cmd.Parameters.AddWithValue("@idfabricante", productos.Fabricante);
+                cmd.Parameters.AddWithValue("@idproveedor", productos.Proveedor);
                 cmd.Parameters.AddWithValue("@stock",productos.Stock);
                 cmd.Parameters.AddWithValue("@stockminimo", productos.Stockminimo);
-                cmd.Parameters.AddWithValue("@status",productos.Status);
+                cmd.Parameters.AddWithValue("@status",productos.Estado);
                 cmd.Parameters.AddWithValue("@modificated",DateTime.Now);
 
                  productos.Orden = Convert.ToInt64(cmd.ExecuteScalar());
-                //con.Close();
             }
         }
 
@@ -397,14 +486,15 @@ namespace pjPalmera.DAL
            // ProductosEntity productos = new ProductosEntity();
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
+                var query = @"DELETE 
+                                    FROM productos 
+                                WHERE productos.idproducto=@idproducto;";
                 con.Open();
-                string query = @"DELETE from productos WHERE productos.idproducto=@idproducto";
-                MySqlCommand cmd = new MySqlCommand(query, con);
-
-                cmd.Parameters.AddWithValue("@idproducto", code);
-                //  MySqlDataReader reader = cmd.ExecuteReader();
-
-                cmd.ExecuteNonQuery();
+                using(var cmd = new MySqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@idproducto", code);
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
 
@@ -423,23 +513,24 @@ namespace pjPalmera.DAL
                 con.Open();
                 string query = @"SELECT idproduct from productos WHERE idproducto=@idproducto";
 
-                MySqlCommand cmd = new MySqlCommand(query,con);
-                cmd.Parameters.AddWithValue("@idproducto", id);
-
-                 value= Convert.ToInt32(cmd.ExecuteScalar());
-
-                if (value != 0)
+                using (var cmd = new MySqlCommand(query, con))
                 {
-                    result = true;
+                    cmd.Parameters.AddWithValue("@idproducto", id);
+
+                    value = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    if (value != 0)
+                    {
+                        result = true;
+                    }
+                    else
+                    {
+                        result = false;
+                    }
                 }
-                else
-                {
-                    result = false;
-                }
+                return result;
             }
-            return result;
         }
-
 
         /// <summary>
         /// Filter product by Expire Date (Month and Year)
@@ -499,27 +590,24 @@ namespace pjPalmera.DAL
         /// </summary>
         public static ProductosEntity SearchByOrden(long id)
         {
-            //List<ProductosEntity> productos = new List<ProductosEntity>();
-            ProductosEntity productos = new ProductosEntity();
+            var productos = new ProductosEntity();
+
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
-                con.Open();
-               
-               // ProductosEntity productos = new ProductosEntity();
-                string search_number = @"select * from productos where productos.numero=@numero";
-
-                MySqlCommand cmd = new MySqlCommand(search_number, con);
-
-                cmd.Parameters.AddWithValue("@numero", id);
-                
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (var cmd = new MySqlCommand("Get_SearchByOrden", con)) 
                 {
-                    productos=(LoadProduct(reader));
+                    con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@numero", id);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        productos = (LoadProduct(reader));
+                    }
                 }
-                con.Close();
             }
             return productos;
         }
@@ -532,60 +620,90 @@ namespace pjPalmera.DAL
         /// <returns></returns>
         public static ProductosEntity SearchByCode(long code)
         {
-            //List<ProductosEntity> productos = new List<ProductosEntity>();
-            ProductosEntity productos = new ProductosEntity();
+       
+            var productos = new ProductosEntity();
             productos = null;
+
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
-                con.Open();
+                using (var cmd = new MySqlCommand("spSearchByCodeActProduct", con))
+                { 
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    con.Open();
+                    cmd.Parameters.AddWithValue("@idproducto", code);
 
-                // ProductosEntity productos = new ProductosEntity();
-                string search_code = @"select * from productos where productos.idproducto=@idproducto";
+                    MySqlDataReader reader = cmd.ExecuteReader();
 
-                MySqlCommand cmd = new MySqlCommand(search_code, con);
-
-                cmd.Parameters.AddWithValue("@idproducto", code);
-
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
-                {
-                    productos.Idproducto = Convert.ToInt64(reader["idproducto"]);
-                    productos.Descripcion = Convert.ToString(reader["descripcion"]);
-                    productos.Precio_venta = Convert.ToDecimal(reader["p_venta"]);
-                }
+                    if (reader.Read())
+                    {
+                        productos.Codigo = Convert.ToInt64(reader["idproducto"]);
+                        productos.Descripcion = Convert.ToString(reader["descripcion"]);
+                        productos.Precio_venta = Convert.ToDecimal(reader["p_venta"]);
+                    }
+                }    
             }
             return productos;
         }
 
 
         /// <summary>
-        /// Filter Products by Code
+        /// Filter Only Active Products by Code
         /// </summary>
         /// <returns></returns>
-        public static List<ProductosEntity> FilterProductbyCode(long id)
+        public static List<ProductosEntity> FilterProductbyCodeOnlyAct(long id)
         {
-           List<ProductosEntity> productos = new List<ProductosEntity>();
+           var list = new List<ProductosEntity>();
+
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
 
-                string query = @"select * from productos where productos.idproducto=@idproducto";
-
-                MySqlCommand cmd = new MySqlCommand(query,con);
-
-                cmd.Parameters.AddWithValue("@idproducto", id);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
+                using (var cmd = new MySqlCommand("spSearchByCodeActProduct", con))
                 {
-                    productos.Add(LoadProduct(reader));
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@idproducto", id);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        list.Add(LoadProduct(reader));
+                    }
+                }
+                return list;
+            } 
+        }
+
+
+        /// <summary>
+        /// Filter All Products by Code
+        /// </summary>
+        /// <returns></returns>
+        public static List<ProductosEntity> FilterProductbyCodeAll(long id)
+        {
+            var list = new List<ProductosEntity>();
+
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+
+                using (var cmd = new MySqlCommand("spSearchByCodeAllProduct", con))
+                {
+                    con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@idproducto", id);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        list.Add(LoadProduct(reader));
+                    }
                 }
             }
-                return productos;
+            return list;
         }
+
+        
 
 
         /// <summary>
@@ -598,19 +716,19 @@ namespace pjPalmera.DAL
 
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
-                con.Open();
 
-                string query = @"SELECT * FROM productos WHERE productos.descripcion LIKE @descripcion%";
-
-                MySqlCommand cmd = new MySqlCommand(query, con);
-
-                cmd.Parameters.AddWithValue("@descripcion", descripcion);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
+                using (var cmd = new MySqlCommand("spSearchByDescripcion", con))
                 {
-                    productos.Add(LoadProduct(reader));
+                    con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@descrip", descripcion);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        productos.Add(LoadProduct(reader));
+                    }
                 }
             }
             return productos;
@@ -630,7 +748,10 @@ namespace pjPalmera.DAL
             {
                 con.Open();
 
-                string query = @"SELECT * FROM productos WHERE productos.status=@status ORDER BY productos.descripcion ASC";
+                var query = @"SELECT * 
+                               FROM productos 
+                               WHERE productos.status=@status 
+                               ORDER BY productos.descripcion ASC;";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
@@ -645,7 +766,23 @@ namespace pjPalmera.DAL
             }
             return producto;
         }
-        
+
+
+        /// <summary>
+        /// Load Product Status
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        private static ProductStatusEntity LoadStatus(IDataReader reader)
+        {
+            ProductStatusEntity productstatus = new ProductStatusEntity();
+
+            productstatus.Id = Convert.ToInt32(reader["id"]);
+            productstatus.Status = Convert.ToString(reader["status"]);
+
+            return productstatus;
+        }
+
 
         /// <summary>
         /// LoadProduct
@@ -657,17 +794,17 @@ namespace pjPalmera.DAL
             ProductosEntity Productos = new ProductosEntity();
 
             Productos.Orden = Convert.ToInt64(Reader["numero"]);
-            Productos.Idproducto = Convert.ToInt64(Reader["idproducto"]);
-            Productos.Fabricante = Convert.ToString(Reader["idfabricante"]);
-            Productos.Categoria= Convert.ToString(Reader["idfamilia"]);
+            Productos.Codigo = Convert.ToInt64(Reader["idproducto"]);
+            Productos.Proveedor = Convert.ToString(Reader["idproveedor"]);
+            Productos.Categoria= Convert.ToString(Reader["category"]);
             Productos.Descripcion = Convert.ToString(Reader["descripcion"]);
             Productos.Stock = Convert.ToInt32(Reader["stock"]);
             Productos.Stockminimo = Convert.ToInt32(Reader["stockminimo"]);
             Productos.Vencimiento = Convert.ToDateTime(Reader["f_vencimiento"]);
             Productos.Costo = Convert.ToDecimal(Reader["costo"]);
             Productos.Precio_venta = Convert.ToDecimal(Reader["p_venta"]);
-            Productos.Status = Convert.ToString(Reader["status"]);
-            Productos.Created = Convert.ToDateTime(Reader["created"]);
+            Productos.Estado = Convert.ToString(Reader["estado"]);
+            Productos.Creado = Convert.ToDateTime(Reader["created"]);
 
             return Productos;
         }

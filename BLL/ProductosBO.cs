@@ -13,6 +13,10 @@ namespace pjPalmera.BLL
     {
 
         public static bool result = true;
+        /// <summary>
+        /// Messeger to Result from ProductBO
+        /// </summary>
+        public static string strMensajeBO;
 
         /// <summary>
         /// Save Product
@@ -32,6 +36,85 @@ namespace pjPalmera.BLL
             }
         }
 
+        /// <summary>
+        /// check if exits stock for current product in storage
+        /// </summary>
+        /// <param name="stock"></param>
+        /// <returns></returns>
+        public static bool getCheckStock(decimal stock)
+        {
+            var result = true;
+
+            if ((stock <= 0) || (stock <= -1))
+            {
+                strMensajeBO = "No hay Stock disponible del producto";
+                return true;
+            }
+            else if ((stock > 0) || (stock >= 1))
+            {
+                return false;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        ///  Get Category Status Product
+        /// </summary>
+        public static List<ProductStatusEntity> GetStatusProduct()
+        {
+            try
+            {
+                return ProductosDAL.GetStatusProduct;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
+        }
+
+        /// <summary>
+        ///  Check if quantity request is than big to stock
+        /// </summary>
+        /// <param name="stock"></param>
+        /// <param name="quantity"></param>
+        /// <returns></returns>
+        public static bool getStockQuantity(decimal stock, decimal quantity)
+        {
+            var result = true;
+
+            if (stock < quantity)
+            {
+                strMensajeBO = "La cantidad de Productos solicitados son mayor que el stock actual. Importante: Se dispone de " + stock + " Unidades. Comunicar a su Supervisor para que elabore una requsicion del producto.";
+                return true;
+            }
+            else if (stock >= quantity)
+            {
+                // strMensajeBO = "Hay stock suficiente del producto para suplir la solicitud del cliente";
+                return false;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Get Minimal Stock for current product
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public static decimal getStock(long code)
+        {
+            try
+            {
+                return ProductosDAL.getStock(code);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return 0;
+            }
+        }
 
         /// <summary>
         /// Amount Total Cost All Products where only status Active
@@ -53,15 +136,15 @@ namespace pjPalmera.BLL
 
 
         /// <summary>
-        /// Get Product Where Status Active
+        /// Get Product Where Status Active/Desable
         /// </summary>
         /// <param name="productos"></param>
         /// <returns></returns>
-        public static List<ProductosEntity> GetProductosActive(ProductosEntity productos)
+        public static List<ProductosEntity> GetProductosByStatus(int status)
         {
             try
             {
-                return ProductosDAL.GetProductosActive(productos);
+                return ProductosDAL.GetProductosByStatus(status);
             }
             catch (Exception ex)
             {
@@ -94,11 +177,11 @@ namespace pjPalmera.BLL
         }
 
 
-            /// <summary>
-            /// Get All Products
-            /// </summary>
-            /// <returns></returns>
-            public static List<ProductosEntity> GetAll()
+        /// <summary>
+        /// Get All Products
+        /// </summary>
+        /// <returns></returns>
+        public static List<ProductosEntity> GetAll()
         {
             try
             {
@@ -137,7 +220,7 @@ namespace pjPalmera.BLL
         {
             try
             {
-                  ProductosDAL.Decrease_Stock(producto);
+                ProductosDAL.Decrease_Stock(producto);
             }
             catch (Exception ex)
             {
@@ -176,14 +259,14 @@ namespace pjPalmera.BLL
         {
             try
             {
-               ProductosDAL.InscrementAfterDesable(venta);
+                ProductosDAL.InscrementAfterDesable(venta);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            
+
 
         }
 
@@ -207,14 +290,14 @@ namespace pjPalmera.BLL
         }
 
         /// <summary>
-        /// Filter Products by Code
+        /// Filter Only Active Products by Code
         /// </summary>
         /// <returns></returns>
-        public static List<ProductosEntity> FilterProductbyCode(Int64 id)
+        public static List<ProductosEntity> FilterProductbyCodeOnlyAct(long id)
         {
             try
             {
-               return ProductosDAL.FilterProductbyCode(id);
+                return ProductosDAL.FilterProductbyCodeOnlyAct(id);
             }
             catch (Exception ex)
             {
@@ -224,22 +307,43 @@ namespace pjPalmera.BLL
         }
 
 
+
+        /// <summary>
+        /// Filter All Products by Code
+        /// </summary>
+        /// <returns></returns>
+        public static List<ProductosEntity> FilterProductbyCodeAll(long id)
+        {
+            try
+            {
+                return ProductosDAL.FilterProductbyCodeAll(id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
+
+        }
+
+
+
         /// <summary>
         /// Search Products by Code
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        public static ProductosEntity SearchByCode(Int64 code)
+        public static ProductosEntity SearchByCode(long code)
         {
-                try
-                {
-                    return ProductosDAL.SearchByCode(code);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return null;
-                }
+            try
+            {
+                return ProductosDAL.SearchByCode(code);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
         }
 
 
@@ -265,12 +369,12 @@ namespace pjPalmera.BLL
         /// </summary>
         /// <param name="code"></param>
         public static void DeleteProduct(Int64 code)
-        {        
+        {
             try
             {
-                    ProductosDAL.DeleteProduct(code);
+                ProductosDAL.DeleteProduct(code);
             }
-               catch (Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
@@ -317,7 +421,7 @@ namespace pjPalmera.BLL
         /// </summary>
         /// <param name="year"></param>
         /// <returns></returns>
-        public static List<ProductosEntity> ExpireYear(Int32 year)
+        public static List<ProductosEntity> ExpireYear(int year)
         {
             try
             {
@@ -388,7 +492,7 @@ namespace pjPalmera.BLL
         /// Count only Active Product
         /// </summary>
         /// <returns></returns>
-        public static Int32 CountProduct()
+        public static int CountProduct()
         {
             try
             {
@@ -400,6 +504,33 @@ namespace pjPalmera.BLL
                 return 0;
             }
         }
-        
-     }
+
+        /// <summary>
+        ///  Filter Product by Category
+        /// </summary>
+        /// <returns></returns>
+        public static List<ProductosEntity> GetProductByCategory(int number)
+        {
+            bool error = false;
+            try
+            {
+                return ProductosDAL.GetProductByCategory(number);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                error = true;
+                return null;
+            }
+            finally 
+            {
+                if (error == true) 
+                {
+                    MessageBox.Show("No hay datos que mostrar.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+
+        }
+
+    }
 }
