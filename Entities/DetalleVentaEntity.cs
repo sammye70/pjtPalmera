@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace pjPalmera.Entities
 {
-    /// <summary>
+ 
     /// Author: Samuel Estrella
     /// created: 22/12/2019
     /// Modificated by:  
     /// Title: Products for Sales
-    /// </summary>
+    
     
     public class DetalleVentaEntity
     {
@@ -43,47 +43,72 @@ namespace pjPalmera.Entities
         //    set { no = value; }
         //}
 
+        /// <summary>
+        /// 
+        /// </summary>
         public long CODIGO 
         {
             get { return id; }
             set { id = value; } 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string DESCRIPCION 
         {
             get { return description; }
             set { description = value; } 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public float CANTIDAD 
         {
             get { return quantity; }
             set { quantity = value; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public decimal PRECIO 
         {
             get { return price; }
             set { price = value; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public decimal ITBIS 
         { 
             get { return itbis =(amount * 18) / 100; } 
             set { amount = value; } 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public decimal IMPORTE 
         { 
             get { return amount = price * (decimal)quantity; } 
             set { amount = value; } 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public long ID_FACTURA
         {
             get { return id_venta; }
             set { id_venta = value; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public DateTime MODIFICADO
         {
             get { return created; }

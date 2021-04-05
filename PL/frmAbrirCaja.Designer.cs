@@ -47,6 +47,11 @@
             this.txtMonedas1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtType = new System.Windows.Forms.TextBox();
+            this.txtPermission = new System.Windows.Forms.TextBox();
+            this.txtUserFirstNameLast = new System.Windows.Forms.TextBox();
+            this.txtIdUser = new System.Windows.Forms.TextBox();
+            this.txtUserName = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtBilletes2000 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -60,6 +65,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.txtStatus = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -221,6 +227,11 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtType);
+            this.groupBox2.Controls.Add(this.txtPermission);
+            this.groupBox2.Controls.Add(this.txtUserFirstNameLast);
+            this.groupBox2.Controls.Add(this.txtIdUser);
+            this.groupBox2.Controls.Add(this.txtUserName);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.txtBilletes2000);
             this.groupBox2.Controls.Add(this.label9);
@@ -240,6 +251,46 @@
             this.groupBox2.TabIndex = 47;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Billetes";
+            // 
+            // txtType
+            // 
+            this.txtType.Location = new System.Drawing.Point(468, 95);
+            this.txtType.Name = "txtType";
+            this.txtType.Size = new System.Drawing.Size(42, 22);
+            this.txtType.TabIndex = 75;
+            this.txtType.Visible = false;
+            // 
+            // txtPermission
+            // 
+            this.txtPermission.Location = new System.Drawing.Point(420, 96);
+            this.txtPermission.Name = "txtPermission";
+            this.txtPermission.Size = new System.Drawing.Size(42, 22);
+            this.txtPermission.TabIndex = 69;
+            this.txtPermission.Visible = false;
+            // 
+            // txtUserFirstNameLast
+            // 
+            this.txtUserFirstNameLast.Location = new System.Drawing.Point(369, 95);
+            this.txtUserFirstNameLast.Name = "txtUserFirstNameLast";
+            this.txtUserFirstNameLast.Size = new System.Drawing.Size(42, 22);
+            this.txtUserFirstNameLast.TabIndex = 52;
+            this.txtUserFirstNameLast.Visible = false;
+            // 
+            // txtIdUser
+            // 
+            this.txtIdUser.Location = new System.Drawing.Point(321, 95);
+            this.txtIdUser.Name = "txtIdUser";
+            this.txtIdUser.Size = new System.Drawing.Size(43, 22);
+            this.txtIdUser.TabIndex = 51;
+            this.txtIdUser.Visible = false;
+            // 
+            // txtUserName
+            // 
+            this.txtUserName.Location = new System.Drawing.Point(269, 95);
+            this.txtUserName.Name = "txtUserName";
+            this.txtUserName.Size = new System.Drawing.Size(44, 22);
+            this.txtUserName.TabIndex = 50;
+            this.txtUserName.Visible = false;
             // 
             // label10
             // 
@@ -354,15 +405,25 @@
             this.label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label14.Location = new System.Drawing.Point(25, 261);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(425, 13);
+            this.label14.Size = new System.Drawing.Size(560, 13);
             this.label14.TabIndex = 68;
-            this.label14.Text = "Importante: Agregar 0 en los campos cuando no disponga de una moneda";
+            this.label14.Text = "IMPORTANTE: Agregar 0 en los campos cuando no disponga de la denominación de una " +
+    "moneda";
+            // 
+            // txtStatus
+            // 
+            this.txtStatus.Location = new System.Drawing.Point(544, 227);
+            this.txtStatus.Name = "txtStatus";
+            this.txtStatus.Size = new System.Drawing.Size(42, 20);
+            this.txtStatus.TabIndex = 76;
+            this.txtStatus.Visible = false;
             // 
             // frmAbrirCaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(609, 347);
+            this.Controls.Add(this.txtStatus);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.btnCalcularMonto);
@@ -419,5 +480,11 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ToolTip toolTip1;
+        public System.Windows.Forms.TextBox txtIdUser;
+        public System.Windows.Forms.TextBox txtUserName;
+        public System.Windows.Forms.TextBox txtUserFirstNameLast;
+        public System.Windows.Forms.TextBox txtPermission;
+        public System.Windows.Forms.TextBox txtType;
+        public System.Windows.Forms.TextBox txtStatus;
     }
 }

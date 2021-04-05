@@ -63,6 +63,16 @@ namespace pjPalmera.PL
             this.rbNombre.Checked = false;
         }
 
+
+        /// <summary>
+        ///  Hide Constrols from Consult Customers
+        /// </summary>
+        public void HideCtrlCustmer()
+        {
+            this.btnEditar.Visible = false;
+            this.btnEliminar.Visible = false;
+        }
+
         /// <summary>
         /// Filter Costumer by Cedula
         /// </summary>

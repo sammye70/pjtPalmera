@@ -12,6 +12,12 @@ namespace pjPalmera.BLL
 {
     public class AperturaCajaBO
     {
+
+        /// <summary>
+        /// Messeger to Result from CostumerBO
+        /// </summary>
+        public static string strMensajeBO;
+
         /// <summary>
         /// Save History Detail About process Open Box
         /// </summary>
@@ -34,24 +40,51 @@ namespace pjPalmera.BLL
         /// Save process Open Box until Close Box
         /// </summary>
         /// <param name="Ocaja"></param>
-        public static void CreateOpenBox(AperturaCajaEntity Ocaja)
+        public static void CreateOpenBox(AperturaCajaEntity oCaja)
         {
             try
             {
-                AperturaCajaDAL.CreateOpenBox(Ocaja);
+                AperturaCajaDAL.CreateOpenBox(oCaja);
             }
             catch (Exception ex)
             {
+                // throw new Exception(ex.Message);
                 MessageBox.Show(ex.Message, "Mensaje del Sistema");
                 return;
             }
         }
 
+        /// By: sammye70
+        /// created: 10/02/2021
+        /// Modificated by: sammye70
+        /// Modificated Date:
         /// <summary>
-        /// Get Current Amount used open box
+        ///  Get Status Box (It will return 0 when is close and 1 if is open )
         /// </summary>
         /// <returns></returns>
-        public static decimal GetAmount()
+        public static int GetStatusBox(AperturaCajaEntity oCaja)
+        {
+            var status = AperturaCajaDAL.GetStatusBox(oCaja);
+
+            if (status == 0)
+            {
+                strMensajeBO = "";
+                return status;
+            }
+            else if (status == 1)
+            {
+                strMensajeBO = "El Usuario tiene una Caja Aperturada. \n Primero debe cerrar la caja que fue aperturada por el usuario actual para continuar.";
+                return status;
+            }
+
+            return status;
+        }
+
+            /// <summary>
+            /// Get Current Amount used open box
+            /// </summary>
+            /// <returns></returns>
+            public static decimal GetAmount()
         {
             try
             {

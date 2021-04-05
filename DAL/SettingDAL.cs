@@ -10,18 +10,25 @@ using MySql.Data.MySqlClient;
 
 namespace pjPalmera.DAL
 {
+    /// <summary>
+    /// Setting Persisten DataBase
+    /// </summary>
     public class SettingDAL
     {
-        /// <summary>
-        /// Author: Samuel Estrella
-        /// StringConnection
-        /// Version: 1.0
-        /// Create Date:20/12/2019
-        /// Modificated: 
-        /// </summary>
-        private static readonly string ConnectionString = @"server=192.168.8.110;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas"; //Home dev last;
-        // static String ConnectionString = @"server=localhost;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas;"; // Drog Store ip
-        //static String ConnectionString = @"server=192.168.8.124;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas_last"; //Home dev
+        ///----------------------------------------------------------------------------------------------------------------------- //
+        /// Author: Samuel Estrella                                                                                               //
+        /// StringConnection                                                                                                      //
+        /// Version: 1.0                                                                                                          //
+        /// Create Date:20/12/2019                                                                                  //
+        /// Modificated:                                                                                            //
+        /// ------------------------------------------------------------------------------------------------------ //
+        /// 
+
+        private static readonly string ConnectionString = @"server=192.168.124.133;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas"; //Home dev last;
+
+        // private static readonly String ConnectionString = @"server=192.168.8.185;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas;"; // Drog Store ip
+
+        // private static readonly String ConnectionString = @"server=192.168.8.124;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas_last"; //Home dev
 
         /// <summary>
         /// ConnectionString to Databases
@@ -31,7 +38,7 @@ namespace pjPalmera.DAL
             get { return ConnectionString; }
         }
 
-        #region
+        #region Old Method
         //    public void Connect()
         //    {
         //        try

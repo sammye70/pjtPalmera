@@ -13,16 +13,21 @@ namespace pjPalmera.Entities
     {
         //Field
         private int id_user;
-        private string user_name;
-        private string password;
-        private string status;
-        private int privileges;
+        private string firstname;   //
+        private string lastname;    //
+        private string long_name;   //
+        private string user_name;   //
+        private string password;    //
+        private string status;      //
+        private int privileges;     //
+        private string email;       //
+        private string secret_question1;
+        private string secret_answer1;
         private int createby;
         private DateTime created;
-        private string email;
 
         //Constructor
-        public UsuariosEntity()
+        public  UsuariosEntity()
         {
         }
 
@@ -39,44 +44,51 @@ namespace pjPalmera.Entities
         }
 
         //Properties
+
+        public string Firstname 
+        {
+            set { this.firstname = value; }
+            get { return this.firstname; }
+        }
+
+        public string Lastname
+        {
+            set { this.lastname = value; }
+            get { return this.lastname; }
+        }
+
+        public string LongName
+        {
+            set { this.long_name= value; }
+            get { return this.long_name; }
+        }
+
         public int Id_user
         {
             get { return id_user;}
 
-            set { id_user = value;}
+            set { this.id_user = value;}
         }
 
         public string Password
         {
             get { return password;}
 
-            set { password = value;}
+            set { this.password = value;}
         }
 
         public string Status
         {
-            get
-            {
-                return status;
-            }
+            get { return status; }
 
-            set
-            {
-                status = value;
-            }
+            set { this.status = value;}
         }
 
         public int Createby
         {
-            get
-            {
-                return createby;
-            }
+            get { return createby;}
 
-            set
-            {
-                createby = value;
-            }
+            set { this.createby = value;}
         }
 
         public DateTime Created
@@ -88,7 +100,7 @@ namespace pjPalmera.Entities
 
             set
             {
-                created = value;
+                this.created = value;
             }
         }
 
@@ -101,7 +113,7 @@ namespace pjPalmera.Entities
 
             set
             {
-                privileges = value;
+               this.privileges = value;
             }
         }
 
@@ -114,7 +126,7 @@ namespace pjPalmera.Entities
 
             set
             {
-                user_name = value;
+                this.user_name = value;
             }
         }
 
@@ -127,8 +139,47 @@ namespace pjPalmera.Entities
 
             set
             {
-                email = value;
+                this.email = value;
             }
+        }
+
+        public string Secret_question 
+        {
+            get { return secret_question1; }
+            set { this.secret_question1 = value; }
+        }
+
+        public string Secret_answer
+        {
+            get { return secret_answer1; }
+            set { this.secret_answer1 = value; }
+        }
+
+        /// <summary>
+        ///  Concatenation string
+        /// </summary>
+        /// <param name="firstname"></param>
+        /// <param name="lastname"></param>
+        /// <returns>long_name</returns>
+        public string ContName(string firstname, string lastname)
+        {
+            string long_name;
+            long_name = firstname + " " + lastname;
+            return long_name;
+        }
+
+        /// <summary>
+        /// Generate Encrypt for String
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns>hast</returns>
+        public  string setHash(string str)
+        {
+            byte[] data = Encoding.ASCII.GetBytes(str);
+            data = new System.Security.Cryptography.SHA256Managed().ComputeHash(data);
+            string hash = System.Text.Encoding.ASCII.GetString(data);
+
+            return hash;
         }
     }
 }

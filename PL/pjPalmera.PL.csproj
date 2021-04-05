@@ -262,6 +262,12 @@
     <Compile Include="frmProcesarCambios.Designer.cs">
       <DependentUpon>frmProcesarCambios.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmRecoveryPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRecoveryPassword.Designer.cs">
+      <DependentUpon>frmRecoveryPassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmRegArticulos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -424,6 +430,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmProcesarCambios.resx">
       <DependentUpon>frmProcesarCambios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRecoveryPassword.resx">
+      <DependentUpon>frmRecoveryPassword.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmRegArticulos.resx">
       <DependentUpon>frmRegArticulos.cs</DependentUpon>

@@ -149,11 +149,11 @@ namespace pjPalmera.BLL
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public static List<ClientesEntity> GetbyIdList(long Id)
+        public static ClientesEntity GetbyId(long Id)
         {
             try
             {
-                return ClientesDAL.GetbyIdList(Id);
+                return ClientesDAL.GetbyId(Id);
             }
             catch (Exception ex)
             {

@@ -46,24 +46,10 @@ namespace pjPalmera.PL
         }
 
        
-
-        private void crearClientesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-
-        }
-
-
-
         private void facturasAnuladasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmFactAnuladas FactAnuladas = new frmFactAnuladas();
             FactAnuladas.Show();
-        }
-
-        private void facturasEmitidasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void toolStripLabel1_Click(object sender, EventArgs e)
@@ -84,27 +70,13 @@ namespace pjPalmera.PL
             about.Show();
         }
 
-        private void efectuarVentaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void notaDeCreditoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmNotasCredito NoteCredito = new frmNotasCredito();
             NoteCredito.Show();
         }
 
-        private void frmPrincipal_Load(object sender, EventArgs e)
-        {
-           // splash splash = new splash();
-            //splash.ShowDialog(this);
-            //frmlogin login = new frmlogin();
-            //login.ShowDialog();
-
-            this.tabControl1.Visible = true;
-            DetailControls();
-        }
+ 
 
         private void registroDePersonasToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -124,6 +96,23 @@ namespace pjPalmera.PL
         {
             frmVenta Venta = new frmVenta();
             Venta.Show();
+        }
+
+        /// <summary>
+        /// Load system login
+        /// </summary>
+        private void Login()
+        {
+            try
+            {
+                frmlogin login = new frmlogin();
+                login.ShowDialog(this);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         /// <summary>
@@ -148,11 +137,11 @@ namespace pjPalmera.PL
             
             if (answer == DialogResult.Yes)
             {
-                this.Close();
+                Application.Exit();
             }
             else if(answer == DialogResult.No)
-            {        
-               
+            {
+                return;
             }
         }
 
@@ -214,8 +203,25 @@ namespace pjPalmera.PL
 
         private void abrirCajaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmAbrirCaja ocaja = new frmAbrirCaja();
-            ocaja.ShowDialog(this);
+
+            // info User      
+            var user = new UsuariosEntity();
+            var box = new AperturaCajaEntity();
+            frmAbrirCaja fmbox = new frmAbrirCaja();
+
+            user.Id_user = Int32.Parse(this.txtIdUser.Text); //
+            user.LongName = this.txtLongName.Text;
+            user.User_name = this.txtUsername.Text;
+            user.Privileges = Int32.Parse(this.txtPermisson.Text);
+            box.TypeOp = 1;
+            box.Status = 1;
+            fmbox.txtUserFirstNameLast.Text = user.LongName;
+            fmbox.txtUserName.Text = user.User_name;
+            fmbox.txtIdUser.Text = user.Id_user.ToString();
+            fmbox.txtPermission.Text = user.Privileges.ToString();
+            fmbox.txtType.Text = box.TypeOp.ToString();
+            fmbox.txtStatus.Text = box.Status.ToString();
+            fmbox.ShowDialog(this);
         }
 
         private void stockMinimosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -268,7 +274,22 @@ namespace pjPalmera.PL
 
         private void efectuarVentaToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            // Invoice Cash
+            var venta = new VentaEntity();
+            var casher = new UsuariosEntity();
             frmVenta factura = new frmVenta();
+
+            var type = Int32.Parse(venta.set_Type_invoice((FacturaBO.eType_invoices.cash).ToString())); // Get type invoice and convert to int value
+            venta.tipo = type.ToString();
+            casher.Id_user = Int32.Parse(this.txtIdUser.Text);
+            casher.LongName = this.txtLongName.Text;
+            casher.Privileges = Int32.Parse(this.txtPermisson.Text);
+            casher.User_name = this.txtUsername.Text;
+            factura.lblCajeroName.Text = casher.LongName;
+            factura.txtTypeInvoice.Text = venta.tipo;
+            factura.txtPermissionId.Text = casher.Privileges.ToString();
+            factura.txtUsername.Text = casher.User_name;
+            factura.DesVisibleCtrlInvCr();
             factura.Show();
         }
 
@@ -289,11 +310,6 @@ namespace pjPalmera.PL
         {
             frmPagosTotalCr PagTotalCr = new frmPagosTotalCr();
             PagTotalCr.ShowDialog(this);
-        }
-
-        private void anularFacturaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void anularToolStripMenuItem_Click(object sender, EventArgs e)
@@ -322,10 +338,27 @@ namespace pjPalmera.PL
 
         private void ventaACréditoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //Credit Invoice
+            var casher = new UsuariosEntity();
+            var venta = new VentaCrEntity();
             frmVenta ventas = new frmVenta();
-            
+            var type = Int32.Parse(venta.set_Type_invoice((FacturaBO.eType_invoices.credit).ToString())); // Get type invoice and convert to int value
+
+            venta.tipo = type.ToString();
+            ventas.txtTypeInvoice.Text = venta.tipo;
+            casher.Id_user = Int32.Parse(this.txtIdUser.Text);
+            casher.LongName = this.txtLongName.Text;
+            casher.Privileges = Int32.Parse(this.txtPermisson.Text);
+            casher.User_name = this.txtUsername.Text;
+            ventas.lblCajeroName.Text = casher.LongName;
+            ventas.txtPermissionId.Text = casher.Privileges.ToString();
+            ventas.txtUsername.Text = casher.User_name;
+            ventas.txtUserId.Text = casher.Id_user.ToString();
             ventas.Text = "Ventas a Crédito";
-            ventas.ShowDialog(this);
+            ventas.DesVisibleCtrlInvCash();
+            ventas.EnVisibleCtrlInvCr();
+            ventas.btnNewInvoiceCr.Focus();
+            ventas.Show();
 
         }
 
@@ -333,5 +366,23 @@ namespace pjPalmera.PL
         {
             AppExit();
         }
+
+        private void registrarUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmRegUsers regUsers = new frmRegUsers();
+            regUsers.Show(this);
+        }
+
+        private void frmPrincipal_Load(object sender, EventArgs e)
+        {
+            // splash splash = new splash();
+            //splash.ShowDialog(this);
+
+            //Login();
+
+            this.tabControl1.Visible = true;
+            DetailControls();
+        }
+
     }
 }

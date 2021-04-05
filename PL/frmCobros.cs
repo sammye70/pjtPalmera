@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Entities;
 using pjPalmera.BLL;
 using pjPalmera.Entities;
 
@@ -52,7 +51,6 @@ namespace pjPalmera.PL
         private void btnCancelarPago_Click(object sender, EventArgs e)
         {
             CleanControls();
-            this.txtTotalCobrar.Focus();
             this.Close();
         }
 
@@ -96,7 +94,6 @@ namespace pjPalmera.PL
             this.txtDevueltaEfectivo.Text = "";
             this.txtEfectivoRecibido.Text = "";
             this.lblDevueltaEfectivo.Text = "";
-            this.txtTotalCobrar.Text = "";
         }
 
         /// <summary>
@@ -153,7 +150,7 @@ namespace pjPalmera.PL
         /// </summary>
         private void LoadMethodPay()
         {
-            this.cmbfPagos.DataSource = FacturaBO.GetType_Pays();
+            this.cmbfPagos.DataSource = FacturaBO.GetMethod_Pays();
             this.cmbfPagos.DisplayMember = "Nombre";
             this.cmbfPagos.ValueMember = "Id";
             
@@ -176,6 +173,9 @@ namespace pjPalmera.PL
             //
 
             frmVenta invoice = new frmVenta();
+            var venta = new frmVenta();
+            bool resp = false;
+            var answer = new DialogResult();
 
             if ((this.txtEfectivoRecibido.Text == string.Empty) && (this.cmbfPagos.Text == "efectivo"))
             {
@@ -185,40 +185,73 @@ namespace pjPalmera.PL
             }
             else if ((this.cmbfPagos.Text == "tarjeta"))
             {
-                try
+                //if (!ValidatorPost())
+                //    return;
+
+                if (answer == DialogResult.Yes)
+                {
+                    try
+                    {
+                        _recibido = decimal.Parse(this.txtEfectivoRecibido.Text);
+                        _devuelta = decimal.Parse(this.lblDevueltaEfectivo.Text);
+
+                        // ----------------------------> Working Here
+                        resp = true;
+                        venta.ProcessSell(resp);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+
+                }
+                else if(answer == DialogResult.No)
                 {
                     _recibido = decimal.Parse(this.txtEfectivoRecibido.Text);
                     _devuelta = decimal.Parse(this.lblDevueltaEfectivo.Text);
 
-                    invoice.ProcessSell();
-                    CleanControls();
-                    MessageBox.Show("Venta Efectuada Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    this.txtTotalCobrar.Focus();
-                    return;
+        
+                    resp = false;
+                    venta.ProcessSell(resp);
                 }
             }
-            else
+            else if((this.txtEfectivoRecibido.Text != string.Empty) && (this.cmbfPagos.Text == "efectivo"))
             {
-                try
+                   
+                //if (!ValidatorPost())
+                //    return;
+
+                answer = MessageBox.Show("Imprimir Recibo", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (answer == DialogResult.Yes)
                 {
+                    try
+                    {
+                        _recibido = decimal.Parse(this.txtEfectivoRecibido.Text);
+                        _devuelta = decimal.Parse(this.lblDevueltaEfectivo.Text);
+                       
+                        resp = true;
+                        venta.ProcessSell(resp);
+                        
+                        this.Close();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+                }
+                else if (answer == DialogResult.No)
+                {
+
                     _recibido = decimal.Parse(this.txtEfectivoRecibido.Text);
                     _devuelta = decimal.Parse(this.lblDevueltaEfectivo.Text);
-
-                    invoice.ProcessSell();
-                    CleanControls();
-                    MessageBox.Show("Venta Efectuada Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+             
+                    resp = false;
+                    venta.ProcessSell(resp);
                     this.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    this.txtTotalCobrar.Focus();
-                    return;
                 }
             }
         }
@@ -272,6 +305,8 @@ namespace pjPalmera.PL
             //    // set
             //} 
             #endregion
+
         }
+
     }
 }

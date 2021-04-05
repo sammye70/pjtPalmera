@@ -7,7 +7,6 @@ using MySql.Data;
 using System.Data;
 using MySql.Data.MySqlClient;
 using pjPalmera.Entities;
-using Entities;
 using System.Configuration;
 
 
@@ -282,30 +281,30 @@ namespace pjPalmera.DAL
         /// Get Costumer by Id (List)
         /// </summary>
         /// <returns></returns>
-        public static List<ClientesEntity> GetbyIdList(long Id)
+        public static ClientesEntity GetbyId(long Id)
         {
-            List<ClientesEntity> list = new List<ClientesEntity>();
+            var customer = new ClientesEntity();
 
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                string sql = @"SELECT id, cedula, nombre, apellidos
+                string sql = @"SELECT id, cedula, nombre, apellidos, limitecredito
                                 FROM clientes
                                 WHERE id = @idcliente";
 
                 using (var cmd = new MySqlCommand(sql, con))
                 {
-                    cmd.Parameters.AddWithValue("idcliente", Id);
+                    cmd.Parameters.AddWithValue("@idcliente", Id);
 
                     MySqlDataReader reader = cmd.ExecuteReader();
 
-                    if (reader.Read())
+                    while (reader.Read())
                     {
-                        list.Add(LoadCostumers(reader));
+                       customer = LoadCustomers(reader);
                     }
                 }
             }
-                return list;
+                return customer;
         }
 
         /// <summary>
@@ -400,16 +399,17 @@ namespace pjPalmera.DAL
         /// </summary>
         /// <param name="Reader"></param>
         /// <returns></returns>
-        private static ClientesEntity LoadCostumers(IDataReader Reader)
+        private static ClientesEntity LoadCustomers(IDataReader Reader)
         {
-            ClientesEntity costumer = new ClientesEntity();
+            ClientesEntity customer = new ClientesEntity();
 
-            costumer.Id = Convert.ToInt32(Reader["id"]);
-            costumer.Cedula = Convert.ToString(Reader["cedula"]);
-            costumer.Nombre = Convert.ToString(Reader["nombre"]);
-            costumer.Apellidos = Convert.ToString(Reader["apellidos"]);
+            customer.Id = Convert.ToInt32(Reader["id"]);
+            customer.Cedula = Convert.ToString(Reader["cedula"]);
+            customer.Nombre = Convert.ToString(Reader["nombre"]);
+            customer.Apellidos = Convert.ToString(Reader["apellidos"]);
+            customer.Limite_credito = Convert.ToDecimal(Reader["limitecredito"]);
 
-            return costumer;
+            return customer;
         }
 
 
@@ -420,21 +420,21 @@ namespace pjPalmera.DAL
         /// <returns></returns>
         private static ClientesEntity LoadCostumer(IDataReader Reader)
         {
-            ClientesEntity costumer = new ClientesEntity();
+            ClientesEntity customer = new ClientesEntity();
 
-            costumer.Id = Convert.ToInt32(Reader["id"]);
-            costumer.Cedula = Convert.ToString(Reader["cedula"]);
-            costumer.Nombre = Convert.ToString(Reader["nombre"]);
-            costumer.Apellidos = Convert.ToString(Reader["apellidos"]);
-            costumer.Telefono = Convert.ToString(Reader["telefono"]);
-            costumer.Direccion = Convert.ToString(Reader["direccion"]);
-            costumer.Ciudad = Convert.ToString(Reader["ciudad"]);
-            costumer.Provincia = Convert.ToString(Reader["provincia"]);
-            costumer.Limite_credito = Convert.ToDecimal(Reader["limitecredito"]);
-            costumer.Created = Convert.ToDateTime(Reader["created"]);
-            costumer.Estado = Convert.ToString(Reader["status"]);
+            customer.Id = Convert.ToInt32(Reader["id"]);
+            customer.Cedula = Convert.ToString(Reader["cedula"]);
+            customer.Nombre = Convert.ToString(Reader["nombre"]);
+            customer.Apellidos = Convert.ToString(Reader["apellidos"]);
+            customer.Telefono = Convert.ToString(Reader["telefono"]);
+            customer.Direccion = Convert.ToString(Reader["direccion"]);
+            customer.Ciudad = Convert.ToString(Reader["ciudad"]);
+            customer.Provincia = Convert.ToString(Reader["provincia"]);
+            customer.Limite_credito = Convert.ToDecimal(Reader["limitecredito"]);
+            customer.Created = Convert.ToDateTime(Reader["created"]);
+            customer.Estado = Convert.ToString(Reader["status"]);
 
-            return costumer;
+            return customer;
         } 
     }
 }

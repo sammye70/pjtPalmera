@@ -35,7 +35,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtDevueltaEfectivo = new System.Windows.Forms.TextBox();
             this.btnProcesarPagos = new System.Windows.Forms.Button();
-            this.txtTotalCobrar = new System.Windows.Forms.TextBox();
             this.lblTitleTotalCobrar = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cmbfPagos = new System.Windows.Forms.ComboBox();
@@ -108,16 +107,6 @@
             this.btnProcesarPagos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnProcesarPagos.UseVisualStyleBackColor = true;
             this.btnProcesarPagos.Click += new System.EventHandler(this.btnProcesarPagos_Click);
-            // 
-            // txtTotalCobrar
-            // 
-            this.txtTotalCobrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalCobrar.Location = new System.Drawing.Point(219, 23);
-            this.txtTotalCobrar.Multiline = true;
-            this.txtTotalCobrar.Name = "txtTotalCobrar";
-            this.txtTotalCobrar.Size = new System.Drawing.Size(146, 46);
-            this.txtTotalCobrar.TabIndex = 9;
-            this.txtTotalCobrar.Visible = false;
             // 
             // lblTitleTotalCobrar
             // 
@@ -200,7 +189,6 @@
             this.Controls.Add(this.lblDevueltaEfectivo);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cmbfPagos);
-            this.Controls.Add(this.txtTotalCobrar);
             this.Controls.Add(this.lblTitleTotalCobrar);
             this.Controls.Add(this.txtDevueltaEfectivo);
             this.Controls.Add(this.label3);
@@ -230,7 +218,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblAprobacion;
         private System.Windows.Forms.TextBox txtAprobacionNo;
-        public System.Windows.Forms.TextBox txtTotalCobrar;
         public System.Windows.Forms.Label lblDevueltaEfectivo;
         public System.Windows.Forms.ComboBox cmbfPagos;
         public System.Windows.Forms.Label lblTotalCobrar;

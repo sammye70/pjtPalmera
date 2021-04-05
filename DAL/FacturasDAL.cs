@@ -9,7 +9,6 @@ using MySql.Data;
 using MySql.Data.MySqlClient;
 using pjPalmera.Entities;
 using System.ComponentModel;
-using Entities;
 
 namespace pjPalmera.DAL
 {
@@ -17,7 +16,7 @@ namespace pjPalmera.DAL
     {
 
         /***********************************************************************************************************
-        // Name: Create New Invoice (Head and Detail)
+        // Name: Create New Cash Invoice (Head and Detail)
         // Created: 02/07/2020
         // Author: Samuel Estrella
         // Modificated date: 
@@ -28,7 +27,7 @@ namespace pjPalmera.DAL
         //public static bool result; // Values to invoice return if exist 
 
         /// <summary>
-        /// New Process Insert  Invoice Head and Detail
+        /// New Process Insert  Cash Invoice  Head and Detail 
         /// </summary>
         /// <return>invoices fill</return>
         /// <param name="Venta"></param>
@@ -36,42 +35,128 @@ namespace pjPalmera.DAL
         {
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
-                int id_venta;
-                con.Open();
-                var sql_head = @"INSERT INTO venta (id_cliente, nombre, apellidos, total, created, status, tipo, descuento, subtotal, total_itbis, recibido, devuelta, modificated, id_caja, vendedor) 
-                                        VALUES (@id_cliente, @nombre, @apellidos, @total, @created, @status, @tipo, @descuento, @subtotal, @total_itbis, @recibido, @devuelta, @modificated, @id_caja, @vendedor);
+               // int id_venta;
+                
+                /* var sql_head = @"INSERT INTO venta (clientes, total, status, tipo, id_caja, vendedor, descuento, subtotal, id_cliente, total_itbis, recibido, devuelta, created, modificated) 
+                                        VALUES (@clientes, @total, @status, @tipo, @id_caja, @vendedor, @descuento, @subtotal, @id_cliente, @total_itbis, @recibido, @devuelta, @created, @modificated);
                                 SELECT LAST_INSERT_ID() 
-                                    FROM venta;";
+                                    FROM venta;"; */
 
-                using (MySqlCommand cmd = new MySqlCommand(sql_head, con))
+                using (MySqlCommand cmd = new MySqlCommand("spCreateHeadInvoice", con))
                 {
-                    cmd.Parameters.AddWithValue("@id_cliente", Venta.id_cliente);
-                    cmd.Parameters.AddWithValue("@clientes", Venta.clientes);
+                    con.Open();
+                    cmd.Parameters.AddWithValue("pclientes", Venta.clientes);
                    // cmd.Parameters.AddWithValue("@apellidos", Venta.apellidos);
-                    cmd.Parameters.AddWithValue("@total", Venta.total);
-                    cmd.Parameters.AddWithValue("@created", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@status", Venta.status);
-                    cmd.Parameters.AddWithValue("@tipo", Venta.tipo);
-                    cmd.Parameters.AddWithValue("@descuento", Venta.descuento);
-                    cmd.Parameters.AddWithValue("@subtotal", Venta.subtotal);
-                    cmd.Parameters.AddWithValue("@total_itbis", Venta.total_itbis);
-                    cmd.Parameters.AddWithValue("@devuelta", Venta.devuelta);
-                    cmd.Parameters.AddWithValue("@recibido", Venta.recibido);
-                    cmd.Parameters.AddWithValue("@modificated", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@id_caja", Venta.id_caja);
-                    cmd.Parameters.AddWithValue("@vendedor",Venta.id_vendedor );
+                    cmd.Parameters.AddWithValue("ptotal", Venta.total);
+                    cmd.Parameters.AddWithValue("pstatus", Venta.status);
+                    cmd.Parameters.AddWithValue("ptipo", Venta.tipo);
+                    cmd.Parameters.AddWithValue("pid_caja", Venta.id_caja);
+                    cmd.Parameters.AddWithValue("pvendedor", Venta.id_vendedor);
+                    cmd.Parameters.AddWithValue("pdescuento", Venta.descuento);
+                    cmd.Parameters.AddWithValue("pid_cliente", Venta.id_cliente);
+                    cmd.Parameters.AddWithValue("psubtotal", Venta.subtotal);
+                    cmd.Parameters.AddWithValue("ptotal_itbis", Venta.total_itbis); // Not Enable this time for customer request.
+                    cmd.Parameters.AddWithValue("precibido", Venta.recibido);
+                    cmd.Parameters.AddWithValue("pdevuelta", Venta.devuelta);
+                    cmd.Parameters.AddWithValue("pcreated", DateTime.Now);
+                    cmd.Parameters.AddWithValue("pmodificated", DateTime.Now);
 
-                    id_venta = Convert.ToInt32(cmd.ExecuteScalar());
-                    Venta.id = id_venta;
+                    // id_venta = Convert.ToInt32(cmd.ExecuteScalar());
+                    Venta.id = Convert.ToInt32(cmd.ExecuteScalar());
                 }
 
-                var sql_detail = @"INSERT INTO detail_venta (idproducto, descripcion, cantidad, precio, itbis, importe, id_venta, created)
+                /* var sql_detail = @"INSERT INTO detail_venta (idproducto, descripcion, cantidad, precio, itbis, importe, id_venta, created)
+                                        VALUES(@idproducto, @descripcion, @cantidad, @precio, @itbis, @importe, @id_venta, @created);"; */
+
+                //MySqlCommand cmd = new MySqlCommand(sql_detail, con);
+                using (var cmd = new MySqlCommand("spCreateDetaiIinvoice", con))
+                {
+                    foreach (DetalleVentaEntity dvental in Venta.listProductos)
+                    {
+                        //
+                        //Remove old parameters
+                        //
+                        cmd.Parameters.Clear();
+                        //
+                        cmd.Parameters.AddWithValue("pidproducto", dvental.CODIGO);
+                        cmd.Parameters.AddWithValue("pdescripcion", dvental.DESCRIPCION);
+                        cmd.Parameters.AddWithValue("pcantidad", dvental.CANTIDAD);
+                        cmd.Parameters.AddWithValue("pprecio", dvental.PRECIO);
+                        cmd.Parameters.AddWithValue("pitbis", dvental.ITBIS);
+                        cmd.Parameters.AddWithValue("pimporte", dvental.IMPORTE);
+                        cmd.Parameters.AddWithValue("pid_venta", Venta.id);
+                        cmd.Parameters.AddWithValue("pcreated", DateTime.Now); 
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            return Venta;
+        }
+
+        //--------------------------------------------- Until Method Create Cash Invoice ------------------------------------------ 
+
+
+
+        /* ---------------------------------------------------------------------------------------------------------
+         * Name: Create New Credit Invoice (Head and Detail)                                                        *
+         * Created: 02/07/2020                                                                                      *
+         * Author: Samuel Estrella                                                                                  *
+         * Modificated date:                                                                                        *
+         * Modificated by: Samuel Estrella                                                                          *
+         * -------------------------------------------------------------------------------------------------------- */
+
+        //public static bool result; // Values to invoice return if exist 
+
+        /// <summary>
+        /// New Process Insert  Credit Invoice  Head and Detail 
+        /// </summary>
+        /// <return>invoices fill</return>
+        /// <param name="Venta"></param>
+        public static VentaCrEntity CreateInvCr(VentaCrEntity CrVenta)
+        {
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                // int id_venta;
+               /* var sql_head = @"INSERT INTO venta (clientes, total, status, tipo, id_caja, vendedor, descuento, subtotal, id_cliente, total_itbis, recibido, devuelta, created, modificated) 
+                                        VALUES (@clientes, @total, @status, @tipo, @id_caja, @vendedor, @descuento, @subtotal, @id_cliente, @total_itbis, @recibido, @devuelta, @created, @modificated);
+                                SELECT LAST_INSERT_ID() 
+                                    FROM venta;";*/
+
+                using (MySqlCommand cmd = new MySqlCommand("spCreateHeadInvoice", con))
+                {
+                    con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@pclientes", CrVenta.clientes);
+                    // cmd.Parameters.AddWithValue("@apellidos", Venta.apellidos);
+                    cmd.Parameters.AddWithValue("@ptotal", CrVenta.total);
+                    cmd.Parameters.AddWithValue("@pstatus", CrVenta.status);
+                    cmd.Parameters.AddWithValue("@ptipo", CrVenta.tipo);
+                    cmd.Parameters.AddWithValue("@pid_caja", CrVenta.id_caja);
+                    cmd.Parameters.AddWithValue("@pvendedor", CrVenta.id_vendedor);
+                    cmd.Parameters.AddWithValue("@pdescuento", CrVenta.descuento);
+                    cmd.Parameters.AddWithValue("@pid_cliente", CrVenta.id_cliente);
+                    cmd.Parameters.AddWithValue("@psubtotal", CrVenta.subtotal);
+                    cmd.Parameters.AddWithValue("@ptotal_itbis", CrVenta.total_itbis); // Not Enable this time for customer request.
+                    cmd.Parameters.AddWithValue("@precibido", CrVenta.recibido);
+                    cmd.Parameters.AddWithValue("@pdevuelta", CrVenta.devuelta);
+                    cmd.Parameters.AddWithValue("@pcreated", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@pmodificated", DateTime.Now);
+
+                    // id_venta = Convert.ToInt32(cmd.ExecuteScalar());
+                    CrVenta.id = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+
+              var sql_detail = @"INSERT INTO detail_venta (idproducto, descripcion, cantidad, precio, itbis, importe, id_venta, created)
                                         VALUES(@idproducto, @descripcion, @cantidad, @precio, @itbis, @importe, @id_venta, @created);";
 
                 //MySqlCommand cmd = new MySqlCommand(sql_detail, con);
+
+                // sp from db ---> spCreateDetaiIinvoice
                 using (var cmd = new MySqlCommand(sql_detail, con))
                 {
-                    foreach (DetalleVentaEntity dvental in Venta.listProductos)
+                    foreach (DetalleVentaCrEntity dvental in CrVenta.listProductos)
                     {
                         //
                         //Remove old parameters
@@ -84,17 +169,20 @@ namespace pjPalmera.DAL
                         cmd.Parameters.AddWithValue("@precio", dvental.PRECIO);
                         cmd.Parameters.AddWithValue("@itbis", dvental.ITBIS);
                         cmd.Parameters.AddWithValue("@importe", dvental.IMPORTE);
-                        cmd.Parameters.AddWithValue("@id_venta", id_venta);
-                        cmd.Parameters.AddWithValue("@created", DateTime.Now); 
-
+                        cmd.Parameters.AddWithValue("@id_venta", CrVenta.id);
+                        cmd.Parameters.AddWithValue("@created", DateTime.Now);
+                        
                         cmd.ExecuteNonQuery();
                     }
                 }
             }
-            return Venta;
+            return CrVenta;
         }
 
-        //--------------------------------------------- Until Method Create Invoice ------------------------------------------ 
+        //--------------------------------------------- Until Method Create Credit Invoice ------------------------------------------ 
+
+
+      
 
         /// <summary>
         /// Delete Empty Rows in Detail Invoices
@@ -181,12 +269,36 @@ namespace pjPalmera.DAL
 
         //--------------------------------------------- Until Method Daily Transactions ------------------------------------------ 
 
+        /// <summary>
+        ///  Set invoice Method cash pay in current shopping (cash or credit card)
+        /// </summary>
+        public static void SetInvoiceCashPay(VentaEntity invoiceCashPay) 
+        {
+            using (var con = new MySqlConnection(SettingDAL.connectionstring)) 
+            {
+                using (var cmd = new MySqlCommand("spCreateInvoiceCashPay", con))
+                {
+                    con.Open();
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@pid_pay", invoiceCashPay.method_pago);
+                    cmd.Parameters.AddWithValue("@pid_invoice", invoiceCashPay.id);
+                    cmd.Parameters.AddWithValue("@pamount", invoiceCashPay.total);
+                    cmd.Parameters.AddWithValue("@pcreated", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@pcreatedby", invoiceCashPay.id_vendedor);
+                    cmd.Parameters.AddWithValue("@prequest_number", invoiceCashPay.request_number);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        
+        }
 
         /// <summary>
-        /// Get type pay
+        /// Get Method type pay invoices (process sell or process of credit invoice pay)
         /// </summary>
         /// <returns></returns>
-        public static List<type_payEntity> GetType_Pays()
+        public static List<type_payEntity> GetMethod_Pays()
         {
             var list = new List<type_payEntity>();
 

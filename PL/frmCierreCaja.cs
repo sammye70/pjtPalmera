@@ -60,6 +60,26 @@ namespace pjPalmera.PL
         {
             CierreCajaBO.CleanTranstactions();
             CierreCajaBO.CleanOpenBox();
+
+
+            var closebox = new CierreCajaEntity();
+            var openbox = new frmAbrirCaja();
+
+
+            closebox.Cajero = Int32.Parse(this.txtIdUser.Text);
+            closebox.Uno = Int32.Parse(this.txtMonedas1.Text);
+            closebox.Cinco = Int32.Parse(this.txtMonedas5.Text);
+            closebox.Diez = Int32.Parse(this.txtMonedas10.Text);
+            closebox.Venticinco = Int32.Parse(this.txtMonedas25.Text);
+            closebox.Cincuenta = Int32.Parse(this.txtBilletes50.Text);
+            closebox.Cien = Int32.Parse(this.txtBilletes100.Text);
+            closebox.Doscientos = Int32.Parse(this.txtBilletes100.Text);
+            closebox.Quinientos = Int32.Parse(this.txtBilletes500.Text);
+            closebox.Mil = Int32.Parse(this.txtBilletes1000.Text);
+            closebox.Dosmil = Int32.Parse(this.txtBilletes2000.Text);
+            
+
+           
         }
 
         /// <summary>

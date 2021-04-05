@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace pjPalmera.Entities
 {
-   public class PedidosEntity
+    public class VentaCrEntity : VentaEntity
     {
-     //   private Int64 idproducto;
-      //  private Int32 cantidad;
+        public VentaCrEntity() 
+        {
+        }
+
     }
 }

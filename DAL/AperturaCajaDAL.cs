@@ -15,58 +15,109 @@ namespace pjPalmera.DAL
     {
 
         /// <summary>
-        /// Save History Detail About process Open Box
+        /// Save History Header and Detail About process Open Box
         /// </summary>
         /// <param name="Ocaja"></param>
         /// <returns></returns>
-        public static void CreateHistoryOpenBox(AperturaCajaEntity Ocaja)
+        public static void CreateHistoryOpenBox(AperturaCajaEntity oCaja)
         {
-
-            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
-                con.Open();
-                string query = @"INSERT INTO  history_open_box (cajero, uno, cinco, diez, venticinco, cincuenta, cien, doscientos, quinientos, mil, dosmil, monto, created)
-                                    VALUES(@cajero, @uno, @cinco, @diez, @venticinco, @cincuenta, @cien, @doscientos, @quinientos, @mil, @dosmil, @monto, @created)";
-                MySqlCommand cmd = new MySqlCommand(query, con);
+                using (var cmd = new MySqlCommand("spCreateOpBox", con))
+                {
+                    con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.AddWithValue("@cajero", 1);
-                cmd.Parameters.AddWithValue("@uno", Ocaja.Uno);
-                cmd.Parameters.AddWithValue("@cinco", Ocaja.Cinco);
-                cmd.Parameters.AddWithValue("@diez", Ocaja.Diez);
-                cmd.Parameters.AddWithValue("@venticinco", Ocaja.Venticinco);
-                cmd.Parameters.AddWithValue("@cincuenta", Ocaja.Cincuenta);
-                cmd.Parameters.AddWithValue("@cien", Ocaja.Cien);
-                cmd.Parameters.AddWithValue("@doscientos", Ocaja.Doscientos);
-                cmd.Parameters.AddWithValue("@quinientos", Ocaja.Quinientos);
-                cmd.Parameters.AddWithValue("@mil", Ocaja.Mil);
-                cmd.Parameters.AddWithValue("@dosmil", Ocaja.Dosmil);
-                cmd.Parameters.AddWithValue("@monto", Ocaja.Monto);
-                cmd.Parameters.AddWithValue("@created", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@pcajero", oCaja.Cajero);
+                    cmd.Parameters.AddWithValue("@pmonto", oCaja.Monto);
+                    cmd.Parameters.AddWithValue("@ptypeop", oCaja.TypeOp);
+                    cmd.Parameters.AddWithValue("@pcreated", DateTime.Now);
 
-                cmd.ExecuteNonQuery();
+                    oCaja.Id = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+
+                using (var cmd = new MySqlCommand("spCreateDetailOpBox", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@pid_open_process", oCaja.Id);
+                    cmd.Parameters.AddWithValue("@pcajero", oCaja.Cajero);
+                    cmd.Parameters.AddWithValue("@puno", oCaja.Uno);
+                    cmd.Parameters.AddWithValue("@pcinco", oCaja.Cinco);
+                    cmd.Parameters.AddWithValue("@pdiez", oCaja.Diez);
+                    cmd.Parameters.AddWithValue("@pventicinco", oCaja.Venticinco);
+                    cmd.Parameters.AddWithValue("@pcincuenta", oCaja.Cincuenta);
+                    cmd.Parameters.AddWithValue("@pcien", oCaja.Cien);
+                    cmd.Parameters.AddWithValue("@pdoscientos", oCaja.Doscientos);
+                    cmd.Parameters.AddWithValue("@pquinientos", oCaja.Quinientos);
+                    cmd.Parameters.AddWithValue("@pmil", oCaja.Mil);
+                    cmd.Parameters.AddWithValue("@pdosmil", oCaja.Dosmil);
+                    cmd.Parameters.AddWithValue("@pmonto", oCaja.Monto);
+                    cmd.Parameters.AddWithValue("@pcreated", DateTime.Now);
+
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
 
 
+
+        /// By: sammye70
+        /// created: 10/02/2021
+        /// Modificated by: sammye70
+        /// Modificated Date:
         /// <summary>
-        /// Save process Open Box until Close Box
+        ///  Get Status Box (It will return 0 when is close and 1 if is open )
+        /// </summary>
+        /// <returns></returns>
+        public static int GetStatusBox(AperturaCajaEntity oCaja)
+        {
+            int status = 0;
+            // string strmgs;
+
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                using (var cmd = new MySqlCommand("spGetStatusBox", con))
+                {
+                    con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@pcajero", oCaja.Cajero);
+                    cmd.Parameters.Add("@resp", MySqlDbType.Int32);
+                    cmd.Parameters["@resp"].Direction = ParameterDirection.Output;
+                    cmd.ExecuteNonQuery();
+
+                    status = (Int32) cmd.Parameters["@resp"].Value;
+                }
+            }
+            return status;
+        }
+
+
+        /// By: sammye70
+        /// created: 
+        /// Modificated by: sammye70
+        /// Modificated Date: 
+        /// <summary>
+        /// Save process Open Box until box status change to closed
         /// </summary>
         /// <param name="Ocaja"></param>
-        public static void CreateOpenBox(AperturaCajaEntity Ocaja)
+        public static void CreateOpenBox(AperturaCajaEntity oCaja)
         {
-
-            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
-                con.Open();
-                string query = @"INSERT INTO  open_box (cajero, monto, created)
-                                    VALUES(@cajero, @monto, @created)";
-                MySqlCommand cmd = new MySqlCommand(query, con);
+                using (var cmd = new MySqlCommand("spCreateOpenB", con))
+                {
+                    con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.AddWithValue("@cajero", 1);
-                cmd.Parameters.AddWithValue("@monto", Ocaja.Monto);
-                cmd.Parameters.AddWithValue("@created", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@pcajero", oCaja.Cajero);
+                    cmd.Parameters.AddWithValue("@pmonto", oCaja.Monto);
+                    cmd.Parameters.AddWithValue("@pstatus", oCaja.Status);
+                    cmd.Parameters.AddWithValue("@pcreated", DateTime.Now);
 
-                cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
 

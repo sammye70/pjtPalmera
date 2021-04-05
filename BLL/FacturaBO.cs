@@ -19,6 +19,10 @@ namespace pjPalmera.BLL
         /// </summary>
         public static string strMensajeBO; //
 
+        /// <summary>
+        ///  Type of invoice (cash = 1, credit = 2)
+        /// </summary>
+       public enum eType_invoices { cash = 1, credit = 2 }
 
         /// <summary>
         /// Amount Total All Invoices where Active and type iqual to cash
@@ -52,15 +56,21 @@ namespace pjPalmera.BLL
 
 
 
+        /*---------------------------------------------------------------------------------*
+         * Author: Samuel Estrella                                                         *
+         *                                                                                 *
+         *                                                                                 *
+         *                                                                                 *
+         * --------------------------------------------------------------------------------*/
         /// <summary>
-        /// Get type pay
+        /// Get Method type pay invoices (process sell or process of credit invoice pay)
         /// </summary>
         /// <returns></returns>
-        public static List<type_payEntity> GetType_Pays()
+        public static List<type_payEntity> GetMethod_Pays()
         {
             try
             {
-                return FacturasDAL.GetType_Pays();
+                return FacturasDAL.GetMethod_Pays();
             }
             catch (Exception ex)
             {
@@ -429,46 +439,96 @@ namespace pjPalmera.BLL
         }
 
 
-        //-----------------------------------------------Process Create New Invoices--------------------------------------
+        //-----------------------------------------------Process Create New Cash Invoices--------------------------------------
         // Created: 02/07/2020
         // Author: Samuel Estrella
         // Modificated date:
         // Modificated by:
-        //----------------------------------------------------------------------------------------------------------------
-
-
+        //---------------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// Process Insert Invoice Head and Detail (New)
+        /// Process Insert Cash Invoice Head and Detail (New)
         /// </summary>
         /// <param name="Venta"></param>
         public static void CreateInvoice(VentaEntity Venta)
         {
             try
             {
-                FacturasDAL.Create(Venta);
-                strMensajeBO = "";
+                 FacturasDAL.Create(Venta);
+                // strMensajeBO = "";
             }
             catch (Exception ex)
             {
-                strMensajeBO = ex.Message;
-                return;
+                MessageBox.Show("Error " + ex.ToString(), "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // return null;
+            }
+        }
+
+        //------------------------------------------ Until Here Process Create New Cash Invoices---------------------------------
+
+
+
+       /*-----------------------------------------------Process Create New Credit Invoices--------------------------------------
+        * Created: 03/01/2020
+        * Author: Samuel Estrella
+        * Modificated date: 03/01/2020
+        * Modificated by: Samuel Estrella
+        * ----------------------------------------------------------------------------------------------------------------------*/
+        /// <summary>
+        /// Process Insert Credit Invoice Head and Detail (New)
+        /// </summary>
+        /// <param name="Venta"></param>
+        public static void CreateCrInvoice(VentaCrEntity CrVenta)
+        {
+            try
+            {          
+                FacturasDAL.CreateInvCr(CrVenta);
+                // strMensajeBO = "";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // return null;
+            }
+        }
+
+        //------------------------------------------ Until Here Process Create New Credit Invoices---------------------------------
+
+
+
+        /*-----------------------------------------------Process Set invoice Method cash pay--------------------------------------
+         * Created: 07/01/2021
+         * Author: Samuel Estrella
+         * Modificated date: 03/01/2020
+         * Modificated by: Samuel Estrella
+         * ----------------------------------------------------------------------------------------------------------------------*/
+        /// <summary>
+        ///  Set invoice Method cash pay in current shopping (cash or credit card)
+        /// </summary>
+        /// <param name="invoiceCashPay"></param>
+        public static void SetInvoiceCashPay(VentaEntity invoiceCashPay) 
+        {
+            try
+            {
+                FacturasDAL.SetInvoiceCashPay(invoiceCashPay);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
 
-        //------------------------------------------ Until Here Process Create New Invoices---------------------------------
+        
 
 
 
-        /***********************************************************************************************************
+        /*----------------------------------------------------------------------------------------------------------
         // Name: Register Daily Transactions 
         // Created: 09/07/2020
         // Author: Samuel Estrella
         // Modificated date: 09/07/2020
         // Modificated by: Samuel Estrella
-        //*********************************************************************************************************/
-
-
+        //---------------------------------------------------------------------------------------------------------*/
         /// <summary>
         /// Create Daily Transactions Temporaly and Permanent
         /// </summary>
@@ -523,6 +583,37 @@ namespace pjPalmera.BLL
             }
         }
 
+
+        /*----------------------------------------------------------------------------------------------------------
+        // Name: Check if customer has line credit amount avalible for process sell 
+        // Created: 06/01/2021
+        // Author: Samuel Estrella
+        // Modificated date: 06/01/2021
+        // Modificated by: Samuel Estrella
+        //---------------------------------------------------------------------------------------------------------*/
+        /// <summary>
+        /// Check Customer Line Credit before processing sell
+        /// </summary>
+        /// <returns></returns>
+        public static bool CheckProcessCredit(VentaCrEntity crVenta)
+        {
+            bool ans = false;
+            var amountInvoice = crVenta.total; // Get invoice amount total 
+            var customerLine = ClientesDAL.GetbyId(crVenta.id_cliente); // Get customer informations
+
+            if (customerLine.Limite_credito > amountInvoice)
+            {
+                return ans = true;
+            }
+            else if (customerLine.Limite_credito <= amountInvoice)
+            {
+                strMensajeBO = "AVISO IMPORTANTE! \n El cliente no dispone de balance suficiente en su cuenta para efectuar esta compra a crédito. \n Cualquier asistencia contactar el Supervisor o Encargado de Turno.";
+                return ans = false;
+            }
+            return ans;
+        }
+
+        //--------------------------------------------- Until Check Process Credit ------------------------------------------ 
 
     }
 }

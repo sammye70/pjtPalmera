@@ -20,15 +20,20 @@ namespace pjPalmera.Entities
         //
         //***********************************************************************************************
 
+        // Fields and Properties
 
         /// <summary>
-        ///  Invoice Head Entity
+        ///  Invoice id Properties
         /// </summary>
-
-        //Fields and Properties
         public int id { get; set; }
+        /// <summary>
+        /// Invoice Customer FirstName and LastNames
+        /// </summary>
         public string clientes { get; set; }
-       // public string apellidos { get; set; }
+        // public string apellidos { get; set; }
+        /// <summary>
+        ///  Invoice Date
+        /// </summary>
         public DateTime fecha { get; set; }
         public string vendedor { get; set; }
         public int ncf { get; set; }
@@ -37,6 +42,9 @@ namespace pjPalmera.Entities
         public decimal total { get; set; }
         public decimal descuento { get; set; }
         public decimal subtotal { get; set; }
+        /// <summary>
+        ///  Invoice customer id
+        /// </summary>
         public int id_cliente { get; set; }
         public decimal total_itbis { get; set; }
         public decimal recibido { get; set; }
@@ -45,6 +53,7 @@ namespace pjPalmera.Entities
         public DateTime modificado { get; set;}
         public int id_vendedor { get; set; }
         public int method_pago { get; set; }
+        public string request_number { get; set; }
         private List<DetalleVentaEntity> item;
 
 
@@ -162,6 +171,18 @@ namespace pjPalmera.Entities
         /// <param name="subtotal"></param>
         /// <returns></returns>
         public decimal Pagar(decimal subtotal)
+        {
+            decimal pagar_c_descuento;
+            //t_pagar = itbis + subtotal; // --------> Remove itbis for this time
+            pagar_c_descuento = subtotal - Descuento(subtotal);
+            return pagar_c_descuento;
+        }
+
+        /// <summary>
+        ///  Total Amount not applied discount
+        /// </summary>
+        /// <returns></returns>
+        public decimal PagarSinDescuento(decimal subtotal)
         {
             decimal pagar_c_descuento;
             //t_pagar = itbis + subtotal; // --------> Remove itbis for this time

@@ -24,6 +24,8 @@ namespace pjPalmera.Entities
         private int dosmil;
         private DateTime fecha;
         private decimal monto;
+        private int type_op;
+        private int status;
 
 
         //Constructors
@@ -33,7 +35,7 @@ namespace pjPalmera.Entities
         }
 
         public AperturaCajaEntity(int id, int cajero, DateTime fecha, int uno, int cinco, int diez, int venticinco, int cincuenta, int cien, int doscientos, int quinientos, int mil, int dosmil,
-                                   decimal monto)
+                                   decimal monto, int type_op)
         {
             this.Id = id;
             this.Cajero = cajero;
@@ -49,100 +51,72 @@ namespace pjPalmera.Entities
             this.Mil = mil;
             this.Dosmil = dosmil;
             this.Monto = monto;
+            this.TypeOp = type_op;
         }
 
 
         //Properties
 
+        public int Status 
+        {
+            get { return status; }
+            set { status = value; }
+        }
+
+
+        public int TypeOp
+        {
+            get { return type_op; }
+            set { type_op = value; }
+        }
+        
         public int Id
         {
-            get
-            {
-                return id;
-            }
+            get { return id;}
 
-            set
-            {
-                id = value;
-            }
+            set { id = value; }
         }
 
         public int Cajero
         {
-            get
-            {
-                return cajero;
-            }
+            get { return cajero; }
 
-            set
-            {
-                cajero = value;
-            }
+            set { cajero = value; }
         }
 
         public DateTime Fecha
         {
-            get
-            {
-                return fecha;
-            }
+            get { return fecha; }
 
-            set
-            {
-                fecha = value;
-            }
+            set { fecha = value; }
         }
 
         public int Uno
         {
-            get
-            {
-                return uno;
-            }
+            get { return uno; }
 
-            set
-            {
-                uno = value;
-            }
+            set { uno = value; }
         }
 
         public int Cinco
         {
-            get
-            {
-                return cinco;
-            }
+            get { return cinco; }
 
-            set
-            {
-                cinco = value;
-            }
+            set { cinco = value; }
         }
 
         public int Diez
         {
-            get
-            {
-                return diez;
-            }
+            get { return diez; }
 
-            set
-            {
-                diez = value;
-            }
+            set { diez = value; }
         }
 
         public int Venticinco
         {
-            get
-            {
-                return venticinco;
-            }
+            get { return venticinco; }
 
-            set
-            {
-                venticinco = value;
-            }
+            set { venticinco = value; }
         }
 
         public int Cincuenta

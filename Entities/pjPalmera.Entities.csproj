@@ -45,9 +45,12 @@
     <Compile Include="CategoriaEntity.cs" />
     <Compile Include="CiudadEntity.cs" />
     <Compile Include="ClientesEntity.cs" />
+    <Compile Include="CreditAccountEntity.cs" />
     <Compile Include="CuentaEntity.cs" />
+    <Compile Include="DetalleVentaCrEntity.cs" />
     <Compile Include="DetalleVentaEntity.cs" />
     <Compile Include="InventarioEntity.cs" />
+    <Compile Include="InvoiceCashPayEntity.cs" />
     <Compile Include="OpServices.cs" />
     <Compile Include="PagosEntity.cs" />
     <Compile Include="PedidosEntity.cs" />
@@ -63,6 +66,7 @@
     <Compile Include="UsuariosEntity.cs" />
     <Compile Include="ProductosEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VentaCrEntity.cs" />
     <Compile Include="VentaEntity.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

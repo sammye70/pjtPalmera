@@ -63,6 +63,11 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.txtPermission = new System.Windows.Forms.TextBox();
+            this.txtUserFirstNameLast = new System.Windows.Forms.TextBox();
+            this.txtIdUser = new System.Windows.Forms.TextBox();
+            this.txtUserName = new System.Windows.Forms.TextBox();
+            this.txtType = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -114,8 +119,13 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtType);
+            this.groupBox2.Controls.Add(this.txtPermission);
+            this.groupBox2.Controls.Add(this.txtUserFirstNameLast);
             this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.txtIdUser);
             this.groupBox2.Controls.Add(this.txtBilletes2000);
+            this.groupBox2.Controls.Add(this.txtUserName);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.txtBilletes1000);
             this.groupBox2.Controls.Add(this.txtBilletes500);
@@ -401,6 +411,46 @@
             this.label14.TabIndex = 67;
             this.label14.Text = "Importante: Agregar 0 en los campos cuando no disponga de una moneda";
             // 
+            // txtPermission
+            // 
+            this.txtPermission.Location = new System.Drawing.Point(416, 96);
+            this.txtPermission.Name = "txtPermission";
+            this.txtPermission.Size = new System.Drawing.Size(42, 22);
+            this.txtPermission.TabIndex = 73;
+            this.txtPermission.Visible = false;
+            // 
+            // txtUserFirstNameLast
+            // 
+            this.txtUserFirstNameLast.Location = new System.Drawing.Point(365, 95);
+            this.txtUserFirstNameLast.Name = "txtUserFirstNameLast";
+            this.txtUserFirstNameLast.Size = new System.Drawing.Size(42, 22);
+            this.txtUserFirstNameLast.TabIndex = 72;
+            this.txtUserFirstNameLast.Visible = false;
+            // 
+            // txtIdUser
+            // 
+            this.txtIdUser.Location = new System.Drawing.Point(317, 95);
+            this.txtIdUser.Name = "txtIdUser";
+            this.txtIdUser.Size = new System.Drawing.Size(43, 22);
+            this.txtIdUser.TabIndex = 71;
+            this.txtIdUser.Visible = false;
+            // 
+            // txtUserName
+            // 
+            this.txtUserName.Location = new System.Drawing.Point(265, 95);
+            this.txtUserName.Name = "txtUserName";
+            this.txtUserName.Size = new System.Drawing.Size(44, 22);
+            this.txtUserName.TabIndex = 70;
+            this.txtUserName.Visible = false;
+            // 
+            // txtType
+            // 
+            this.txtType.Location = new System.Drawing.Point(464, 95);
+            this.txtType.Name = "txtType";
+            this.txtType.Size = new System.Drawing.Size(42, 22);
+            this.txtType.TabIndex = 74;
+            this.txtType.Visible = false;
+            // 
             // frmCierreCaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -436,37 +486,42 @@
 
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button btnCalcularMonto;
-        private System.Windows.Forms.Label lblEfectivoCaja;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox txtBilletes2000;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox txtBilletes1000;
-        private System.Windows.Forms.TextBox txtBilletes500;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox txtBilletes50;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtBilletes200;
-        private System.Windows.Forms.TextBox txtBilletes100;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox txtMonedas25;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtMonedas10;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtMonedas5;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtMonedas1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnClean;
         private System.Windows.Forms.Button btnProcesar;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label lblTotalVentas;
-        private System.Windows.Forms.Label lblFaltante;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ToolTip toolTip1;
+        public System.Windows.Forms.Label lblEfectivoCaja;
+        public System.Windows.Forms.TextBox txtBilletes2000;
+        public System.Windows.Forms.TextBox txtBilletes1000;
+        public System.Windows.Forms.TextBox txtBilletes500;
+        public System.Windows.Forms.TextBox txtBilletes50;
+        public System.Windows.Forms.TextBox txtBilletes200;
+        public System.Windows.Forms.TextBox txtBilletes100;
+        public System.Windows.Forms.TextBox txtMonedas25;
+        public System.Windows.Forms.TextBox txtMonedas10;
+        public System.Windows.Forms.TextBox txtMonedas5;
+        public System.Windows.Forms.TextBox txtMonedas1;
+        public System.Windows.Forms.Label lblTotalVentas;
+        public System.Windows.Forms.Label lblFaltante;
+        public System.Windows.Forms.TextBox txtPermission;
+        public System.Windows.Forms.TextBox txtUserFirstNameLast;
+        public System.Windows.Forms.TextBox txtIdUser;
+        public System.Windows.Forms.TextBox txtUserName;
+        public System.Windows.Forms.TextBox txtType;
     }
 }
