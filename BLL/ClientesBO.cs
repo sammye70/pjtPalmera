@@ -71,14 +71,14 @@ namespace pjPalmera.BLL
         }
 
         /// <summary>
-        /// Update costumer information
+        /// Update customer information        --------------------------------> this need to create any exceptions for throw error without app
         /// </summary>
-        /// <param name="costumer"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public static void Update (ClientesEntity costumer)
+        public static void Update(ClientesEntity customer)
         {
-            var id = costumer.Id;
-            var name = costumer.Nombre;
+            var id = customer.Id;
+            var name = customer.Nombre;
             //var MessengerDAL = "";
             try
             {
@@ -90,7 +90,7 @@ namespace pjPalmera.BLL
                 else if (id != 1)
                 {
                     strMensajeBO = "Se Editó Satisfactoriamente el Registro Indicado!!";
-                    ClientesDAL.Update(costumer);
+                    ClientesDAL.Update(customer);
                 }
             }
             catch (AggregateException ex)
@@ -113,8 +113,8 @@ namespace pjPalmera.BLL
                     strMensajeBO = "No es posible eliminar este Registro. Para cualquier asistencia contactar Soporte Técnico.";
                     return;
                 }
-                else if (id !=1)
-                {   
+                else if (id != 1)
+                {
                     ClientesDAL.Delete(id);
                     strMensajeBO = "Eliminó Satisfactoriamente el Registro Indicado!!";
                 }
@@ -137,8 +137,8 @@ namespace pjPalmera.BLL
             {
                 return ClientesDAL.All;
             }
-            catch(Exception ex)
-            { 
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return null;
             }
@@ -194,7 +194,7 @@ namespace pjPalmera.BLL
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return null;
             }
- 
+
         }
 
         /// <summary>
@@ -226,14 +226,14 @@ namespace pjPalmera.BLL
         }
 
         /// <summary>
-        /// Filter Costumer by cedula
+        /// Filter Customer by cedula
         /// </summary>
         /// <param name="cedula"></param>
         /// <returns></returns>
         public static List<ClientesEntity> GetbyCedula(string cedula)
         {
             try
-            { 
+            {
                 return ClientesDAL.GetbyCedula(cedula);
             }
             catch (Exception ex)
@@ -244,38 +244,57 @@ namespace pjPalmera.BLL
         }
 
         /// <summary>
-        /// Check if exits costumer cedula
+        /// Check if exits customer cedula
         /// </summary>
         /// <param name="cedula"></param>
         /// <returns></returns>
         public static bool ExitsCedula(string cedula)
         {
+
             try
             {
                 var messengerDAL = ClientesDAL.ExitsCedula(cedula);
 
-
                 if (messengerDAL == true)
                 {
-                   strMensajeBO = "Se encontro un Cliente asociado con este número de Cédula, En cualquier caso verficar e intentar nuevamente.";
                     return true;
+                    throw new AggregateException("Se encontro un registro asociado con este número de Cédula.");
+
+                    //strMensajeBO = ";
                 }
                 else if (messengerDAL == false)
                 {
-                    //strMensajeBO = "No esta registrada la Cédula indicada!";
                     return false;
+                    throw new ApplicationException("No se encuentra registrado asociado a este número Cédula indicada. \n En cualquier caso verficar e intentar nuevamente.");
+
+                    // strMensajeBO = ;
                 }
 
                 return messengerDAL;
+
             }
-            catch (Exception ex)
+
+            catch (AggregateException age)
             {
-                strMensajeBO = ex.Message;
+                strMensajeBO = age.Message;
+                return true;
+            }
+
+            catch (ApplicationException ape)
+            {
+                strMensajeBO = ape.Message;
                 return false;
             }
+
+            catch (Exception gex)
+            {
+                strMensajeBO = gex.Message;
+                return false;
+            }
+
         }
 
-        
+
         /// <summary>
         /// Filter Customer by Cedula 
         /// </summary>
@@ -295,7 +314,7 @@ namespace pjPalmera.BLL
 
 
         /// <summary>
-        /// Check if Exits Costumer Code
+        /// Check if Exits Customer Code
         /// </summary>
         /// <returns></returns>
         public static bool ExitsCode(string code)
@@ -304,7 +323,7 @@ namespace pjPalmera.BLL
 
             if (messengerDAL == true)
             {
-               strMensajeBO = "Se encontro el Código";
+                strMensajeBO = "Se encontro el Código";
                 return true;
             }
             else if (messengerDAL == false)
@@ -314,7 +333,10 @@ namespace pjPalmera.BLL
             }
 
             return messengerDAL;
+
+
         }
 
     }
+
 }

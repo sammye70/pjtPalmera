@@ -47,7 +47,7 @@ namespace pjPalmera.BLL
         /// <summary>
         /// Clean Open Box
         /// </summary>
-        public static void CleanOpenBox()
+        public static void CleanOpenBox() 
         {
             CierreCajaDAL.CleanOpenBox();
 

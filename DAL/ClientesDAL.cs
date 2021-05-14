@@ -97,7 +97,7 @@ namespace pjPalmera.DAL
 
 
         /// <summary>
-        /// Check if exits costumer cedula
+        /// Check if exits customer cedula
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -106,7 +106,7 @@ namespace pjPalmera.DAL
             var result = true;
             string strMsg;
 
-            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 using (var cmd = new MySqlCommand("spSearchExistCedula", con))
                 {
@@ -121,7 +121,7 @@ namespace pjPalmera.DAL
                     cmd.ExecuteNonQuery();
                     strMsg = (string) cmd.Parameters["@resp"].Value;
 
-                 // strMsg =Convert.ToString(cmd.ExecuteScalar());
+                    // strMsg =Convert.ToString(cmd.ExecuteScalar());
 
                     if (strMsg == "Existe")
                     {
@@ -167,7 +167,7 @@ namespace pjPalmera.DAL
 
 
         /// <summary>
-        /// Check if Exits Costumer Code
+        /// Check if Exist Customer Code
         /// </summary>
         /// <returns></returns>
         public static bool ExitsCode(string code)
@@ -175,21 +175,30 @@ namespace pjPalmera.DAL
             using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 var result = true;
-                var query = "SELECT * FROM Clientes WHERE id=@code";
+                string val;
+           //   var query = "SELECT * FROM Clientes WHERE id=@code";
 
                 con.Open();
-                
-                using (var cmd = new MySqlCommand(query, con))
+
+                using (var cmd = new MySqlCommand("spSearchExistCodCustomer", con))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
                     cmd.Parameters.AddWithValue("@code", code);
+                    cmd.Parameters["[@code"].Direction = ParameterDirection.Input;
 
-                    result = Convert.ToBoolean(cmd.ExecuteScalar());
+                    cmd.Parameters.Add("@resp", MySqlDbType.VarChar);
+                    cmd.Parameters["@resp"].Direction = ParameterDirection.Output;
 
-                    if (result == true)
+                    cmd.ExecuteNonQuery();
+
+                    val = (string)cmd.Parameters["@resp"].Value;
+
+                    if (val == "Existe")
                     {
                         return true;
                     }
-                    else if (result == false)
+                    else if (val == "No Existe")
                     {
                         return false;
                     }
@@ -201,7 +210,7 @@ namespace pjPalmera.DAL
    
 
         /// <summary>
-        ///Delete Client by Id
+        ///Delete Customer by Id
         /// </summary>
         /// <param name="id"></param>
         public static void Delete(long id)

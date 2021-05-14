@@ -6,13 +6,13 @@ using System.Windows.Forms;
 using pjPalmera.BLL;
 using pjPalmera.Entities;
 using System.Drawing;
-using System.Web.Services.Discovery;
 
 namespace pjPalmera.PL
 {
     public partial class frmRegClientes : Form
     {
         ClientesEntity clientes = new ClientesEntity();
+
         /// <summary>
         /// Customer's Consult
         /// </summary>
@@ -41,20 +41,36 @@ namespace pjPalmera.PL
             //validator controls
             try
             {
-                if (Validator() == true)
+                switch (Validator())
                 {
-                    NewCostumer();
+                    case true:
+                        NewCostumer();
+                        break;
+                    case false:
+                        throw new Exception("Proporcionar los campos indicados.");
+                }
+
+
+                /* if (Validator() == true)
+                {
+                    
                 }
                 else if(Validator() == false)
                 {
-                    MessageBox.Show("Proporcionar los campos indicados ", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
+                    
+                } */
 
             }
-            catch (Exception ex)
+            catch (FormatException ex)
             {
-                MessageBox.Show("Error:" + ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            catch (Exception ex) 
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             finally
             {
                 clientes = null;
@@ -87,6 +103,17 @@ namespace pjPalmera.PL
         {
             if (clientes == null)
             {
+               /* try
+                {
+                   
+                }
+
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del Sistema");
+                    throw new Exception(ClientesBO.strMensajeBO);  
+                } */
+
                 // var c = 1;
 
                 var clientes = new ClientesEntity();
@@ -107,50 +134,66 @@ namespace pjPalmera.PL
                 var SearchCedProcess = ClientesBO.ExitsCedula(valCriterio);
                 var messenge = new DialogResult();
 
-                if (SearchCedProcess == true)
+
+                switch(SearchCedProcess)
                 {
-                    messenge = MessageBox.Show(ClientesBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    if (messenge == DialogResult.OK)
-                    {
-                        this.mktCedula.Focus();
-                    }
-                }
-                else if (SearchCedProcess == false)
-                {
-                    var question = new DialogResult();
+                    case true:
 
-                    question = MessageBox.Show("Esta apunto de Crear un Nuevo Cliente, Seguro quiere continuar", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                    if (question == DialogResult.Yes)
-                    {
-                        ClientesBO.Save(clientes);
-                        var resProcess = ClientesBO.ResultRequest(valCriterio);
-
-                        if (resProcess == true)
+                        messenge = MessageBox.Show(ClientesBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (messenge == DialogResult.OK)
                         {
-                            MessageBox.Show(ClientesBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.mktCedula.Focus();
+                        }
+                        break;
+
+                    case false:
+
+                        var question = new DialogResult();
+
+                        question = MessageBox.Show("Esta apunto de Crear un Nuevo Cliente, Seguro quiere continuar", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (question == DialogResult.Yes)
+                        {
+                            ClientesBO.Save(clientes);
+                            var resProcess = ClientesBO.ResultRequest(valCriterio);
+
+                            if (resProcess == true)
+                            {
+                                MessageBox.Show(ClientesBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                CleanControls();
+                                this.errorProvider1.Clear();
+                                DesableControls();
+                                // this.btnCancelar.Enabled = true;
+                                this.btnNuevo.Focus();
+                            }
+                            else if (resProcess == false)
+                            {
+                                MessageBox.Show(ClientesBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                this.errorProvider1.Clear();
+                                this.mktCedula.Focus();
+                            }
+
+                        }
+                        else if (question == DialogResult.No)
+                        {
                             CleanControls();
                             this.errorProvider1.Clear();
                             DesableControls();
-                            // this.btnCancelar.Enabled = true;
                             this.btnNuevo.Focus();
                         }
-                        else if (resProcess == false)
-                        {
-                            MessageBox.Show(ClientesBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            this.errorProvider1.Clear();
-                            this.mktCedula.Focus();
-                        }
 
-                    }
-                    else if (question == DialogResult.No)
-                    {
-                        CleanControls();
-                        this.errorProvider1.Clear();
-                        DesableControls();
-                        this.btnNuevo.Focus();
-                    }
+                        break;
                 }
+
+                /*
+                if (SearchCedProcess == true)
+                {
+
+                }
+                else if (SearchCedProcess == false)
+                {
+                    
+                }*/
             }
         }
 
@@ -321,7 +364,7 @@ namespace pjPalmera.PL
             {
                 if (clientes != null)
                 {
-                    clientes.Id = Convert.ToInt64(this.txtIdClient.Text);
+                    clientes.Id = Int64.Parse(this.txtIdClient.Text);
                     clientes.Cedula = this.mktCedula.Text;
                     clientes.Nombre = this.txtNombre.Text;
                     clientes.Apellidos = this.txtApellidos.Text;
@@ -335,7 +378,7 @@ namespace pjPalmera.PL
 
                     conClientes.dgvClientConsultar.DataSource = null;
                     conClientes.dgvClientConsultar.DataSource = ClientesBO.GetAll();
-                    
+                                     
                 }
             }
             catch (Exception ex)
@@ -406,12 +449,16 @@ namespace pjPalmera.PL
             Pronvicia.ShowDialog(this);
         }
 
-
+        /// <summary>
+        /// Update Customer's Informations
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnUpdateClient_Click(object sender, EventArgs e)
         {
-            var number = this.mktCedula.Text;
+            var number = this.mktCedula.Text; //087-0021479-7
 
-            if (number.Length < 15)
+            if (number.Length < 13)
             {
                 MessageBox.Show("Indicar informacion Valida", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.mktCedula.Focus();
@@ -421,45 +468,57 @@ namespace pjPalmera.PL
                 bool error = false;
                 var message = ClientesBO.ExitsCedula(number);
 
-                if (message == false)
+
+                switch (message)
                 {
-                    var question = new DialogResult();
+                    case true:
+                        
+                        var question = new DialogResult();
 
-                    question = MessageBox.Show("Esta Apunto de Actualizar la Información del Cliente. Seguro desea Continuar?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        MessageBox.Show(ClientesBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    if (question == DialogResult.Yes)
-                    {
-                        try
+                        question = MessageBox.Show("Esta Apunto de Actualizar la Información del Cliente. Seguro desea Continuar?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+
+                        if (question == DialogResult.Yes)
                         {
-                            UpdateClient();
-                            MessageBox.Show("Las Informaciones fueron Actualizas Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.Close();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            error = true;
-                        }
-                        finally 
-                        {
-                            if (error == true)
+                            try
                             {
-                                MessageBox.Show("Verificar la informaciones indicadas", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                                this.mktCedula.Focus();
+                                UpdateClient();
+                                MessageBox.Show("Las Informaciones fueron Actualizas Satisfactoriamente!", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                this.Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                error = true;
+                            }
+                            finally
+                            {
+                                if (error == true)
+                                {
+                                    MessageBox.Show("Verificar la informaciones indicadas", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                    this.mktCedula.Focus();
+                                }
                             }
                         }
-                    }
-                    else if (question == DialogResult.No)
-                    {
-                        this.Close();
-                        return;
-                    }
+                        else if (question == DialogResult.No)
+                        {
+                            this.Close();
+                            return;
+                        }
+
+                        break;
+
+                    case false:
+
+                        MessageBox.Show(ClientesBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.CleanControls();
+                        this.mktCedula.Focus();
+
+                        break;
                 }
-                else if (message == true)
-                {
-                    MessageBox.Show(ClientesBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.mktCedula.Focus();
-                }
+
             }
 
             

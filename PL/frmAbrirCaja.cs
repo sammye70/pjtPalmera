@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using pjPalmera.Entities;
 using pjPalmera.BLL;
 using System.Drawing.Printing;
-using MySqlX.XDevAPI.Common;
 
 namespace pjPalmera.PL
 {

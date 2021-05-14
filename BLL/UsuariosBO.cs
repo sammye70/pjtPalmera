@@ -16,7 +16,7 @@ namespace pjPalmera.BLL
         /// </summary>
         public static string strMessegerBO;
 
-    
+            
         /// <summary>
         /// Create New Account User
         /// </summary>
@@ -63,6 +63,7 @@ namespace pjPalmera.BLL
         /// <returns></returns>
         public static bool Login_User(UsuariosEntity user)
         {
+
            var val = UsuariosDAL.Login_User(user);
 
             if (val == true)

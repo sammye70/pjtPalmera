@@ -264,7 +264,7 @@
             // btnUpdateClient
             // 
             this.btnUpdateClient.Image = global::PL.Properties.Resources.save;
-            this.btnUpdateClient.Location = new System.Drawing.Point(327, 385);
+            this.btnUpdateClient.Location = new System.Drawing.Point(326, 385);
             this.btnUpdateClient.Name = "btnUpdateClient";
             this.btnUpdateClient.Size = new System.Drawing.Size(75, 40);
             this.btnUpdateClient.TabIndex = 27;

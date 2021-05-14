@@ -123,14 +123,14 @@ namespace pjPalmera.PL
                         MessageBox.Show(UsuariosBO.strMessegerBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         this.txtUserName.Focus();
                         break;
-                        //  }
-                        //}
-                        //else if (strform == false)
-                        //{
-                        //    MessageBox.Show("Debe indicar un nombre de usuario o contraseña", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        //    this.txtUserName.Focus();
-                        //}
-                }
+            //        }
+            //}
+            //            else if (strform == false)
+            //{
+            //    MessageBox.Show("Debe indicar un nombre de usuario o contraseña", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    this.txtUserName.Focus()
+            //            }
+        }
             }
             catch (Exception ex)
             {

@@ -384,5 +384,10 @@ namespace pjPalmera.PL
             DetailControls();
         }
 
+        private void pbRegClient_Click(object sender, EventArgs e)
+        {
+            frmRegClientes RegClient = new frmRegClientes();
+            RegClient.Show(this);
+        }
     }
 }
