@@ -43,6 +43,7 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.lblCriterio = new System.Windows.Forms.Label();
             this.txtCriterioBusqueda = new System.Windows.Forms.TextBox();
+            this.txtIdUser = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientConsultar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -186,11 +187,20 @@
             this.txtCriterioBusqueda.TabIndex = 5;
             this.txtCriterioBusqueda.TextChanged += new System.EventHandler(this.txtCriterioBusqueda_TextChanged);
             // 
+            // txtIdUser
+            // 
+            this.txtIdUser.Location = new System.Drawing.Point(423, 384);
+            this.txtIdUser.Name = "txtIdUser";
+            this.txtIdUser.Size = new System.Drawing.Size(100, 20);
+            this.txtIdUser.TabIndex = 4;
+            this.txtIdUser.Visible = false;
+            // 
             // frmConsulClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1079, 495);
+            this.Controls.Add(this.txtIdUser);
             this.Controls.Add(this.dgvClientConsultar);
             this.Controls.Add(this.panel1);
             this.Name = "frmConsulClientes";
@@ -204,6 +214,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -214,7 +225,6 @@
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Label lblCriterio;
         private System.Windows.Forms.TextBox txtCriterioBusqueda;
-        private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rbCedula;
         private System.Windows.Forms.RadioButton rbApellidos;
@@ -222,5 +232,7 @@
         public System.Windows.Forms.Button btnRefresh;
         public System.Windows.Forms.Button btnEliminar;
         public System.Windows.Forms.DataGridView dgvClientConsultar;
+        public System.Windows.Forms.TextBox txtIdUser;
+        public System.Windows.Forms.Button btnEditar;
     }
 }

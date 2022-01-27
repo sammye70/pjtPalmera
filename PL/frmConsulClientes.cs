@@ -144,15 +144,19 @@ namespace pjPalmera.PL
         private void EditClient()
         {
             var ffClientes = new frmRegClientes();
-            bool error = false;
+            var user = new UsuariosEntity();
+           // bool error = false;
 
             try
             {
                 DataGridViewRow x = this.dgvClientConsultar.CurrentRow;
                 _numero = Convert.ToInt64(this.dgvClientConsultar.Rows[x.Index].Cells["id"].Value);
+                user.Id_user = int.Parse(this.txtIdUser.Text);
+                ffClientes.txtIdUser.Text = user.Id_user.ToString();
 
                 ffClientes.Show();
-                ffClientes.Text = "Actualizar Información del Cliente";
+                ffClientes.Text = "Actualizar Información";
+                ffClientes.lblTitle.Text = "Actualizar Información del Cliente";
                 ffClientes.EnabledControls();
                 ffClientes.InitialControlsUp();
                 ffClientes.InitialControls();
@@ -164,24 +168,20 @@ namespace pjPalmera.PL
                 ffClientes.txtNombre.Text = clientes.Nombre;
                 ffClientes.txtApellidos.Text = clientes.Apellidos;
                 ffClientes.txtDireccion.Text = clientes.Direccion;
-                ffClientes.cmbCiudad.Text = clientes.Ciudad;
-                ffClientes.cmbProvincia.Text = clientes.Provincia;
+               // ffClientes.cmbCiudad.Text = clientes.Ciudad;
+               // ffClientes.cmbProvincia.Text = clientes.Provincia;
                 ffClientes.mktLimteCredClient.Text = Convert.ToString(clientes.Limite_credito);
                 ffClientes.mktTelefono.Text = clientes.Telefono;
+                
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                error = true;
+               // error = true;
                 return;
             }
-            finally
-            {
-                if (error == true)
-                {
-                    MessageBox.Show("Verificar la información suministrada e intentar nuevamente.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
+      
 
         }
 
@@ -212,7 +212,7 @@ namespace pjPalmera.PL
             var question = new DialogResult();
             try
             {
-                question = MessageBox.Show("Esta a punto de Eliminar Permanatemente el Cliente seleccionado, Desea continuar?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                question = MessageBox.Show("Seguro que desea continuar?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (question == DialogResult.Yes)
                 {
@@ -220,6 +220,10 @@ namespace pjPalmera.PL
                     _numero = Convert.ToInt64(this.dgvClientConsultar.Rows[x.Index].Cells["id"].Value);
 
                     ClientesBO.Delete(this.Orden);
+
+                    MessageBox.Show(ClientesBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.dgvClientConsultar.DataSource = ClientesBO.GetAll();
+
                 }
                 else if (question == DialogResult.No)
                 {
@@ -273,8 +277,7 @@ namespace pjPalmera.PL
             if (Question == DialogResult.Yes)
             {
                 DeleteClient();
-                MessageBox.Show(ClientesBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.dgvClientConsultar.DataSource = ClientesBO.GetAll();
+                
                 CleanControls();
                 this.txtCriterioBusqueda.Focus();
             }
@@ -404,5 +407,6 @@ namespace pjPalmera.PL
             var criterio = this.txtCriterioBusqueda.Text;
             SearchCriterio(criterio);
         }
+
     }
 }

@@ -654,8 +654,11 @@ namespace pjPalmera.PL
         {
             try
             {
-                frmConsultarProductos consulProductos = new frmConsultarProductos();
-                consulProductos.IniControls();
+                var consulProductos = new frmConsultarProductos();
+                var user = new UsuariosEntity();
+                user.Id_user = int.Parse(this.txtUserId.Text);
+                consulProductos.txtIdUser.Text = user.Id_user.ToString();
+               // consulProductos.IniControls();
                 consulProductos.FilterProduct();
 
 
@@ -781,11 +784,11 @@ namespace pjPalmera.PL
             if (!ValidatorPost())
                return;
 
-            var type = Int32.Parse(this.txtTypeInvoice.Text);  // Get type invoice
+            var type = Int32.Parse(this.txtTypeInvoice.Text);  // Get type invoice (cash, credit)
 
             // Answer = MessageBox.Show("Imprimir Recibo", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if (resp == true)
+            if (resp == true) // Print Ticket
             {
                 // cobros.Hide();
                 // this.txtProductos.Focus();
@@ -799,7 +802,7 @@ namespace pjPalmera.PL
                 Limpiar();
                 this.txtProductos.Focus();
             }
-            else if (resp == false)
+            else if (resp == false) // Not Print Ticket
             {
                 // cobros.Close();
                 CreateInvoice(type);
@@ -958,11 +961,11 @@ namespace pjPalmera.PL
             else if (tp == "2")
             {
                 // summary credit account
-                g.DrawString("Monto cargado:", fpTitle, sb, 78, 330 + AutoScrollOffset); //
+                g.DrawString("Monto Venta:", fpTitle, sb, 78, 330 + AutoScrollOffset); //
                 g.DrawString(this.lblTotalPagar.Text, fpBody, sb, 202, 330 + AutoScrollOffset);  //
                 g.DrawString("Balance Anterior:", fdpTitle, sb, 78, 350 + AutoScrollOffset); //
                 g.DrawString(this.txtAmountPast.Text, fBody, sb, 202, 350 + AutoScrollOffset); //
-                g.DrawString("Balance Actual:", fpTitle, sb, 78, 368 + AutoScrollOffset); //
+                g.DrawString("Nuevo Balance:", fpTitle, sb, 78, 368 + AutoScrollOffset); //
                 g.DrawString(this.txtCurrentAmount.Text, fpBody, sb, 202, 368 + AutoScrollOffset);  //
             }
 
@@ -1246,9 +1249,9 @@ namespace pjPalmera.PL
 
                 int status = 1;
 
-                var ventas = new VentaEntity(); //
-                var ventascr = new VentaCrEntity(); //
-                var craccount = new CreditAccountEntity(); //
+                var ventas = new VentaEntity(); // This is a Base invoice Sell Entity 
+                var ventascr = new VentaCrEntity(); // This is a invoice Entity but credit
+                var craccount = new CreditAccountEntity(); // This is a credit account entity when some customer to shop, but if he/she has lines credit or not.
 
                 switch (t_invoice)
                 {
@@ -1256,7 +1259,7 @@ namespace pjPalmera.PL
                     case 1:
                         // Header
                         ventas.id_caja = 1;
-                        ventas.id_vendedor = Int32.Parse(this.txtUserId.Text);
+                        ventas.id_user = Int32.Parse(this.txtUserId.Text);
                         ventas.tipo = this.txtTypeInvoice.Text;
                         ventas.id_cliente = Int32.Parse(this.txtIdCliente.Text);
                         ventas.clientes = this.txtClientes.Text; //
@@ -1288,7 +1291,7 @@ namespace pjPalmera.PL
                             ventas.addProduct(Detail);
                         }
 
-                        FacturaBO.CreateInvoice(ventas);  // Cash Invoices (Save history all invoices)            -
+                        FacturaBO.CreateInvoice(ventas);  // Cash Invoices (Save history all invoices)
                         ProductosBO.Decrease_Stock(ventas); // Decrease Stock 
                         FacturaBO.CreateTranst(ventas);
                         FacturaBO.SetInvoiceCashPay(ventas);
@@ -1296,20 +1299,20 @@ namespace pjPalmera.PL
 
                         break;
 
-                    // Generate Credit invoice if customer has line credit
+                    // Generate invoice if customer has line credit
                     case 2:
                         // Header
-                        ventascr.id_caja = 1;
-                        ventascr.id_vendedor = Int32.Parse(this.txtUserId.Text);
+                        ventascr.id_caja = 1;  //-----------------------------------> it's need to get from casher setting
+                        ventascr.id_user = Int32.Parse(this.txtUserId.Text);
                         ventascr.tipo = this.txtTypeInvoice.Text;
                         ventascr.id_cliente = Convert.ToInt32(this.txtIdCliente.Text);
                         ventascr.clientes = this.txtClientes.Text; //
                         // ventas.apellidos = this.txtApClientes.Text; //
-                        ventascr.total = decimal.Parse(this.lblTotalPagar.Text); //
+                        ventascr.total = decimal.Parse(this.lblTotalPagar.Text); // after applied all taxes
                         ventascr.status = status; //
-                        ventascr.subtotal = decimal.Parse(this.lblSubtotal.Text); //
+                        ventascr.subtotal = decimal.Parse(this.lblSubtotal.Text); // before to apply all taxes
 
-                        // Detail
+                        // Invoice's Detail
                         for (int i = 0; i < x; i++)
                         {
                             var Detailcr = new DetalleVentaCrEntity();
@@ -1317,36 +1320,37 @@ namespace pjPalmera.PL
                             Detailcr.CODIGO = Convert.ToInt64(this.dgvDetalle.Rows[i].Cells[0].Value); // Id
                             Detailcr.DESCRIPCION = Convert.ToString(this.dgvDetalle.Rows[i].Cells[1].Value); // Description
                             Detailcr.CANTIDAD = Convert.ToInt32(this.dgvDetalle.Rows[i].Cells[2].Value); // Quantity
-                            Detailcr.PRECIO = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[3].Value); // Price
+                            Detailcr.PRECIO = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[3].Value); // Price per Unit
                             // Detail.ITBIS = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells["ITBIS"].Value); // Itbis
-                            Detailcr.IMPORTE = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[4].Value); // amount 
+                            Detailcr.IMPORTE = Convert.ToDecimal(this.dgvDetalle.Rows[i].Cells[4].Value); // amount for current line
 
                             ventascr.addProduct(Detailcr);
                         }
 
-                        var chklineCredit = FacturaBO.CheckProcessCredit(ventascr);   // Check if customer has line credit
+                        // var chklineCredit = FacturaBO.CheckProcessCredit(ventascr);  // Old Business Object, but has of some funtionalite that BO bellow
+                        var chklineCredit = ClientesBO.VeficafyCreditAmount(ventascr.id_cliente); // Check if customer has line credit
 
                         if (chklineCredit == true)
                         {
-                            FacturaBO.CreateCrInvoice(ventascr);  // Credit Invoices (Save in repository for all invoices)            -----------> Here Continue to Work
-                            ProductosBO.Decrease_Stock(ventascr); // Decrease Stock 
-                            FacturaBO.CreateTranst(ventascr);
+                            FacturaBO.CreateCrInvoice(ventascr);  // Credit Invoices (Save in repository for all invoices)  ----> Here Continue to Work (OK)
+                            ProductosBO.Decrease_Stock(ventascr); // Decrease Stock (OK)
+                            FacturaBO.CreateTranst(ventascr);   //----------------------------- Here to continue working (OK)
 
-                            // Function to create credit account for customer
-                            craccount.id_cliente = ventascr.id_cliente;
+                            // Function to create credit account in general invoices for customer
+                            craccount.id_cliente = ventascr.id_cliente;   ///------------> Here Pedding Work
                             craccount.id = ventascr.id;
                             craccount.InvoiceAmount = ventascr.total;
-                            craccount.id_vendedor = ventascr.id_vendedor;
-                            craccount.CurrentAmount = ventascr.total;
-                            craccount.PastAmount = Decimal.Parse((CreditAccountBO.GetAmount(int.Parse(this.txtIdCliente.Text))).ToString());
+                            craccount.id_user = ventascr.id_user;
+                          // craccount.CurrentAmount = ventascr.total;
+                          // craccount.PastAmountcr = Decimal.Parse((CreditAccountBO.GetAmount(int.Parse(this.txtIdCliente.Text))).ToString()); //-->
 
                             CreditAccountBO.CreateCrAccount(craccount);
                             // FacturaBO.SetInvoiceCashPay(ventascr);
                             id_venta = ventascr.id;
                             
-                            craccount.CurrentAmount = Decimal.Parse((CreditAccountBO.GetAmount(int.Parse(this.txtIdCliente.Text))).ToString());
-                            this.txtCurrentAmount.Text = craccount.CurrentAmount.ToString();
-                            this.txtAmountPast.Text = craccount.PastAmount.ToString();
+                           // craccount.CurrentAmount = Decimal.Parse((CreditAccountBO.GetAmount(int.Parse(this.txtIdCliente.Text))).ToString());
+                            this.txtCurrentAmount.Text = craccount.NewAmountcr.ToString();
+                            this.txtAmountPast.Text = craccount.PastAmountcr.ToString();
 
 
                             //steps after process credit sell
@@ -1363,7 +1367,7 @@ namespace pjPalmera.PL
                         }
                         else if(chklineCredit == false)
                         {
-                            MessageBox.Show(FacturaBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            MessageBox.Show(ClientesBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                             this.btnNewInvoiceCr.Focus();
                         }
 

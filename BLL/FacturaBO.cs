@@ -539,6 +539,7 @@ namespace pjPalmera.BLL
             {
                 FacturasDAL.CreateTranstPermant(invoice);
             }
+
             catch (InvalidOperationException ex)
             {
                 ex.GetType();
@@ -585,14 +586,14 @@ namespace pjPalmera.BLL
 
 
         /*----------------------------------------------------------------------------------------------------------
-        // Name: Check if customer has line credit amount avalible for process sell 
+        // Name: Check if customer has line credit amount avalible for process sell (Remplacement for other method)
         // Created: 06/01/2021
         // Author: Samuel Estrella
         // Modificated date: 06/01/2021
         // Modificated by: Samuel Estrella
         //---------------------------------------------------------------------------------------------------------*/
         /// <summary>
-        /// Check Customer Line Credit before processing sell
+        /// Check Customer Line Credit before processing sell (OLd Method were remplement for other)
         /// </summary>
         /// <returns></returns>
         public static bool CheckProcessCredit(VentaCrEntity crVenta)

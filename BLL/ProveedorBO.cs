@@ -14,25 +14,46 @@ namespace pjPalmera.BLL
 
 
         /// <summary>
-        /// Messeger to Result from ProvinciaBO
+        /// Messeger to Result from ProviderBO
         /// </summary>
         public static string strMessage;
 
         /// <summary>
-        /// Save Proveedor
+        /// Create new  Proveedor
         /// </summary>
         /// <param name="Proveedor"></param>
         /// <returns></returns>
-        public static ProveedorEntity Save(ProveedorEntity Proveedor)
-        {
+        public static void Create(ProveedorEntity Proveedor)
+        {            
             try
             {
-                return ProveedorDAL.Create(Proveedor);
+                if((Proveedor == null) || (Proveedor.Idproveedor == 0))
+                {
+                    throw new ArgumentNullException("No hay datos que salvar.");
+                }
+                else
+                {
+                    var result = ProveedorDAL.Create(Proveedor);
+
+                    if(result == 1)
+                    {
+                        throw new Exception("Registro Guardado Satisfactoriamente!");
+                    }
+                    else
+                    {
+                        throw new Exception("Uff, algo salio mal!!!!!!");
+                    }
+                }
+            }
+            catch (ArgumentNullException ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
         }
 
@@ -44,7 +65,17 @@ namespace pjPalmera.BLL
         {
             try
             {
-                return ProveedorDAL.GetAll();
+                var ls = ProveedorDAL.GetAll();
+
+                if(ls == null)
+                {
+                    return null;
+                    throw new Exception("Uff, algo salio mal!!!!!!");
+                }
+                else 
+                {
+                    return ls;
+                }
             }
             catch (Exception ex)
             {
@@ -92,11 +123,11 @@ namespace pjPalmera.BLL
         /// Search Proveedor by Name
         /// </summary>
         /// <returns></returns>
-        public static List<ProveedorEntity> SearchByName(string name)
+        public static List<ProveedorEntity> SearchByName(ProveedorEntity provider)
         {
             try
             {
-                return ProveedorDAL.SearchByName(name);
+                return ProveedorDAL.SearchByName(provider);
             }
             catch (Exception ex)
             {
@@ -113,11 +144,22 @@ namespace pjPalmera.BLL
         {
             try
             {
-                ProveedorDAL.RemoveProveedor(code);
+                var result = ProveedorDAL.RemoveProveedor(code);
+
+                if(result == 1)
+                {
+                    throw new ApplicationException("El Suplidor fue Eliminado");
+                }
+                else
+                {
+                    throw new Exception("Uff algo salio mal Suplidor no eliminado");
+                }
+
+               // ProveedorDAL.RemoveProveedor(code);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
         }
@@ -127,30 +169,56 @@ namespace pjPalmera.BLL
         /// </summary>
         /// <param name="proveedor"></param>
         /// <returns></returns>
-        public static ProveedorEntity Update(ProveedorEntity proveedor)
+        public static void Update(ProveedorEntity proveedor)
         {
             try
+            { 
+                if((proveedor == null) || (proveedor.Idproveedor == 0))
+                {
+                    throw new ArgumentNullException("No hay datos que salvar");
+                }
+                else
+                {
+                    var result = ProveedorDAL.Update(proveedor);
+
+                    if (result == 1)
+                    {
+                        throw new AggregateException("Cambios Realizados Satisfactoriamente!");
+                    }
+                    else 
+                    {
+                        throw new ArgumentNullException("Uff, algo salido mal!!");
+                    }
+                }
+            }
+            catch (ArgumentNullException ex)
             {
-                return ProveedorDAL.Update(proveedor);
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+            catch (AggregateException ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
             }
             catch (Exception ex)
             { 
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
+                return;
             }
         }
 
         /// <summary>
-        /// Search by Code to Update Proveedor
+        /// Search Proveedor by Code 
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        public static ProveedorEntity SearchByCodeUpdate(Int64 code)
+        public static ProveedorEntity SrProviderCode(Int64 code)
         {
 
             try
             {
-                return ProveedorDAL.SearchByCodeUpdate(code);
+                return ProveedorDAL.ProviderByCode(code);
             }
             catch (Exception ex)
             {

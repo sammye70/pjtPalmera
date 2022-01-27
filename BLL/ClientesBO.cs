@@ -13,12 +13,12 @@ namespace pjPalmera.BLL
     public class ClientesBO
     {
         /// <summary>
-        /// Messeger to Result from CostumerBO
+        /// Messeger to Result from CustomerBO
         /// </summary>
         public static string strMensajeBO;
 
         /// <summary>
-        /// Save costumer
+        /// Save customer's informations
         /// </summary>
         /// <param name="costumer"></param>
         /// <returns></returns>
@@ -26,47 +26,89 @@ namespace pjPalmera.BLL
         {
             try
             {
-                ClientesDAL.Create(costumer);
-                strMensajeBO = "Actualizado Satisfactoriamente.!!";
+                if (costumer == null)
+                {
+                    return;
+                    throw new AggregateException("Verificar la información suministrada e intentar nuevamente.");
+                }
+                else
+                {
+                    var result = ClientesDAL.Create(costumer);
+
+                    if (result == 1)
+                    {
+                        throw new ApplicationException("Salvado Satisfactoriamente.!!");
+                        // strMensajeBO = "Actualizado Satisfactoriamente.!!";
+                    }
+                    else 
+                    {
+                        return;
+                        throw new AggregateException("Uff, algo salio ocurrio y no se salvo.!!");
+                    }
+                }
             }
+
+             catch (AggregateException aex)
+            {
+                MessageBox.Show("Mensaje del Sistema", aex.Message, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            catch (ApplicationException ae)
+            {
+                // strMensajeBO = ae.Message;
+                MessageBox.Show("Mensaje del Sistema", ae.Message, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
             catch (Exception ex)
             {
-                strMensajeBO = ex.Message;
-                return;
+                MessageBox.Show("Mensaje del Sistema", ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            finally
-            {
-                strMensajeBO = "Verificar la información suministrada e intentar nuevamente.";
-            }
+
         }
 
         /// <summary>
         ///  Message about request create customer state
         /// </summary>
-        /// <param name="costumer"></param>
+        /// <param name="cedula"></param>
         /// <returns>1 if</returns>
         public static bool ResultRequest(string cedula)
         {
+
             try
             {
                 var status_request = ClientesDAL.ExitsCedula(cedula);
 
-                if (status_request == true)
+                if (status_request == false)
                 {
-                    strMensajeBO = "Cliente Registrado Satisfactoriamente!";
-                    return true;
-                }
-                else if (status_request == false)
-                {
-                    strMensajeBO = "No se puedo procesar el Registro del Nuevo Cliente";
                     return false;
+                    throw new AggregateException("Cliente Registrado Satisfactoriamente!");
+                    //strMensajeBO = "Cliente Registrado Satisfactoriamente!";
+                }
+                else if (status_request == true)
+                {
+                    return true;
+                    throw new ApplicationException("Uppp Algo salio mal no se pudo realizar la operacion solicitada." + "\n Posiblemente se registro anteriormente un registro con las mismas informaciones indicadas. ");
+                    // strMensajeBO = "No se puedo procesar el Registro del Nuevo Cliente";
                 }
                 return status_request;
+            }
+
+            catch (AggregateException ae)
+            {
+                strMensajeBO = ae.Message;
+                return false;
+            }
+
+            catch (ApplicationException ae)
+            {
+                strMensajeBO = ae.Message;
+                return true;
+
             }
             catch (Exception ex)
             {
                 strMensajeBO = ex.Message;
-                return false;
+                return true;
             }
         }
 
@@ -84,18 +126,49 @@ namespace pjPalmera.BLL
             {
                 if ((id == 1) || (name == "contado") || (name == "CONTADO") || (name == "Contado"))
                 {
-                    strMensajeBO = "No es Posible Editar este Registro. Para cualquier asistencia contactar Soporte Técnico.";
+                    throw new ArgumentException("No es Posible Editar este Registro. Para cualquier asistencia contactar Soporte Técnico.");
+                    // strMensajeBO = "No es Posible Editar este Registro. Para cualquier asistencia contactar Soporte Técnico.";
                     //return null
                 }
                 else if (id != 1)
                 {
-                    strMensajeBO = "Se Editó Satisfactoriamente el Registro Indicado!!";
-                    ClientesDAL.Update(customer);
+                    var val = ClientesDAL.Update(customer);
+
+                    if (val == 1)
+                    {
+                        throw new ApplicationException("Se Editó Satisfactoriamente el Registro Indicado!!");
+                        //strMensajeBO = "Se Editó Satisfactoriamente el Registro Indicado!!";
+                    }
+                    else 
+                    {
+                        throw new AggregateException("Uff Algo Salio mal..!!");
+                        //strMensajeBO = "Se Editó Satisfactoriamente el Registro Indicado!!";
+                    }
                 }
             }
-            catch (AggregateException ex)
+
+            catch (ArgumentException ape)
             {
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                // strMensajeBO = ape.Message;
+                MessageBox.Show(ape.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            catch (ApplicationException ae)
+            {
+                MessageBox.Show(ae.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            catch (AggregateException ae1)
+            {
+                MessageBox.Show(ae1.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }
@@ -110,19 +183,33 @@ namespace pjPalmera.BLL
             {
                 if (id == 1)
                 {
-                    strMensajeBO = "No es posible eliminar este Registro. Para cualquier asistencia contactar Soporte Técnico.";
-                    return;
+                    // strMensajeBO = "No es posible eliminar este Registro. Para cualquier asistencia contactar Soporte Técnico.";
+                    //return;
+                    throw new ApplicationException("No es posible eliminar este Registro. Para cualquier asistencia contactar Soporte Técnico.");
                 }
                 else if (id != 1)
                 {
+
                     ClientesDAL.Delete(id);
-                    strMensajeBO = "Eliminó Satisfactoriamente el Registro Indicado!!";
+                    throw new AggregateException("Eliminó Satisfactoriamente el Registro Indicado!!");
+                    // strMensajeBO = "Eliminó Satisfactoriamente el Registro Indicado!!";
                 }
             }
+
+            catch (AggregateException ex)
+            {
+                strMensajeBO = ex.Message;
+            }
+
+            catch (ApplicationException ex)
+            {
+                strMensajeBO = ex.Message;
+            }
+
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
+                strMensajeBO = "Ocurrio un error " + ex + " no se elimino el cliente.";
+                //return;
 
             }
         }
@@ -145,7 +232,7 @@ namespace pjPalmera.BLL
         }
 
         /// <summary>
-        /// Get Users by Id
+        /// Get Users by Id from Customers
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -153,11 +240,27 @@ namespace pjPalmera.BLL
         {
             try
             {
-                return ClientesDAL.GetbyId(Id);
+              var customer =  ClientesDAL.GetbyId(Id);
+
+                if(customer == null)
+                {
+                    throw new ApplicationException("La informaciones solicitadas fueron encontradas satisfactoriamente!!!");
+                }
+                else
+                {
+                    return customer;
+                    throw new Exception("Algo salio mal o no existen informaciones asociadas con el id" + " " + customer.Id + " " + "que fue indicado.");
+                }
+            }
+
+            catch (ApplicationException ax)
+            {
+                MessageBox.Show(ax.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return null;
             }
         }
@@ -296,6 +399,48 @@ namespace pjPalmera.BLL
 
 
         /// <summary>
+        /// Verify Current  Customer Amount in the checkout if it is posible
+        /// </summary>
+        /// <returns></returns>
+        public static bool VeficafyCreditAmount(long idcustomer)
+        {
+            try
+            {
+                var getLineCreditAmountCustomer = ClientesDAL.Get_setCustomerAmount(idcustomer); // Get amount that set first time when registed  the Customer
+                var getCurrentAmountCredit = ClientesDAL.Get_CrAmountCustomer(idcustomer);    //  Get total current from credit account manager
+
+                if (getCurrentAmountCredit <= getLineCreditAmountCustomer)
+                {
+                   // return true;
+                    throw new ApplicationException ("Disponible para comprar");
+                    
+                }
+                else
+                {
+                   // return false;
+                    throw new AggregateException ("No dispone de balance suficiente en su linea de crédito. Si requiere Solicitar un Supervisor.");
+                }
+            }
+            catch(ApplicationException ae)
+            {
+                strMensajeBO = ae.Message;
+               return true;
+            }
+
+            catch(AggregateException ae1)
+            {
+                strMensajeBO = ae1.Message;
+                return false;
+            }
+
+            catch (Exception ex)
+            {
+                strMensajeBO = ex.Message;
+                return true;
+            }
+        }
+
+        /// <summary>
         /// Filter Customer by Cedula 
         /// </summary>
         /// <returns></returns>
@@ -317,23 +462,46 @@ namespace pjPalmera.BLL
         /// Check if Exits Customer Code
         /// </summary>
         /// <returns></returns>
-        public static bool ExitsCode(string code)
+        public static bool ExitsCode(int code)
         {
-            var messengerDAL = ClientesDAL.ExitsCode(code);
+            try 
+            { 
+                var messengerDAL = ClientesDAL.ExitsCode(code);
 
-            if (messengerDAL == true)
+                if (messengerDAL == true)
+                {
+                    return true;
+                    throw new ApplicationException("Se encontro el Código.");
+                    // strMensajeBO = "Se encontro el Código";
+                    
+                }
+                else if (messengerDAL == false)
+                {
+                    return false;
+                    throw new AggregateException("No se encontro el Código indicado, verificar e intentar nuevamente.");
+                  //  strMensajeBO = "No se encontro el Código indicado, verificar e intentar nuevamente";
+                }
+
+                return messengerDAL;
+            }
+
+            catch(ApplicationException ape)
             {
-                strMensajeBO = "Se encontro el Código";
+                strMensajeBO = ape.Message;
                 return true;
             }
-            else if (messengerDAL == false)
+
+            catch(AggregateException age)
             {
-                strMensajeBO = "No se encontro el Código indicado, verificar e intentar nuevamente";
+                strMensajeBO = age.Message;
                 return false;
             }
 
-            return messengerDAL;
-
+            catch(Exception ex)
+            {
+                strMensajeBO = ex.Message;
+                return false;
+            }
 
         }
 

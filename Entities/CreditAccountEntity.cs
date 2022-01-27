@@ -8,14 +8,17 @@ using System.Threading.Tasks;
 
 namespace pjPalmera.Entities
 {
-    public class CreditAccountEntity : VentaEntity
+  
+    public class CreditAccountEntity : VentaEntity //, iCreditAccount
     {
         // Fields
         private long idaccount;
         private decimal pay;
         private decimal currentamount;
         private decimal invoice_amount;
-        private decimal pastamount;
+        private decimal pastamountcr;
+        private DateTime modificate_date;
+        private int result;
 
         // Constructor
         public CreditAccountEntity()
@@ -45,7 +48,7 @@ namespace pjPalmera.Entities
         /// <summary>
         ///  Credit Account Current Amount Pendding before  pay value at present
         /// </summary>
-        public decimal CurrentAmount
+        public decimal NewAmountcr
         {
             get { return currentamount; }
             set { currentamount = value; }
@@ -54,10 +57,10 @@ namespace pjPalmera.Entities
         /// <summary>
         ///  Credit Account Past Amount after last paid value
         /// </summary>
-        public decimal PastAmount
+        public decimal PastAmountcr
         {
-            get { return pastamount; }
-            set { pastamount = value; }
+            get { return pastamountcr; }
+            set { pastamountcr = value; }
         }
 
         /// <summary>
@@ -67,6 +70,25 @@ namespace pjPalmera.Entities
         {
             get { return invoice_amount; }
             set { invoice_amount = value; }
+        }
+
+
+        /// <summary>
+        /// Set Date when a customer submit some pay in credit account
+        /// </summary>
+        public DateTime Modificate_date
+        {
+            get { return modificate_date; }
+            set { modificate_date = value; }
+        }
+    
+        /// <summary>
+        /// Set and Get Result of operation
+        /// </summary>
+        public int Result
+        {
+            get { return result; }
+            set { result = value; }
         }
     }
 }

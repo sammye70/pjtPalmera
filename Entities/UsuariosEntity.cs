@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace pjPalmera.Entities
 {
     /// <summary>
-    /// Entity User by Class
+    /// Entity User by Class for login
     /// </summary>
     public class UsuariosEntity
     {
@@ -25,13 +25,14 @@ namespace pjPalmera.Entities
         private string secret_answer1;
         private int createby;
         private DateTime created;
+     // private UserTypeEntity GetUserType;
 
         //Constructor
         public  UsuariosEntity()
         {
         }
 
-        public UsuariosEntity(int id_user, string user_name, string password, string status, int privileges, int createby, DateTime created, string email)
+        public UsuariosEntity(int id_user, string user_name, string password, string status, int privileges, int createby, DateTime created, string email/*, UserTypeEntity getusertype*/)
         {
             this.Id_user = id_user;
             this.User_name = user_name;
@@ -41,6 +42,7 @@ namespace pjPalmera.Entities
             this.Createby = createby;
             this.Created = created;
             this.Email = email;
+          //  this.GetUserType.Id = getusertype.Id;
         }
 
         //Properties
@@ -155,6 +157,7 @@ namespace pjPalmera.Entities
             set { this.secret_answer1 = value; }
         }
 
+
         /// <summary>
         ///  Concatenation string
         /// </summary>
@@ -172,7 +175,7 @@ namespace pjPalmera.Entities
         /// Generate Encrypt for String
         /// </summary>
         /// <param name="str"></param>
-        /// <returns>hast</returns>
+        /// <returns>hash</returns>
         public  string setHash(string str)
         {
             byte[] data = Encoding.ASCII.GetBytes(str);

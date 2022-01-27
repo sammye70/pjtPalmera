@@ -24,6 +24,7 @@ namespace pjPalmera.Entities
         private string status;
         private int createby;
         private DateTime created;
+       /// private DateTime modificated;
 
 
         //Constructor
@@ -207,6 +208,13 @@ namespace pjPalmera.Entities
             get { return status; }
             set { status = value; }
         }
+
+        //public DateTime Modificated 
+        //{
+        //    get { return modificated; }
+        //    set { modificated = value; }
+        //}
+       
 
         /// <summary>
         /// Calculo Precio Venta

@@ -55,6 +55,7 @@
             this.btnNuevo = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.txtIdUser = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -270,9 +271,9 @@
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.Location = new System.Drawing.Point(127, 57);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(231, 24);
+            this.lblTitle.Size = new System.Drawing.Size(285, 24);
             this.lblTitle.TabIndex = 23;
-            this.lblTitle.Text = "Crear Nuevo Proveedor";
+            this.lblTitle.Text = "Informaciones del  Proveedor";
             // 
             // statusStrip1
             // 
@@ -282,11 +283,20 @@
             this.statusStrip1.TabIndex = 24;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // txtIdUser
+            // 
+            this.txtIdUser.Location = new System.Drawing.Point(382, 441);
+            this.txtIdUser.Name = "txtIdUser";
+            this.txtIdUser.Size = new System.Drawing.Size(100, 20);
+            this.txtIdUser.TabIndex = 25;
+            this.txtIdUser.Visible = false;
+            // 
             // frmRegProveedor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(499, 507);
+            this.Controls.Add(this.txtIdUser);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.lblTitle);
@@ -351,5 +361,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.StatusStrip statusStrip1;
+        public System.Windows.Forms.TextBox txtIdUser;
     }
 }

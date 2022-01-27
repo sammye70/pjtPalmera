@@ -16,7 +16,6 @@ namespace pjPalmera.PL
     public partial class frmEfectPagosFactCred : Form
     {
         PagosEntity Pagos = new PagosEntity();
-        ClientesEntity clientes = new ClientesEntity();
         VentaEntity venta = new VentaEntity();
 
         public frmEfectPagosFactCred()
@@ -33,8 +32,8 @@ namespace pjPalmera.PL
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.txtIdClient.ReadOnly = true;
-            this.txtNombre.ReadOnly = true;
-            this.txtApellidos.ReadOnly = true;
+            this.txtCliente.ReadOnly = true;
+           // this.txtApellidos.ReadOnly = true;
         }
 
 
@@ -44,8 +43,8 @@ namespace pjPalmera.PL
         private void Limpiar()
         {
             this.txtIdClient.Text = "";
-            this.txtNombre.Text = "";
-            this.txtApellidos.Text = "";
+            this.txtCliente.Text = "";
+           // this.txtApellidos.Text = "";
             this.txtRecibidoEfectivo.Text = "";
             this.txtValorPago.Text = "";
             this.txtIdRecibo.Text = "";
@@ -61,25 +60,54 @@ namespace pjPalmera.PL
             Limpiar();
             DesableControls();
             DespControls();
+            iniControls();
         }
 
 
         /// <summary>
         /// Search Costumer has credit pendding to pay
         /// </summary>
-        private void SearchClintCxc()
+        private void SearchClientCxc()
         {
-            frmClientCredPend CuentasPend = new frmClientCredPend();
+            var CuentasPend = new frmClientCredPend();
+
             if (CuentasPend.ShowDialog() == DialogResult.OK)
             {
-             //   clientes = ClientesBO.GetbyId(CuentasPend.Id);
+                
+                var customer = ClientesBO.GetbyId(CuentasPend.Id);
 
-                this.txtIdClient.Text = Convert.ToString(CuentasPend.Id);
-                this.txtNombre.Text = clientes.Nombre;
-                this.txtApellidos.Text = clientes.Apellidos;
+                // this.txtIdClient.Text = Convert.ToString(CuentasPend.Id);
+                this.txtIdClient.Text = Convert.ToString(customer.Id);
+                this.txtCliente.Text = customer.Nombre + " " + customer.Apellidos;
+                this.txtBalanceBeforePaid.Text = CreditAccountBO.GetAmount(customer.Id).ToString();
+                // this.txtApellidos.Text = clientes.Apellidos;
                // this.lblBalenceResultados.Text = Convert.ToString(CuentasBO.Amount(CuentasPend.Id)); //
             }
 
+        }
+
+        /// <summary>
+        /// Set inicials values inside controls
+        /// </summary>
+        public void iniControls()
+        {
+            this.txtIdRecibo.Text = "0.00";
+            this.txtValorPago.Text = "0.00";
+
+        }
+
+        /// <summary>
+        /// Desable All Controls before to show form
+        /// </summary>
+        public void InitialDesControls() 
+        {
+            this.txtBalanceBeforePaid.Visible = false;
+            this.txtIdClient.Visible = false;
+            this.txtIdRecibo.Visible = false;
+            this.txtIdUser.Visible = false;
+            this.txtPermissions.Visible = false;
+            this.txtUserLong.Visible = false;
+        
         }
 
         /// <summary>
@@ -175,8 +203,8 @@ namespace pjPalmera.PL
             g.DrawString("HORA:", fTitle, sb, 155, 210);
             g.DrawString(DateTime.Now.ToShortTimeString(), fBody, sb, 195, 210);
             g.DrawString("CLIENTE:", fTitle, sb, 10, 220);
-            g.DrawString(this.txtNombre.Text, fBody, sb, 80, 220);
-            g.DrawString(this.txtApellidos.Text, fBody, sb, 180, 220);
+            g.DrawString(this.txtCliente.Text, fBody, sb, 80, 220);
+           // g.DrawString(this.txtApellidos.Text, fBody, sb, 180, 220);
             g.DrawString("NIR:", fTitle, sb, 10, 232);
             g.DrawString(this.txtIdRecibo.Text, fBody, sb, 50, 232);
          
@@ -217,11 +245,11 @@ namespace pjPalmera.PL
             AutoScrollOffset = AutoScrollOffset + 12;
             g.DrawString("Pago Realizado por:", fdpTitle, sb, 90, 318 + AutoScrollOffset); //
             g.DrawString(this.txtValorPago.Text, fBody, sb, 225, 318 + AutoScrollOffset);  //
-            g.DrawString("Recibido:", fdpTitle, sb, 90, 332 + AutoScrollOffset);   // 
+            g.DrawString("Recibido RD$:", fdpTitle, sb, 90, 332 + AutoScrollOffset);   // 
             g.DrawString(this.txtRecibidoEfectivo.Text, fBody, sb, 225, 332 + AutoScrollOffset);  //
-            g.DrawString("Devuelta:", fdpTitle, sb, 90, 350 + AutoScrollOffset);
+            g.DrawString("Devuelta RD$ :", fdpTitle, sb, 90, 350 + AutoScrollOffset);
             g.DrawString(this.lblDevueltResult.Text, fBody, sb, 225, 350 + AutoScrollOffset); //
-            g.DrawString("Balance Actual:", fpTitle, sb, 90, 368 + AutoScrollOffset); //
+            g.DrawString("Balance Actual RD$:", fpTitle, sb, 90, 368 + AutoScrollOffset); //
             g.DrawString(this.txtBalanceAfterPaid.Text, fpBody, sb, 225, 368 + AutoScrollOffset);  //
             //g.DrawString("", fdpTitle, sb, 100, 370 + AutoScrollOffset);
             //Cachier Signature
@@ -235,7 +263,6 @@ namespace pjPalmera.PL
 
             g.DrawString("Tu eres la persona mas linda que Jesús", fTitle, sb, 5, 480 + AutoScrollOffset);
             g.DrawString("tiene en este mundo Buscale.", fTitle, sb, 5, 495 + AutoScrollOffset);
-
             g.DrawString(".", tblank, sb, 5, 505 + AutoScrollOffset);
             // 
         }
@@ -252,13 +279,51 @@ namespace pjPalmera.PL
         {
             try
             {
-                SearchClintCxc();
+                SearchClientCxc();
             }
             catch (Exception)
             {
 
 
             }
+        }
+
+
+        /// <summary>
+        /// Check if all controls has content before continues with process
+        /// </summary>
+        /// <returns>true if all controls are diferent empty and false when empty </returns>
+        private bool Validador() 
+        {
+            bool result = true;
+
+            if(this.txtCliente.Text == string.Empty)
+            {
+                result = false;
+            }
+
+            if(decimal.TryParse(this.txtValorPago.Text, out decimal resul) && (this.txtValorPago.Text == string.Empty))
+            {
+                result = false;
+
+            }
+
+            if ((int.TryParse(this.txtIdClient.Text, out int res)) && (this.txtIdClient.Text == string.Empty))
+            {
+                result = false;
+            }
+
+            if ((decimal.TryParse(this.txtRecibidoEfectivo.Text, out decimal resu)) && (this.txtRecibidoEfectivo.Text == string.Empty))
+            {
+                result = false;
+            }
+
+            if ((this.rbEfectivo.Enabled == false) && (this.rbTarjeta.Enabled == false))
+            {
+                result = false;
+            }
+
+            return result;
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)
@@ -268,14 +333,14 @@ namespace pjPalmera.PL
 
         private void btnCobrar_Click(object sender, EventArgs e)
         {
-            DialogResult Result = new DialogResult();
+            var Result = new DialogResult();
 
             Result= MessageBox.Show("Seguro que Desea Procesar el Pago", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
             if (Result == DialogResult.Yes)
             {
-                MessageBox.Show("Pago Procesado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //Process Pay --- >>> Here
+                // MessageBox.Show("Pago Procesado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Process_Pay(); // --------------------------- >>> Here pendding  test when running DONE
                 PrintTicket();
                 Limpiar();
             }
@@ -285,5 +350,67 @@ namespace pjPalmera.PL
                return;
             }
         }
+
+        private void txtRecibidoEfectivo_TextChanged(object sender, EventArgs e)
+        {
+
+            try
+            {
+                var docs = new VentaCrEntity();
+                this.lblDevueltResult.Text = "";
+
+                if ((this.txtRecibidoEfectivo.Text != String.Empty))
+                {
+                    this.lblDevueltResult.Text = (docs.Change(decimal.Parse(this.txtRecibidoEfectivo.Text), decimal.Parse(this.txtValorPago.Text))).ToString();
+                }
+            }
+            catch (Exception)
+            {
+
+                
+            }
+
+            
+        }
+
+
+        /// <summary>
+        ///  Process for pay customer amount pendding in account
+        /// </summary>
+        private void Process_Pay()
+        {
+
+            try
+            {
+                var fpago = new frmEfectPagosFactCred();
+                var craccount = new CreditAccountEntity();
+
+
+                craccount.id_cliente = int.Parse(this.txtIdClient.Text);
+                craccount.PayValue = decimal.Parse(this.txtValorPago.Text);
+
+
+                if (Validador() != false) //--------> working with validate controls (Done)
+                    return;
+
+                CreditAccountBO.UpdateCrAccountPay(craccount);
+                fpago.txtBalanceAfterPaid.Text = craccount.NewAmountcr.ToString();
+                fpago.txtBalanceBeforePaid.Text = craccount.PastAmountcr.ToString();
+
+                CreditAccountBO.GetcrAccountBasic(craccount);
+                fpago.txtIdAccount.Text = craccount.IdAccount.ToString();
+
+                //--------------> Here call rule from  CreditAccountBO that to allow save in history_pay_credit_account (Done below)
+
+                CreditAccountBO.SavePayHistory(craccount);
+                fpago.txtIdRecibo.Text = craccount.id.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+            
+        }
+
     }
 }

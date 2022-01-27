@@ -161,9 +161,12 @@ namespace pjPalmera.DAL
         ///  Get all information about User after login normal
         /// </summary>
         /// <returns></returns>
-        public static UsuariosEntity LoadUserInf(string username)
+        // public static UsuariosEntity LoadUserInf(string username)
+
+        public static UsuariosEntity LoadUserInf(UsuariosEntity userInfo)
+
         {
-            var userinfo = new UsuariosEntity();
+            // var userinfo = new UsuariosEntity();
 
             using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
@@ -171,21 +174,56 @@ namespace pjPalmera.DAL
                 {
                     con.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@pusername", username);
+                    cmd.Parameters.AddWithValue("@pusername", userInfo.User_name);
+                   // cmd.Parameters.AddWithValue ("@id_permission", userInfo.Privileges);
 
                     MySqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
-                    { 
-                        userinfo = LoadinfoUser(reader);
+                    {
+                        userInfo = LoadinfoUser(reader);
                     }
 
                    // cmd.ExecuteNonQuery();
                 }
-                return userinfo;
+                return userInfo;
             }
         }
 
+
+
+        /// <summary>
+        ///  Get all information about User after login normal by id
+        /// </summary>
+        /// <returns></returns>
+        // public static UsuariosEntity LoadUserInf(string username)
+
+        public static UsuariosEntity LoadUserInfid(UsuariosEntity userInfo)
+
+        {
+            // var userinfo = new UsuariosEntity();
+
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                using (var cmd = new MySqlCommand("spGet_userinfoid", con))
+                {
+                    con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@puserid", userInfo.Id_user);
+                    // cmd.Parameters.AddWithValue ("@id_permission", userInfo.Privileges);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        userInfo = LoadinfoUser(reader);
+                    }
+
+                    // cmd.ExecuteNonQuery();
+                }
+                return userInfo;
+            }
+        }
 
         private static UsuariosEntity LoadinfoUser(IDataReader reader)
         {

@@ -11,9 +11,9 @@ namespace pjPalmera.BLL
 {
     public class CuentasBO
     {
-
+        // Would to be removed --------------------
         /// <summary>
-        /// Get Amount Credit by Client
+        /// Get Amount Credit by Client from ventas
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -32,41 +32,8 @@ namespace pjPalmera.BLL
         }
 
 
-        /// <summary>
-        /// Get Account by id_Client
-        /// </summary>
-        /// <param name="id_cliente"></param>
-        /// <returns></returns>
-        public static List<CuentaEntity> GetInvoicesCr(int id)
-        {
-            try
-            {
-                return CuentasDAL.GetInvoicesCr(id);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Get All Credit Account Pendding
-        /// </summary>
-        /// <returns></returns>
-        public static List<ClientesEntity> GetAllAccount(int cuenta)
-        {
-            try
-            {
-                return CuentasDAL.GetAllAccount(cuenta);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
-            }
-        }
-
+      
+       
         /// <summary>
         /// Set Status Credit Value on Costumers
         /// </summary>

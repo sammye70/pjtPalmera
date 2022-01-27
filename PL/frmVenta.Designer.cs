@@ -604,6 +604,7 @@
             this.txtIdCliente.Name = "txtIdCliente";
             this.txtIdCliente.Size = new System.Drawing.Size(95, 22);
             this.txtIdCliente.TabIndex = 59;
+            this.txtIdCliente.Visible = false;
             // 
             // chbDescuento
             // 
@@ -646,11 +647,11 @@
             this.txtId_Invoice.Name = "txtId_Invoice";
             this.txtId_Invoice.Size = new System.Drawing.Size(95, 22);
             this.txtId_Invoice.TabIndex = 20;
+            this.txtId_Invoice.Visible = false;
             // 
             // btnPagar
             // 
             this.btnPagar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPagar.Image = global::PL.Properties.Resources.money;
             this.btnPagar.Location = new System.Drawing.Point(717, 401);
             this.btnPagar.Margin = new System.Windows.Forms.Padding(4);
             this.btnPagar.Name = "btnPagar";
@@ -839,6 +840,7 @@
             this.txtTypeInvoice.Name = "txtTypeInvoice";
             this.txtTypeInvoice.Size = new System.Drawing.Size(95, 22);
             this.txtTypeInvoice.TabIndex = 68;
+            this.txtTypeInvoice.Visible = false;
             // 
             // txtPermissionId
             // 
@@ -846,6 +848,7 @@
             this.txtPermissionId.Name = "txtPermissionId";
             this.txtPermissionId.Size = new System.Drawing.Size(95, 22);
             this.txtPermissionId.TabIndex = 69;
+            this.txtPermissionId.Visible = false;
             // 
             // txtUsername
             // 
@@ -853,6 +856,7 @@
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(95, 22);
             this.txtUsername.TabIndex = 70;
+            this.txtUsername.Visible = false;
             // 
             // txtCreditLimit
             // 
@@ -860,6 +864,7 @@
             this.txtCreditLimit.Name = "txtCreditLimit";
             this.txtCreditLimit.Size = new System.Drawing.Size(95, 22);
             this.txtCreditLimit.TabIndex = 71;
+            this.txtCreditLimit.Visible = false;
             // 
             // txtUserId
             // 
@@ -874,6 +879,7 @@
             this.txtCurrentAmount.Name = "txtCurrentAmount";
             this.txtCurrentAmount.Size = new System.Drawing.Size(100, 22);
             this.txtCurrentAmount.TabIndex = 73;
+            this.txtCurrentAmount.Visible = false;
             // 
             // txtAmountPast
             // 
@@ -881,6 +887,7 @@
             this.txtAmountPast.Name = "txtAmountPast";
             this.txtAmountPast.Size = new System.Drawing.Size(100, 22);
             this.txtAmountPast.TabIndex = 74;
+            this.txtAmountPast.Visible = false;
             // 
             // frmVenta
             // 

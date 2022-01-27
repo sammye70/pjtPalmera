@@ -252,7 +252,6 @@
             // btnCobrar
             // 
             this.btnCobrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCobrar.Image = global::PL.Properties.Resources.money;
             this.btnCobrar.Location = new System.Drawing.Point(463, 250);
             this.btnCobrar.Margin = new System.Windows.Forms.Padding(4);
             this.btnCobrar.Name = "btnCobrar";

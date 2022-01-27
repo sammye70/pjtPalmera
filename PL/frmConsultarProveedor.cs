@@ -36,13 +36,6 @@ namespace pjPalmera.PL
             DesableControls();
         }
 
-
-        private void txtCriterioBuscar_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
         private void rbRnc_CheckedChanged(object sender, EventArgs e)
         {
             CleanControls();
@@ -104,7 +97,7 @@ namespace pjPalmera.PL
                 fproveedor.EnableControls();
                 fproveedor.IniControls();
 
-                Proveedor = ProveedorBO.SearchByCodeUpdate(this.Code);
+                Proveedor = ProveedorBO.SrProviderCode(this.Code);
 
                 fproveedor.txtIdProveedor.Text = Convert.ToString(Proveedor.Idproveedor);
                 fproveedor.txtRnc.Text = Convert.ToString(Proveedor.Rnc);
@@ -135,16 +128,16 @@ namespace pjPalmera.PL
         {
             try
             {
-                if (this.txtCriterioBuscar.Text != string.Empty)
-                {
+        //        if (this.txtCriterioBuscar.Text != string.Empty)
+         //       {
                     Proveedor.Rnc =Convert.ToInt64(this.txtCriterioBuscar.Text);
                     this.dgvContProveedor.DataSource = ProveedorBO.FilterByRnc(Proveedor.Rnc);
-                }
-                else
-                {
-                    this.dgvContProveedor.DataSource = null;
-                    this.dgvContProveedor.DataSource = ProveedorBO.GetAllProveedor();
-                }
+         //       }
+           //    else
+          //      {
+           //         this.dgvContProveedor.DataSource = null;
+           //         this.dgvContProveedor.DataSource = ProveedorBO.GetAllProveedor();
+          //      }
             }
             catch 
             {
@@ -158,16 +151,15 @@ namespace pjPalmera.PL
         {
             try
             {
-                if (this.txtCriterioBuscar.Text != string.Empty)
-                {
-                    Proveedor.Nombre_proveedor = this.txtCriterioBuscar.Text;
-                    this.dgvContProveedor.DataSource = ProveedorBO.SearchByName(Proveedor.Nombre_proveedor);
-                }
-                else
-                {
-                    this.dgvContProveedor.DataSource = null;
-                    this.dgvContProveedor.DataSource = ProveedorBO.GetAllProveedor();
-                }
+           //     if (this.txtCriterioBuscar.Text != string.Empty)
+         //       {
+                    var provider = new ProveedorEntity();
+                    provider.Nombre_proveedor = this.txtCriterioBuscar.Text;
+                    this.dgvContProveedor.DataSource = ProveedorBO.SearchByName(provider);
+            
+                 //   this.dgvContProveedor.DataSource = null;
+                 //   this.dgvContProveedor.DataSource = ProveedorBO.GetAllProveedor();
+              //  }     
             }
             catch
             {
@@ -187,10 +179,10 @@ namespace pjPalmera.PL
 
                 ProveedorBO.RemoveProveedor(this.Code);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+             //   MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -206,7 +198,7 @@ namespace pjPalmera.PL
             if (Question == DialogResult.Yes)
             {
                 RemoveProveedor();
-                MessageBox.Show("Se elimino el proveedor", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+             //   MessageBox.Show("Se elimino el proveedor", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.dgvContProveedor.DataSource = null;
                 this.dgvContProveedor.DataSource = ProveedorBO.GetAllProveedor();
                 return;
@@ -226,12 +218,16 @@ namespace pjPalmera.PL
             {
                 if ((this.rbRnc.Checked == true) && (this.txtCriterioBuscar.Text != string.Empty))
                 {
-                    FilterByRnc();
+                    this.FilterByRnc();
+                }
+                else if ((this.rbNomEmpresa.Checked == true) && (this.txtCriterioBuscar.Text != string.Empty))
+                {
+                    this.FilterByName();
                 }
                 else
                 {
                     this.dgvContProveedor.DataSource = null;
-                   this.dgvContProveedor.DataSource=ProveedorBO.GetAllProveedor();
+                    this.dgvContProveedor.DataSource = ProveedorBO.GetAllProveedor();
                 }
             }
             catch (Exception ex)
@@ -264,5 +260,7 @@ namespace pjPalmera.PL
             this.dgvContProveedor.DataSource = ProveedorBO.GetAllProveedor();
             return;
         }
+
+
     }
 }

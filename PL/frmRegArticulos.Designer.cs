@@ -58,6 +58,8 @@
             this.cmbEstado = new System.Windows.Forms.ComboBox();
             this.txtOrden = new System.Windows.Forms.TextBox();
             this.cmbDistribuidor = new System.Windows.Forms.ComboBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnUpdateFields = new System.Windows.Forms.Button();
             this.btnAddFabricante = new System.Windows.Forms.Button();
@@ -65,8 +67,6 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnNuevo = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lblTitle = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -345,13 +345,34 @@
             this.cmbDistribuidor.TabIndex = 36;
             this.cmbDistribuidor.DropDown += new System.EventHandler(this.cmbDistribuidor_DropDown);
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Location = new System.Drawing.Point(52, 104);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Size = new System.Drawing.Size(928, 17);
+            this.groupBox2.TabIndex = 38;
+            this.groupBox2.TabStop = false;
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Location = new System.Drawing.Point(306, 70);
+            this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(272, 29);
+            this.lblTitle.TabIndex = 39;
+            this.lblTitle.Text = "Crear Nuevo Producto";
+            // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::PL.Properties.Resources.objects;
-            this.pictureBox1.Location = new System.Drawing.Point(39, 13);
+            this.pictureBox1.Image = global::PL.Properties.Resources.inventory_maintenance_icon;
+            this.pictureBox1.Location = new System.Drawing.Point(13, -4);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(93, 73);
+            this.pictureBox1.Size = new System.Drawing.Size(129, 110);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 37;
             this.pictureBox1.TabStop = false;
@@ -423,27 +444,6 @@
             this.btnNuevo.TabIndex = 18;
             this.btnNuevo.UseVisualStyleBackColor = true;
             this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Location = new System.Drawing.Point(52, 103);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(928, 17);
-            this.groupBox2.TabIndex = 38;
-            this.groupBox2.TabStop = false;
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(127, 70);
-            this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(272, 29);
-            this.lblTitle.TabIndex = 39;
-            this.lblTitle.Text = "Crear Nuevo Producto";
             // 
             // frmRegArticulos
             // 

@@ -21,17 +21,31 @@ namespace PL
         private void splash_Load(object sender, EventArgs e)
         {
             this.ControlBox = false;
+            this.Set_properties();
             this.StartPosition = FormStartPosition.CenterScreen;
             timer1.Start();
 
+            frmlogin log = new frmlogin();
+            log.Show();
+        }
+
+ 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            this.timer1.Interval = 90000;
+            this.Hide();
+            timer1.Dispose();
 
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        /// <summary>
+        /// Set Initial properties at Controls
+        /// </summary>
+        private void Set_properties() 
         {
-            this.timer1.Interval = 60000;
-            this.Close();
-            
+            this.lblTest_title.Text = "Welcome to PalmeraSoft";
+            this.lblTest_title.TextAlign = ContentAlignment.MiddleCenter;
+            this.lblTest_title.ForeColor = Color.Black;
         }
     }
 }

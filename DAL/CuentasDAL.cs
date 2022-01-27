@@ -59,73 +59,7 @@ namespace pjPalmera.DAL
         }
 
 
-        /// <summary>
-        /// Get All Credit Account Pendding
-        /// </summary>
-        /// <returns></returns>
-        public static List<ClientesEntity> GetAllAccount(int cuenta)
-        {
-            List<ClientesEntity> account = new List<ClientesEntity>();
-
-            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
-            {
-                con.Open();
-                string query = @"SELECT * FROM clientes WHERE cxc = @cuenta;";
-
-                MySqlCommand cmd = new MySqlCommand(query, con);
-
-                cmd.Parameters.AddWithValue("@cuenta", cuenta);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    account.Add(LoadAccount(reader));
-                }
-            }
-            return account;
-        }
-
-        /// <summary>
-        /// Get Account by id_Client
-        /// </summary>
-        /// <param name="id_cliente"></param>
-        /// <returns></returns>
-        public static List<CuentaEntity> GetInvoicesCr(int id)
-        {
-            List<CuentaEntity> crAccount = new List<CuentaEntity>();
-
-            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
-            {
-                con.Open();
-                string query = @"SELECT * FROM cxc WHERE id_cliente=@id";
-
-                MySqlCommand cmd = new MySqlCommand(query, con);
-                
-                cmd.Parameters.AddWithValue("@id", id);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-                    
-                 while (reader.Read())
-                 {
-                     crAccount.Add(LoadCrInvoices(reader));
-                 }
-            }
-            return crAccount;
-        }
-
-
-        private static CuentaEntity LoadCrInvoices(IDataReader Reader)
-        {
-            CuentaEntity account = new CuentaEntity();
-
-            account.Nombre = Convert.ToString(Reader["nombre"]);
-            account.Apellidos = Convert.ToString(Reader["apellidos"]);
-            account.Monto = Convert.ToDecimal(Reader["monto"]);
-            account.Fecha = Convert.ToDateTime(Reader["created"]);
-
-            return account;
-        }
+        
 
 
         /// <summary>

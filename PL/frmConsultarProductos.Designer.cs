@@ -52,6 +52,8 @@
             this.lblCantidadProdRes = new System.Windows.Forms.Label();
             this.lblTotalProductos = new System.Windows.Forms.Label();
             this.dgvProductOnlyActive = new System.Windows.Forms.DataGridView();
+            this.txtIdUser = new System.Windows.Forms.TextBox();
+            this.txtRol = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProdConsultar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -306,7 +308,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvProductOnlyActive.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProductOnlyActive.Location = new System.Drawing.Point(12, 89);
+            this.dgvProductOnlyActive.Location = new System.Drawing.Point(11, 89);
             this.dgvProductOnlyActive.Name = "dgvProductOnlyActive";
             this.dgvProductOnlyActive.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvProductOnlyActive.Size = new System.Drawing.Size(1144, 374);
@@ -314,11 +316,29 @@
             this.dgvProductOnlyActive.Visible = false;
             this.dgvProductOnlyActive.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductOnlyActive_CellContentClick);
             // 
+            // txtIdUser
+            // 
+            this.txtIdUser.Location = new System.Drawing.Point(277, 469);
+            this.txtIdUser.Name = "txtIdUser";
+            this.txtIdUser.Size = new System.Drawing.Size(100, 20);
+            this.txtIdUser.TabIndex = 9;
+            this.txtIdUser.Visible = false;
+            // 
+            // txtRol
+            // 
+            this.txtRol.Location = new System.Drawing.Point(387, 471);
+            this.txtRol.Name = "txtRol";
+            this.txtRol.Size = new System.Drawing.Size(100, 20);
+            this.txtRol.TabIndex = 10;
+            this.txtRol.Visible = false;
+            // 
             // frmConsultarProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1163, 499);
+            this.Controls.Add(this.txtRol);
+            this.Controls.Add(this.txtIdUser);
             this.Controls.Add(this.lblCantidadProdRes);
             this.Controls.Add(this.lblTotalProductos);
             this.Controls.Add(this.lblCostoTotalProductRes);
@@ -367,5 +387,7 @@
         public System.Windows.Forms.RadioButton rbCodigo;
         public System.Windows.Forms.RadioButton rbCategory;
         private System.Windows.Forms.ComboBox cmbCategories;
+        public System.Windows.Forms.TextBox txtIdUser;
+        public System.Windows.Forms.TextBox txtRol;
     }
 }

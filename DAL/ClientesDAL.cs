@@ -19,11 +19,11 @@ namespace pjPalmera.DAL
         /// </summary>
         /// <param name="Costumer"></param>
         /// <returns>Number 1 or than if create</returns>
-        public static String Create(ClientesEntity Costumer)
+        public static int Create(ClientesEntity Costumer)
         {
             int ResRequest;
             var valMessage = new ResultEntity();
-            string strMessage =null;
+            
 
                 using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
                 {
@@ -41,25 +41,14 @@ namespace pjPalmera.DAL
                         cmd.Parameters.AddWithValue("@pprovincia", Costumer.Provincia);
                         cmd.Parameters.AddWithValue("@plimitedecredito", Costumer.Limite_credito);
                         cmd.Parameters.AddWithValue("@pcreatedby", Costumer.Createby);
-                        cmd.Parameters.AddWithValue("@pcreated", DateTime.Now);
-                        cmd.Parameters.AddWithValue("pstatus", 1);
+                        // cmd.Parameters.AddWithValue("@pcreated", DateTime.Now);
+                        // cmd.Parameters.AddWithValue("pstatus", 1);
 
                         ResRequest = Convert.ToInt32(cmd.ExecuteNonQuery());
 
-                    if (ResRequest == 1)
-                    {
-                        //strMessage = valMessage.StrResult = setResult.Satisfactoriamente.ToString();
-                        return strMessage;
-                         
-                    }
-                    else if (ResRequest == 0)
-                    {
-                       // strMessage = valMessage.StrResult = setResult.NoSatisfactoriamente.ToString();
-                       return strMessage;
                     }
                 }
-                }
-            return strMessage;
+            return ResRequest;
         }
 
 
@@ -68,8 +57,9 @@ namespace pjPalmera.DAL
         /// </summary>
         /// <param name="costumer"></param>
         /// <returns></returns>
-        public static ClientesEntity Update(ClientesEntity costumer)
+        public static int Update(ClientesEntity costumer)
         {
+            int result;
             using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
@@ -87,12 +77,13 @@ namespace pjPalmera.DAL
                     cmd.Parameters.AddWithValue("@pciudad", costumer.Ciudad);
                     cmd.Parameters.AddWithValue("@pprovincia", costumer.Provincia);
                     cmd.Parameters.AddWithValue("@plimitecredito", costumer.Limite_credito);
+                    cmd.Parameters.AddWithValue("@pmodficatedby", costumer.Createby);
 
-                    cmd.ExecuteNonQuery();
+                    result = cmd.ExecuteNonQuery();
                 }
             }
 
-            return costumer;
+            return result;
         }
 
 
@@ -170,7 +161,7 @@ namespace pjPalmera.DAL
         /// Check if Exist Customer Code
         /// </summary>
         /// <returns></returns>
-        public static bool ExitsCode(string code)
+        public static bool ExitsCode(int code)
         {
             using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
@@ -184,15 +175,15 @@ namespace pjPalmera.DAL
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@code", code);
-                    cmd.Parameters["[@code"].Direction = ParameterDirection.Input;
+                    cmd.Parameters.AddWithValue("@pcode", code);
+                    cmd.Parameters["@pcode"].Direction = ParameterDirection.Input;
 
-                    cmd.Parameters.Add("@resp", MySqlDbType.VarChar);
-                    cmd.Parameters["@resp"].Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add("@presp", MySqlDbType.VarChar);
+                    cmd.Parameters["@presp"].Direction = ParameterDirection.Output;
 
                     cmd.ExecuteNonQuery();
 
-                    val = (string)cmd.Parameters["@resp"].Value;
+                    val = (string)cmd.Parameters["@presp"].Value;
 
                     if (val == "Existe")
                     {
@@ -207,7 +198,73 @@ namespace pjPalmera.DAL
             }
         }
 
-   
+        /// <summary>
+        /// Get customer amount from entity customer.
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        public static decimal Get_setCustomerAmount(long idcustomer)
+        {
+            decimal amount;
+
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                using(var cmd = new MySqlCommand("spGetCustomerCredit", con))
+                {
+                    con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@pidcustomer", idcustomer);
+
+                    cmd.Parameters.Add("@pamount", MySqlDbType.Decimal);
+                    cmd.Parameters["@pamount"].Direction = ParameterDirection.Output;
+
+                    cmd.ExecuteNonQuery();
+
+                    amount = (decimal) cmd.Parameters["@pamount"].Value;
+                }
+                
+                return amount;
+
+            }
+        }
+
+
+
+
+        // ------------------------> ADD INSERT FOR TABLE ACCOUNT_CREDIT_CUSTOMER, VERIFY TABLE ACCOUNT_CREDIT_INVOICE_CUSTOMER
+
+        /// <summary>
+        ///  Get Customer Credit Amount from Manager Customers
+        /// </summary>
+        /// <param name="customer"></param>                       
+        /// <returns></returns>
+        public static  decimal Get_CrAmountCustomer(long idcustomer)
+        {
+            decimal amount;
+
+            using (var con =  new MySqlConnection(SettingDAL.connectionstring))
+            {
+                using (var cmd = new MySqlCommand("spGetAmountCurrentCr", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@pidcustomer", idcustomer);
+                    cmd.Parameters.Add("@pamount", MySqlDbType.Decimal);
+                    cmd.Parameters["@pamount"].Direction = ParameterDirection.Output;
+
+                    cmd.ExecuteNonQuery();
+
+                    amount = (decimal) cmd.Parameters["@pamount"].Value;
+
+                   
+                }
+                
+                return amount;
+            }
+        }
+
+
+
+
 
         /// <summary>
         ///Delete Customer by Id
@@ -262,7 +319,7 @@ namespace pjPalmera.DAL
         /// <returns></returns>
         public static ClientesEntity GetbyCodeUpdate(long Id)
         {
-            var costumer = new ClientesEntity();
+            var customer = new ClientesEntity();
 
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
@@ -278,16 +335,16 @@ namespace pjPalmera.DAL
 
                     if (reader.Read())
                     {
-                        costumer = LoadCostumer(reader);
+                        customer = LoadCostumer(reader);
                     }
                 }
-                return costumer;
+                return customer;
             }
         }
 
 
         /// <summary>
-        /// Get Costumer by Id (List)
+        /// Get Customer by Id (List) from Customers table
         /// </summary>
         /// <returns></returns>
         public static ClientesEntity GetbyId(long Id)
@@ -296,14 +353,12 @@ namespace pjPalmera.DAL
 
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
-                con.Open();
-                string sql = @"SELECT id, cedula, nombre, apellidos, limitecredito
-                                FROM clientes
-                                WHERE id = @idcliente";
-
-                using (var cmd = new MySqlCommand(sql, con))
+                using (var cmd = new MySqlCommand("spSearchCustomerByCode", con))
                 {
-                    cmd.Parameters.AddWithValue("@idcliente", Id);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    con.Open();
+
+                    cmd.Parameters.AddWithValue("@pidcliente", Id);
 
                     MySqlDataReader reader = cmd.ExecuteReader();
 

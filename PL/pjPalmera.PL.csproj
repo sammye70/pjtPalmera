@@ -27,6 +27,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -51,6 +52,27 @@
     <ApplicationIcon>folder_summer_13091.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -320,20 +342,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reports\dsPalmera.cs">
-      <DependentUpon>dsPalmera.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\dsPalmera.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dsPalmera.xsd</DependentUpon>
-    </Compile>
     <Compile Include="splash.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="splash.Designer.cs">
       <DependentUpon>splash.cs</DependentUpon>
     </Compile>
+    <Compile Include="SqlServerTypes\Loader.cs" />
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -470,6 +485,8 @@
     <EmbeddedResource Include="splash.resx">
       <DependentUpon>splash.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\pjPalmera.Entities.ProductosEntity.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -494,17 +511,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Reports\dsPalmera.xsc">
-      <DependentUpon>dsPalmera.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\dsPalmera.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsPalmera.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Reports\dsPalmera.xss">
-      <DependentUpon>dsPalmera.xsd</DependentUpon>
-    </None>
     <None Include="Resources\atm.png" />
   </ItemGroup>
   <ItemGroup>
@@ -607,6 +613,70 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="folder_summer_13091.ico" />
+    <None Include="Resources\Male-user-search-icon.png" />
+    <None Include="Resources\Distributor-report-icon.png" />
+    <None Include="Resources\document-yellow-icon.png" />
+    <None Include="Resources\desktop-icon.png" />
+    <None Include="Resources\sales-report-icon.png" />
+    <None Include="Resources\Sales-by-Payment-Method-rep-icon.png" />
+    <None Include="Resources\Upline-icon.png" />
+    <None Include="Resources\cash-icon.png" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\Actions-document-edit-icon.png" />
+    <None Include="Resources\Cash-register-icon.png" />
+    <None Include="Resources\inventory-maintenance-icon.png" />
+    <None Include="Resources\Login-icon.png" />
+    <None Include="Resources\credit-cards-icon.png" />
+    <None Include="Resources\money-icon.png" />
+    <None Include="Resources\iron-product-logo-icon.png" />
+    <None Include="Resources\packing-icon.png" />
+    <None Include="Resources\Package-Add-icon.png" />
+    <None Include="Resources\product-icon.png" />
+    <None Include="Resources\Users-icon.png" />
+    <None Include="Resources\Rank-History-icon.png" />
+    <None Include="Resources\product-sales-report-icon.png" />
+    <None Include="Resources\shopping-bag-icon.png" />
+    <None Include="Resources\fork-5-icon.png" />
+    <None Include="Resources\Card-file-icon.png" />
+    <None Include="Resources\briefcase.png" />
+    <None Include="Resources\bag-3.png" />
+    <None Include="Resources\folder-1.png" />
+    <None Include="Resources\stand.png" />
+    <None Include="Resources\6450271_preview1.png" />
+    <None Include="Resources\price-tag-3.png" />
+    <None Include="Resources\cart-10.png" />
+    <None Include="Resources\record.png" />
+    <None Include="Resources\kisspng-computer-icons-transport-vendor-5af5c32fe21c24.6572380215260557279262.jpg" />
+    <None Include="Resources\box-1.png" />
+    <None Include="Resources\price-tag-8.png" />
+    <None Include="Resources\cart-14.png" />
+    <None Include="Resources\get-money1.png" />
+    <None Include="Resources\cart-12.png" />
+    <None Include="Resources\basket-2.png" />
+    <None Include="Resources\receipt.png" />
+    <None Include="Resources\graph-1.png" />
+    <None Include="Resources\graph-2.png" />
+    <None Include="Resources\graph.png" />
+    <None Include="Resources\delivery-cart.png" />
+    <None Include="Resources\cart-17.png" />
+    <None Include="Resources\credit-card-5.png" />
+    <None Include="Resources\check.png" />
+    <None Include="Resources\cashier1.png" />
+    <None Include="Resources\pack1.png" />
+    <None Include="Resources\coins_money.ico" />
+    <None Include="Resources\coins.png" />
     <None Include="Resources\users1.ico" />
     <None Include="Resources\6450271_preview.png" />
     <None Include="Resources\objects.ico" />
@@ -623,6 +693,9 @@
     <None Include="Resources\refresh.ico" />
     <None Include="Resources\apply.ico" />
     <None Include="Resources\56-512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Reports\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -18,13 +18,16 @@ namespace pjPalmera.PL
 
         ProductosEntity productos = new ProductosEntity();
 
+
+
         public frmConsultarProductos()
         {
             InitializeComponent();
         }
         private long _numero;
         private decimal _quantity;
-        
+      
+
         public long Orden
         {
             get { return _numero; }
@@ -35,24 +38,29 @@ namespace pjPalmera.PL
             get { return _quantity; }        
         }
 
+        UsuariosEntity user = new UsuariosEntity();
+
         private void frmConsultarProductos_Load(object sender, EventArgs e)
         {
 
+            var user = new UsuariosEntity();
+            user.Id_user = int.Parse(this.txtIdUser.Text);
+            this.getUserRol(user);
             CleanControls();
             DesableControls();
             DetailControls();
+
+
             this.dgvProdConsultar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+           // this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
             //StockUnit();
             //this.dgvProductOnlyActive.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.dgvProductOnlyActive.DataSource = ProductosBO.OnlyActive();
+           // ---  this.dgvProductOnlyActive.DataSource = ProductosBO.OnlyActive();
             AutoSizeCells();
             //AmountAllProduct();
             InitialControls();
         }
-
-
-     
+    
 
         /// <summary>
         /// All Controls  Descriptions
@@ -64,6 +72,7 @@ namespace pjPalmera.PL
             this.toolTip1.SetToolTip(this.btnRemove, "Eliminar Articulo Seleccionado");
             this.toolTip1.SetToolTip(this.btnSearch, "Realiza la acción de búsqueda para el filtro seleccionado");
         }
+
 
 
         private void btnCancelar_Click_1(object sender, EventArgs e)
@@ -114,7 +123,7 @@ namespace pjPalmera.PL
             this.MinimizeBox = false;
             this.rbCodigo.Focus();
             this.btnSearch.Visible = false;
-            this.dgvProdConsultar.Visible = false;
+            // this.dgvProdConsultar.Visible = false;
             this.dgvProductOnlyActive.DataSource = ProductosBO.OnlyActive();
         }
 
@@ -149,6 +158,40 @@ namespace pjPalmera.PL
         }
 
 
+
+        /// <summary>
+        ///  Get info for current user
+        /// </summary>
+        /// <param name="user"></param>
+        public void getUserRol(UsuariosEntity user)
+        {
+            try
+            {
+                UsuariosBO.getVisibleControls(user);
+                var rol = UsuariosBO.result;
+
+                switch (rol)
+                {
+                    case 1:
+                        rol1();
+                        break;
+                    case 2:
+                        rol2();
+                        break;
+                    case 3:
+                        break;
+                }
+            }
+
+            catch (Exception)
+            {
+                MessageBox.Show(UsuariosBO.strMessegerBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+        }
+
+
+
         /// <summary>
         /// Desable all Controls 
         /// </summary>
@@ -163,6 +206,47 @@ namespace pjPalmera.PL
             this.lblCantidadProdRes.Visible = false;
             this.lblTotalProductos.Visible = false;
         }
+
+
+
+        /// <summary>
+        ///  Supervisor permission (Enable only controls for this rol)
+        /// </summary>
+        private void rol1()
+        {
+            this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+            this.dgvProdConsultar.Columns["Orden"].Visible = false;
+        }
+
+        /// <summary>
+        ///  Cashier permission (Enable only controls for this rol)
+        /// </summary>
+        private void rol2()
+        {
+            this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+            this.btnEditarProd.Visible = false;
+            this.btnRemove.Visible = false;
+            this.rbStatus.Visible = false;
+            this.dgvProdConsultar.Columns["Costo"].Visible = false;
+            this.dgvProdConsultar.Columns["Estado"].Visible = false;
+            this.dgvProdConsultar.Columns["Creado_Por"].Visible = false;
+            this.dgvProdConsultar.Columns["Creado"].Visible = false;
+            this.dgvProdConsultar.Columns["Stockminimo"].Visible = false;
+            this.dgvProdConsultar.Columns["Orden"].Visible = false;
+            // this.dgvProdConsultar.Columns["Modificated"].Visible = false;
+
+        }
+
+        /// <summary>
+        ///  Reciving Clerk permission (Enable only controls for this rol)
+        /// </summary>
+        private void rol3()
+        {
+
+        }
+
+
+
 
 
         /// <summary>
@@ -255,7 +339,7 @@ namespace pjPalmera.PL
 
                     MessageBox.Show(ProductosBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     this.dgvProdConsultar.DataSource = null;
-                    this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+                 //   this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
                     return;
                 } 
 
@@ -291,9 +375,10 @@ namespace pjPalmera.PL
             {
                 try
                 {
-                    var values = this.cmbCategories.SelectedValue;
-                    this.dgvProdConsultar.DataSource = ProductosBO.GetProductByCategory((Int32)values);
-                    this.dgvProductOnlyActive.DataSource = ProductosBO.GetProductByCategory((Int32)values);
+                        var values = this.cmbCategories.SelectedValue;
+
+                        this.dgvProdConsultar.DataSource = ProductosBO.GetProductByCategory((Int32)values);
+                        this.dgvProductOnlyActive.DataSource = ProductosBO.GetProductByCategory((Int32)values);
                 }
                 catch (Exception ex)
                 {
@@ -448,7 +533,9 @@ namespace pjPalmera.PL
             try
             {
                 this.dgvProdConsultar.DataSource = null;
-                this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+                var user = new UsuariosEntity();
+                user.Id_user = int.Parse(this.txtIdUser.Text);
+                this.getUserRol(user);
             }
             catch (Exception ex)
             {

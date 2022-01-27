@@ -38,7 +38,7 @@ namespace pjPalmera.PL
                 frmEfectPagosFactCred fPago = new frmEfectPagosFactCred();
 
                 int _id = Convert.ToInt32(fPago.txtIdClient.Text);
-                this.dgvFacCrByClient.DataSource = CuentasBO.GetInvoicesCr(_id);
+                // this.dgvFacCrByClient.DataSource = CuentasBO.GetInvoicesCr(_id);
             }
             catch (Exception ex)
             {

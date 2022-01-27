@@ -108,8 +108,13 @@ namespace pjPalmera.DAL
         }
 
 
-        /// <summary>
-        /// Get All Products
+
+
+
+
+
+         /// <summary>
+        /// Get All Products with details
         /// </summary>
         /// <param name="GetAllProd"></param>
         /// <returns></returns>
@@ -136,7 +141,9 @@ namespace pjPalmera.DAL
             }
         }
 
-  
+
+        
+
         /// <summary>
         /// Get Stock for current product
         /// </summary>
@@ -215,27 +222,30 @@ namespace pjPalmera.DAL
         /// </summary>
         /// 
         /// Author: Samuel Estrella
-        /// Created: 21/01/2020
-        /// Modificated: 21/01/2020
-        /// Modificated by:
+        /// First Release: 01/20/2020
+        /// Last Release: 05/21/2021
+        ///
         public static void Decrease_Stock(VentaEntity venta)
         {
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
 
-               string update_stock = @"UPDATE productos SET productos.stock=productos.stock-@cantidad WHERE productos.idproducto=@idproducto";
+               // var update_stock = @"UPDATE productos SET productos.stock=productos.stock-@cantidad WHERE productos.idproducto=@idproducto";
 
-                MySqlCommand cmd = new MySqlCommand(update_stock, con);
-
-                foreach (DetalleVentaEntity producto in venta.listProductos)
+                using (var cmd = new MySqlCommand("spDecreaseStockProd", con)) 
                 {
-                    cmd.Parameters.Clear(); //
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@idproducto",producto.CODIGO);
-                    cmd.Parameters.AddWithValue("@cantidad", producto.CANTIDAD);
+                    foreach (DetalleVentaEntity lsproducto in venta.listProductos)
+                    {
+                        cmd.Parameters.Clear(); //
 
-                    cmd.ExecuteNonQuery();
+                        cmd.Parameters.AddWithValue("@pidproducto", lsproducto.CODIGO);
+                        cmd.Parameters.AddWithValue("@pcantidad", lsproducto.CANTIDAD);
+
+                        cmd.ExecuteNonQuery();
+                    }
                 }
             }
         }
@@ -785,13 +795,13 @@ namespace pjPalmera.DAL
 
 
         /// <summary>
-        /// LoadProduct
+        /// Load all Detail  about Product
         /// </summary>
         /// <param name="Reader"></param>
         /// <returns></returns>
         private static ProductosEntity LoadProduct(IDataReader Reader)
         {
-            ProductosEntity Productos = new ProductosEntity();
+            var Productos = new ProductosEntity();
 
             Productos.Orden = Convert.ToInt64(Reader["numero"]);
             Productos.Codigo = Convert.ToInt64(Reader["idproducto"]);
@@ -805,8 +815,41 @@ namespace pjPalmera.DAL
             Productos.Precio_venta = Convert.ToDecimal(Reader["p_venta"]);
             Productos.Estado = Convert.ToString(Reader["estado"]);
             Productos.Creado = Convert.ToDateTime(Reader["created"]);
+           // Productos.Modificated = Convert.ToDateTime(Reader["modificated"]);
 
             return Productos;
         }
+
+
+       
+        /// <summary>
+        /// Load  Detail about Product Except cost
+        /// </summary>
+        /// <param name="Reader"></param>
+        /// <returns></returns>
+        private static ProductosEntity LoadProductEx(IDataReader Reader)
+        {
+            ProductosEntity Productos = new ProductosEntity();
+
+            Productos.Orden = Convert.ToInt64(Reader["numero"]);
+            Productos.Codigo = Convert.ToInt64(Reader["idproducto"]);
+            Productos.Proveedor = Convert.ToString(Reader["idproveedor"]);
+            Productos.Categoria = Convert.ToString(Reader["category"]);
+            Productos.Descripcion = Convert.ToString(Reader["descripcion"]);
+            Productos.Stock = Convert.ToInt32(Reader["stock"]);
+            Productos.Stockminimo = Convert.ToInt32(Reader["stockminimo"]);
+            Productos.Vencimiento = Convert.ToDateTime(Reader["f_vencimiento"]);
+            // Productos.Costo = Convert.ToDecimal(Reader["costo"]);
+            Productos.Precio_venta = Convert.ToDecimal(Reader["p_venta"]);
+            Productos.Estado = Convert.ToString(Reader["estado"]);
+            Productos.Creado = Convert.ToDateTime(Reader["created"]);
+           // Productos.Modificated = Convert.ToDateTime(Reader["modificated"]);
+
+            return Productos;
+        }
+
+
+
+
     }
 }

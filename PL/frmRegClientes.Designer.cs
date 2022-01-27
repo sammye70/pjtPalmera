@@ -56,6 +56,7 @@
             this.btnUpdateClient = new System.Windows.Forms.Button();
             this.txtIdClient = new System.Windows.Forms.TextBox();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.txtIdUser = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -290,11 +291,20 @@
             this.lblTitle.TabIndex = 29;
             this.lblTitle.Text = "Crear Nuevo Cliente";
             // 
+            // txtIdUser
+            // 
+            this.txtIdUser.Location = new System.Drawing.Point(490, 384);
+            this.txtIdUser.Name = "txtIdUser";
+            this.txtIdUser.Size = new System.Drawing.Size(100, 20);
+            this.txtIdUser.TabIndex = 30;
+            this.txtIdUser.Visible = false;
+            // 
             // frmRegClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(606, 441);
+            this.Controls.Add(this.txtIdUser);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.btnUpdateClient);
             this.Controls.Add(this.txtIdClient);
@@ -361,6 +371,7 @@
         public System.Windows.Forms.MaskedTextBox mktLimteCredClient;
         public System.Windows.Forms.Button btnUpdateClient;
         public System.Windows.Forms.TextBox txtIdClient;
-        private System.Windows.Forms.Label lblTitle;
+        public System.Windows.Forms.Label lblTitle;
+        public System.Windows.Forms.TextBox txtIdUser;
     }
 }

@@ -51,7 +51,7 @@ namespace pjPalmera.Entities
         public decimal devuelta { get; set; }
         public int id_caja { get; set; }
         public DateTime modificado { get; set;}
-        public int id_vendedor { get; set; }
+        public int id_user { get; set; }
         public int method_pago { get; set; }
         public string request_number { get; set; }
         private List<DetalleVentaEntity> item;
@@ -208,23 +208,23 @@ namespace pjPalmera.Entities
         /// </summary>
         /// <param name="price"></param>
         /// <param name="discount"></param>
-        /// <returns></returns>
-        public decimal SetDescountInvoice(decimal price, decimal discount)
+        /// <returns>Average for discount</returns>
+        public decimal SetDescountInvoice(decimal price, decimal descount)
         {
             decimal t_discount; //calculate discount
             decimal p_discount; //result after to apply discount
 
-            t_discount = (price * discount) / 100;
+            t_discount = (price * descount) / 100;
             p_discount = price - t_discount;
             return p_discount;
         }
 
         /// <summary>
-        /// 
+        ///  Set Invoice Type
         /// </summary>
         /// <param name="strTypeInv"></param>
-        /// <returns></returns>
-        public  string set_Type_invoice(string strTypeInv)
+        /// <returns>1 to cash and 2 credit</returns>
+        public  string Set_Type_invoice(string strTypeInv)
         {
             if (strTypeInv == "cash")
             {

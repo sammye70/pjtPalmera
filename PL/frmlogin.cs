@@ -97,8 +97,8 @@ namespace pjPalmera.PL
                 switch (stUser)
                 {
                     case true:
-                        var loguser = UsuariosBO.Login_User(user); // 
-                        var infuser = UsuariosBO.LoadUserInf(user.User_name); //
+                        var loguser = UsuariosBO.Login_User(user); // Validator user and pass
+                        var infuser = UsuariosBO.LoadUserInf(user); // Get user info
 
                         if (loguser == true)
                         {
@@ -106,7 +106,7 @@ namespace pjPalmera.PL
                             fmain.txtLongName.Text = infuser.LongName;
                             fmain.txtPermisson.Text = infuser.Privileges.ToString();
                             fmain.txtIdUser.Text = infuser.Id_user.ToString();
-
+                            
                             this.Hide();
                             fmain.Show();
 
@@ -123,14 +123,7 @@ namespace pjPalmera.PL
                         MessageBox.Show(UsuariosBO.strMessegerBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         this.txtUserName.Focus();
                         break;
-            //        }
-            //}
-            //            else if (strform == false)
-            //{
-            //    MessageBox.Show("Debe indicar un nombre de usuario o contraseña", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    this.txtUserName.Focus()
-            //            }
-        }
+                }
             }
             catch (Exception ex)
             {
@@ -143,9 +136,12 @@ namespace pjPalmera.PL
         /// </summary>
         private void SetTool()
         {
-            toolTip1.SetToolTip(this.btnCancelar,"Cancela el ingreso al Sistema");
-            toolTip1.SetToolTip(this.btnIniciar, "Ingreso al Sistema");
+            this.lblCompanyName.Text = "By Code Solutions";
+            this.toolTip1.SetToolTip(this.btnCancelar,"Cancela el ingreso al Sistema");
+            this.toolTip1.SetToolTip(this.btnIniciar, "Ingreso al Sistema");
             this.toolTip1.SetToolTip(this.lblForgetPassword, "Click para recuperar la contraseña a partir de la pregunta de seguridad.");
+            this.toolTip1.SetToolTip(this.txtUserName, "Indicar un nombre de usuario válido");
+            this.toolTip1.SetToolTip(this.txtPassword, "Indicar una contraseña válida relacionada al usuario indicado arriba.");
         }
 
         private void btnIniciar_Click(object sender, EventArgs e)
@@ -174,6 +170,11 @@ namespace pjPalmera.PL
             {
                 this.txtPassword.Focus();
             }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

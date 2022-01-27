@@ -46,7 +46,7 @@ namespace pjPalmera.Entities
         /// <returns></returns>
         public List<string> getMethod(int i)
         {
-           var lst = new List<string>();
+            var lst = new List<string>();
             lst = this.arr_pay.ToList();
             return lst;
         }

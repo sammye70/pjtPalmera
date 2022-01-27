@@ -178,7 +178,7 @@ namespace pjPalmera.BLL
 
 
         /// <summary>
-        /// Get All Products
+        /// Get All Products with details
         /// </summary>
         /// <returns></returns>
         public static List<ProductosEntity> GetAll()
@@ -195,7 +195,7 @@ namespace pjPalmera.BLL
         }
 
 
-        /// <summary>
+         /// <summary>
         /// Search Product by Id
         /// </summary>
         /// <returns></returns>
@@ -214,7 +214,7 @@ namespace pjPalmera.BLL
 
 
         /// <summary>
-        ///Update Decrease Stock on Databases
+        ///Update Decrease Stock in Databases
         /// </summary>
         public static void Decrease_Stock(VentaEntity producto)
         {
@@ -224,7 +224,7 @@ namespace pjPalmera.BLL
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
         }
@@ -531,6 +531,7 @@ namespace pjPalmera.BLL
             }
 
         }
+
 
     }
 }

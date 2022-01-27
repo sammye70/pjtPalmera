@@ -18,5 +18,9 @@ namespace pjPalmera.PL
             InitializeComponent();
         }
 
+        private void frmRepProductos_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

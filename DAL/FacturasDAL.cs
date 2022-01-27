@@ -51,7 +51,7 @@ namespace pjPalmera.DAL
                     cmd.Parameters.AddWithValue("pstatus", Venta.status);
                     cmd.Parameters.AddWithValue("ptipo", Venta.tipo);
                     cmd.Parameters.AddWithValue("pid_caja", Venta.id_caja);
-                    cmd.Parameters.AddWithValue("pvendedor", Venta.id_vendedor);
+                    cmd.Parameters.AddWithValue("pvendedor", Venta.id_user);
                     cmd.Parameters.AddWithValue("pdescuento", Venta.descuento);
                     cmd.Parameters.AddWithValue("pid_cliente", Venta.id_cliente);
                     cmd.Parameters.AddWithValue("psubtotal", Venta.subtotal);
@@ -117,12 +117,13 @@ namespace pjPalmera.DAL
         {
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
+                #region old query 1
                 // int id_venta;
-               /* var sql_head = @"INSERT INTO venta (clientes, total, status, tipo, id_caja, vendedor, descuento, subtotal, id_cliente, total_itbis, recibido, devuelta, created, modificated) 
-                                        VALUES (@clientes, @total, @status, @tipo, @id_caja, @vendedor, @descuento, @subtotal, @id_cliente, @total_itbis, @recibido, @devuelta, @created, @modificated);
-                                SELECT LAST_INSERT_ID() 
-                                    FROM venta;";*/
-
+                /* var sql_head = @"INSERT INTO venta (clientes, total, status, tipo, id_caja, vendedor, descuento, subtotal, id_cliente, total_itbis, recibido, devuelta, created, modificated) 
+                                         VALUES (@clientes, @total, @status, @tipo, @id_caja, @vendedor, @descuento, @subtotal, @id_cliente, @total_itbis, @recibido, @devuelta, @created, @modificated);
+                                 SELECT LAST_INSERT_ID() 
+                                     FROM venta;";*/
+                #endregion
                 using (MySqlCommand cmd = new MySqlCommand("spCreateHeadInvoice", con))
                 {
                     con.Open();
@@ -134,7 +135,7 @@ namespace pjPalmera.DAL
                     cmd.Parameters.AddWithValue("@pstatus", CrVenta.status);
                     cmd.Parameters.AddWithValue("@ptipo", CrVenta.tipo);
                     cmd.Parameters.AddWithValue("@pid_caja", CrVenta.id_caja);
-                    cmd.Parameters.AddWithValue("@pvendedor", CrVenta.id_vendedor);
+                    cmd.Parameters.AddWithValue("@pvendedor", CrVenta.id_user);
                     cmd.Parameters.AddWithValue("@pdescuento", CrVenta.descuento);
                     cmd.Parameters.AddWithValue("@pid_cliente", CrVenta.id_cliente);
                     cmd.Parameters.AddWithValue("@psubtotal", CrVenta.subtotal);
@@ -148,14 +149,18 @@ namespace pjPalmera.DAL
                     CrVenta.id = Convert.ToInt32(cmd.ExecuteScalar());
                 }
 
-              var sql_detail = @"INSERT INTO detail_venta (idproducto, descripcion, cantidad, precio, itbis, importe, id_venta, created)
-                                        VALUES(@idproducto, @descripcion, @cantidad, @precio, @itbis, @importe, @id_venta, @created);";
+                #region old query 2
+                // var sql_detail = @"INSERT INTO detail_venta (idproducto, descripcion, cantidad, precio, itbis, importe, id_venta, created)
+                // VALUES(@idproducto, @descripcion, @cantidad, @precio, @itbis, @importe, @id_venta, @created);";
 
                 //MySqlCommand cmd = new MySqlCommand(sql_detail, con);
+                #endregion
 
                 // sp from db ---> spCreateDetaiIinvoice
-                using (var cmd = new MySqlCommand(sql_detail, con))
+                using (var cmd = new MySqlCommand("spCreateDetailInvoice", con))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
                     foreach (DetalleVentaCrEntity dvental in CrVenta.listProductos)
                     {
                         //
@@ -163,14 +168,14 @@ namespace pjPalmera.DAL
                         //
                         cmd.Parameters.Clear();
                         //
-                        cmd.Parameters.AddWithValue("@idproducto", dvental.CODIGO);
-                        cmd.Parameters.AddWithValue("@descripcion", dvental.DESCRIPCION);
-                        cmd.Parameters.AddWithValue("@cantidad", dvental.CANTIDAD);
-                        cmd.Parameters.AddWithValue("@precio", dvental.PRECIO);
-                        cmd.Parameters.AddWithValue("@itbis", dvental.ITBIS);
-                        cmd.Parameters.AddWithValue("@importe", dvental.IMPORTE);
-                        cmd.Parameters.AddWithValue("@id_venta", CrVenta.id);
-                        cmd.Parameters.AddWithValue("@created", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@pidproducto", dvental.CODIGO);
+                        cmd.Parameters.AddWithValue("@pdescripcion", dvental.DESCRIPCION);
+                        cmd.Parameters.AddWithValue("@pcantidad", dvental.CANTIDAD);
+                        cmd.Parameters.AddWithValue("@pprecio", dvental.PRECIO);
+                        cmd.Parameters.AddWithValue("@pitbis", dvental.ITBIS);
+                        cmd.Parameters.AddWithValue("@pimporte", dvental.IMPORTE);
+                        cmd.Parameters.AddWithValue("@pid_venta", CrVenta.id);
+                        cmd.Parameters.AddWithValue("@pcreated", DateTime.Now);
                         
                         cmd.ExecuteNonQuery();
                     }
@@ -192,9 +197,13 @@ namespace pjPalmera.DAL
             using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                var query = @"DELETE FROM detail_venta WHERE idproducto = 0;";
-                
-                var cmd = new MySqlCommand(query, con);
+
+                #region old query
+                // var query = @"DELETE FROM detail_venta WHERE idproducto = 0;";
+                #endregion
+
+                var cmd = new MySqlCommand("DeleteEmptyRows", con);
+                cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.ExecuteNonQuery();
             }
@@ -218,22 +227,28 @@ namespace pjPalmera.DAL
         {
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
-                con.Open();
-                string query = @"INSERT INTO daily_transactions_permanent ( status, total, descuento, devuelta, recibido, id_venta, created) 
+                #region old query
+                /*string query = @"INSERT INTO daily_transactions_permanent ( status, total, descuento, devuelta, recibido, id_venta, created) 
                                     VALUES (@status, @total, @descuento, @devuelta, @recibido, @id_venta, @created);
 
                                 INSERT INTO daily_transactions_temp (status, total, descuento, devuelta, recibido, id_venta, created)
-                                    VALUES (@status, @total, @descuento, @devuelta, @recibido, @id_venta, @created);";
+                                    VALUES (@status, @total, @descuento, @devuelta, @recibido, @id_venta, @created);"; */
+                #endregion
 
-                using (var cmd = new MySqlCommand(query, con)) 
+                using (var cmd = new MySqlCommand("CreateTranstPermanent", con)) 
                 {
-                    cmd.Parameters.AddWithValue("@status", invoice.status);
-                    cmd.Parameters.AddWithValue("@total", invoice.total);
-                    cmd.Parameters.AddWithValue("@descuento", invoice.descuento);
-                    cmd.Parameters.AddWithValue("@devuelta", invoice.devuelta);
-                    cmd.Parameters.AddWithValue("@recibido", invoice.recibido);
-                    cmd.Parameters.AddWithValue("@id_venta", invoice.id);
-                    cmd.Parameters.AddWithValue("@created", DateTime.Now);
+                    con.Open();
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@pstatus", invoice.status);
+                    cmd.Parameters.AddWithValue("@ptotal", invoice.total);
+                    cmd.Parameters.AddWithValue("@pdescuento", invoice.descuento);
+                    cmd.Parameters.AddWithValue("@pdevuelta", invoice.devuelta);
+                    cmd.Parameters.AddWithValue("@precibido", invoice.recibido);
+                    cmd.Parameters.AddWithValue("@pid_venta", invoice.id);
+                    cmd.Parameters.AddWithValue("@pid_user", invoice.id_user);
+                    cmd.Parameters.AddWithValue("@pcreated", DateTime.Now);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -285,7 +300,7 @@ namespace pjPalmera.DAL
                     cmd.Parameters.AddWithValue("@pid_invoice", invoiceCashPay.id);
                     cmd.Parameters.AddWithValue("@pamount", invoiceCashPay.total);
                     cmd.Parameters.AddWithValue("@pcreated", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@pcreatedby", invoiceCashPay.id_vendedor);
+                    cmd.Parameters.AddWithValue("@pcreatedby", invoiceCashPay.id_user);
                     cmd.Parameters.AddWithValue("@prequest_number", invoiceCashPay.request_number);
 
                     cmd.ExecuteNonQuery();
@@ -342,8 +357,8 @@ namespace pjPalmera.DAL
 
 
         /// <summary>
-        /// Search Last Invoice Id                      -------------------------------> Pedding Working here,    DONE!! this code not work, DELETE there are
-        /// </summary>                                                                   new method
+        /// Search Last Invoice Id       --------> Pedding Working here,    DONE!! this code not work, DELETE there are new method
+        /// </summary>                                                                   
         /// <param name="id_invoice"></param>
         /// <returns></returns>
         public static int LastId()
