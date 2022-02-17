@@ -286,7 +286,7 @@ namespace pjPalmera.PL
                     productos.Proveedor = this.cmbDistribuidor.SelectedValue.ToString();
                     productos.Descripcion = this.txtDescripcion.Text;
                     productos.Categoria = this.cmbFamilia.SelectedValue.ToString();
-                    productos.Stock = Convert.ToInt32(txtStockInicial.Text);
+                  //  productos.Stock = Convert.ToInt32(txtStockInicial.Text);
                     productos.Stockminimo = Convert.ToInt32(this.txtStockMinimo.Text);
                     productos.Vencimiento = Convert.ToDateTime(dateTimePicker1.Value.Date.ToShortDateString());
                     productos.Costo = Convert.ToDecimal(this.txtCosto.Text);
@@ -333,7 +333,7 @@ namespace pjPalmera.PL
                 productos.Vencimiento = Convert.ToDateTime(dateTimePicker1.Value.Date.ToShortDateString());
                 productos.Costo = Convert.ToDecimal(this.txtCosto.Text);
                 productos.Precio_venta = Convert.ToDecimal(this.txtPrecioVenta.Text);
-                productos.Stock = Convert.ToInt32(this.txtStockInicial.Text);
+               // productos.Stock = Convert.ToInt32(this.txtStockInicial.Text);
                 productos.Stockminimo = Convert.ToInt32(this.txtStockMinimo.Text);
                 productos.Estado = this.cmbEstado.SelectedValue.ToString();
 
@@ -406,11 +406,11 @@ namespace pjPalmera.PL
                 result = false;
             }
 
-            if (string.IsNullOrEmpty(this.txtStockInicial.Text))
-            {
-                this.errorProvider1.SetError(this.txtStockInicial, "Indicar Stock Inicial del Articulo");
-                result = false;
-            }
+            //if (string.IsNullOrEmpty(this.txtStockInicial.Text))
+            //{
+            //    this.errorProvider1.SetError(this.txtStockInicial, "Indicar Stock Inicial del Articulo");
+            //    result = false;
+            //}
 
             if (string.IsNullOrEmpty(this.txtStockMinimo.Text))
             {
@@ -441,7 +441,7 @@ namespace pjPalmera.PL
 
         private void btnAgregarCategoria_Click(object sender, EventArgs e)
         {
-            frmCategoria categoria = new frmCategoria();
+            var categoria = new frmCategoria();
             categoria.ShowDialog(this);
         }
 
@@ -507,7 +507,7 @@ namespace pjPalmera.PL
 
         private void button1_Click(object sender, EventArgs e)
         {
-            frmRegProveedor Regproveedor = new frmRegProveedor();
+            var Regproveedor = new frmRegProveedor();
             Regproveedor.Show();
         }
 
@@ -561,8 +561,7 @@ namespace pjPalmera.PL
         {
             if (this.txtDescripcion.TextLength == 23)
             {
-                MessageBox.Show("La longitud maxima es de 23 caracteres (a...z, etc)", "Mensaje del Sistema", 
-                                 MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("La longitud maxima es de 23 caracteres (a...z, etc)", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 

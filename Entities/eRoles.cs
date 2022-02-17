@@ -12,10 +12,10 @@ namespace pjPalmera.Entities
     /// </summary>
     public enum eRoles_U
     {
-        none            = 0,
-        supervisor      = 1,
-        cashier         = 2,
-        storeges_clerk  = 3,
-        seller          = 4
+        none,
+        supervisor,
+        cashier,
+        storeges_clerk,
+        utility
     }
 }

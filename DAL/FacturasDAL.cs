@@ -35,12 +35,16 @@ namespace pjPalmera.DAL
         {
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
-               // int id_venta;
-                
+                #region
+                // int id_venta;
+
                 /* var sql_head = @"INSERT INTO venta (clientes, total, status, tipo, id_caja, vendedor, descuento, subtotal, id_cliente, total_itbis, recibido, devuelta, created, modificated) 
                                         VALUES (@clientes, @total, @status, @tipo, @id_caja, @vendedor, @descuento, @subtotal, @id_cliente, @total_itbis, @recibido, @devuelta, @created, @modificated);
                                 SELECT LAST_INSERT_ID() 
                                     FROM venta;"; */
+
+                #endregion
+
 
                 using (MySqlCommand cmd = new MySqlCommand("spCreateHeadInvoice", con))
                 {
@@ -64,11 +68,13 @@ namespace pjPalmera.DAL
                     // id_venta = Convert.ToInt32(cmd.ExecuteScalar());
                     Venta.id = Convert.ToInt32(cmd.ExecuteScalar());
                 }
-
+                #region
                 /* var sql_detail = @"INSERT INTO detail_venta (idproducto, descripcion, cantidad, precio, itbis, importe, id_venta, created)
                                         VALUES(@idproducto, @descripcion, @cantidad, @precio, @itbis, @importe, @id_venta, @created);"; */
 
                 //MySqlCommand cmd = new MySqlCommand(sql_detail, con);
+                #endregion
+
                 using (var cmd = new MySqlCommand("spCreateDetaiIinvoice", con))
                 {
                     foreach (DetalleVentaEntity dvental in Venta.listProductos)
@@ -257,7 +263,7 @@ namespace pjPalmera.DAL
 
 
         /// <summary>
-        /// Update Daily Transactions Permanenet and Temporal
+        /// Update Daily Transactions Permanenet and Temporal after invoice set status disable
         /// </summary>
         /// <param name="transaction"></param>
         public static void UpdateTranst(VentaEntity invoice)

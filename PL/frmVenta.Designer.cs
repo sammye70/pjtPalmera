@@ -728,8 +728,8 @@
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(98, 17);
-            this.toolStripStatusLabel1.Text = "By EBG-Solutions";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(103, 17);
+            this.toolStripStatusLabel1.Text = "By Code Solutions";
             // 
             // label23
             // 
@@ -872,6 +872,7 @@
             this.txtUserId.Name = "txtUserId";
             this.txtUserId.Size = new System.Drawing.Size(100, 22);
             this.txtUserId.TabIndex = 72;
+            this.txtUserId.Visible = false;
             // 
             // txtCurrentAmount
             // 

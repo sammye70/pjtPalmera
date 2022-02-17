@@ -41,10 +41,11 @@ namespace pjPalmera.PL
 
         private void frmRegUsers_Load(object sender, EventArgs e)
         {
-            DesableControls();
+            
             MaxLengthPass();
-            this.btnNuevo.Focus();
             CleanControls();
+            this.btnNuevo.Focus();
+            
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)
@@ -57,7 +58,7 @@ namespace pjPalmera.PL
         /// <summary>
         /// Checking TextBox are not Empty
         /// </summary>
-        /// <returns>It is true if TextBox is equialt to Empty</returns>
+        /// <returns>It is true if TextBox is equalt to Empty</returns>
         public bool Validator_Controls()
         {
 
@@ -81,15 +82,15 @@ namespace pjPalmera.PL
                 result = false;
             }
 
-            if (string.IsNullOrEmpty(this.cmbPrivileges.Text))
+            if (string.IsNullOrEmpty(this.cmbPrivileges.Text) || this.cmbPrivileges.SelectedIndex == -1 || this.cmbPrivileges.SelectedIndex == 0)
             {
-                this.errorProvider1.SetError(this.cmbPrivileges, "Indicar privilegios al usuario.");
+                this.errorProvider1.SetError(this.cmbPrivileges, "Seleccionar un rol para otorgar al usuario de los listados.");
                 result = false;
             }
 
-            if (string.IsNullOrEmpty(this.txtSecretQuestion1.Text))
+            if (string.IsNullOrEmpty(this.cmbSecretQuestion1.Text) || this.cmbSecretQuestion1.SelectedIndex == -1  || this.cmbSecretQuestion1.SelectedIndex == 0)
             {
-                this.errorProvider1.SetError(this.txtSecretQuestion1, "Indicar una pregunta de seguridad.");
+                this.errorProvider1.SetError(this.txtidUser, "Seleccionar una pregunta de seguridad de las listadas.");
                 result = false;
             }
 
@@ -98,6 +99,7 @@ namespace pjPalmera.PL
                 this.errorProvider1.SetError(this.txtSecretAnswer1, "Indicar la respuesta a la pregunta de seguridad.");
                 result = false;
             }
+
 
             return result;
         }
@@ -108,16 +110,20 @@ namespace pjPalmera.PL
         /// <returns></returns>
         public bool Password_Validator()
         {
-            bool Result = true;
-            if (this.txtPassword.Text == this.txtRetPassword.Text)
-            {
-                Result = true;
-            }
-            else
-            {
-                Result = false;
-            }
-            return Result;
+            var result = this.txtPassword.Equals(this.txtRetPassword);
+            return result;
+            //bool Result = true;
+            //if (this.txtPassword.Text == this.txtRetPassword.Text)
+            //{
+            //    Result = true;
+            //}
+            //else
+            //{
+            //    Result = false;
+            //}
+            //return Result;
+
+
         }
 
         /// <summary>
@@ -133,13 +139,13 @@ namespace pjPalmera.PL
             this.cmbPrivileges.Enabled = true;
             this.btnGuardar.Enabled = true;
             this.txtSecretAnswer1.Enabled = true;
-            this.txtSecretQuestion1.Enabled = true;
+            this.cmbSecretQuestion1.Enabled = true;
         }
 
         /// <summary>
         /// Desable all controls on this form
         /// </summary>
-        private void DesableControls()
+        public void DesableControls()
         {
             this.txtFirstName.Enabled = false;
             this.txtLastName.Enabled = false;
@@ -149,7 +155,7 @@ namespace pjPalmera.PL
             this.cmbPrivileges.Enabled = false;
             this.btnGuardar.Enabled = false;
             this.txtSecretAnswer1.Enabled = false;
-            this.txtSecretQuestion1.Enabled = false;
+            this.cmbSecretQuestion1.Enabled = false;
         }
 
         /// <summary>
@@ -166,9 +172,41 @@ namespace pjPalmera.PL
             this.lblRescPassDiferent.Text = "";
             this.lblRescPassLength.Text = "";
             this.lblPassLength.Text = "";
-            this.txtSecretQuestion1.Text = "";
             this.txtSecretAnswer1.Text = "";
+            this.cmbSecretQuestion1.Text = "";
         }
+
+
+        /// <summary>
+        /// Update informations about User
+        /// </summary>
+        private void UpdateUser()
+        {
+            var user = new UsuariosEntity();
+            string email = "n/a";
+            int status = 1;
+            var pass_hash = user.setHash(this.txtPassword.Text);
+            var sec_ans_hast = user.setHash(this.txtSecretAnswer1.Text);
+
+
+            user.Firstname = this.txtFirstName.Text;
+            user.Lastname = this.txtLastName.Text;
+            user.LongName = user.ContName(user.Firstname, user.Lastname);
+            user.User_name = this.txtUsername.Text;
+            user.Password = pass_hash;
+            user.Email = email;
+            user.Privileges = this.cmbPrivileges.SelectedIndex.ToString();
+            user.Secret_question = this.cmbSecretQuestion1.SelectedIndex.ToString();
+            user.Secret_answer = sec_ans_hast;
+            user.Status = Convert.ToString(status);
+
+            UsuariosBO.Update(user);
+            CleanControls();
+            DesableControls();
+            this.errorProvider1.Clear();
+            this.Close();
+        }
+
 
         /// <summary>
         /// Create New User
@@ -187,9 +225,10 @@ namespace pjPalmera.PL
                 case false:
                     var user = new UsuariosEntity();
                     string email = "n/a";
-                    int privilege = 1, status = 1;
+                    int status = 1;
                     var pass_hash = user.setHash(this.txtPassword.Text);
                     var sec_ans_hast = user.setHash(this.txtSecretAnswer1.Text);
+                    
 
                     user.Firstname = this.txtFirstName.Text;
                     user.Lastname = this.txtLastName.Text;
@@ -197,13 +236,12 @@ namespace pjPalmera.PL
                     user.User_name = this.txtUsername.Text;
                     user.Password = pass_hash;
                     user.Email = email;
-                    user.Privileges = privilege;
-                    user.Secret_question = this.txtSecretQuestion1.Text;
+                    user.Privileges = this.cmbPrivileges.SelectedIndex.ToString();
+                    user.Secret_question = this.cmbSecretQuestion1.SelectedIndex.ToString();
                     user.Secret_answer = sec_ans_hast;
                     user.Status = Convert.ToString(status);
 
                     UsuariosBO.Save(user);
-                    MessageBox.Show("Usuario Creado Satisfactoriamente!", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     CleanControls();
                     DesableControls();
                     this.errorProvider1.Clear();
@@ -294,13 +332,32 @@ namespace pjPalmera.PL
             cfpasslng = 20;
         }
 
+
+        /// <summary>
+        ///  Load all avalible secret questions that can set to users
+        /// </summary>
+        private void loadSecretQuestions()
+        {
+            this.cmbSecretQuestion1.DataSource = UsuariosBO.getSecretQuestions;
+            this.cmbSecretQuestion1.DisplayMember = "Question";
+        }
+
+        /// <summary>
+        /// Load all avaible roles that can set to users
+        /// </summary>
+        private void loadRolUsers()
+        {
+            this.cmbPrivileges.DataSource = UsuariosBO.getRoles;
+            this.cmbPrivileges.DisplayMember = "Rol";
+        }
+
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
                 if ((Validator_Controls() == true) && (Password_Validator() == true))
                 {
-                    NewUser();
+                    this.NewUser();
                 }
             }
             catch (Exception ex)
@@ -330,6 +387,45 @@ namespace pjPalmera.PL
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void cmbPrivileges_DropDown(object sender, EventArgs e)
+        {
+            try
+            {
+                this.loadRolUsers();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void cmbSecretQuestion1_DropDown(object sender, EventArgs e)
+        {
+            try
+            {
+                this.loadSecretQuestions();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if ((Validator_Controls() == true) && (Password_Validator() == true))
+                {
+                    this.NewUser();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
     }

@@ -40,22 +40,25 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.lblTitle = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cmbSecretQuestion1 = new System.Windows.Forms.ComboBox();
             this.txtSecretAnswer1 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.txtSecretQuestion1 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.txtidUser = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblPassLength = new System.Windows.Forms.Label();
             this.lblRescPassLength = new System.Windows.Forms.Label();
             this.lblRescPassDiferent = new System.Windows.Forms.Label();
-            this.btnNuevo = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnGuardar = new System.Windows.Forms.Button();
             this.txtLastName = new System.Windows.Forms.TextBox();
             this.txtFirstName = new System.Windows.Forms.TextBox();
             this.lblLastName = new System.Windows.Forms.Label();
             this.lblFirstName = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnNuevo = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnGuardar = new System.Windows.Forms.Button();
+            this.txtUserIdMod = new System.Windows.Forms.TextBox();
+            this.btnUpdate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -129,14 +132,11 @@
             // cmbPrivileges
             // 
             this.cmbPrivileges.FormattingEnabled = true;
-            this.cmbPrivileges.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3"});
             this.cmbPrivileges.Location = new System.Drawing.Point(194, 295);
             this.cmbPrivileges.Name = "cmbPrivileges";
             this.cmbPrivileges.Size = new System.Drawing.Size(128, 21);
             this.cmbPrivileges.TabIndex = 100;
+            this.cmbPrivileges.DropDown += new System.EventHandler(this.cmbPrivileges_DropDown);
             // 
             // errorProvider1
             // 
@@ -146,7 +146,7 @@
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(190, 39);
+            this.lblTitle.Location = new System.Drawing.Point(190, 51);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(205, 24);
             this.lblTitle.TabIndex = 102;
@@ -154,9 +154,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cmbSecretQuestion1);
             this.groupBox1.Controls.Add(this.txtSecretAnswer1);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.txtSecretQuestion1);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(38, 344);
@@ -166,11 +166,21 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Preguntas de Seguridad para Recuperación de la Contraseña";
             // 
+            // cmbSecretQuestion1
+            // 
+            this.cmbSecretQuestion1.FormattingEnabled = true;
+            this.cmbSecretQuestion1.Location = new System.Drawing.Point(141, 47);
+            this.cmbSecretQuestion1.Name = "cmbSecretQuestion1";
+            this.cmbSecretQuestion1.Size = new System.Drawing.Size(382, 21);
+            this.cmbSecretQuestion1.TabIndex = 121;
+            this.cmbSecretQuestion1.DropDown += new System.EventHandler(this.cmbSecretQuestion1_DropDown);
+            // 
             // txtSecretAnswer1
             // 
-            this.txtSecretAnswer1.Location = new System.Drawing.Point(220, 84);
+            this.txtSecretAnswer1.Location = new System.Drawing.Point(188, 84);
             this.txtSecretAnswer1.Name = "txtSecretAnswer1";
-            this.txtSecretAnswer1.Size = new System.Drawing.Size(258, 20);
+            this.txtSecretAnswer1.PasswordChar = '*';
+            this.txtSecretAnswer1.Size = new System.Drawing.Size(335, 20);
             this.txtSecretAnswer1.TabIndex = 110;
             // 
             // label6
@@ -183,13 +193,6 @@
             this.label6.TabIndex = 109;
             this.label6.Text = "Respuesta a la Pregunta Secreta 1:";
             // 
-            // txtSecretQuestion1
-            // 
-            this.txtSecretQuestion1.Location = new System.Drawing.Point(156, 47);
-            this.txtSecretQuestion1.Name = "txtSecretQuestion1";
-            this.txtSecretQuestion1.Size = new System.Drawing.Size(328, 20);
-            this.txtSecretQuestion1.TabIndex = 108;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -199,6 +202,13 @@
             this.label5.Size = new System.Drawing.Size(102, 13);
             this.label5.TabIndex = 107;
             this.label5.Text = "Pregunta Secreta 1:";
+            // 
+            // txtidUser
+            // 
+            this.txtidUser.Location = new System.Drawing.Point(68, 510);
+            this.txtidUser.Name = "txtidUser";
+            this.txtidUser.Size = new System.Drawing.Size(100, 20);
+            this.txtidUser.TabIndex = 108;
             // 
             // groupBox2
             // 
@@ -239,36 +249,6 @@
             this.lblRescPassDiferent.Text = "RescPassDiferent";
             this.lblRescPassDiferent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnNuevo
-            // 
-            this.btnNuevo.Image = global::PL.Properties.Resources.documents;
-            this.btnNuevo.Location = new System.Drawing.Point(377, 501);
-            this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(58, 54);
-            this.btnNuevo.TabIndex = 90;
-            this.btnNuevo.UseVisualStyleBackColor = true;
-            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::PL.Properties.Resources.adim;
-            this.pictureBox1.Location = new System.Drawing.Point(44, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(82, 86);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 101;
-            this.pictureBox1.TabStop = false;
-            // 
-            // btnGuardar
-            // 
-            this.btnGuardar.Image = global::PL.Properties.Resources.save;
-            this.btnGuardar.Location = new System.Drawing.Point(441, 501);
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(58, 54);
-            this.btnGuardar.TabIndex = 91;
-            this.btnGuardar.UseVisualStyleBackColor = true;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
-            // 
             // txtLastName
             // 
             this.txtLastName.Location = new System.Drawing.Point(194, 150);
@@ -303,12 +283,62 @@
             this.lblFirstName.TabIndex = 117;
             this.lblFirstName.Text = "Nombre";
             // 
+            // btnNuevo
+            // 
+            this.btnNuevo.Image = global::PL.Properties.Resources.documents;
+            this.btnNuevo.Location = new System.Drawing.Point(377, 501);
+            this.btnNuevo.Name = "btnNuevo";
+            this.btnNuevo.Size = new System.Drawing.Size(58, 54);
+            this.btnNuevo.TabIndex = 90;
+            this.btnNuevo.UseVisualStyleBackColor = true;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::PL.Properties.Resources.Administrator_icon;
+            this.pictureBox1.Location = new System.Drawing.Point(467, 20);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(120, 128);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 101;
+            this.pictureBox1.TabStop = false;
+            // 
+            // btnGuardar
+            // 
+            this.btnGuardar.Image = global::PL.Properties.Resources.save;
+            this.btnGuardar.Location = new System.Drawing.Point(441, 500);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(58, 54);
+            this.btnGuardar.TabIndex = 91;
+            this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            // 
+            // txtUserIdMod
+            // 
+            this.txtUserIdMod.Location = new System.Drawing.Point(221, 501);
+            this.txtUserIdMod.Name = "txtUserIdMod";
+            this.txtUserIdMod.Size = new System.Drawing.Size(100, 20);
+            this.txtUserIdMod.TabIndex = 121;
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Image = global::PL.Properties.Resources.save;
+            this.btnUpdate.Location = new System.Drawing.Point(440, 500);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(58, 54);
+            this.btnUpdate.TabIndex = 122;
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
             // frmRegUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 567);
+            this.Controls.Add(this.btnUpdate);
+            this.Controls.Add(this.txtUserIdMod);
             this.Controls.Add(this.txtLastName);
+            this.Controls.Add(this.txtidUser);
             this.Controls.Add(this.txtFirstName);
             this.Controls.Add(this.lblLastName);
             this.Controls.Add(this.lblFirstName);
@@ -346,32 +376,35 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btnGuardar;
-        private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.TextBox txtRetPassword;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cmbPrivileges;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
-        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txtSecretAnswer1;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox txtSecretQuestion1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label lblRescPassDiferent;
         private System.Windows.Forms.Label lblRescPassLength;
         private System.Windows.Forms.Label lblPassLength;
-        private System.Windows.Forms.TextBox txtLastName;
-        private System.Windows.Forms.TextBox txtFirstName;
         private System.Windows.Forms.Label lblLastName;
         private System.Windows.Forms.Label lblFirstName;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ComboBox cmbSecretQuestion1;
+        public System.Windows.Forms.TextBox txtidUser;
+        public System.Windows.Forms.TextBox txtUserIdMod;
+        public System.Windows.Forms.Button btnUpdate;
+        public System.Windows.Forms.TextBox txtUsername;
+        public System.Windows.Forms.Label lblTitle;
+        public System.Windows.Forms.TextBox txtLastName;
+        public System.Windows.Forms.TextBox txtFirstName;
+        public System.Windows.Forms.Button btnGuardar;
+        public System.Windows.Forms.Button btnNuevo;
     }
 }

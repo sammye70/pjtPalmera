@@ -70,6 +70,7 @@ namespace pjPalmera.PL
 
         private void frmVenta_Load(object sender, EventArgs e)
         {
+            this.chStatusBox();
             timer1.Enabled = true;
             Limpiar();
             LimpiarEfectivo();
@@ -353,6 +354,9 @@ namespace pjPalmera.PL
             this.btnFindCustomer.Visible = false;
             this.btnNewInvoiceCr.Visible = false;
             this.btnProcInvoiceCr.Visible = false;
+            this.btnFindCustomer.Enabled = false;
+            this.txtClientes.Text = "CONTADO";
+            this.txtIdCliente.Text = "1";
         }
 
         /// <summary>
@@ -369,7 +373,7 @@ namespace pjPalmera.PL
 
 
         /// <summary>
-        ///  Hide Controls from Cash Invoice after load Credit Invoice
+        ///  Hide Controls from Cash Invoice before load Credit Invoice
         /// </summary>
         public void DesVisibleCtrlInvCash()
         {
@@ -390,9 +394,10 @@ namespace pjPalmera.PL
             this.lblCustomer.Visible = false;
             this.lblDescInvoiceCash.Visible = false;
             this.cmbDescPostVentaExt.Visible = false;
+
         }
 
-        
+
 
 
         /// <summary>
@@ -655,14 +660,57 @@ namespace pjPalmera.PL
             try
             {
                 var consulProductos = new frmConsultarProductos();
+                var tventa = this.txtTypeInvoice.Text;
                 var user = new UsuariosEntity();
                 user.Id_user = int.Parse(this.txtUserId.Text);
                 consulProductos.txtIdUser.Text = user.Id_user.ToString();
-               // consulProductos.IniControls();
-                consulProductos.FilterProduct();
+                
+
+                UsuariosBO.getVisibleControls(user);
+                var rol = UsuariosBO.result;
+
+                switch (rol)                                    //----------------------------------------------------------------> continues building struct to determine if rol is correct to show controls
+                {
+                    case "1":
+                            if(tventa == "1")
+                            {
+                                consulProductos.FilterProduct();
+                                consulProductos.rol1();
+                                consulProductos.InniDisableControls();
+                            }
+
+                            if(tventa == "2")
+                            {
+                                consulProductos.FilterProduct();
+                                consulProductos.rol1();
+                                consulProductos.InniDisableControls();
+                            }
+                        break;
+                    case "2":
+                            if (tventa == "1")
+                            {
+                                consulProductos.FilterProduct();
+                                consulProductos.rol2();
+                                consulProductos.InniDisableControls();
+                            }
+
+                            if (tventa == "2")
+                            {
+                                consulProductos.FilterProduct();
+                                consulProductos.rol2();
+                                consulProductos.InniDisableControls();
+                            }
+                        break;
+                    case "3":
+                        MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+                }
+
+                // consulProductos.IniControls();
+                //consulProductos.FilterProduct();
 
 
-                if (consulProductos.ShowDialog() == DialogResult.OK )
+                if (consulProductos.ShowDialog() == DialogResult.OK)
                 {
                     producto = ProductosBO.SearchByOrden(consulProductos.Orden);
 
@@ -1675,6 +1723,47 @@ namespace pjPalmera.PL
         private void btnProcInvoiceCr_Click(object sender, EventArgs e)
         {
             ProcessSellCr(); //--->> working here
+        }
+
+        /// <summary>
+        ///  Check if box was opened or closed to one user
+        /// </summary>
+        private void chStatusBox()
+        {
+            var tSell = this.txtTypeInvoice.Text;
+            var sBox = new AperturaCajaEntity();
+            var frmBox = new frmAbrirCaja();
+            var type = FacturaBO.eType_invoices.cash.ToString();
+            sBox.UserId = int.Parse(this.txtUserId.Text);
+            var status = AperturaCajaBO.GetStatusBox(sBox);  
+
+            switch (status)                                     // -------------------------------> it need to check before putting in production. working continue here.
+            {
+                case 0:
+                    MessageBox.Show(AperturaCajaBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    this.Hide();
+                    this.Dispose();
+                    frmBox.txtIdUser.Text = sBox.UserId.ToString();
+                    frmBox.ShowDialog();
+                    break;
+
+                case 1:
+                    if (tSell.Equals(type))
+                    {
+                        MessageBox.Show("Abierta para venta a contado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                        this.NewInvoice();
+                        this.btnNuevo.Focus();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Abierta para venta a crédito", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                        this.NewInvoiceCr();
+                        this.btnNuevo.Focus();
+                    }
+                    break;
+            }
         }
     }
 

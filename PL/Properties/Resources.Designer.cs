@@ -103,6 +103,16 @@ namespace PL.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Actions_user_group_new_icon {
+            get {
+                object obj = ResourceManager.GetObject("Actions-user-group-new-icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap add {
             get {
                 object obj = ResourceManager.GetObject("add", resourceCulture);
@@ -116,6 +126,16 @@ namespace PL.Properties {
         internal static System.Drawing.Bitmap adim {
             get {
                 object obj = ResourceManager.GetObject("adim", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Administrator_icon {
+            get {
+                object obj = ResourceManager.GetObject("Administrator-icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -313,6 +333,16 @@ namespace PL.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Cash_register_icon1 {
+            get {
+                object obj = ResourceManager.GetObject("Cash-register-icon1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cashier {
             get {
                 object obj = ResourceManager.GetObject("cashier", resourceCulture);
@@ -386,6 +416,16 @@ namespace PL.Properties {
         internal static System.Drawing.Bitmap credit_cards_icon {
             get {
                 object obj = ResourceManager.GetObject("credit-cards-icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap delete {
+            get {
+                object obj = ResourceManager.GetObject("delete", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -643,6 +683,16 @@ namespace PL.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap money_wallet_icon {
+            get {
+                object obj = ResourceManager.GetObject("money-wallet-icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap objects {
             get {
                 object obj = ResourceManager.GetObject("objects", resourceCulture);
@@ -713,6 +763,16 @@ namespace PL.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Person_Male_Light_icon {
+            get {
+                object obj = ResourceManager.GetObject("Person-Male-Light-icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap poor {
             get {
                 object obj = ResourceManager.GetObject("poor", resourceCulture);
@@ -736,6 +796,16 @@ namespace PL.Properties {
         internal static System.Drawing.Bitmap price_tag_8 {
             get {
                 object obj = ResourceManager.GetObject("price-tag-8", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap print {
+            get {
+                object obj = ResourceManager.GetObject("print", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -956,6 +1026,16 @@ namespace PL.Properties {
         internal static System.Drawing.Bitmap vector_dowland_background {
             get {
                 object obj = ResourceManager.GetObject("vector-dowland-background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap wallet_icon {
+            get {
+                object obj = ResourceManager.GetObject("wallet-icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

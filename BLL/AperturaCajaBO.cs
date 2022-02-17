@@ -27,11 +27,26 @@ namespace pjPalmera.BLL
         {
             try
             {
-                    AperturaCajaDAL.CreateHistoryOpenBox(Ocaja);
+                   var result =  AperturaCajaDAL.CreateHistoryOpenBox(Ocaja);
+
+                if (result >= 1)
+                {
+                    throw new ApplicationException("Operación realizada satisfactoriamente.");
+                }
+                else
+                {
+                    throw new Exception("No fue posible realizar la operación indicada.");
+                }
+            }
+
+            catch (ApplicationException ae)
+            {
+                MessageBox.Show(ae.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Mensaje del Sistema");
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return;
             }
         }
@@ -44,12 +59,27 @@ namespace pjPalmera.BLL
         {
             try
             {
-                AperturaCajaDAL.CreateOpenBox(oCaja);
+                var result = AperturaCajaDAL.CreateOpenBox(oCaja);
+                if (result >= 1 )
+                {
+                    throw new ApplicationException("Operación realizada satisfactoriamente.");
+                }
+                else
+                {
+                    throw new Exception("No fue posible realizar la operación indicada.");
+                }
             }
+
+            catch (ApplicationException ae)
+            {
+                MessageBox.Show(ae.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
             catch (Exception ex)
             {
                 // throw new Exception(ex.Message);
-                MessageBox.Show(ex.Message, "Mensaje del Sistema");
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }
@@ -59,7 +89,7 @@ namespace pjPalmera.BLL
         /// Modificated by: sammye70
         /// Modificated Date:
         /// <summary>
-        ///  Get Status Box (It will return 0 when is close and 1 if is open )
+        ///  Get Status Box (It will return 0 when was closed and 1 if it was opened )
         /// </summary>
         /// <returns></returns>
         public static int GetStatusBox(AperturaCajaEntity oCaja)
@@ -68,7 +98,7 @@ namespace pjPalmera.BLL
 
             if (status == 0)
             {
-                strMensajeBO = "";
+                strMensajeBO = "Debe Aperturar la Caja para iniciar las operaciones de venta";
                 return status;
             }
             else if (status == 1)
@@ -80,11 +110,11 @@ namespace pjPalmera.BLL
             return status;
         }
 
-            /// <summary>
-            /// Get Current Amount used open box
-            /// </summary>
-            /// <returns></returns>
-            public static decimal GetAmount()
+        /// <summary>
+        /// Get Current Amount used open box
+        /// </summary>
+        /// <returns></returns>
+        public static decimal GetAmount()
         {
             try
             {

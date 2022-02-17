@@ -144,12 +144,13 @@
             // 
             this.lblStockInicial.AutoSize = true;
             this.lblStockInicial.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStockInicial.Location = new System.Drawing.Point(585, 274);
+            this.lblStockInicial.Location = new System.Drawing.Point(389, 393);
             this.lblStockInicial.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblStockInicial.Name = "lblStockInicial";
             this.lblStockInicial.Size = new System.Drawing.Size(79, 16);
             this.lblStockInicial.TabIndex = 7;
             this.lblStockInicial.Text = "Stock Inicial";
+            this.lblStockInicial.Visible = false;
             // 
             // label6
             // 
@@ -177,7 +178,7 @@
             // 
             this.lblStockMinimo.AutoSize = true;
             this.lblStockMinimo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStockMinimo.Location = new System.Drawing.Point(751, 274);
+            this.lblStockMinimo.Location = new System.Drawing.Point(616, 273);
             this.lblStockMinimo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblStockMinimo.Name = "lblStockMinimo";
             this.lblStockMinimo.Size = new System.Drawing.Size(88, 16);
@@ -223,15 +224,16 @@
             // 
             // txtStockInicial
             // 
-            this.txtStockInicial.Location = new System.Drawing.Point(680, 271);
+            this.txtStockInicial.Location = new System.Drawing.Point(484, 390);
             this.txtStockInicial.Margin = new System.Windows.Forms.Padding(4);
             this.txtStockInicial.Name = "txtStockInicial";
             this.txtStockInicial.Size = new System.Drawing.Size(56, 22);
             this.txtStockInicial.TabIndex = 16;
+            this.txtStockInicial.Visible = false;
             // 
             // txtStockMinimo
             // 
-            this.txtStockMinimo.Location = new System.Drawing.Point(847, 271);
+            this.txtStockMinimo.Location = new System.Drawing.Point(712, 270);
             this.txtStockMinimo.Margin = new System.Windows.Forms.Padding(4);
             this.txtStockMinimo.Name = "txtStockMinimo";
             this.txtStockMinimo.Size = new System.Drawing.Size(57, 22);
@@ -490,7 +492,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmRegArticulos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Registro de Articulos";
+            this.Text = "Registrar Articulos en el Catalogo";
             this.Load += new System.EventHandler(this.frmRegArticulos_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

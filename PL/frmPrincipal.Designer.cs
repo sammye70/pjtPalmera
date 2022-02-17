@@ -102,68 +102,30 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.pbConsultProd = new System.Windows.Forms.PictureBox();
-            this.pbIngProd = new System.Windows.Forms.PictureBox();
-            this.pb = new System.Windows.Forms.PictureBox();
-            this.pbCashSell0 = new System.Windows.Forms.PictureBox();
-            this.pbExitApp = new System.Windows.Forms.PictureBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.pbBalanceYear = new System.Windows.Forms.PictureBox();
-            this.pbBalanceDay = new System.Windows.Forms.PictureBox();
-            this.pbBalanceMonth = new System.Windows.Forms.PictureBox();
             this.gbopBox = new System.Windows.Forms.GroupBox();
-            this.pbChangeReturn = new System.Windows.Forms.PictureBox();
-            this.pbSellCred1 = new System.Windows.Forms.PictureBox();
-            this.pbCashSell1 = new System.Windows.Forms.PictureBox();
             this.frmConsultDoc = new System.Windows.Forms.GroupBox();
-            this.pbProdSold = new System.Windows.Forms.PictureBox();
-            this.pbInvCancel = new System.Windows.Forms.PictureBox();
-            this.pbConsInvoiceCred = new System.Windows.Forms.PictureBox();
-            this.pbInvoiceCont = new System.Windows.Forms.PictureBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.pbStockMin = new System.Windows.Forms.PictureBox();
-            this.pbExpProd = new System.Windows.Forms.PictureBox();
-            this.pbConsProd = new System.Windows.Forms.PictureBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.pbAdjProduct = new System.Windows.Forms.PictureBox();
-            this.pbAddReq = new System.Windows.Forms.PictureBox();
-            this.pbAddProd = new System.Windows.Forms.PictureBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.pbRepProvedor = new System.Windows.Forms.PictureBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.pbConsProvedor = new System.Windows.Forms.PictureBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.pbEditProv = new System.Windows.Forms.PictureBox();
-            this.pbAddProvedor = new System.Windows.Forms.PictureBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.bpRepOrder = new System.Windows.Forms.PictureBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.pbConsPedi = new System.Windows.Forms.PictureBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.pbGenPed = new System.Windows.Forms.PictureBox();
-            this.pbGenShopping = new System.Windows.Forms.PictureBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
-            this.pbConsultCustomer = new System.Windows.Forms.PictureBox();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
-            this.pbEditCustomers = new System.Windows.Forms.PictureBox();
-            this.pbAddCustomers = new System.Windows.Forms.PictureBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
-            this.pbCredits = new System.Windows.Forms.PictureBox();
             this.groupBox18 = new System.Windows.Forms.GroupBox();
-            this.pbBalance = new System.Windows.Forms.PictureBox();
-            this.pbPaidHistory = new System.Windows.Forms.PictureBox();
             this.groupBox19 = new System.Windows.Forms.GroupBox();
-            this.pbPayCredit = new System.Windows.Forms.PictureBox();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
@@ -172,75 +134,127 @@
             this.txtLongName = new System.Windows.Forms.TextBox();
             this.txtPermisson = new System.Windows.Forms.TextBox();
             this.txtIdUser = new System.Windows.Forms.TextBox();
+            this.pbConsultProd = new System.Windows.Forms.PictureBox();
+            this.pbIngProd = new System.Windows.Forms.PictureBox();
+            this.pb = new System.Windows.Forms.PictureBox();
+            this.pbCashSell0 = new System.Windows.Forms.PictureBox();
+            this.pbExitApp = new System.Windows.Forms.PictureBox();
+            this.pbBalanceYear = new System.Windows.Forms.PictureBox();
+            this.pbBalanceDay = new System.Windows.Forms.PictureBox();
+            this.pbBalanceMonth = new System.Windows.Forms.PictureBox();
+            this.pbChangeReturn = new System.Windows.Forms.PictureBox();
+            this.pbSellCred1 = new System.Windows.Forms.PictureBox();
+            this.pbCashSell1 = new System.Windows.Forms.PictureBox();
+            this.pbProdSold = new System.Windows.Forms.PictureBox();
+            this.pbInvCancel = new System.Windows.Forms.PictureBox();
+            this.pbConsInvoiceCred = new System.Windows.Forms.PictureBox();
+            this.pbInvoiceCont = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pbStockMin = new System.Windows.Forms.PictureBox();
+            this.pbExpProd = new System.Windows.Forms.PictureBox();
+            this.pbConsProd = new System.Windows.Forms.PictureBox();
+            this.pbAdjProduct = new System.Windows.Forms.PictureBox();
+            this.pbAddReq = new System.Windows.Forms.PictureBox();
+            this.pbAddProd = new System.Windows.Forms.PictureBox();
+            this.pbRepProvedor = new System.Windows.Forms.PictureBox();
+            this.pbConsProvedor = new System.Windows.Forms.PictureBox();
+            this.pbEditProv = new System.Windows.Forms.PictureBox();
+            this.pbAddProvedor = new System.Windows.Forms.PictureBox();
+            this.bpRepOrder = new System.Windows.Forms.PictureBox();
+            this.pbConsPedi = new System.Windows.Forms.PictureBox();
+            this.pbGenPed = new System.Windows.Forms.PictureBox();
+            this.pbGenShopping = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pbConsultCustomer = new System.Windows.Forms.PictureBox();
+            this.pbEditCustomers = new System.Windows.Forms.PictureBox();
+            this.pbAddCustomers = new System.Windows.Forms.PictureBox();
+            this.pbCredits = new System.Windows.Forms.PictureBox();
+            this.pbBalance = new System.Windows.Forms.PictureBox();
+            this.pbPaidHistory = new System.Windows.Forms.PictureBox();
+            this.pbPayCredit = new System.Windows.Forms.PictureBox();
+            this.pbhistoryBox = new System.Windows.Forms.PictureBox();
+            this.pbcloseBox = new System.Windows.Forms.PictureBox();
+            this.pbopenBox = new System.Windows.Forms.PictureBox();
+            this.pbConsUser = new System.Windows.Forms.PictureBox();
+            this.pbaddPerson = new System.Windows.Forms.PictureBox();
+            this.pbaddUser = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage9.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.gbopBox.SuspendLayout();
+            this.frmConsultDoc.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.groupBox11.SuspendLayout();
+            this.groupBox10.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.groupBox12.SuspendLayout();
+            this.groupBox13.SuspendLayout();
+            this.groupBox14.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            this.groupBox17.SuspendLayout();
+            this.groupBox18.SuspendLayout();
+            this.groupBox19.SuspendLayout();
+            this.tabPage7.SuspendLayout();
+            this.groupBox16.SuspendLayout();
+            this.groupBox15.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbConsultProd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbIngProd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCashSell0)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExitApp)).BeginInit();
-            this.tabPage1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBalanceYear)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBalanceDay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBalanceMonth)).BeginInit();
-            this.gbopBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbChangeReturn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSellCred1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCashSell1)).BeginInit();
-            this.frmConsultDoc.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbProdSold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbInvCancel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbConsInvoiceCred)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbInvoiceCont)).BeginInit();
-            this.tabPage2.SuspendLayout();
-            this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbStockMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExpProd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbConsProd)).BeginInit();
-            this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAdjProduct)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddReq)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddProd)).BeginInit();
-            this.tabPage3.SuspendLayout();
-            this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbRepProvedor)).BeginInit();
-            this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbConsProvedor)).BeginInit();
-            this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbEditProv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddProvedor)).BeginInit();
-            this.tabPage4.SuspendLayout();
-            this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bpRepOrder)).BeginInit();
-            this.groupBox10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbConsPedi)).BeginInit();
-            this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbGenPed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbGenShopping)).BeginInit();
-            this.tabPage5.SuspendLayout();
-            this.groupBox12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            this.groupBox13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbConsultCustomer)).BeginInit();
-            this.groupBox14.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbEditCustomers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddCustomers)).BeginInit();
-            this.tabPage6.SuspendLayout();
-            this.groupBox17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbCredits)).BeginInit();
-            this.groupBox18.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBalance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPaidHistory)).BeginInit();
-            this.groupBox19.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPayCredit)).BeginInit();
-            this.tabPage7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbhistoryBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbcloseBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbopenBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbConsUser)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbaddPerson)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbaddUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -789,6 +803,356 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Operaciones Básicas";
             // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPage1.Controls.Add(this.groupBox2);
+            this.tabPage1.Controls.Add(this.gbopBox);
+            this.tabPage1.Controls.Add(this.frmConsultDoc);
+            this.tabPage1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(981, 135);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Ventas";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.pbBalanceYear);
+            this.groupBox2.Controls.Add(this.pbBalanceDay);
+            this.groupBox2.Controls.Add(this.pbBalanceMonth);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(676, 21);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(285, 93);
+            this.groupBox2.TabIndex = 6;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Reportes";
+            // 
+            // gbopBox
+            // 
+            this.gbopBox.Controls.Add(this.pbChangeReturn);
+            this.gbopBox.Controls.Add(this.pbSellCred1);
+            this.gbopBox.Controls.Add(this.pbCashSell1);
+            this.gbopBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbopBox.Location = new System.Drawing.Point(10, 19);
+            this.gbopBox.Name = "gbopBox";
+            this.gbopBox.Size = new System.Drawing.Size(279, 95);
+            this.gbopBox.TabIndex = 5;
+            this.gbopBox.TabStop = false;
+            this.gbopBox.Text = "Operaciones";
+            // 
+            // frmConsultDoc
+            // 
+            this.frmConsultDoc.Controls.Add(this.pbProdSold);
+            this.frmConsultDoc.Controls.Add(this.pbInvCancel);
+            this.frmConsultDoc.Controls.Add(this.pbConsInvoiceCred);
+            this.frmConsultDoc.Controls.Add(this.pbInvoiceCont);
+            this.frmConsultDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.frmConsultDoc.Location = new System.Drawing.Point(295, 19);
+            this.frmConsultDoc.Name = "frmConsultDoc";
+            this.frmConsultDoc.Size = new System.Drawing.Size(353, 96);
+            this.frmConsultDoc.TabIndex = 4;
+            this.frmConsultDoc.TabStop = false;
+            this.frmConsultDoc.Text = "Consultas";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPage2.Controls.Add(this.groupBox5);
+            this.tabPage2.Controls.Add(this.groupBox4);
+            this.tabPage2.Controls.Add(this.groupBox3);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(981, 135);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Almacen";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.pictureBox4);
+            this.groupBox5.Location = new System.Drawing.Point(657, 16);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(292, 99);
+            this.groupBox5.TabIndex = 7;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Reportes";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.pbStockMin);
+            this.groupBox4.Controls.Add(this.pbExpProd);
+            this.groupBox4.Controls.Add(this.pbConsProd);
+            this.groupBox4.Location = new System.Drawing.Point(326, 17);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(292, 97);
+            this.groupBox4.TabIndex = 6;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Consultas";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.pbAdjProduct);
+            this.groupBox3.Controls.Add(this.pbAddReq);
+            this.groupBox3.Controls.Add(this.pbAddProd);
+            this.groupBox3.Location = new System.Drawing.Point(10, 18);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(310, 97);
+            this.groupBox3.TabIndex = 5;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Operaciones";
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPage3.Controls.Add(this.groupBox8);
+            this.tabPage3.Controls.Add(this.groupBox7);
+            this.tabPage3.Controls.Add(this.groupBox6);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(981, 135);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Proveedor";
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.pbRepProvedor);
+            this.groupBox8.Location = new System.Drawing.Point(656, 17);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(257, 94);
+            this.groupBox8.TabIndex = 11;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Reportes";
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.pbConsProvedor);
+            this.groupBox7.Location = new System.Drawing.Point(359, 18);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(257, 94);
+            this.groupBox7.TabIndex = 10;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Consultas";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.pbEditProv);
+            this.groupBox6.Controls.Add(this.pbAddProvedor);
+            this.groupBox6.Location = new System.Drawing.Point(9, 17);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(257, 95);
+            this.groupBox6.TabIndex = 6;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Tareas";
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPage4.Controls.Add(this.groupBox11);
+            this.tabPage4.Controls.Add(this.groupBox10);
+            this.tabPage4.Controls.Add(this.groupBox9);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(981, 135);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Compras";
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.bpRepOrder);
+            this.groupBox11.Location = new System.Drawing.Point(594, 6);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(257, 95);
+            this.groupBox11.TabIndex = 9;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "Reportes";
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.pbConsPedi);
+            this.groupBox10.Location = new System.Drawing.Point(307, 6);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(257, 95);
+            this.groupBox10.TabIndex = 8;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Consultas";
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.pbGenPed);
+            this.groupBox9.Controls.Add(this.pbGenShopping);
+            this.groupBox9.Location = new System.Drawing.Point(8, 6);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(257, 95);
+            this.groupBox9.TabIndex = 7;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Tareas";
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPage5.Controls.Add(this.groupBox12);
+            this.tabPage5.Controls.Add(this.groupBox13);
+            this.tabPage5.Controls.Add(this.groupBox14);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(981, 135);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Gestión de Clientes";
+            // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.pictureBox2);
+            this.groupBox12.Location = new System.Drawing.Point(655, 16);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(257, 95);
+            this.groupBox12.TabIndex = 12;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "Reportes";
+            // 
+            // groupBox13
+            // 
+            this.groupBox13.Controls.Add(this.pbConsultCustomer);
+            this.groupBox13.Location = new System.Drawing.Point(368, 16);
+            this.groupBox13.Name = "groupBox13";
+            this.groupBox13.Size = new System.Drawing.Size(257, 95);
+            this.groupBox13.TabIndex = 11;
+            this.groupBox13.TabStop = false;
+            this.groupBox13.Text = "Consultas";
+            // 
+            // groupBox14
+            // 
+            this.groupBox14.Controls.Add(this.pbEditCustomers);
+            this.groupBox14.Controls.Add(this.pbAddCustomers);
+            this.groupBox14.Location = new System.Drawing.Point(15, 16);
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.Size = new System.Drawing.Size(257, 95);
+            this.groupBox14.TabIndex = 10;
+            this.groupBox14.TabStop = false;
+            this.groupBox14.Text = "Tareas";
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPage6.Controls.Add(this.groupBox17);
+            this.tabPage6.Controls.Add(this.groupBox18);
+            this.tabPage6.Controls.Add(this.groupBox19);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(981, 135);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Cuentas por Cobrar";
+            // 
+            // groupBox17
+            // 
+            this.groupBox17.Controls.Add(this.pbCredits);
+            this.groupBox17.Location = new System.Drawing.Point(668, 18);
+            this.groupBox17.Name = "groupBox17";
+            this.groupBox17.Size = new System.Drawing.Size(292, 99);
+            this.groupBox17.TabIndex = 10;
+            this.groupBox17.TabStop = false;
+            this.groupBox17.Text = "Reportes";
+            // 
+            // groupBox18
+            // 
+            this.groupBox18.Controls.Add(this.pbBalance);
+            this.groupBox18.Controls.Add(this.pbPaidHistory);
+            this.groupBox18.Location = new System.Drawing.Point(337, 19);
+            this.groupBox18.Name = "groupBox18";
+            this.groupBox18.Size = new System.Drawing.Size(292, 97);
+            this.groupBox18.TabIndex = 9;
+            this.groupBox18.TabStop = false;
+            this.groupBox18.Text = "Consultas";
+            // 
+            // groupBox19
+            // 
+            this.groupBox19.Controls.Add(this.pbPayCredit);
+            this.groupBox19.Location = new System.Drawing.Point(21, 20);
+            this.groupBox19.Name = "groupBox19";
+            this.groupBox19.Size = new System.Drawing.Size(310, 97);
+            this.groupBox19.TabIndex = 8;
+            this.groupBox19.TabStop = false;
+            this.groupBox19.Text = "Operaciones";
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPage7.Controls.Add(this.groupBox16);
+            this.tabPage7.Controls.Add(this.groupBox15);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Size = new System.Drawing.Size(981, 135);
+            this.tabPage7.TabIndex = 6;
+            this.tabPage7.Text = "Ajustes";
+            // 
+            // groupBox16
+            // 
+            this.groupBox16.Controls.Add(this.pbhistoryBox);
+            this.groupBox16.Controls.Add(this.pbcloseBox);
+            this.groupBox16.Controls.Add(this.pbopenBox);
+            this.groupBox16.Location = new System.Drawing.Point(475, 21);
+            this.groupBox16.Name = "groupBox16";
+            this.groupBox16.Size = new System.Drawing.Size(485, 100);
+            this.groupBox16.TabIndex = 1;
+            this.groupBox16.TabStop = false;
+            this.groupBox16.Text = "Operaciones de Caja";
+            // 
+            // groupBox15
+            // 
+            this.groupBox15.Controls.Add(this.pbConsUser);
+            this.groupBox15.Controls.Add(this.pbaddPerson);
+            this.groupBox15.Controls.Add(this.pbaddUser);
+            this.groupBox15.Location = new System.Drawing.Point(20, 21);
+            this.groupBox15.Name = "groupBox15";
+            this.groupBox15.Size = new System.Drawing.Size(407, 100);
+            this.groupBox15.TabIndex = 0;
+            this.groupBox15.TabStop = false;
+            this.groupBox15.Text = "Gestión de Usuarios";
+            // 
+            // tabPage8
+            // 
+            this.tabPage8.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Size = new System.Drawing.Size(981, 135);
+            this.tabPage8.TabIndex = 7;
+            this.tabPage8.Text = "Ayuda (?)";
+            // 
+            // txtUsername
+            // 
+            this.txtUsername.Location = new System.Drawing.Point(200, 302);
+            this.txtUsername.Name = "txtUsername";
+            this.txtUsername.Size = new System.Drawing.Size(181, 20);
+            this.txtUsername.TabIndex = 6;
+            this.txtUsername.Visible = false;
+            // 
+            // txtLongName
+            // 
+            this.txtLongName.Location = new System.Drawing.Point(200, 328);
+            this.txtLongName.Name = "txtLongName";
+            this.txtLongName.Size = new System.Drawing.Size(221, 20);
+            this.txtLongName.TabIndex = 7;
+            this.txtLongName.Visible = false;
+            // 
+            // txtPermisson
+            // 
+            this.txtPermisson.Location = new System.Drawing.Point(200, 354);
+            this.txtPermisson.Name = "txtPermisson";
+            this.txtPermisson.Size = new System.Drawing.Size(181, 20);
+            this.txtPermisson.TabIndex = 8;
+            this.txtPermisson.Visible = false;
+            // 
+            // txtIdUser
+            // 
+            this.txtIdUser.Location = new System.Drawing.Point(200, 380);
+            this.txtIdUser.Name = "txtIdUser";
+            this.txtIdUser.Size = new System.Drawing.Size(181, 20);
+            this.txtIdUser.TabIndex = 9;
+            this.txtIdUser.Visible = false;
+            // 
             // pbConsultProd
             // 
             this.pbConsultProd.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -839,6 +1203,7 @@
             // pbExitApp
             // 
             this.pbExitApp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbExitApp.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbExitApp.Image = global::PL.Properties.Resources._56_512;
             this.pbExitApp.Location = new System.Drawing.Point(879, 17);
             this.pbExitApp.Name = "pbExitApp";
@@ -847,33 +1212,6 @@
             this.pbExitApp.TabIndex = 9;
             this.pbExitApp.TabStop = false;
             this.pbExitApp.Click += new System.EventHandler(this.pictureBox7_Click);
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tabPage1.Controls.Add(this.groupBox2);
-            this.tabPage1.Controls.Add(this.gbopBox);
-            this.tabPage1.Controls.Add(this.frmConsultDoc);
-            this.tabPage1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(981, 135);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Ventas";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.pbBalanceYear);
-            this.groupBox2.Controls.Add(this.pbBalanceDay);
-            this.groupBox2.Controls.Add(this.pbBalanceMonth);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(676, 21);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(285, 93);
-            this.groupBox2.TabIndex = 6;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Reportes";
             // 
             // pbBalanceYear
             // 
@@ -907,19 +1245,6 @@
             this.pbBalanceMonth.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbBalanceMonth.TabIndex = 8;
             this.pbBalanceMonth.TabStop = false;
-            // 
-            // gbopBox
-            // 
-            this.gbopBox.Controls.Add(this.pbChangeReturn);
-            this.gbopBox.Controls.Add(this.pbSellCred1);
-            this.gbopBox.Controls.Add(this.pbCashSell1);
-            this.gbopBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbopBox.Location = new System.Drawing.Point(10, 19);
-            this.gbopBox.Name = "gbopBox";
-            this.gbopBox.Size = new System.Drawing.Size(279, 95);
-            this.gbopBox.TabIndex = 5;
-            this.gbopBox.TabStop = false;
-            this.gbopBox.Text = "Operaciones";
             // 
             // pbChangeReturn
             // 
@@ -956,20 +1281,6 @@
             this.pbCashSell1.TabIndex = 2;
             this.pbCashSell1.TabStop = false;
             this.pbCashSell1.Click += new System.EventHandler(this.pbCashSell1_Click);
-            // 
-            // frmConsultDoc
-            // 
-            this.frmConsultDoc.Controls.Add(this.pbProdSold);
-            this.frmConsultDoc.Controls.Add(this.pbInvCancel);
-            this.frmConsultDoc.Controls.Add(this.pbConsInvoiceCred);
-            this.frmConsultDoc.Controls.Add(this.pbInvoiceCont);
-            this.frmConsultDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.frmConsultDoc.Location = new System.Drawing.Point(295, 19);
-            this.frmConsultDoc.Name = "frmConsultDoc";
-            this.frmConsultDoc.Size = new System.Drawing.Size(353, 96);
-            this.frmConsultDoc.TabIndex = 4;
-            this.frmConsultDoc.TabStop = false;
-            this.frmConsultDoc.Text = "Consultas";
             // 
             // pbProdSold
             // 
@@ -1019,29 +1330,6 @@
             this.pbInvoiceCont.TabStop = false;
             this.pbInvoiceCont.Click += new System.EventHandler(this.pbInvoiceCont_Click);
             // 
-            // tabPage2
-            // 
-            this.tabPage2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tabPage2.Controls.Add(this.groupBox5);
-            this.tabPage2.Controls.Add(this.groupBox4);
-            this.tabPage2.Controls.Add(this.groupBox3);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(981, 135);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Almacen";
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.pictureBox4);
-            this.groupBox5.Location = new System.Drawing.Point(657, 16);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(292, 99);
-            this.groupBox5.TabIndex = 7;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Reportes";
-            // 
             // pictureBox4
             // 
             this.pictureBox4.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -1052,18 +1340,7 @@
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox4.TabIndex = 5;
             this.pictureBox4.TabStop = false;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.pbStockMin);
-            this.groupBox4.Controls.Add(this.pbExpProd);
-            this.groupBox4.Controls.Add(this.pbConsProd);
-            this.groupBox4.Location = new System.Drawing.Point(326, 17);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(292, 97);
-            this.groupBox4.TabIndex = 6;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Consultas";
+            this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click_1);
             // 
             // pbStockMin
             // 
@@ -1101,18 +1378,6 @@
             this.pbConsProd.TabStop = false;
             this.pbConsProd.Click += new System.EventHandler(this.pbConsProdMin_Click);
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.pbAdjProduct);
-            this.groupBox3.Controls.Add(this.pbAddReq);
-            this.groupBox3.Controls.Add(this.pbAddProd);
-            this.groupBox3.Location = new System.Drawing.Point(10, 18);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(310, 97);
-            this.groupBox3.TabIndex = 5;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Operaciones";
-            // 
             // pbAdjProduct
             // 
             this.pbAdjProduct.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -1149,29 +1414,6 @@
             this.pbAddProd.TabStop = false;
             this.pbAddProd.Click += new System.EventHandler(this.pbAddProd_Click);
             // 
-            // tabPage3
-            // 
-            this.tabPage3.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tabPage3.Controls.Add(this.groupBox8);
-            this.tabPage3.Controls.Add(this.groupBox7);
-            this.tabPage3.Controls.Add(this.groupBox6);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(981, 135);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Proveedor";
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.pbRepProvedor);
-            this.groupBox8.Location = new System.Drawing.Point(656, 17);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(257, 94);
-            this.groupBox8.TabIndex = 11;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Reportes";
-            // 
             // pbRepProvedor
             // 
             this.pbRepProvedor.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -1182,16 +1424,6 @@
             this.pbRepProvedor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbRepProvedor.TabIndex = 5;
             this.pbRepProvedor.TabStop = false;
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.pbConsProvedor);
-            this.groupBox7.Location = new System.Drawing.Point(359, 18);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(257, 94);
-            this.groupBox7.TabIndex = 10;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Consultas";
             // 
             // pbConsProvedor
             // 
@@ -1204,17 +1436,6 @@
             this.pbConsProvedor.TabIndex = 5;
             this.pbConsProvedor.TabStop = false;
             this.pbConsProvedor.Click += new System.EventHandler(this.pbConsProvedor_Click);
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.pbEditProv);
-            this.groupBox6.Controls.Add(this.pbAddProvedor);
-            this.groupBox6.Location = new System.Drawing.Point(9, 17);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(257, 95);
-            this.groupBox6.TabIndex = 6;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Tareas";
             // 
             // pbEditProv
             // 
@@ -1240,28 +1461,6 @@
             this.pbAddProvedor.TabStop = false;
             this.pbAddProvedor.Click += new System.EventHandler(this.pbAddProvedor_Click);
             // 
-            // tabPage4
-            // 
-            this.tabPage4.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tabPage4.Controls.Add(this.groupBox11);
-            this.tabPage4.Controls.Add(this.groupBox10);
-            this.tabPage4.Controls.Add(this.groupBox9);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(981, 135);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Compras";
-            // 
-            // groupBox11
-            // 
-            this.groupBox11.Controls.Add(this.bpRepOrder);
-            this.groupBox11.Location = new System.Drawing.Point(594, 6);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(257, 95);
-            this.groupBox11.TabIndex = 9;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "Reportes";
-            // 
             // bpRepOrder
             // 
             this.bpRepOrder.Image = global::PL.Properties.Resources.Rank_History_icon;
@@ -1272,16 +1471,6 @@
             this.bpRepOrder.TabIndex = 5;
             this.bpRepOrder.TabStop = false;
             // 
-            // groupBox10
-            // 
-            this.groupBox10.Controls.Add(this.pbConsPedi);
-            this.groupBox10.Location = new System.Drawing.Point(307, 6);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(257, 95);
-            this.groupBox10.TabIndex = 8;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Consultas";
-            // 
             // pbConsPedi
             // 
             this.pbConsPedi.Image = global::PL.Properties.Resources.fork_5_icon;
@@ -1291,17 +1480,6 @@
             this.pbConsPedi.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbConsPedi.TabIndex = 5;
             this.pbConsPedi.TabStop = false;
-            // 
-            // groupBox9
-            // 
-            this.groupBox9.Controls.Add(this.pbGenPed);
-            this.groupBox9.Controls.Add(this.pbGenShopping);
-            this.groupBox9.Location = new System.Drawing.Point(8, 6);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(257, 95);
-            this.groupBox9.TabIndex = 7;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Tareas";
             // 
             // pbGenPed
             // 
@@ -1323,28 +1501,6 @@
             this.pbGenShopping.TabIndex = 5;
             this.pbGenShopping.TabStop = false;
             // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.groupBox12);
-            this.tabPage5.Controls.Add(this.groupBox13);
-            this.tabPage5.Controls.Add(this.groupBox14);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(981, 135);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Gestión de Clientes";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // groupBox12
-            // 
-            this.groupBox12.Controls.Add(this.pictureBox2);
-            this.groupBox12.Location = new System.Drawing.Point(655, 16);
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(257, 95);
-            this.groupBox12.TabIndex = 12;
-            this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "Reportes";
-            // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::PL.Properties.Resources.Distributor_report_icon;
@@ -1354,16 +1510,6 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 5;
             this.pictureBox2.TabStop = false;
-            // 
-            // groupBox13
-            // 
-            this.groupBox13.Controls.Add(this.pbConsultCustomer);
-            this.groupBox13.Location = new System.Drawing.Point(368, 16);
-            this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(257, 95);
-            this.groupBox13.TabIndex = 11;
-            this.groupBox13.TabStop = false;
-            this.groupBox13.Text = "Consultas";
             // 
             // pbConsultCustomer
             // 
@@ -1375,17 +1521,6 @@
             this.pbConsultCustomer.TabIndex = 5;
             this.pbConsultCustomer.TabStop = false;
             this.pbConsultCustomer.Click += new System.EventHandler(this.pbConsultCustomer_Click);
-            // 
-            // groupBox14
-            // 
-            this.groupBox14.Controls.Add(this.pbEditCustomers);
-            this.groupBox14.Controls.Add(this.pbAddCustomers);
-            this.groupBox14.Location = new System.Drawing.Point(15, 16);
-            this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(257, 95);
-            this.groupBox14.TabIndex = 10;
-            this.groupBox14.TabStop = false;
-            this.groupBox14.Text = "Tareas";
             // 
             // pbEditCustomers
             // 
@@ -1409,28 +1544,6 @@
             this.pbAddCustomers.TabStop = false;
             this.pbAddCustomers.Click += new System.EventHandler(this.pbAddCustomers_Click);
             // 
-            // tabPage6
-            // 
-            this.tabPage6.Controls.Add(this.groupBox17);
-            this.tabPage6.Controls.Add(this.groupBox18);
-            this.tabPage6.Controls.Add(this.groupBox19);
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(981, 135);
-            this.tabPage6.TabIndex = 5;
-            this.tabPage6.Text = "Cuentas por Cobrar";
-            this.tabPage6.UseVisualStyleBackColor = true;
-            // 
-            // groupBox17
-            // 
-            this.groupBox17.Controls.Add(this.pbCredits);
-            this.groupBox17.Location = new System.Drawing.Point(668, 18);
-            this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(292, 99);
-            this.groupBox17.TabIndex = 10;
-            this.groupBox17.TabStop = false;
-            this.groupBox17.Text = "Reportes";
-            // 
             // pbCredits
             // 
             this.pbCredits.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -1441,17 +1554,6 @@
             this.pbCredits.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbCredits.TabIndex = 5;
             this.pbCredits.TabStop = false;
-            // 
-            // groupBox18
-            // 
-            this.groupBox18.Controls.Add(this.pbBalance);
-            this.groupBox18.Controls.Add(this.pbPaidHistory);
-            this.groupBox18.Location = new System.Drawing.Point(337, 19);
-            this.groupBox18.Name = "groupBox18";
-            this.groupBox18.Size = new System.Drawing.Size(292, 97);
-            this.groupBox18.TabIndex = 9;
-            this.groupBox18.TabStop = false;
-            this.groupBox18.Text = "Consultas";
             // 
             // pbBalance
             // 
@@ -1477,16 +1579,6 @@
             this.pbPaidHistory.TabStop = false;
             this.pbPaidHistory.Click += new System.EventHandler(this.pbPaidHistory_Click);
             // 
-            // groupBox19
-            // 
-            this.groupBox19.Controls.Add(this.pbPayCredit);
-            this.groupBox19.Location = new System.Drawing.Point(21, 20);
-            this.groupBox19.Name = "groupBox19";
-            this.groupBox19.Size = new System.Drawing.Size(310, 97);
-            this.groupBox19.TabIndex = 8;
-            this.groupBox19.TabStop = false;
-            this.groupBox19.Text = "Operaciones";
-            // 
             // pbPayCredit
             // 
             this.pbPayCredit.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -1499,75 +1591,76 @@
             this.pbPayCredit.TabStop = false;
             this.pbPayCredit.Click += new System.EventHandler(this.pbPayCredit_Click);
             // 
-            // tabPage7
+            // pbhistoryBox
             // 
-            this.tabPage7.Controls.Add(this.groupBox16);
-            this.tabPage7.Controls.Add(this.groupBox15);
-            this.tabPage7.Location = new System.Drawing.Point(4, 22);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(981, 135);
-            this.tabPage7.TabIndex = 6;
-            this.tabPage7.Text = "Ajustes";
-            this.tabPage7.UseVisualStyleBackColor = true;
+            this.pbhistoryBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbhistoryBox.Image = global::PL.Properties.Resources.Cash_register_icon1;
+            this.pbhistoryBox.Location = new System.Drawing.Point(223, 18);
+            this.pbhistoryBox.Name = "pbhistoryBox";
+            this.pbhistoryBox.Size = new System.Drawing.Size(74, 72);
+            this.pbhistoryBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbhistoryBox.TabIndex = 10;
+            this.pbhistoryBox.TabStop = false;
+            this.pbhistoryBox.Click += new System.EventHandler(this.pbhistoryBox_Click);
             // 
-            // groupBox16
+            // pbcloseBox
             // 
-            this.groupBox16.Location = new System.Drawing.Point(475, 21);
-            this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(485, 100);
-            this.groupBox16.TabIndex = 1;
-            this.groupBox16.TabStop = false;
-            this.groupBox16.Text = "Operaciones de Caja";
+            this.pbcloseBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbcloseBox.Image = global::PL.Properties.Resources.money_wallet_icon;
+            this.pbcloseBox.Location = new System.Drawing.Point(131, 18);
+            this.pbcloseBox.Name = "pbcloseBox";
+            this.pbcloseBox.Size = new System.Drawing.Size(74, 72);
+            this.pbcloseBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbcloseBox.TabIndex = 9;
+            this.pbcloseBox.TabStop = false;
+            this.pbcloseBox.Click += new System.EventHandler(this.pbcloseBox_Click);
             // 
-            // groupBox15
+            // pbopenBox
             // 
-            this.groupBox15.Location = new System.Drawing.Point(20, 21);
-            this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(407, 100);
-            this.groupBox15.TabIndex = 0;
-            this.groupBox15.TabStop = false;
-            this.groupBox15.Text = "Gestión de Usuarios";
+            this.pbopenBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbopenBox.Image = global::PL.Properties.Resources.wallet_icon;
+            this.pbopenBox.Location = new System.Drawing.Point(38, 18);
+            this.pbopenBox.Name = "pbopenBox";
+            this.pbopenBox.Size = new System.Drawing.Size(74, 72);
+            this.pbopenBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbopenBox.TabIndex = 8;
+            this.pbopenBox.TabStop = false;
+            this.pbopenBox.Click += new System.EventHandler(this.pbopenBox_Click);
             // 
-            // tabPage8
+            // pbConsUser
             // 
-            this.tabPage8.Location = new System.Drawing.Point(4, 22);
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Size = new System.Drawing.Size(981, 135);
-            this.tabPage8.TabIndex = 7;
-            this.tabPage8.Text = "Ayuda (?)";
-            this.tabPage8.UseVisualStyleBackColor = true;
+            this.pbConsUser.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbConsUser.Image = global::PL.Properties.Resources.Male_user_search_icon;
+            this.pbConsUser.Location = new System.Drawing.Point(218, 18);
+            this.pbConsUser.Name = "pbConsUser";
+            this.pbConsUser.Size = new System.Drawing.Size(74, 72);
+            this.pbConsUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbConsUser.TabIndex = 8;
+            this.pbConsUser.TabStop = false;
+            this.pbConsUser.Click += new System.EventHandler(this.pbConsUser_Click);
             // 
-            // txtUsername
+            // pbaddPerson
             // 
-            this.txtUsername.Location = new System.Drawing.Point(200, 302);
-            this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(181, 20);
-            this.txtUsername.TabIndex = 6;
-            this.txtUsername.Visible = false;
+            this.pbaddPerson.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbaddPerson.Image = global::PL.Properties.Resources.Actions_user_group_new_icon;
+            this.pbaddPerson.Location = new System.Drawing.Point(123, 18);
+            this.pbaddPerson.Name = "pbaddPerson";
+            this.pbaddPerson.Size = new System.Drawing.Size(74, 72);
+            this.pbaddPerson.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbaddPerson.TabIndex = 7;
+            this.pbaddPerson.TabStop = false;
             // 
-            // txtLongName
+            // pbaddUser
             // 
-            this.txtLongName.Location = new System.Drawing.Point(200, 328);
-            this.txtLongName.Name = "txtLongName";
-            this.txtLongName.Size = new System.Drawing.Size(221, 20);
-            this.txtLongName.TabIndex = 7;
-            this.txtLongName.Visible = false;
-            // 
-            // txtPermisson
-            // 
-            this.txtPermisson.Location = new System.Drawing.Point(200, 354);
-            this.txtPermisson.Name = "txtPermisson";
-            this.txtPermisson.Size = new System.Drawing.Size(181, 20);
-            this.txtPermisson.TabIndex = 8;
-            this.txtPermisson.Visible = false;
-            // 
-            // txtIdUser
-            // 
-            this.txtIdUser.Location = new System.Drawing.Point(200, 380);
-            this.txtIdUser.Name = "txtIdUser";
-            this.txtIdUser.Size = new System.Drawing.Size(181, 20);
-            this.txtIdUser.TabIndex = 9;
-            this.txtIdUser.Visible = false;
+            this.pbaddUser.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbaddUser.Image = global::PL.Properties.Resources.Person_Male_Light_icon;
+            this.pbaddUser.Location = new System.Drawing.Point(31, 19);
+            this.pbaddUser.Name = "pbaddUser";
+            this.pbaddUser.Size = new System.Drawing.Size(74, 72);
+            this.pbaddUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbaddUser.TabIndex = 6;
+            this.pbaddUser.TabStop = false;
+            this.pbaddUser.Click += new System.EventHandler(this.pbaddUser_Click);
             // 
             // pictureBox1
             // 
@@ -1606,69 +1699,77 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage9.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.gbopBox.ResumeLayout(false);
+            this.frmConsultDoc.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox9.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox13.ResumeLayout(false);
+            this.groupBox14.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
+            this.groupBox17.ResumeLayout(false);
+            this.groupBox18.ResumeLayout(false);
+            this.groupBox19.ResumeLayout(false);
+            this.tabPage7.ResumeLayout(false);
+            this.groupBox16.ResumeLayout(false);
+            this.groupBox15.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbConsultProd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbIngProd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCashSell0)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExitApp)).EndInit();
-            this.tabPage1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbBalanceYear)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBalanceDay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBalanceMonth)).EndInit();
-            this.gbopBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbChangeReturn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSellCred1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCashSell1)).EndInit();
-            this.frmConsultDoc.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbProdSold)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbInvCancel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbConsInvoiceCred)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbInvoiceCont)).EndInit();
-            this.tabPage2.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbStockMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExpProd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbConsProd)).EndInit();
-            this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbAdjProduct)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddReq)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddProd)).EndInit();
-            this.tabPage3.ResumeLayout(false);
-            this.groupBox8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbRepProvedor)).EndInit();
-            this.groupBox7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbConsProvedor)).EndInit();
-            this.groupBox6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbEditProv)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddProvedor)).EndInit();
-            this.tabPage4.ResumeLayout(false);
-            this.groupBox11.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bpRepOrder)).EndInit();
-            this.groupBox10.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbConsPedi)).EndInit();
-            this.groupBox9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbGenPed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbGenShopping)).EndInit();
-            this.tabPage5.ResumeLayout(false);
-            this.groupBox12.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            this.groupBox13.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbConsultCustomer)).EndInit();
-            this.groupBox14.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbEditCustomers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddCustomers)).EndInit();
-            this.tabPage6.ResumeLayout(false);
-            this.groupBox17.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbCredits)).EndInit();
-            this.groupBox18.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbBalance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPaidHistory)).EndInit();
-            this.groupBox19.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbPayCredit)).EndInit();
-            this.tabPage7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbhistoryBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbcloseBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbopenBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbConsUser)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbaddPerson)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbaddUser)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1821,5 +1922,11 @@
         private System.Windows.Forms.PictureBox pbPaidHistory;
         private System.Windows.Forms.GroupBox groupBox19;
         private System.Windows.Forms.PictureBox pbPayCredit;
+        private System.Windows.Forms.PictureBox pbaddUser;
+        private System.Windows.Forms.PictureBox pbaddPerson;
+        private System.Windows.Forms.PictureBox pbopenBox;
+        private System.Windows.Forms.PictureBox pbcloseBox;
+        private System.Windows.Forms.PictureBox pbhistoryBox;
+        private System.Windows.Forms.PictureBox pbConsUser;
     }
 }

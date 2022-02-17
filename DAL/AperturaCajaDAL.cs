@@ -19,8 +19,9 @@ namespace pjPalmera.DAL
         /// </summary>
         /// <param name="Ocaja"></param>
         /// <returns></returns>
-        public static void CreateHistoryOpenBox(AperturaCajaEntity oCaja)
+        public static int CreateHistoryOpenBox(AperturaCajaEntity oCaja)
         {
+            int result;
             using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 using (var cmd = new MySqlCommand("spCreateOpBox", con))
@@ -28,7 +29,7 @@ namespace pjPalmera.DAL
                     con.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@pcajero", oCaja.Cajero);
+                    cmd.Parameters.AddWithValue("@pcajero", oCaja.UserId);
                     cmd.Parameters.AddWithValue("@pmonto", oCaja.Monto);
                     cmd.Parameters.AddWithValue("@ptypeop", oCaja.TypeOp);
                     cmd.Parameters.AddWithValue("@pcreated", DateTime.Now);
@@ -41,7 +42,7 @@ namespace pjPalmera.DAL
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@pid_open_process", oCaja.Id);
-                    cmd.Parameters.AddWithValue("@pcajero", oCaja.Cajero);
+                    cmd.Parameters.AddWithValue("@pcajero", oCaja.UserId);
                     cmd.Parameters.AddWithValue("@puno", oCaja.Uno);
                     cmd.Parameters.AddWithValue("@pcinco", oCaja.Cinco);
                     cmd.Parameters.AddWithValue("@pdiez", oCaja.Diez);
@@ -55,9 +56,10 @@ namespace pjPalmera.DAL
                     cmd.Parameters.AddWithValue("@pmonto", oCaja.Monto);
                     cmd.Parameters.AddWithValue("@pcreated", DateTime.Now);
 
-                    cmd.ExecuteNonQuery();
+                    result = cmd.ExecuteNonQuery();
                 }
             }
+            return result;
         }
 
 
@@ -67,7 +69,7 @@ namespace pjPalmera.DAL
         /// Modificated by: sammye70
         /// Modificated Date:
         /// <summary>
-        ///  Get Status Box (It will return 0 when is close and 1 if is open )
+        ///  Get Status Box (It will return 0 when was closed and 1 if was opened )
         /// </summary>
         /// <returns></returns>
         public static int GetStatusBox(AperturaCajaEntity oCaja)
@@ -82,7 +84,7 @@ namespace pjPalmera.DAL
                     con.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@pcajero", oCaja.Cajero);
+                    cmd.Parameters.AddWithValue("@pcajero", oCaja.UserId);
                     cmd.Parameters.Add("@resp", MySqlDbType.Int32);
                     cmd.Parameters["@resp"].Direction = ParameterDirection.Output;
                     cmd.ExecuteNonQuery();
@@ -102,8 +104,9 @@ namespace pjPalmera.DAL
         /// Save process Open Box until box status change to closed
         /// </summary>
         /// <param name="Ocaja"></param>
-        public static void CreateOpenBox(AperturaCajaEntity oCaja)
+        public static int CreateOpenBox(AperturaCajaEntity oCaja)
         {
+            int result;
             using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 using (var cmd = new MySqlCommand("spCreateOpenB", con))
@@ -111,14 +114,16 @@ namespace pjPalmera.DAL
                     con.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@pcajero", oCaja.Cajero);
+                    cmd.Parameters.AddWithValue("@pcajero", oCaja.UserId);
                     cmd.Parameters.AddWithValue("@pmonto", oCaja.Monto);
                     cmd.Parameters.AddWithValue("@pstatus", oCaja.Status);
                     cmd.Parameters.AddWithValue("@pcreated", DateTime.Now);
 
-                    cmd.ExecuteNonQuery();
+                   result = cmd.ExecuteNonQuery();
                 }
             }
+
+            return result;
         }
 
 

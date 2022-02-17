@@ -27,6 +27,7 @@ namespace pjPalmera.PL
             }
         }
 
+        private UsuariosEntity user = new UsuariosEntity();
 
         public frmPrincipal()
         {
@@ -130,18 +131,18 @@ namespace pjPalmera.PL
             // info User      
             var user = new UsuariosEntity();
             var box = new AperturaCajaEntity();
-            frmAbrirCaja fmbox = new frmAbrirCaja();
+            var fmbox = new frmAbrirCaja();
 
             user.Id_user = Int32.Parse(this.txtIdUser.Text); //
             user.LongName = this.txtLongName.Text;
             user.User_name = this.txtUsername.Text;
-            user.Privileges = Int32.Parse(this.txtPermisson.Text);
+            user.Privileges = this.txtPermisson.Text;
             box.TypeOp = 1;
             box.Status = 1;
             fmbox.txtUserFirstNameLast.Text = user.LongName;
-            fmbox.txtUserName.Text = user.User_name;
+           // fmbox.txtUserName.Text = user.User_name;
             fmbox.txtIdUser.Text = user.Id_user.ToString();
-            fmbox.txtPermission.Text = user.Privileges.ToString();
+            // fmbox.txtPermission.Text = user.Privileges.ToString();
             fmbox.txtType.Text = box.TypeOp.ToString();
             fmbox.txtStatus.Text = box.Status.ToString();
             fmbox.ShowDialog(this);
@@ -229,12 +230,12 @@ namespace pjPalmera.PL
             //splash.ShowDialog(this);
 
             //Login();
-            var user = new UsuariosEntity();
-            user.Id_user = int.Parse(this.txtIdUser.Text);
+            //var user = new UsuariosEntity();
+            //user.Id_user = int.Parse(this.txtIdUser.Text);
 
             this.tabControl1.Visible = true;
             this.DetailControls();
-            this.ValidateProfiles(user);
+         //   this.ValidateProfiles(user);
             this.menuStrip1.Visible = false;
            
         }
@@ -262,7 +263,7 @@ namespace pjPalmera.PL
 
             user.Id_user = int.Parse(this.txtIdUser.Text);
             user.LongName = this.txtLongName.Text;
-            user.Privileges = int.Parse(this.txtPermisson.Text);
+            user.Privileges = this.txtPermisson.Text;
 
             fpay.txtIdUser.Text = user.Id_user.ToString();
             fpay.txtUserLong.Text = user.LongName.ToString();
@@ -290,13 +291,11 @@ namespace pjPalmera.PL
             sell.tipo = type.ToString();
             cashier.Id_user = Int32.Parse(this.txtIdUser.Text);
             cashier.LongName = this.txtLongName.Text;
-            cashier.Privileges = Int32.Parse(this.txtPermisson.Text);
+            cashier.Privileges = this.txtPermisson.Text;
             cashier.User_name = this.txtUsername.Text;
             finvoice.lblCajeroName.Text = cashier.LongName;
             finvoice.txtTypeInvoice.Text = sell.tipo;
             finvoice.txtPermissionId.Text = cashier.Privileges.ToString();
-            finvoice.txtUsername.Text = cashier.User_name;
-            // finvoice.DesVisibleCtrlInvCr();
 
             // Here add to evalute privileges
             //-->
@@ -307,15 +306,22 @@ namespace pjPalmera.PL
 
             switch (rol)
             {
-                case 1:
+                case "1":
+                    finvoice.Show();
+                    finvoice.DesVisibleCtrlInvCr();
+                    break;
+                case "2":
+                    // MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    finvoice.Text = "Ventas al Contado";
+                    finvoice.DesVisibleCtrlInvCr();
                     finvoice.Show();
                     break;
-                case 2:
-                   // MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    finvoice.Show();
-                    break;
-                case 3:
+                case "3":
                     MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "4":
+                    finvoice.Show();
+                    finvoice.DesVisibleCtrlInvCr();
                     break;
             }            
         }
@@ -335,58 +341,45 @@ namespace pjPalmera.PL
             ventas.txtTypeInvoice.Text = venta.tipo;
             casher.Id_user = Int32.Parse(this.txtIdUser.Text);
             casher.LongName = this.txtLongName.Text;
-            casher.Privileges = Int32.Parse(this.txtPermisson.Text);
+            casher.Privileges = this.txtPermisson.Text;
             casher.User_name = this.txtUsername.Text;
             ventas.lblCajeroName.Text = casher.LongName;
             ventas.txtPermissionId.Text = casher.Privileges.ToString();
             ventas.txtUsername.Text = casher.User_name;
             ventas.txtUserId.Text = casher.Id_user.ToString();
-            ventas.Text = "Ventas a Crédito";
-            ventas.DesVisibleCtrlInvCash();
-            ventas.EnVisibleCtrlInvCr();
-            ventas.btnNewInvoiceCr.Focus();
+            
 
             // Here:
             // Validate permission before to access  into this module or use
             //
 
-            ventas.Show();
-        }
 
+            ventas.txtUserId.Text = casher.Id_user.ToString();
 
+            UsuariosBO.getVisibleControls(casher);
+            var rol = UsuariosBO.result;
 
-
-        /// <summary>
-        ///  Users profiles validation to get controls
-        /// </summary>
-        public void ValidateProfiles(UsuariosEntity user)
-        {
-            try
+            switch (rol)
             {
-                UsuariosBO.getVisibleControls(user);
-                var level = UsuariosBO.result;
+                case "1":
+                    ventas.Text = "Ventas al Contado";
+                    ventas.DesVisibleCtrlInvCash();
+                    ventas.EnVisibleCtrlInvCr();
+                    ventas.btnNewInvoiceCr.Focus();
+                    ventas.Show();
+                    break;
+                case "2":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-                switch (level)
-                {
-                    case 0:
-                        
-                        break;
+                    break;
+                case "3":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
 
-                    case 1:
-                        level1Perm();
-                        break;
-                    case 2:
-                        level2Perm();
-                        break;
-                    case 3:
-                        level3Perm();
-                        break;
-                }
+                case "4":
+                    break;
             }
-            catch (Exception)
-            {
-                MessageBox.Show(UsuariosBO.strMessegerBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+
         }
 
 
@@ -403,7 +396,7 @@ namespace pjPalmera.PL
             this.toolTip1.SetToolTip(this.pbSellCred1, "Realizar Venta a Crédito");
             this.toolTip1.SetToolTip(this.pbIngProd, "Agregar Nuevos Productos");
             // this.toolTip1.SetToolTip(this.pictureBox4,"Ingresar Pedidos");
-            this.toolTip1.SetToolTip(this.pbConsultProd, "Consultar Productos");
+            this.toolTip1.SetToolTip(this.pbConsultProd, "Consultar Catalogo de Productos");
             this.toolTip1.SetToolTip(this.pbInvoiceCont, "Consultar Documentos de Ventas al Contado");
             this.toolTip1.SetToolTip(this.pbInvCancel, "Consultar Ventas Anuladas");
             this.toolTip1.SetToolTip(this.pbProdSold, "Historial de Articulos Vendidos");
@@ -427,56 +420,14 @@ namespace pjPalmera.PL
             this.toolTip1.SetToolTip(this.pbPaidHistory, "Consultar Pagos del Clientes");
             this.toolTip1.SetToolTip(this.pbBalance, "Consultar Balance de clientes");
             this.toolTip1.SetToolTip(this.pbCredits, "Reporte de Creditos Pendientes");
-        }
-
-
-        /// <summary>
-        ///  Supervisor permission (Enable only controls for this rol)
-        /// </summary>
-        public static void level1Perm()
-        {
- 
+            this.toolTip1.SetToolTip(this.pbaddUser, "Agregar Nuevo Usuario");
+            this.toolTip1.SetToolTip(this.pbcloseBox, "Cerrar Caja Actual para finalizar las operaciones");
+            this.toolTip1.SetToolTip(this.pbopenBox, "Aperturar Caja Actual para iniciar las operaciones");
+            this.toolTip1.SetToolTip(this.pbhistoryBox, "Historial de Apertura o Cierre de Caja");
+            this.toolTip1.SetToolTip(this.pbConsUser, "Consultar y Editar Usuarios");
 
         }
 
-        /// <summary>
-        ///  Cashier permission (Enable only controls for this rol)
-        /// </summary>
-        public  void level2Perm()
-        {
-            
-            this.pbConsProvedor.Enabled = false;
-            this.pbAddCustomers.Enabled = false;
-            this.pbAddCustomers.Enabled = false;
-            this.pbIngProd.Enabled = false;
-            this.pbSellCred1.Enabled = false;
-            this.pbInvoiceCont.Enabled = false;
-            this.pbInvCancel.Enabled = false;
-            this.pbProdSold.Enabled = false;
-            this.pbAddProd.Enabled = false;
-            this.pbChangeReturn.Enabled = false;
-            this.pbAddReq.Enabled = false;
-            // this.pbConsProd.Enabled = false;
-            this.pbExpProd.Enabled = false;
-            this.pbAddProvedor.Enabled = false;
-            this.pbConsProvedor.Enabled = false;
-            this.pbConsInvoiceCred.Enabled = false;
-            this.pbAdjProduct.Enabled = false;
-            this.pbPayCredit.Enabled = false;
-            this.pbPaidHistory.Enabled = false;
-            this.pbBalance.Enabled = false;
-            this.pbCredits.Enabled = false;
-          
-
-        }
-
-        /// <summary>
-        ///  Reciving Clerk permission (Enable only controls for this rol)
-        /// </summary>
-        public  void level3Perm()
-        {
-
-        }
 
 
         /// <summary>
@@ -506,57 +457,201 @@ namespace pjPalmera.PL
 
         private void pbInvoiceCont_Click(object sender, EventArgs e)
         {
+            user.Id_user = int.Parse(this.txtIdUser.Text);
             frmConsultFacturasCont ConsultFactEmit = new frmConsultFacturasCont();
-            ConsultFactEmit.ShowDialog(this);
+
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    ConsultFactEmit.ShowDialog(this);
+                    break;
+                case "2":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "4":
+                    break;
+            }
         }
 
         private void pbConsInvoiceCred_Click(object sender, EventArgs e)
         {
+            user.Id_user = int.Parse(this.txtIdUser.Text);
             frmConsulFactCredito FacturasCredito = new frmConsulFactCredito();
-            FacturasCredito.ShowDialog(this);
+
+
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    FacturasCredito.ShowDialog(this);
+                    break;
+                case "2":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "4":
+                    break;
+            }
+            
         }
 
         private void pbInvCancel_Click(object sender, EventArgs e)
         {
+            user.Id_user = int.Parse(this.txtIdUser.Text);
             frmConsultFactAnuladas FactAnuladas = new frmConsultFactAnuladas();
-            FactAnuladas.ShowDialog(this);
+
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    FactAnuladas.ShowDialog(this);
+                    break;
+                case "2":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "4":
+                    break;
+            }
         }
 
         private void pbProdSold_Click(object sender, EventArgs e)
         {
+            user.Id_user = int.Parse(this.txtIdUser.Text);
             frmHistorialVentArticulos ArticulosVendidos = new frmHistorialVentArticulos();
-            ArticulosVendidos.ShowDialog(this);
+
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    ArticulosVendidos.ShowDialog(this);
+                    break;
+                case "2":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "4":
+                    break;
+            }
         }
 
         private void pbAddProd_Click(object sender, EventArgs e)
         {
+            user.Id_user = int.Parse(this.txtIdUser.Text);
             frmRegArticulos RegArt = new frmRegArticulos();
-            RegArt.ShowDialog(this);
+
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    RegArt.ShowDialog(this);
+                    break;
+                case "2":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    RegArt.ShowDialog(this);
+                    break;
+                case "4":
+                    break;
+            }
         }
 
         private void pbAddReq_Click(object sender, EventArgs e)
         {
-            frmAjustarProductos editProduct = new frmAjustarProductos();
-            editProduct.ShowDialog(this);
-        }
+            var editProduct = new frmAjustarProductos();
+            user.Id_user = int.Parse(this.txtIdUser.Text);
+            
 
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    editProduct.ShowDialog(this);
+                    break;
+                case "2":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    editProduct.ShowDialog(this);
+                    break;
+                case "4":
+                    break;
+            }
+        }
 
         private void pbExpProd_Click(object sender, EventArgs e)
         {
-            frmConsulArticulosExpirar ArtVencer = new frmConsulArticulosExpirar();
-            ArtVencer.ShowDialog(this);
-        }
+            var ArtVencer = new frmConsulArticulosExpirar();
+            user.Id_user = int.Parse(this.txtIdUser.Text);
 
+
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    ArtVencer.ShowDialog(this);
+                    break;
+                case "2":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    ArtVencer.ShowDialog(this);
+                    break;
+                case "4":
+                    break;
+            }
+        }
         private void pbAddProvedor_Click(object sender, EventArgs e)
         {
-            frmRegProveedor fprovider = new frmRegProveedor();
-            var provider = new ProveedorEntity();
-            provider.Idproveedor = int.Parse(this.txtIdUser.Text);
-            fprovider.txtIdUser.Text = provider.Idproveedor.ToString();
-            fprovider.Text = "Agregar Nuevo Proveedor";
-            fprovider.ShowDialog(this);
-        }
+            var fprovider = new frmRegProveedor();
+            user.Id_user = int.Parse(this.txtIdUser.Text);
+            fprovider.txtIdUser.Text = user.Id_user.ToString();
 
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    fprovider.Text = "Agregar Nuevo Proveedor";
+                    fprovider.ShowDialog(this);
+                    break;
+                case "2":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    fprovider.Text = "Agregar Nuevo Proveedor";
+                    fprovider.ShowDialog(this);
+                    break;
+                case "4":
+                    break;
+            }
+        }
         private void pbConsProvedor_Click(object sender, EventArgs e)
         {
             frmConsultarProveedor ConsultaProv = new frmConsultarProveedor();
@@ -565,20 +660,59 @@ namespace pjPalmera.PL
 
         private void pbEditProv_Click(object sender, EventArgs e)
         {
-            frmConsultarProveedor proveedor = new frmConsultarProveedor();
+            var proveedor = new frmConsultarProveedor();
+            user.Id_user = int.Parse(this.txtIdUser.Text);
             proveedor.Text = "Editar Proveedor";
-            proveedor.EnableControls();
-            proveedor.ShowDialog(this);
+
+
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    proveedor.EnableControls();
+                    proveedor.ShowDialog(this);
+                    break;
+                case "2":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "4":
+                    proveedor.EnableControls();
+                    proveedor.ShowDialog(this);
+                    break;
+            }
         }
 
         private void pbAddCustomers_Click(object sender, EventArgs e)
         {
-            var user = new UsuariosEntity();
+            var regCustomer = new frmRegClientes();
             user.Id_user = int.Parse(this.txtIdUser.Text);
-            frmRegClientes regCustomer = new frmRegClientes();
             regCustomer.txtIdUser.Text = user.Id_user.ToString();
             regCustomer.Text = "Agregar Nuevo Cliente";
-            regCustomer.ShowDialog(this);
+            
+
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    regCustomer.ShowDialog(this);
+                    break;
+                case "2":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "4":
+                    regCustomer.ShowDialog(this);
+                    break;
+            }
         }
 
         private void pbCashSell0_Click(object sender, EventArgs e)
@@ -595,27 +729,46 @@ namespace pjPalmera.PL
         {
             var user = new UsuariosEntity();
             user.Id_user = int.Parse(this.txtIdUser.Text);
-            user.Privileges = int.Parse(this.txtPermisson.Text);
+            user.Privileges = this.txtPermisson.Text;
             frmConsultarProductos productos = new frmConsultarProductos();
             productos.txtIdUser.Text = user.Id_user.ToString();
             productos.txtRol.Text = user.Privileges.ToString();
             productos.Text = "Consultar Articulos";
+            productos.InniDisableControls();
 
             productos.Show(this);
         }
 
         private void pbConsProdMin_Click(object sender, EventArgs e)
         {
-            var user = new UsuariosEntity();
+            var productos = new frmConsultarProductos();
             user.Id_user = int.Parse(this.txtIdUser.Text);
-            user.Privileges = int.Parse(this.txtPermisson.Text);
-            frmConsultarProductos productos = new frmConsultarProductos();
+            
             productos.txtIdUser.Text = user.Id_user.ToString();
             productos.txtRol.Text = user.Privileges.ToString();
             productos.Text = "Consultar Articulos";
-            productos.btnEditarProd.Visible = false;
-            productos.btnRemove.Visible = false;
-            productos.Show(this);
+
+
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    productos.InniDisableControls();
+                    productos.Show(this);
+                    break;
+                case "2":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "4":
+                    productos.InniDisableControls();
+                    productos.Show(this);
+                    break;
+            }
         }
 
         private void pbIngProd_Click(object sender, EventArgs e)
@@ -629,34 +782,74 @@ namespace pjPalmera.PL
 
             switch (rol)
             {
-                case 1:
+                case "1":
                     articulos.ShowDialog(this);
                     break;
-                case 2:
+                case "2":
                     MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     break;
-                case 3:
+                case "3":
                     articulos.ShowDialog(this);
+                    break;
+                case "4":
                     break;
             }
         }
 
         private void pbStockMin_Click(object sender, EventArgs e)
         {
-            frmStockMinimo minimo = new frmStockMinimo();
-            minimo.ShowDialog(this);
+            var minimo = new frmStockMinimo();
+            user.Id_user = int.Parse(this.txtIdUser.Text);
+
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    minimo.ShowDialog(this);
+                    break;
+                case "2":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    minimo.ShowDialog(this);
+                    break;
+                case "4":
+                    break;
+            }
         }
 
         private void pbAdjProduct_Click(object sender, EventArgs e)
         {
+            var productos = new frmConsultarProductos();
             var user = new UsuariosEntity();
+
             user.Id_user = int.Parse(this.txtIdUser.Text);
-            user.Privileges = int.Parse(this.txtPermisson.Text);
-            frmConsultarProductos productos = new frmConsultarProductos();
+            user.Privileges = this.txtPermisson.Text;
             productos.txtIdUser.Text = user.Id_user.ToString();
             productos.txtRol.Text = user.Privileges.ToString();
-            productos.Text = "Editar información de Articulos";
-            productos.Show(this);
+
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    productos.Text = "Editar información de Articulos";
+                    productos.IniControls();
+                    productos.Show(this);
+                    break;
+                case "2":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "4":
+                    break;
+            }
+
         }
 
         private void consultarArticulosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -671,57 +864,158 @@ namespace pjPalmera.PL
 
         private void pbConsultCustomer_Click(object sender, EventArgs e)
         {
-            var user = new UsuariosEntity();
+            var conCustomer = new frmConsulClientes();
             user.Id_user = int.Parse(this.txtIdUser.Text);
-            frmConsulClientes conCustomer = new frmConsulClientes();
+            
             conCustomer.txtIdUser.Text = user.Id_user.ToString();
-            conCustomer.btnEditar.Visible = false;
-            conCustomer.btnEliminar.Visible = false;
+
             conCustomer.Text = "Consultar Clientes";
-            conCustomer.ShowDialog(this);
+            
+
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    conCustomer.btnEditar.Visible = false;
+                    conCustomer.btnEliminar.Visible = false;
+                    conCustomer.ShowDialog(this);
+                    break;
+                case "2":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "4":
+                    conCustomer.btnEditar.Visible = false;
+                    conCustomer.btnEliminar.Visible = false;
+                    conCustomer.ShowDialog(this);
+                    break;
+            }
         }
 
         private void pbEditCustomers_Click(object sender, EventArgs e)
         {
-            var user = new UsuariosEntity();
+            var conCustomer = new frmConsulClientes();
             user.Id_user = int.Parse(this.txtIdUser.Text);
-            frmConsulClientes conCustomer = new frmConsulClientes();
+            
             conCustomer.txtIdUser.Text = user.Id_user.ToString();
             conCustomer.Text = "Ajustar Clientes";
             conCustomer.ShowDialog(this);
+
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    conCustomer.ShowDialog(this);
+                    break;
+                case "2":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "4":
+                    conCustomer.ShowDialog(this);
+                    break;
+            }
         }
 
         private void pbPayCredit_Click(object sender, EventArgs e)
         {
-            var user = new UsuariosEntity();
+            var pay = new frmEfectPagosFactCred();
             user.Id_user = int.Parse(this.txtIdUser.Text);
-            frmEfectPagosFactCred pay = new frmEfectPagosFactCred();
             pay.txtIdUser.Text = user.Id_user.ToString();
-            pay.ShowDialog(this);
+            
+
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    pay.ShowDialog(this);
+                    break;
+                case "2":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "4":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+            }
         }
 
         private void pbPaidHistory_Click(object sender, EventArgs e)
         {
+            var hpagocred = new frmHistPagoClientesCr();
             var query = new CreditAccountEntity();
             query.Result = 1;
-            frmHistPagoClientesCr hpagocred = new frmHistPagoClientesCr();
+            user.Id_user = int.Parse(this.txtIdUser.Text);
+            
             hpagocred.txtTypeQuery.Text = query.Result.ToString();
 
-            hpagocred.ShowDialog(this);
+           
+
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    hpagocred.ShowDialog(this);
+                    break;
+                case "2":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "4":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+            }
         }
 
         private void pbBalance_Click(object sender, EventArgs e)
         {
+            var hpagocred = new frmHistPagoClientesCr();
             var query = new CreditAccountEntity();
             query.Result = 2;
-            frmHistPagoClientesCr hpagocred = new frmHistPagoClientesCr();
+            user.Id_user = int.Parse(this.txtIdUser.Text);
             hpagocred.txtTypeQuery.Text = query.Result.ToString();
             hpagocred.Text = "Consultar Balance del Cliente";
-            hpagocred.ShowDialog(this);
+            
+
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    hpagocred.ShowDialog(this);
+                    break;
+                case "2":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "4":
+                    hpagocred.ShowDialog(this);
+                    break;
+            }
         }
 
         private void pbSellCred1_Click(object sender, EventArgs e)
         {
+            var allow = new frmAutorizar();
             var casher = new UsuariosEntity();
             var venta = new VentaCrEntity();
             frmVenta ventas = new frmVenta();
@@ -731,20 +1025,250 @@ namespace pjPalmera.PL
             ventas.txtTypeInvoice.Text = venta.tipo;
             casher.Id_user = Int32.Parse(this.txtIdUser.Text);
             casher.LongName = this.txtLongName.Text;
-            casher.Privileges = Int32.Parse(this.txtPermisson.Text);
+            casher.Privileges = this.txtPermisson.Text;
             casher.User_name = this.txtUsername.Text;
             ventas.lblCajeroName.Text = casher.LongName;
             ventas.txtPermissionId.Text = casher.Privileges.ToString();
             ventas.txtUsername.Text = casher.User_name;
             ventas.txtUserId.Text = casher.Id_user.ToString();
-            ventas.Text = "Ventas a Crédito";
-            ventas.DesVisibleCtrlInvCash();
-            ventas.EnVisibleCtrlInvCr();
-            ventas.btnNewInvoiceCr.Focus();
+            allow.txtUserId.Text = casher.Id_user.ToString();
+            allow.txtUserName.Text = casher.User_name.ToString();
+            allow.txtLongName.Text = casher.LongName.ToString();
+            
+
 
             // Here:
             // Validate permission before to access  into this module or use
             //
+
+
+            UsuariosBO.getVisibleControls(casher);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    ventas.Text = "Ventas a Crédito";
+                    ventas.DesVisibleCtrlInvCash();
+                    ventas.EnVisibleCtrlInvCr();
+                    ventas.btnNewInvoiceCr.Focus();
+                    ventas.ShowDialog(this);
+                    break;
+                case "2":
+                        allow.ShowDialog();
+                    break;
+                case "3":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "4":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+            }
+
+        }
+
+        private void pictureBox4_Click_1(object sender, EventArgs e)
+        {
+            var rptProductosAct = new frmRepProductos();
+            user.Id_user = Int32.Parse(this.txtIdUser.Text);
+
+
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    rptProductosAct.Show();
+                    break;
+                case "2":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "4":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+            }
+        }
+
+        private void pbaddUser_Click(object sender, EventArgs e)
+        {
+            var regUsers = new frmRegUsers();
+            user.Id_user = Int32.Parse(this.txtIdUser.Text);
+            regUsers.txtidUser.Text = user.Id_user.ToString();
+            regUsers.btnUpdate.Visible = false;
+            regUsers.DesableControls();
+
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    regUsers.Show(this);
+                    break;
+                case "2":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "4":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+            }
+        }
+
+        private void pbopenBox_Click(object sender, EventArgs e)
+        {
+            // info User      
+            var user = new UsuariosEntity();
+            var box = new AperturaCajaEntity();
+            var fmbox = new frmAbrirCaja();
+
+            user.Id_user = Int32.Parse(this.txtIdUser.Text); //
+            //user.LongName = this.txtLongName.Text;
+            //user.User_name = this.txtUsername.Text;
+            box.TypeOp = 1;
+            box.Status = 1;
+            // fmbox.txtUserFirstNameLast.Text = user.LongName;
+            //fmbox.txtUserName.Text = user.User_name;
+            fmbox.txtIdUser.Text = user.Id_user.ToString();
+            //fmbox.txtPermission.Text = user.Privileges.ToString();
+            fmbox.txtType.Text = box.TypeOp.ToString();
+            fmbox.txtStatus.Text = box.Status.ToString();
+
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    fmbox.ShowDialog(this);
+                    break;
+                case "2":
+                    fmbox.ShowDialog(this);
+                    // MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "4":
+                    fmbox.ShowDialog(this);
+                    // MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+            }
+
+
+            fmbox.ShowDialog(this);
+        }
+
+        private void pbcloseBox_Click(object sender, EventArgs e)
+        {
+            // info User      
+            var user = new UsuariosEntity();
+            var box = new AperturaCajaEntity();
+            var fmbox = new frmCierreCaja();
+
+            user.Id_user = Int32.Parse(this.txtIdUser.Text); //
+            //user.LongName = this.txtLongName.Text;
+            //user.User_name = this.txtUsername.Text;
+            box.TypeOp = 2;
+            box.Status = 1;
+            // fmbox.txtUserFirstNameLast.Text = user.LongName;
+            //fmbox.txtUserName.Text = user.User_name;
+            fmbox.txtIdUser.Text = user.Id_user.ToString();
+            //fmbox.txtPermission.Text = user.Privileges.ToString();
+            fmbox.txtType.Text = box.TypeOp.ToString();
+            // fmbox.txtStatus.Text = box.Status.ToString();
+
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    fmbox.ShowDialog(this);
+                    break;
+                case "2":
+                    fmbox.ShowDialog(this);
+                    // MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "4":
+                    fmbox.ShowDialog(this);
+                    // MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+            }
+        }
+
+        private void pbhistoryBox_Click(object sender, EventArgs e)
+        {
+            // info User      
+            var user = new UsuariosEntity();
+            var fmHbox = new frmConsOpCaja();
+
+            user.Id_user = Int32.Parse(this.txtIdUser.Text); //
+
+            fmHbox.txtUserId.Text = user.Id_user.ToString();
+
+
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                    fmHbox.iniControl();
+                    fmHbox.ShowDialog(this);
+                    break;
+                case "2":
+                    fmHbox.ShowDialog(this);
+                    // MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "4":
+                    fmHbox.ShowDialog(this);
+                    // MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+            }
+        }
+
+        private void pbConsUser_Click(object sender, EventArgs e)
+        {
+            // info User      
+            var user = new UsuariosEntity();
+            var fmCUser = new frmConsUsers();
+
+            user.Id_user = Int32.Parse(this.txtIdUser.Text); //
+
+            fmCUser.txtUserId.Text = user.Id_user.ToString();
+
+
+            UsuariosBO.getVisibleControls(user);
+            var rol = UsuariosBO.result;
+
+            switch (rol)
+            {
+                case "1":
+                        fmCUser.ShowDialog(this);
+                    break;
+                case "2":
+                        MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "3":
+                        MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "4":
+                        MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+            }
         }
     }
 }

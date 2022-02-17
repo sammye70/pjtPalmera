@@ -15,39 +15,109 @@ namespace pjPalmera.BLL
         /// Get Amount Total Invoices
         /// </summary>
         /// <returns></returns>
-        public static decimal MontoVentas()
+        public static decimal MontoVentas(CierreCajaEntity cCaja)
         {
             try
             {
-                return CierreCajaDAL.MontoVentas();
+                var result =  CierreCajaDAL.MontoVentas(cCaja);
+
+                if(result <= 0)
+                {
+                    throw new ApplicationException("El usuario actual no tiene una Caja aperturada para el proceso de ventas.");
+                }
+                else
+                {
+                    return result;
+                }
             }
-            catch //(Exception ex)
+            catch (ApplicationException ae)
             {
-              //  MessageBox.Show("No se Realizaron Ventas", "Mensaje del Sistema");
+                MessageBox.Show(ae.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return 0;
+            }
+
+            catch (Exception ex)
+            {
+               MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+               return 0;
             }
         }
 
         /// <summary>
-        /// Clean Transtactions Invoices
+        /// Remove Transtactions temp by user id
         /// </summary>
-        public static void CleanTranstactions()
+        public static void CleanTranstactions(CierreCajaEntity cCaja)
         {
             try
             {
-                CierreCajaDAL.CleanTranstactions();
+                var result = CierreCajaDAL.CleanTranstactions(cCaja);
+                
+                if(result <= 0)
+                {
+                    throw new ArgumentNullException("Error interno al intentar actualizar los almacenes de datos");
+                }
             }
+
+            catch (ArgumentNullException ax)
+            {
+                MessageBox.Show(ax.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Mensaje del Sistema");
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }
 
+
         /// <summary>
-        /// Clean Open Box
+        /// Save History Header and Detail About process Close Box
         /// </summary>
-        public static void CleanOpenBox() 
+        /// <param name="Ocaja"></param>
+        /// <returns></returns>
+        public static void CreateHistoryCloseBox(CierreCajaEntity cCaja)
+        {
+
+            try 
+            {
+                var result = CierreCajaDAL.CreateHistoryCloseBox(cCaja);
+
+                if (result <= 0)
+                {
+                    throw new ArgumentNullException("Algo ocurrio y no se pudo completar la operación solicitada");
+                }
+                else
+                {
+                    throw new ApplicationException("Operación realizada satisfactoriamente!");
+                }
+            }
+
+            catch (ApplicationException ax)
+            {
+                MessageBox.Show(ax.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            catch (ArgumentNullException ae)
+            {
+                MessageBox.Show(ae.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+        }
+
+            /// <summary>
+            /// Clean Open Box
+            /// </summary>
+            public static void CleanOpenBox() 
         {
             CierreCajaDAL.CleanOpenBox();
 

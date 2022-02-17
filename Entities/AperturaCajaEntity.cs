@@ -11,7 +11,7 @@ namespace pjPalmera.Entities
         //Fields (Cash)
 
         private int id;
-        private int cajero;
+        private int userid;
         private int uno;
         private int cinco;
         private int diez;
@@ -34,11 +34,11 @@ namespace pjPalmera.Entities
         {
         }
 
-        public AperturaCajaEntity(int id, int cajero, DateTime fecha, int uno, int cinco, int diez, int venticinco, int cincuenta, int cien, int doscientos, int quinientos, int mil, int dosmil,
+        public AperturaCajaEntity(int id, int userid, DateTime fecha, int uno, int cinco, int diez, int venticinco, int cincuenta, int cien, int doscientos, int quinientos, int mil, int dosmil,
                                    decimal monto, int type_op)
         {
             this.Id = id;
-            this.Cajero = cajero;
+            this.UserId = userid;
             this.Fecha = fecha;
             this.Uno = uno;
             this.Cinco = cinco;
@@ -77,11 +77,11 @@ namespace pjPalmera.Entities
             set { id = value; }
         }
 
-        public int Cajero
+        public int UserId
         {
-            get { return cajero; }
+            get { return userid; }
 
-            set { cajero = value; }
+            set { userid = value; }
         }
 
         public DateTime Fecha

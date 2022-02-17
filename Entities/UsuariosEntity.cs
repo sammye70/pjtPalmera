@@ -19,12 +19,13 @@ namespace pjPalmera.Entities
         private string user_name;   //
         private string password;    //
         private string status;      //
-        private int privileges;     //
+        private string privileges;     //
         private string email;       //
         private string secret_question1;
         private string secret_answer1;
         private int createby;
         private DateTime created;
+        private int op;
      // private UserTypeEntity GetUserType;
 
         //Constructor
@@ -32,7 +33,7 @@ namespace pjPalmera.Entities
         {
         }
 
-        public UsuariosEntity(int id_user, string user_name, string password, string status, int privileges, int createby, DateTime created, string email/*, UserTypeEntity getusertype*/)
+        public UsuariosEntity(int id_user, string user_name, string password, string status, string privileges, int createby, DateTime created, string email/*, UserTypeEntity getusertype*/)
         {
             this.Id_user = id_user;
             this.User_name = user_name;
@@ -46,6 +47,26 @@ namespace pjPalmera.Entities
         }
 
         //Properties
+
+        public int Id_user
+        {
+            get { return id_user; }
+
+            set { this.id_user = value; }
+        }
+
+        public string User_name
+        {
+            get
+            {
+                return user_name;
+            }
+
+            set
+            {
+                this.user_name = value;
+            }
+        }
 
         public string Firstname 
         {
@@ -63,13 +84,6 @@ namespace pjPalmera.Entities
         {
             set { this.long_name= value; }
             get { return this.long_name; }
-        }
-
-        public int Id_user
-        {
-            get { return id_user;}
-
-            set { this.id_user = value;}
         }
 
         public string Password
@@ -106,7 +120,7 @@ namespace pjPalmera.Entities
             }
         }
 
-        public int Privileges
+        public string Privileges
         {
             get
             {
@@ -119,19 +133,7 @@ namespace pjPalmera.Entities
             }
         }
 
-        public string User_name
-        {
-            get
-            {
-                return user_name;
-            }
-
-            set
-            {
-                this.user_name = value;
-            }
-        }
-
+       
         public string Email
         {
             get
@@ -155,6 +157,12 @@ namespace pjPalmera.Entities
         {
             get { return secret_answer1; }
             set { this.secret_answer1 = value; }
+        }
+
+        public int Op
+        {
+            get { return op;}
+            set { value = op; }
         }
 
 

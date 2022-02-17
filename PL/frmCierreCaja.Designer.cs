@@ -34,8 +34,13 @@
             this.lblEfectivoCaja = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtType = new System.Windows.Forms.TextBox();
+            this.txtPermission = new System.Windows.Forms.TextBox();
+            this.txtUserFirstNameLast = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.txtIdUser = new System.Windows.Forms.TextBox();
             this.txtBilletes2000 = new System.Windows.Forms.TextBox();
+            this.txtUserName = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.txtBilletes1000 = new System.Windows.Forms.TextBox();
             this.txtBilletes500 = new System.Windows.Forms.TextBox();
@@ -63,13 +68,10 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.txtPermission = new System.Windows.Forms.TextBox();
-            this.txtUserFirstNameLast = new System.Windows.Forms.TextBox();
-            this.txtIdUser = new System.Windows.Forms.TextBox();
-            this.txtUserName = new System.Windows.Forms.TextBox();
-            this.txtType = new System.Windows.Forms.TextBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label12
@@ -144,6 +146,30 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Billetes";
             // 
+            // txtType
+            // 
+            this.txtType.Location = new System.Drawing.Point(464, 96);
+            this.txtType.Name = "txtType";
+            this.txtType.Size = new System.Drawing.Size(42, 22);
+            this.txtType.TabIndex = 74;
+            this.txtType.Visible = false;
+            // 
+            // txtPermission
+            // 
+            this.txtPermission.Location = new System.Drawing.Point(416, 96);
+            this.txtPermission.Name = "txtPermission";
+            this.txtPermission.Size = new System.Drawing.Size(42, 22);
+            this.txtPermission.TabIndex = 73;
+            this.txtPermission.Visible = false;
+            // 
+            // txtUserFirstNameLast
+            // 
+            this.txtUserFirstNameLast.Location = new System.Drawing.Point(365, 95);
+            this.txtUserFirstNameLast.Name = "txtUserFirstNameLast";
+            this.txtUserFirstNameLast.Size = new System.Drawing.Size(42, 22);
+            this.txtUserFirstNameLast.TabIndex = 72;
+            this.txtUserFirstNameLast.Visible = false;
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -153,6 +179,14 @@
             this.label10.TabIndex = 48;
             this.label10.Text = "2000";
             // 
+            // txtIdUser
+            // 
+            this.txtIdUser.Location = new System.Drawing.Point(317, 95);
+            this.txtIdUser.Name = "txtIdUser";
+            this.txtIdUser.Size = new System.Drawing.Size(43, 22);
+            this.txtIdUser.TabIndex = 71;
+            this.txtIdUser.Visible = false;
+            // 
             // txtBilletes2000
             // 
             this.txtBilletes2000.Location = new System.Drawing.Point(151, 95);
@@ -160,6 +194,14 @@
             this.txtBilletes2000.Size = new System.Drawing.Size(100, 22);
             this.txtBilletes2000.TabIndex = 49;
             this.txtBilletes2000.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // txtUserName
+            // 
+            this.txtUserName.Location = new System.Drawing.Point(265, 95);
+            this.txtUserName.Name = "txtUserName";
+            this.txtUserName.Size = new System.Drawing.Size(44, 22);
+            this.txtUserName.TabIndex = 70;
+            this.txtUserName.Visible = false;
             // 
             // label9
             // 
@@ -411,45 +453,9 @@
             this.label14.TabIndex = 67;
             this.label14.Text = "Importante: Agregar 0 en los campos cuando no disponga de una moneda";
             // 
-            // txtPermission
+            // errorProvider1
             // 
-            this.txtPermission.Location = new System.Drawing.Point(416, 96);
-            this.txtPermission.Name = "txtPermission";
-            this.txtPermission.Size = new System.Drawing.Size(42, 22);
-            this.txtPermission.TabIndex = 73;
-            this.txtPermission.Visible = false;
-            // 
-            // txtUserFirstNameLast
-            // 
-            this.txtUserFirstNameLast.Location = new System.Drawing.Point(365, 95);
-            this.txtUserFirstNameLast.Name = "txtUserFirstNameLast";
-            this.txtUserFirstNameLast.Size = new System.Drawing.Size(42, 22);
-            this.txtUserFirstNameLast.TabIndex = 72;
-            this.txtUserFirstNameLast.Visible = false;
-            // 
-            // txtIdUser
-            // 
-            this.txtIdUser.Location = new System.Drawing.Point(317, 95);
-            this.txtIdUser.Name = "txtIdUser";
-            this.txtIdUser.Size = new System.Drawing.Size(43, 22);
-            this.txtIdUser.TabIndex = 71;
-            this.txtIdUser.Visible = false;
-            // 
-            // txtUserName
-            // 
-            this.txtUserName.Location = new System.Drawing.Point(265, 95);
-            this.txtUserName.Name = "txtUserName";
-            this.txtUserName.Size = new System.Drawing.Size(44, 22);
-            this.txtUserName.TabIndex = 70;
-            this.txtUserName.Visible = false;
-            // 
-            // txtType
-            // 
-            this.txtType.Location = new System.Drawing.Point(464, 95);
-            this.txtType.Name = "txtType";
-            this.txtType.Size = new System.Drawing.Size(42, 22);
-            this.txtType.TabIndex = 74;
-            this.txtType.Visible = false;
+            this.errorProvider1.ContainerControl = this;
             // 
             // frmCierreCaja
             // 
@@ -477,6 +483,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -523,5 +530,6 @@
         public System.Windows.Forms.TextBox txtIdUser;
         public System.Windows.Forms.TextBox txtUserName;
         public System.Windows.Forms.TextBox txtType;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

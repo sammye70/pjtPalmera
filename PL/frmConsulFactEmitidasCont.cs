@@ -200,15 +200,17 @@ namespace pjPalmera.PL
         {
             try
             {
+                
                 int x = this.dgvFacturasEmitidas.CurrentRow.Index;
 
                 _idVenta = Convert.ToInt32(this.dgvFacturasEmitidas.Rows[x].Cells[0].Value);
 
                 this.dgvDetailFactCont.DataSource = FacturaBO.GetDetailInvoices(Id_venta);
             }
-            catch (Exception)
+
+            catch (Exception ex)
             {
-                MessageBox.Show(FacturaBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }

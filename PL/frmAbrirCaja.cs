@@ -41,6 +41,7 @@ namespace pjPalmera.PL
         {
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+         
         }
 
 
@@ -190,9 +191,9 @@ namespace pjPalmera.PL
             {
                 if (oCaja != null)
                 {
-                    oCaja.Cajero = Int32.Parse(this.txtIdUser.Text);
+                    oCaja.TypeOp = 1;
+                    oCaja.UserId = Int32.Parse(this.txtIdUser.Text);
                     oCaja.Status = Int32.Parse(this.txtStatus.Text);
-                    oCaja.TypeOp = Int32.Parse(this.txtType.Text);
                     oCaja.Uno = Convert.ToInt32(this.txtMonedas1.Text);
                     oCaja.Cinco = Convert.ToInt32(this.txtMonedas5.Text);
                     oCaja.Diez = Convert.ToInt32(this.txtMonedas10.Text);
@@ -205,9 +206,10 @@ namespace pjPalmera.PL
                     oCaja.Dosmil = Convert.ToInt32(this.txtBilletes2000.Text);
                     oCaja.Monto = Convert.ToDecimal(this.lblMontoTotal.Text);
 
-                   // AperturaCajaBO.CreateOpenBox(oCaja);     //   
-                   // AperturaCajaBO.CreateHistoryOpenBox(oCaja); //
-                    PrintTicketOp();  // send to print ticket, if process was well.
+                    AperturaCajaBO.CreateOpenBox(oCaja);     //  --------------------------------------------------->
+                    AperturaCajaBO.CreateHistoryOpenBox(oCaja); //  ---------------------------------------------------> Create Method to save openbox details DONE
+                                                                //  ---------------------------------------------------> 
+                    PrintTicketOp();  // send to print ticket, if process was well. ---------------------------------->
                 }
             }
             catch (Exception ex)
@@ -252,27 +254,30 @@ namespace pjPalmera.PL
                         case true:
                             var Answer = new DialogResult();
 
-                            Answer = MessageBox.Show("Esta Apunto de Aperturar la Caja, Seguro que quiere hacerlo", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            Answer = MessageBox.Show("Esta Apunto de Aperturar la Caja, Seguro que quiere continuar", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                             if (Answer == DialogResult.Yes)
                             {
-                                // function valide if current user has some box with opened status
-
-                               oCaja.Cajero  = Convert.ToInt32(this.txtIdUser.Text);
+                            // function valide if current user has some box with opened status
+                            this.txtDate.Text = DateTime.Today.Date.ToShortDateString();
+                               oCaja.UserId  = Convert.ToInt32(this.txtIdUser.Text);
+                                
                                 var statusbox = AperturaCajaBO.GetStatusBox(oCaja);
 
-                                if (statusbox == 0)
+                                switch (statusbox) 
                                 {
-                                    OpenBox(oCaja);
+                                    case 0:
+                                        OpenBox(oCaja);
 
-                                    MessageBox.Show("Caja Abierta! Recuerde Cerrar la Caja al Finalizar las Labores", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    CleanControls();
-                                    this.Close();
-                                }
-                                else if (statusbox == 1)
-                                {
-                                    MessageBox.Show(AperturaCajaBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                                    this.Close();
+                                        MessageBox.Show("Caja Abierta! Recuerde que debe Cerrar la Caja al Finalizar las Labores", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        CleanControls();
+                                        this.Close();
+                                        break;
+
+                                    case 1:
+                                        MessageBox.Show(AperturaCajaBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                        this.Close();
+                                        break;
                                 }
                             }
 
@@ -494,5 +499,6 @@ namespace pjPalmera.PL
              */
         }
         #endregion
+
     }
 }

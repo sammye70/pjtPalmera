@@ -47,11 +47,10 @@
             this.txtMonedas1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtDate = new System.Windows.Forms.TextBox();
             this.txtType = new System.Windows.Forms.TextBox();
-            this.txtPermission = new System.Windows.Forms.TextBox();
             this.txtUserFirstNameLast = new System.Windows.Forms.TextBox();
             this.txtIdUser = new System.Windows.Forms.TextBox();
-            this.txtUserName = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtBilletes2000 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -227,11 +226,10 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtDate);
             this.groupBox2.Controls.Add(this.txtType);
-            this.groupBox2.Controls.Add(this.txtPermission);
             this.groupBox2.Controls.Add(this.txtUserFirstNameLast);
             this.groupBox2.Controls.Add(this.txtIdUser);
-            this.groupBox2.Controls.Add(this.txtUserName);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.txtBilletes2000);
             this.groupBox2.Controls.Add(this.label9);
@@ -252,6 +250,14 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Billetes";
             // 
+            // txtDate
+            // 
+            this.txtDate.Location = new System.Drawing.Point(417, 95);
+            this.txtDate.Name = "txtDate";
+            this.txtDate.Size = new System.Drawing.Size(47, 22);
+            this.txtDate.TabIndex = 77;
+            this.txtDate.Visible = false;
+            // 
             // txtType
             // 
             this.txtType.Location = new System.Drawing.Point(468, 95);
@@ -259,14 +265,6 @@
             this.txtType.Size = new System.Drawing.Size(42, 22);
             this.txtType.TabIndex = 75;
             this.txtType.Visible = false;
-            // 
-            // txtPermission
-            // 
-            this.txtPermission.Location = new System.Drawing.Point(420, 96);
-            this.txtPermission.Name = "txtPermission";
-            this.txtPermission.Size = new System.Drawing.Size(42, 22);
-            this.txtPermission.TabIndex = 69;
-            this.txtPermission.Visible = false;
             // 
             // txtUserFirstNameLast
             // 
@@ -283,14 +281,6 @@
             this.txtIdUser.Size = new System.Drawing.Size(43, 22);
             this.txtIdUser.TabIndex = 51;
             this.txtIdUser.Visible = false;
-            // 
-            // txtUserName
-            // 
-            this.txtUserName.Location = new System.Drawing.Point(269, 95);
-            this.txtUserName.Name = "txtUserName";
-            this.txtUserName.Size = new System.Drawing.Size(44, 22);
-            this.txtUserName.TabIndex = 50;
-            this.txtUserName.Visible = false;
             // 
             // label10
             // 
@@ -481,10 +471,9 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ToolTip toolTip1;
         public System.Windows.Forms.TextBox txtIdUser;
-        public System.Windows.Forms.TextBox txtUserName;
-        public System.Windows.Forms.TextBox txtUserFirstNameLast;
-        public System.Windows.Forms.TextBox txtPermission;
         public System.Windows.Forms.TextBox txtType;
         public System.Windows.Forms.TextBox txtStatus;
+        public System.Windows.Forms.TextBox txtUserFirstNameLast;
+        private System.Windows.Forms.TextBox txtDate;
     }
 }

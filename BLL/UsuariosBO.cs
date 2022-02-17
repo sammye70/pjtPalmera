@@ -17,9 +17,9 @@ namespace pjPalmera.BLL
         public static string strMessegerBO;
 
         /// <summary>
-        ///  Return Numeric Result from UsuariosBO
+        ///  Return String Result from UsuariosBO
         /// </summary>
-        public static int result;
+        public static string result;
             
         /// <summary>
         /// Create New Account User
@@ -28,8 +28,28 @@ namespace pjPalmera.BLL
         public static void Save(UsuariosEntity user)
         {
             try
+            { 
+                var result = UsuariosDAL.Create(user);
+
+                if (result == 1)
+                {
+                    throw new AggregateException("Operación de Salvado Efectuada Satisfactoriamente!");
+                }
+                else
+                {
+                    throw new ApplicationException("Uff, algo ocurrio mal, no se pudo completar la operación solicitada");
+                }
+       
+            }
+            catch (AggregateException ae)
             {
-                UsuariosDAL.Create(user);
+                MessageBox.Show(ae.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            catch (ApplicationException ax)
+            {
+                MessageBox.Show(ax.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
             catch (Exception ex)
             {
@@ -39,10 +59,153 @@ namespace pjPalmera.BLL
         }
 
         /// <summary>
-        /// Check if exists username
+        ///  Update All informations about Users
         /// </summary>
-        /// <returns>true or false</returns>
-        public static bool ExistsUser(string username)
+        public static void Update(UsuariosEntity user)
+        {
+            try
+            {
+                var result = UsuariosDAL.UpdateUser(user);
+
+                if (result == 1)
+                {
+                    throw new AggregateException("Operación Actualización Efectuada Satisfactoriamente!");
+                }
+                else
+                {
+                    throw new ApplicationException("Uff, algo ocurrio mal, no se pudo completar la operación solicitada");
+                }
+            }
+            catch (AggregateException ae)
+            {
+                MessageBox.Show(ae.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            catch (ApplicationException ax)
+            {
+                MessageBox.Show(ax.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+        }
+
+
+        /// <summary>
+        ///  Remove user by id
+        /// </summary>
+        public static void RemoveUser(UsuariosEntity user)
+        {
+            try
+            {
+                var result = UsuariosDAL.RemoveUser(user);
+
+                if (result == 1)
+                {
+                    throw new AggregateException("Operación de Eliminación Efectuada Satisfactoriamente!");
+                }
+                else
+                {
+                    throw new ApplicationException("Uff, algo ocurrio mal, no se pudo completar la operación solicitada");
+                }
+            }
+            catch (AggregateException ae)
+            {
+                MessageBox.Show(ae.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            catch (ApplicationException ax)
+            {
+                MessageBox.Show(ax.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+        }
+
+
+        /// <summary>
+        ///  Disable user by id
+        /// </summary>
+        public static void DisableUser(UsuariosEntity user)
+        {
+            try
+            {
+                var result = UsuariosDAL.DisableUser(user);
+
+                if (result == 1)
+                {
+                    throw new AggregateException("Operación de Desactivar Cuenta de Usuario Efectuada Satisfactoriamente!");
+                }
+                else
+                {
+                    throw new ApplicationException("Uff, algo ocurrio mal, no se pudo completar la operación solicitada");
+                }
+            }
+            catch (AggregateException ae)
+            {
+                MessageBox.Show(ae.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            catch (ApplicationException ax)
+            {
+                MessageBox.Show(ax.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+        }
+
+        /// <summary>
+        ///  Enable user by id
+        /// </summary>
+        public static void EnableUser(UsuariosEntity user)
+        {
+            try
+            {
+                var result = UsuariosDAL.EnableUser(user);
+
+                if (result == 1)
+                {
+                    throw new AggregateException("Operación de Activar Cuenta de Usuario Efectuada Satisfactoriamente!");
+                }
+                else
+                {
+                    throw new ApplicationException("Uff, algo ocurrio mal, no se pudo completar la operación solicitada");
+                }
+            }
+            catch (AggregateException ae)
+            {
+                MessageBox.Show(ae.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            catch (ApplicationException ax)
+            {
+                MessageBox.Show(ax.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+        }
+
+
+            /// <summary>
+            /// Check if exists username
+            /// </summary>
+            /// <returns>true or false</returns>
+            public static bool ExistsUser(string username)
         {
             var val = UsuariosDAL.ExistsUser(username);
 
@@ -87,7 +250,7 @@ namespace pjPalmera.BLL
         /// <summary>
         ///  Get status current user that try login.
         /// </summary>
-        /// <returns> true when status is enable or false if it's disabled</returns>
+        /// <returns> true when status is enable otherwise false </returns>
         public static bool GetStatusUser(string user)
         {
             try
@@ -122,10 +285,11 @@ namespace pjPalmera.BLL
         {
             try
             {
-                var usuarioDAL = UsuariosDAL.LoadUserInf(userInfo);
-                if ( usuarioDAL == null)
+                var user = UsuariosDAL.LoadUserInf(userInfo);
+
+                if ( user == null)
                 {
-                    throw new Exception("Usuario no inizializado.");
+                    throw new Exception("Usuario no inicializado.");
                 }
                 else 
                 {
@@ -140,78 +304,253 @@ namespace pjPalmera.BLL
             }
         }
 
- 
+
+
+        /// <summary>
+        /// Get All Users
+        /// </summary>
+        public static List<UsuariosEntity> getAllUsers
+        {
+            get 
+            {       
+                try 
+                {
+                    var ls = UsuariosDAL.getAllUsers;
+                    if (ls == null)
+                    {
+                        throw new ApplicationException("No se inicializo la lista de Usuarios.");
+                    }
+                    else 
+                    {
+                        return ls;
+                    }
+                }
+
+                catch (ApplicationException ax)
+                {
+                    MessageBox.Show(ax.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
+
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
+             }
+        
+        }
+
+
         /* ------------ WARNING -----------
          * Now this project needs to create rules for manager permissions when user try open some module. The rules would building inside BO Entity (e. create products, not everyone can create new items ----> FacturaBO, etc).  NOTE: see BO above.
          * ---- DONE ----
-        */   
+        */
 
-        /// <summary>
-        ///  Get level permission by user to enable or disable controls
-        /// </summary>
-        /// <returns></returns>
-        public static Int32 getVisibleControls(UsuariosEntity user)
+            /// <summary>
+            ///  Get level permission by user to enable or disable controls
+            /// </summary>
+            /// <returns></returns>
+        public static string getVisibleControls(UsuariosEntity user)
         {
             try
             {
                 var uLevel = UsuariosDAL.LoadUserInfid(user);
-                var rol1 = (int)eRoles_U.supervisor;
-                var rol2 = (int)eRoles_U.cashier;
-                var rol3 = (int)eRoles_U.storeges_clerk;
-                var rol4 = (int)eRoles_U.seller;
 
                 if (uLevel == null)
                 {
-                    throw new AggregateException("Usuario no inizializado.");
+                    throw new ApplicationException("Usuario no inicializado.");
                 }
 
                 else
                 {
-                    if (rol1 == uLevel.Privileges)
-                    {
-                        result = uLevel.Privileges;
-                    }
-                    else if (rol2 == uLevel.Privileges)
-                    {
-                        result = uLevel.Privileges;
-                    }
-                    else if (rol3 == uLevel.Privileges)
-                    {
-                        result = uLevel.Privileges;
-                    }
-                    else if (rol4 == uLevel.Privileges)
-                    {
-                        result = uLevel.Privileges;
-                    }
-
-                    else
-                    {
-                        throw new  ApplicationException("No tiene permisos para realizar la operación.");
-
-                    }
+                    return result = uLevel.Privileges;
                 }
-
-                return result;
-            }
-            catch (AggregateException ax)
-            {
-                MessageBox.Show(ax.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return result;
-
             }
             catch (ApplicationException ax)
             {
-                MessageBox.Show(ax.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return result;
-
+                MessageBox.Show(ax.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return result; 
-                    
+                return null;   
             }
         }
 
+
+
+        /// <summary>
+        ///  Get all secret questions
+        /// </summary>
+        public static List<QuestionsEntity> getSecretQuestions
+        {
+            get 
+            {
+                try
+                {
+                   var question = UsuariosDAL.getSecretQuestions;
+
+                    if(question == null)
+                    {
+                        throw new ApplicationException("No se inicializo la lista de preguntas.");
+                    }
+                    else
+                    {
+                        return question;
+                    }
+                }
+
+                catch (ApplicationException ae)
+                {
+                    MessageBox.Show(ae.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return null;
+                }
+
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get all user roles
+        /// </summary>
+        public static List<RolesEntity> getRoles
+        {
+            get
+            {
+                try
+                {
+                    var roles = UsuariosDAL.getRoles;
+
+                    if (roles == null)
+                    {
+                        throw new ApplicationException("No se inicializó la lista de roles.");
+                    }
+                    else
+                    {
+                        return roles;
+                    }
+                }
+
+                catch (ApplicationException ae)
+                {
+                    MessageBox.Show(ae.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return null;
+                }
+
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
+            }
+        }
+
+
+
+        /// <summary>
+        ///   Get All User by longname
+        /// </summary>
+        public static List<UsuariosEntity> getUserByLongName(UsuariosEntity User)
+        {
+            try
+            {
+                var ls = UsuariosDAL.getUserByLongName(User);
+
+                if (ls == null)
+                {
+                    throw new ApplicationException("No se inicializó la lista de Usuarios.");
+                }
+                else
+                {
+                    return ls;
+                }
+            }
+
+            catch (ApplicationException ae)
+            {
+                MessageBox.Show(ae.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+        }
+
+
+
+            /// <summary>
+            ///  Get All User by userName
+            /// </summary>
+            public static List<UsuariosEntity> getUserByName(UsuariosEntity User)
+        {
+            try 
+            {
+                var ls = UsuariosDAL.getUserByName(User);
+
+                if(ls == null)
+                {
+                    throw new ApplicationException("No se inicializó la lista de Usuarios.");
+                }
+                else
+                {
+                    return ls;
+                }
+            }
+
+            catch (ApplicationException ae)
+            {
+                MessageBox.Show(ae.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+        }
+
+        /// <summary>
+        ///  Get  User by Id
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static UsuariosEntity getUserInfId(UsuariosEntity user)
+        {
+            try
+            {
+                var r = UsuariosDAL.LoadUserInfid(user);
+                if (r == null)
+                {
+                    throw new ApplicationException("No se inicializó la informaciones del Usuario.");
+                }
+                else
+                {
+                    return r;
+                }
+            }
+
+            catch (ApplicationException ae)
+            {
+                MessageBox.Show(ae.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+        }
     }
 }

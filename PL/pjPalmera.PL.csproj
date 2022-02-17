@@ -13,7 +13,8 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>publish\</PublishUrl>
+    <TargetFrameworkProfile />
+    <PublishUrl>C:\Users\Samuel Estrella\Documents\Visual Studio 2019\Projects\Release\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -23,11 +24,11 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -51,27 +52,26 @@
   <PropertyGroup>
     <ApplicationIcon>folder_summer_13091.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>C77F48CAE8EF998706BD4994542EFDB0CCE870A6</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>pjPalmera.PL_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AxShockwaveFlashObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -124,11 +124,23 @@
     <Compile Include="frmAnularFactura.Designer.cs">
       <DependentUpon>frmAnularFactura.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmAutorizar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAutorizar.Designer.cs">
+      <DependentUpon>frmAutorizar.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCambios.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmCambios.Designer.cs">
       <DependentUpon>frmCambios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmConsOpCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConsOpCaja.Designer.cs">
+      <DependentUpon>frmConsOpCaja.cs</DependentUpon>
     </Compile>
     <Compile Include="frmConsulArticulosExpirar.cs">
       <SubType>Form</SubType>
@@ -201,6 +213,12 @@
     </Compile>
     <Compile Include="frmConsultFacturasAnuladas.Designer.cs">
       <DependentUpon>frmConsultFacturasAnuladas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmConsUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConsUsers.Designer.cs">
+      <DependentUpon>frmConsUsers.cs</DependentUpon>
     </Compile>
     <Compile Include="frmEditarProductos.cs">
       <SubType>Form</SubType>
@@ -367,8 +385,14 @@
     <EmbeddedResource Include="frmAnularFactura.resx">
       <DependentUpon>frmAnularFactura.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmAutorizar.resx">
+      <DependentUpon>frmAutorizar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCambios.resx">
       <DependentUpon>frmCambios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmConsOpCaja.resx">
+      <DependentUpon>frmConsOpCaja.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmConsulArticulosExpirar.resx">
       <DependentUpon>frmConsulArticulosExpirar.cs</DependentUpon>
@@ -405,6 +429,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmConsultFacturasAnuladas.resx">
       <DependentUpon>frmConsultFacturasAnuladas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmConsUsers.resx">
+      <DependentUpon>frmConsUsers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmEditarProductos.resx">
       <DependentUpon>frmEditarProductos.cs</DependentUpon>
@@ -486,7 +513,7 @@
       <DependentUpon>splash.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
-    <None Include="Properties\DataSources\pjPalmera.Entities.ProductosEntity.datasource" />
+    <None Include="pjPalmera.PL_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -568,6 +595,16 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Visual.C++.14.0.x64">
+      <Visible>False</Visible>
+      <ProductName>Visual C++ "14" Runtime Libraries %28x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Visual.C++.14.0.x86">
+      <Visible>False</Visible>
+      <ProductName>Visual C++ "14" Runtime Libraries %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
@@ -621,6 +658,14 @@
     <None Include="Resources\Sales-by-Payment-Method-rep-icon.png" />
     <None Include="Resources\Upline-icon.png" />
     <None Include="Resources\cash-icon.png" />
+    <None Include="Resources\Actions-user-group-new-icon.png" />
+    <None Include="Resources\Person-Male-Light-icon.png" />
+    <None Include="Resources\wallet-icon.png" />
+    <None Include="Resources\money-wallet-icon.png" />
+    <None Include="Resources\Cash-register-icon1.png" />
+    <None Include="Resources\Administrator-icon.png" />
+    <None Include="Resources\delete.ico" />
+    <None Include="Resources\print.ico" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -695,6 +740,7 @@
     <None Include="Resources\56-512.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Properties\DataSources\" />
     <Folder Include="Reports\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

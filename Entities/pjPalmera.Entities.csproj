@@ -59,7 +59,9 @@
     <Compile Include="PedidosEntity.cs" />
     <Compile Include="ProductosVendidosEntity.cs" />
     <Compile Include="ProductStatusEntity.cs" />
+    <Compile Include="QuestionsEntity.cs" />
     <Compile Include="ResultEntity.cs" />
+    <Compile Include="RolesEntity.cs" />
     <Compile Include="TicketVentaEntity.cs" />
     <Compile Include="ProveedorEntity.cs" />
     <Compile Include="ProvinciaEntity.cs" />

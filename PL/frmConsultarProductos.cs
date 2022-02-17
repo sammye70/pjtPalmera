@@ -43,19 +43,12 @@ namespace pjPalmera.PL
         private void frmConsultarProductos_Load(object sender, EventArgs e)
         {
 
-            var user = new UsuariosEntity();
-            user.Id_user = int.Parse(this.txtIdUser.Text);
-            this.getUserRol(user);
             CleanControls();
             DesableControls();
             DetailControls();
 
-
             this.dgvProdConsultar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
-           // this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
             //StockUnit();
-            //this.dgvProductOnlyActive.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
-           // ---  this.dgvProductOnlyActive.DataSource = ProductosBO.OnlyActive();
             AutoSizeCells();
             //AmountAllProduct();
             InitialControls();
@@ -105,26 +98,37 @@ namespace pjPalmera.PL
 
 
         /// <summary>
-        /// Desable and Enable Controls from Consult Products
+        ///  Visible true Controls before call Consult Products.
         /// </summary>
         public void IniControls()
         {
-            this.lblMensaje.Visible = true;
-            this.dgvProductOnlyActive.Visible = true;
-            this.dgvProdConsultar.Visible = false;
-            this.lblCostoAllProductos.Visible = false;
-            this.lblCostoTotalProductRes.Visible = false;
+            //this.lblMensaje.Visible = true;
+            //this.dgvProductOnlyActive.Visible = true;
+            //this.dgvProdConsultar.Visible = false;
+            //this.lblCostoAllProductos.Visible = false;
+            //this.lblCostoTotalProductRes.Visible = false;
+            this.btnRefrescar.Visible = true;
+            this.btnRemove.Visible = true;
+            this.btnEditarProd.Visible = true;
+            //this.rbStatus.Visible = false;
+            //this.btnSearch.Visible = false;
+            //this.MaximizeBox = false;
+            //this.MinimizeBox = false;
+            //this.rbCodigo.Focus();
+            //this.btnSearch.Visible = false;
+            // this.dgvProdConsultar.Visible = false;
+            this.dgvProductOnlyActive.DataSource = ProductosBO.OnlyActive();
+        }
+
+
+        /// <summary>
+        ///  Visible False Controls before call Consult Products.
+        /// </summary>
+        public void InniDisableControls()
+        {
             this.btnRefrescar.Visible = false;
             this.btnRemove.Visible = false;
             this.btnEditarProd.Visible = false;
-            this.rbStatus.Visible = false;
-            this.btnSearch.Visible = false;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.rbCodigo.Focus();
-            this.btnSearch.Visible = false;
-            // this.dgvProdConsultar.Visible = false;
-            this.dgvProductOnlyActive.DataSource = ProductosBO.OnlyActive();
         }
 
         /// <summary>
@@ -172,13 +176,13 @@ namespace pjPalmera.PL
 
                 switch (rol)
                 {
-                    case 1:
+                    case "1":
                         rol1();
                         break;
-                    case 2:
+                    case "2":
                         rol2();
                         break;
-                    case 3:
+                    case "3":
                         break;
                 }
             }
@@ -212,7 +216,7 @@ namespace pjPalmera.PL
         /// <summary>
         ///  Supervisor permission (Enable only controls for this rol)
         /// </summary>
-        private void rol1()
+        public void rol1()
         {
             this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
             this.dgvProdConsultar.Columns["Orden"].Visible = false;
@@ -221,7 +225,7 @@ namespace pjPalmera.PL
         /// <summary>
         ///  Cashier permission (Enable only controls for this rol)
         /// </summary>
-        private void rol2()
+        public void rol2()
         {
             this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
             this.btnEditarProd.Visible = false;

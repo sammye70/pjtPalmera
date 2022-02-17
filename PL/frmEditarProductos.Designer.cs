@@ -63,7 +63,6 @@
             this.dgvProdConsultar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvProdConsultar.Size = new System.Drawing.Size(1075, 335);
             this.dgvProdConsultar.TabIndex = 2;
-            this.dgvProdConsultar.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProdConsultar_CellContentClick);
             // 
             // errorProvider1
             // 
