@@ -14,6 +14,7 @@ namespace pjPalmera.DAL
     public class UsuariosDAL
     {
 
+        #region Create New User
         /// <summary>
         /// Create New Account User
         /// </summary>
@@ -30,6 +31,8 @@ namespace pjPalmera.DAL
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@pusername", user.User_name);
+                    cmd.Parameters.AddWithValue("@pfirstname", user.Firstname);
+                    cmd.Parameters.AddWithValue("@plastname", user.Lastname);
                     cmd.Parameters.AddWithValue("@ppassword", user.Password);
                     cmd.Parameters.AddWithValue("@pid_permission", user.Privileges);
                     cmd.Parameters.AddWithValue("@pemail", user.Email);
@@ -45,8 +48,9 @@ namespace pjPalmera.DAL
             }
             return result;
         }
+        #endregion
 
-
+        #region Verify if exists username was indicated (Register process)
         /// <summary>
         /// Check if exists username
         /// </summary>
@@ -82,12 +86,13 @@ namespace pjPalmera.DAL
             }
             return resp;
         }
+        #endregion
 
-
+        #region Get users status
         /// <summary>
         ///  Get status current user
         /// </summary>
-        /// <returns></returns>
+        /// <returns>when user status enable it is true and otherwise false</returns>
         public static bool StatusUser(string user)
         {
             bool resp = false;
@@ -119,11 +124,13 @@ namespace pjPalmera.DAL
             }
             return resp;
         }
+        #endregion
 
-
+        #region Search user account and password when login
         /// <summary>
         /// Search user and password. Then they are true allow to login, else not allow to login.
         /// </summary>
+        /// <returns>it is true when user found but and otherwise false</returns>
         public static bool Login_User(UsuariosEntity user)
         {
             bool ans = false;
@@ -156,7 +163,8 @@ namespace pjPalmera.DAL
                 }
             }
             return ans;
-        }
+        } 
+        #endregion
 
 
         /// <summary>
@@ -437,7 +445,7 @@ namespace pjPalmera.DAL
 
             using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
-                using (var cmd = new MySqlCommand("", con))
+                using (var cmd = new MySqlCommand("spupdateUser", con))
                 {
                     con.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -445,12 +453,15 @@ namespace pjPalmera.DAL
                     cmd.Parameters.AddWithValue("@puserid",user.Id_user);
                     cmd.Parameters.AddWithValue("@pusername", user.User_name);
                     cmd.Parameters.AddWithValue("@pid_permission", user.Privileges);
+                    cmd.Parameters.AddWithValue("@ppassword", user.Password);
                     cmd.Parameters.AddWithValue("@pemail", user.Email);
                     cmd.Parameters.AddWithValue("@pstatus", user.Status);
                     cmd.Parameters.AddWithValue("@plong_name", user.LongName);
+                    cmd.Parameters.AddWithValue("@pfirstname", user.Firstname);
+                    cmd.Parameters.AddWithValue("@plastname", user.Lastname);
                     cmd.Parameters.AddWithValue("@psecret_question1", user.Secret_question);
                     cmd.Parameters.AddWithValue("@psecret_answer1", user.Secret_answer);
-                    cmd.Parameters.AddWithValue("@modificateby", user.Createby);
+                    cmd.Parameters.AddWithValue("@pmodificateby", user.Createby);
 
                    result = cmd.ExecuteNonQuery();
                 }

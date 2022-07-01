@@ -157,7 +157,7 @@ namespace pjPalmera.DAL
                     // cmd.Parameters.AddWithValue("pid_invoice", crAccount.id);
                     // cmd.Parameters.AddWithValue("pinvoice_amount", crAccount.InvoiceAmount);
                     cmd.Parameters.AddWithValue("@ppay_amount", crAccount.PayValue);
-                    cmd.Parameters.AddWithValue("@pcurrent_amount", crAccount.InvoiceAmount);
+                    // cmd.Parameters.AddWithValue("@pcurrent_amount", crAccount.InvoiceAmount);
                     // cmd.Parameters.AddWithValue("pcurrent_amount", crAccount.CurrentAmount);
                     cmd.Parameters.AddWithValue("@ppast_amount", crAccount.PastAmountcr);
                     cmd.Parameters.AddWithValue("@pmodificated", DateTime.Now);
@@ -193,10 +193,10 @@ namespace pjPalmera.DAL
                      cmd.Parameters.AddWithValue("@pid_account", crAccount.IdAccount);
                     cmd.Parameters.AddWithValue("@ppay", crAccount.PayValue);
                     // cmd.Parameters.AddWithValue("@pcurrent_amount", crAccount.InvoiceAmount);
-                    cmd.Parameters.AddWithValue("@pamount_pedding", crAccount.NewAmountcr); // current
+                    cmd.Parameters.AddWithValue("@pamount_pendding", crAccount.NewAmountcr); // current
                     // cmd.Parameters.AddWithValue("@ppast_amount", crAccount.PastAmountcr);
                     cmd.Parameters.AddWithValue("@pcreated", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@pcreateby", crAccount.id_user);
+                    cmd.Parameters.AddWithValue("@pcreatedby", crAccount.id_user);
 
                     crAccount.id = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -235,7 +235,7 @@ namespace pjPalmera.DAL
 
                     cmd.ExecuteNonQuery();
 
-                    crAccountAmount = (decimal)cmd.Parameters["@pnewbalance"].Value;
+                    crAccountAmount = (decimal) cmd.Parameters["@pnewbalance"].Value;
                     //  crAccountAmount.PastAmountcr = (decimal)cmd.Parameters["@ppasbalance"].Value;
 
                 }
@@ -420,19 +420,18 @@ namespace pjPalmera.DAL
         /// <summary>
         ///  Get Basic informations from CreditAccount
         /// </summary>
-        public static CreditAccountEntity GetcrAccountBasic(long idcraccount)
+        public static Int64 GetcrAccountBasic(CreditAccountEntity craccount)
         {
-
-            var craccount = new CreditAccountEntity();
+            long idaccount=0;
 
             using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
-                using (var cmd = new MySqlCommand("spGetAllCrAccounts", con)) //-------> Create store procedure equal this, but add a filter inside new
+                using (var cmd = new MySqlCommand("spGetCrAccountsById", con)) //-------> Create store procedure equal this, but add a filter inside new account Balances and other informations (DONE)
                 {
                     con.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@pidcustomer", idcraccount);
+                    cmd.Parameters.AddWithValue("@pidcustomers", craccount.id_cliente);
 
                     MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -440,10 +439,12 @@ namespace pjPalmera.DAL
                     {
                         craccount = LoadCrAccount(reader);
                     }
+
+                    idaccount = craccount.IdAccount;
                 }
             }
-
-            return craccount;
+            return idaccount;
+            ;
         }
 
 
@@ -515,9 +516,9 @@ namespace pjPalmera.DAL
         {
             var craccount = new CreditAccountEntity();
 
-            craccount.IdAccount = Convert.ToInt64(Reader["@id_account"]);
-            craccount.NewAmountcr = Convert.ToDecimal(Reader["@current_amount"]);
-            craccount.PastAmountcr = Convert.ToDecimal(Reader["@past_amount"]);
+            craccount.IdAccount = Convert.ToInt64(Reader["id_account"]);
+            craccount.NewAmountcr = Convert.ToDecimal(Reader["current_amount"]);
+            craccount.PastAmountcr = Convert.ToDecimal(Reader["past_amount"]);
 
 
            return craccount;

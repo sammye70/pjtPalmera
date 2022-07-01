@@ -49,6 +49,8 @@ namespace pjPalmera.DAL
                 using (MySqlCommand cmd = new MySqlCommand("spCreateHeadInvoice", con))
                 {
                     con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+
                     cmd.Parameters.AddWithValue("pclientes", Venta.clientes);
                    // cmd.Parameters.AddWithValue("@apellidos", Venta.apellidos);
                     cmd.Parameters.AddWithValue("ptotal", Venta.total);
@@ -255,6 +257,9 @@ namespace pjPalmera.DAL
                     cmd.Parameters.AddWithValue("@pid_venta", invoice.id);
                     cmd.Parameters.AddWithValue("@pid_user", invoice.id_user);
                     cmd.Parameters.AddWithValue("@pcreated", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@prequest_number", invoice.request_number);
+                    cmd.Parameters.AddWithValue("@pid_pay", invoice.method_pago);
+                    //cmd.Parameters.AddWithValue("@pcredit_type", invoice.credit_type);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -263,7 +268,48 @@ namespace pjPalmera.DAL
 
 
         /// <summary>
-        /// Update Daily Transactions Permanenet and Temporal after invoice set status disable
+        /// Create Daily Transactions Permanents and Temporal (Credit Transactions)
+        /// </summary>
+        /// <param name="Transaction"></param>
+        /// <returns></returns>
+        public static void CreateTranstPermantCredit(VentaEntity invoice)
+        {
+            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            {
+                #region old query
+                /*string query = @"INSERT INTO daily_transactions_permanent ( status, total, descuento, devuelta, recibido, id_venta, created) 
+                                    VALUES (@status, @total, @descuento, @devuelta, @recibido, @id_venta, @created);
+
+                                INSERT INTO daily_transactions_temp (status, total, descuento, devuelta, recibido, id_venta, created)
+                                    VALUES (@status, @total, @descuento, @devuelta, @recibido, @id_venta, @created);"; */
+                #endregion
+
+                using (var cmd = new MySqlCommand("CreateTransPermantCredit", con))
+                {
+                    con.Open();
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@pstatus", invoice.status);
+                    cmd.Parameters.AddWithValue("@ptotal", invoice.total);
+                    cmd.Parameters.AddWithValue("@pdescuento", invoice.descuento);
+                    cmd.Parameters.AddWithValue("@pdevuelta", invoice.devuelta);
+                    cmd.Parameters.AddWithValue("@precibido", invoice.recibido);
+                    cmd.Parameters.AddWithValue("@pid_venta", invoice.id);
+                    cmd.Parameters.AddWithValue("@pid_user", invoice.id_user);
+                    cmd.Parameters.AddWithValue("@pcreated", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@prequest_number", invoice.request_number);
+                    cmd.Parameters.AddWithValue("@pid_pay", invoice.method_pago);
+                    cmd.Parameters.AddWithValue("@pcredit_type", invoice.credit_type);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Update Daily Transactions Permanenet and Temporal after invoice set status disabled
         /// </summary>
         /// <param name="transaction"></param>
         public static void UpdateTranst(VentaEntity invoice)
@@ -394,7 +440,7 @@ namespace pjPalmera.DAL
         public static decimal AmountAllInvoices()
         {
             decimal amount;
-            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
                 var query = "SELECT SUM(total) FROM venta WHERE status='1' AND tipo='1';";
@@ -414,14 +460,15 @@ namespace pjPalmera.DAL
         public static decimal AmountAllInvoicesCr()
         {
             decimal amount;
-            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
                 var query = "SELECT SUM(total) FROM venta WHERE status='1' AND tipo='2';";
 
-                MySqlCommand cmd = new MySqlCommand(query, con);
-
-                amount = Convert.ToDecimal(cmd.ExecuteScalar());
+                using (var cmd = new MySqlCommand(query, con))
+                {
+                    amount = Convert.ToDecimal(cmd.ExecuteScalar());
+                }
             }
             return amount;
         }
@@ -432,22 +479,22 @@ namespace pjPalmera.DAL
         /// </summary>
         public static List<VentaEntity> GetAll()
         {
-            List<VentaEntity> list = new List<VentaEntity>();
+            var list = new List<VentaEntity>();
 
-            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
                 var query = "select * from venta ORDER BY created DESC";
 
-                MySqlCommand cmd = new MySqlCommand(query,con);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (var cmd = new MySqlCommand(query, con)) 
                 {
-                    list.Add(LoadVentas(reader));
-                }
+                    MySqlDataReader reader = cmd.ExecuteReader();
 
+                    while (reader.Read())
+                    {
+                        list.Add(LoadVentas(reader));
+                    }
+                }
                 return list;
             }
         }
@@ -457,22 +504,22 @@ namespace pjPalmera.DAL
         /// </summary>
         public static List<VentaEntity> GetCreditInvoices()
         {
-            List<VentaEntity> list = new List<VentaEntity>();
+            var list = new List<VentaEntity>();
 
-            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
                 string query = "select * from venta WHERE venta.tipo='2' ORDER BY created DESC";
 
-                MySqlCommand cmd = new MySqlCommand(query, con);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (var cmd = new MySqlCommand(query, con))
                 {
-                    list.Add(LoadVentas(reader));
-                }
+                    MySqlDataReader reader = cmd.ExecuteReader();
 
+                    while (reader.Read())
+                    {
+                        list.Add(LoadVentas(reader));
+                    }
+                }
                 return list;
             }
         }
@@ -483,15 +530,15 @@ namespace pjPalmera.DAL
         /// </summary>
         public static List<VentaEntity> GetCashInvoices()
         {
-            List<VentaEntity> list = new List<VentaEntity>();
+            var list = new List<VentaEntity>();
 
-            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
                 string query = @"SELECT * FROM ventas WHERE status =1 AND tipo = 1; " +
                      "DELETE FROM detail_venta  WHERE idproducto = 0; ";
 
-                MySqlCommand cmd = new MySqlCommand(query, con);
+                var cmd = new MySqlCommand(query, con);
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -519,19 +566,19 @@ namespace pjPalmera.DAL
 
                 var query = @"SELECT * FROM detail_venta WHERE id_venta = @id_venta;";
 
-                MySqlCommand cmd = new MySqlCommand(query, con);
-
-                cmd.Parameters.AddWithValue("@id_venta", idventa);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (var cmd = new MySqlCommand(query, con))
                 {
-                    list.Add(LoadDetailVenta(reader));
-                }
+                    cmd.Parameters.AddWithValue("@id_venta", idventa);
 
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        list.Add(LoadDetailVenta(reader));
+                    }
+                }
             }
-                return list;
+           return list;
         }
 
         /**********************************************************************************************************
@@ -648,7 +695,7 @@ namespace pjPalmera.DAL
         /// <returns></returns>
         public static List<DetalleVentaEntity> Get_Detail_by_InvoiceId(int invoice_id)
         {
-            List<DetalleVentaEntity> list = new List<DetalleVentaEntity>();
+            var list = new List<DetalleVentaEntity>();
 
             using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
@@ -656,15 +703,16 @@ namespace pjPalmera.DAL
 
                 var query = @"SELECT * FROM detail_venta WHERE id_venta=@invoice_id;";
 
-                MySqlCommand cmd = new MySqlCommand(query, con);
-
-                cmd.Parameters.AddWithValue("@invoice_id", invoice_id);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (var cmd = new MySqlCommand(query, con))
                 {
-                    list.Add(LoadDetailVenta(reader));
+                    cmd.Parameters.AddWithValue("@invoice_id", invoice_id);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        list.Add(LoadDetailVenta(reader));
+                    }
                 }
             }
             return list;
@@ -758,7 +806,7 @@ namespace pjPalmera.DAL
         /// <returns></returns>
         public static List<DetalleVentaEntity> Get_All_Detail_Invoices()
         {
-            List<DetalleVentaEntity> list = new List<DetalleVentaEntity>();
+            var list = new List<DetalleVentaEntity>();
 
             using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
@@ -766,15 +814,15 @@ namespace pjPalmera.DAL
 
                 var query = @"SELECT * FROM detail_venta ORDER BY id_venta DESC;";
 
-                MySqlCommand cmd = new MySqlCommand(query, con);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (var cmd = new MySqlCommand(query, con))
                 {
-                    list.Add(LoadDetailVenta(reader));
-                }
+                    MySqlDataReader reader = cmd.ExecuteReader();
 
+                    while (reader.Read())
+                    {
+                        list.Add(LoadDetailVenta(reader));
+                    }
+                }
             }
             return list;
         }
@@ -788,25 +836,24 @@ namespace pjPalmera.DAL
         /// <returns></returns>
         public static List<VentaEntity> Get_Invoice_Desable()
         {
-            List<VentaEntity> list = new List<VentaEntity>();
+            var list = new List<VentaEntity>();
 
             using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
                 string query = "select * from venta WHERE venta.status='2' ORDER BY created DESC";
 
-                MySqlCommand cmd = new MySqlCommand(query, con);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (var cmd = new MySqlCommand(query, con))
                 {
-                    list.Add(LoadVentas(reader));
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        list.Add(LoadVentas(reader));
+                    }
                 }
             }
-
             return list;
-
         }
 
 
@@ -816,21 +863,23 @@ namespace pjPalmera.DAL
         /// <returns></returns>
         public static List<VentaEntity> SearhByNumber(Int64 number)
         {
-            List<VentaEntity> list = new List<VentaEntity>();
+            var list = new List<VentaEntity>();
 
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
                 string query = "SELECT * FROM venta WHERE venta.id=@id and venta.tipo='1'";
 
-                MySqlCommand cmd = new MySqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@id", number);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (var cmd = new MySqlCommand(query, con))
                 {
-                    list.Add(LoadVentas(reader));
+                    cmd.Parameters.AddWithValue("@id", number);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        list.Add(LoadVentas(reader));
+                    }
                 }
                 return list;
             }
@@ -850,14 +899,16 @@ namespace pjPalmera.DAL
                 con.Open();
                 string query = "SELECT * FROM venta WHERE venta.id=@id and venta.tipo='2'";
 
-                MySqlCommand cmd = new MySqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@id", number);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (var cmd = new MySqlCommand(query, con))
                 {
-                    list.Add(LoadVentas(reader));
+                    cmd.Parameters.AddWithValue("@id", number);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        list.Add(LoadVentas(reader));
+                    }
                 }
                 return list;
             }
@@ -871,22 +922,24 @@ namespace pjPalmera.DAL
         /// <returns></returns>
         public static List<VentaEntity> SearhByDate(string DateBegin, string DateUntil)
         {
-            List<VentaEntity> list = new List<VentaEntity>();
+            var list = new List<VentaEntity>();
 
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
                 string query = "SELECT * FROM venta WHERE venta.id=@id";
 
-                MySqlCommand cmd = new MySqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@created1", DateBegin);
-                cmd.Parameters.AddWithValue("@created2", DateUntil);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (var cmd = new MySqlCommand(query, con))
                 {
-                    list.Add(LoadVentas(reader));
+                    cmd.Parameters.AddWithValue("@created1", DateBegin);
+                    cmd.Parameters.AddWithValue("@created2", DateUntil);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        list.Add(LoadVentas(reader));
+                    }
                 }
                 return list;
             }
@@ -898,22 +951,22 @@ namespace pjPalmera.DAL
         /// <returns></returns>
         public static List<ProductosVendidosEntity> AllProducInvoices()
         {
-            List<ProductosVendidosEntity> list = new List<ProductosVendidosEntity>();
+            var list = new List<ProductosVendidosEntity>();
 
             using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
                 string query = "SELECT idproducto, descripcion, cantidad, created FROM detail_venta";
 
-                MySqlCommand cmd = new MySqlCommand(query, con);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (var cmd = new MySqlCommand(query, con))
                 {
-                    list.Add(LoadProductVend(reader));
-                }
+                    MySqlDataReader reader = cmd.ExecuteReader();
 
+                    while (reader.Read())
+                    {
+                        list.Add(LoadProductVend(reader));
+                    }
+                }
                 return list;
             }
         }

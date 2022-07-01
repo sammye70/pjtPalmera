@@ -47,15 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AperturaCajaDAL.cs" />
     <Compile Include="CategoriaDAL.cs" />
-    <Compile Include="CierreCajaDAL.cs" />
     <Compile Include="CiudadDAL.cs" />
     <Compile Include="ClientesDAL.cs" />
     <Compile Include="CreditAccountDAL.cs" />
     <Compile Include="CuentasDAL.cs" />
     <Compile Include="FacturasDAL.cs" />
     <Compile Include="InventarioDAL.cs" />
+    <Compile Include="OperationsCajaDAL.cs" />
     <Compile Include="PagosDAL.cs" />
     <Compile Include="PersonasDAL.cs" />
     <Compile Include="ProductosDAL.cs" />

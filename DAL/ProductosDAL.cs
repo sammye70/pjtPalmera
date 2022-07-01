@@ -108,33 +108,28 @@ namespace pjPalmera.DAL
         }
 
 
-
-
-
-
-
-         /// <summary>
+        /// <summary>
         /// Get All Products with details
         /// </summary>
-        /// <param name="GetAllProd"></param>
-        /// <returns></returns>
         public static List<ProductosEntity> All
         {
             get
             {
-                List<ProductosEntity> list = new List<ProductosEntity>();
+                var list = new List<ProductosEntity>();
 
                 using (var con = new MySqlConnection(SettingDAL.connectionstring))
                 {
-                    MySqlCommand cmd = new MySqlCommand("spGet_AllProduct", con);
-                    con.Open();
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    MySqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
+                    using (var cmd = new MySqlCommand("spGet_AllProduct", con))
                     {
-                        list.Add(LoadProduct(reader));
+                        con.Open();
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        MySqlDataReader reader = cmd.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            list.Add(LoadProduct(reader));
+                        }
                     }
                 }
                 return list;
@@ -318,11 +313,10 @@ namespace pjPalmera.DAL
         /// <returns></returns>
         public static List<ProductosEntity> GetProductosByStatus( int status)
         {
-            List<ProductosEntity> list = new List<ProductosEntity>();
+            var list = new List<ProductosEntity>();
 
             using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
-                
                 using (var cmd = new MySqlCommand ("spGet_ProductByStatus", con))
                 {
                     con.Open();
@@ -341,7 +335,6 @@ namespace pjPalmera.DAL
         }
 
 
-
         /// <summary>
         /// Get Product Where Status Desable
         /// </summary>
@@ -349,12 +342,12 @@ namespace pjPalmera.DAL
         /// <returns></returns>
         public static List<ProductosEntity> GetProductosDesable(ProductosEntity productos)
         {
-            List<ProductosEntity> list = new List<ProductosEntity>();
+            var list = new List<ProductosEntity>();
 
             using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
                 con.Open();
-                var query = @"SELECT * FROM productos WHERE status='Inactivo'";
+                var query = @"SELECT * FROM productos WHERE status=2";
 
                 using (var cmd = new MySqlCommand(query, con))
                 {
@@ -381,7 +374,7 @@ namespace pjPalmera.DAL
             {
                 con.Open();
 
-                string query= @"  SELECT SUM(stock) from productos WHERE status='Activo';";
+                string query= @"  SELECT SUM(stock) from productos WHERE status=1;";
 
                 MySqlCommand cmd = new MySqlCommand(query,con);
 
@@ -398,24 +391,25 @@ namespace pjPalmera.DAL
         /// <returns></returns>
         public static List<ProductosEntity> StockMinimo()   /// Pending to Build
         {
-            List<ProductosEntity> list = new List<ProductosEntity>();
+            var ls = new List<ProductosEntity>();
 
-            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
-                con.Open();
-                string query = @"SELECT  * FROM productos WHERE stock <= stockminimo AND status ='Activo' ORDER BY productos.idproveedor ";
-
-                MySqlCommand cmd = new MySqlCommand(query, con);
-                //cmd.Parameters.AddWithValue("@DateExpire", DateExpire);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (var cmd = new MySqlCommand("spGetMinProduct", con))
                 {
-                    list.Add(LoadProduct(reader));
+                    con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        ls.Add(LoadProduct(reader));
+                    }
                 }
+                //cmd.Parameters.AddWithValue("@DateExpire", DateExpire);
             }
-            return list;
+            return ls;
         }
 
 
@@ -427,9 +421,9 @@ namespace pjPalmera.DAL
         {
             get
             {
-                List<ProductosEntity> list = new List<ProductosEntity>();
+                var list = new List<ProductosEntity>();
 
-                using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+                using (var con = new MySqlConnection(SettingDAL.connectionstring))
                 {
                     con.Open();
                     string query = @"SELECT * 
@@ -437,16 +431,18 @@ namespace pjPalmera.DAL
                                     WHERE productos.status='Activo' AND idfamilia !='Escolar'  
                                     ORDER BY productos.f_vencimiento ASC; ";
 
-                    MySqlCommand cmd = new MySqlCommand(query, con);
-                    //cmd.Parameters.AddWithValue("@DateExpire", DateExpire);
-
-                    MySqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
+                    using (var cmd = new MySqlCommand(query, con))
                     {
-                        list.Add(LoadProduct(reader));
+                        //cmd.Parameters.AddWithValue("@DateExpire", DateExpire);
+
+                        MySqlDataReader reader = cmd.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            list.Add(LoadProduct(reader));
+                        }
                     }
-                }
+                  }
                 return list;
             }
          }

@@ -141,25 +141,26 @@ namespace pjPalmera.DAL
         /// <param name="code"></param>
         public static List<ProveedorEntity> FilterByRnc(long code)
         {
-             List <ProveedorEntity> list = new List<ProveedorEntity>();
-            using (MySqlConnection con = new MySqlConnection(SettingDAL.connectionstring))
+            var ls = new List<ProveedorEntity>();
+
+            using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
-                con.Open();
-                string query = @"select * from proveedor WHERE proveedor.rnc=@rnc";
-
-                MySqlCommand cmd = new MySqlCommand(query, con);
-
-                cmd.Parameters.AddWithValue("@rnc", code);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
+                using (var cmd = new MySqlCommand("GetProviderByRnc", con))
                 {
-                    list.Add(LoadProveedor(reader));
+                    con.Open();
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@rnc", code);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        ls.Add(LoadProveedor(reader));
+                    }
                 }
             }
-
-            return list;
+            return ls;
         }
 
 
@@ -192,23 +193,24 @@ namespace pjPalmera.DAL
         /// <returns></returns>
         public static ProveedorEntity ProviderByCode(long code)
         {
-             ProveedorEntity proveedor = new ProveedorEntity();
-            //List<ProveedorEntity> list = new List<ProveedorEntity>();
-
+            var proveedor = new ProveedorEntity();
+            
             using (var con = new MySqlConnection(SettingDAL.connectionstring))
             {
-                con.Open();
-                
-                var cmd = new MySqlCommand("spGetProviderByCode", con);
-                cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.AddWithValue("@pidprovider", code);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
+                using (var cmd = new MySqlCommand("spGetProviderByCode", con))
                 {
-                    proveedor = (LoadProveedor(reader));
+                    con.Open();
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@pidprovider", code);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        proveedor = (LoadProveedor(reader));
+                    }
                 }
             }
             return proveedor;

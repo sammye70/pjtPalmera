@@ -41,8 +41,8 @@ namespace pjPalmera.DAL
                         cmd.Parameters.AddWithValue("@pprovincia", Costumer.Provincia);
                         cmd.Parameters.AddWithValue("@plimitedecredito", Costumer.Limite_credito);
                         cmd.Parameters.AddWithValue("@pcreatedby", Costumer.Createby);
-                        // cmd.Parameters.AddWithValue("@pcreated", DateTime.Now);
-                        // cmd.Parameters.AddWithValue("pstatus", 1);
+                        cmd.Parameters.AddWithValue("@pcreated", DateTime.Now);
+                       // cmd.Parameters.AddWithValue("pstatus", 1);
 
                         ResRequest = Convert.ToInt32(cmd.ExecuteNonQuery());
 
@@ -246,6 +246,7 @@ namespace pjPalmera.DAL
             {
                 using (var cmd = new MySqlCommand("spGetAmountCurrentCr", con))
                 {
+                    con.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@pidcustomer", idcustomer);
                     cmd.Parameters.Add("@pamount", MySqlDbType.Decimal);
@@ -314,7 +315,7 @@ namespace pjPalmera.DAL
         }
 
         /// <summary>
-        /// Get Costumer by Id for Update Information
+        /// Get Customer by Id for Update Information
         /// </summary>
         /// <returns></returns>
         public static ClientesEntity GetbyCodeUpdate(long Id)
