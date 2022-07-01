@@ -18,6 +18,7 @@ namespace pjPalmera.BLL
         public static string strMensajeBO;
 
 
+        #region Save Categories
         /// <summary>
         /// Save Category
         /// </summary>
@@ -27,8 +28,10 @@ namespace pjPalmera.BLL
         {
             CategoriaDAL.Create(Categoria);
             return Categoria;
-        }
+        } 
+        #endregion
 
+        #region GetCategories
         /// <summary>
         /// Get All Categories
         /// </summary>
@@ -44,8 +47,10 @@ namespace pjPalmera.BLL
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
-        }
+        } 
+        #endregion
 
+        #region ExistCategory
         /// <summary>
         /// Verify if exits category
         /// </summary>
@@ -68,6 +73,6 @@ namespace pjPalmera.BLL
 
           return valcriterio;
         }
-
+        #endregion
     }
 }
