@@ -124,7 +124,7 @@
             this.groupBox1.Controls.Add(this.rdMonth);
             this.groupBox1.Location = new System.Drawing.Point(354, 16);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(361, 55);
+            this.groupBox1.Size = new System.Drawing.Size(331, 55);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtrar a Expirar";
@@ -162,11 +162,14 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(721, 41);
+            this.button1.Image = global::PL.Properties.Resources.go;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(691, 26);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(115, 30);
+            this.button1.Size = new System.Drawing.Size(130, 45);
             this.button1.TabIndex = 6;
-            this.button1.Text = "Generar Informe";
+            this.button1.Text = "Generar Consulta";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button1.UseVisualStyleBackColor = true;
             // 
             // frmConsulArticulosExpirar

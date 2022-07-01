@@ -1,5 +1,5 @@
 ﻿
-namespace PL
+namespace pjPalmera.PL
 {
     partial class frmConsOpCaja
     {
@@ -30,7 +30,7 @@ namespace PL
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvOperationsBox = new System.Windows.Forms.DataGridView();
             this.txtUserId = new System.Windows.Forms.TextBox();
             this.dtpDateEnd = new System.Windows.Forms.DateTimePicker();
             this.dtpDateBegin = new System.Windows.Forms.DateTimePicker();
@@ -38,35 +38,40 @@ namespace PL
             this.lblEnd = new System.Windows.Forms.Label();
             this.lblMessage = new System.Windows.Forms.Label();
             this.btnFind = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbListProcess = new System.Windows.Forms.ComboBox();
             this.lblFilterProcess = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.lblUsers = new System.Windows.Forms.Label();
-            this.cmbUsers = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.cmbListUsers = new System.Windows.Forms.ComboBox();
+            this.btnPrintTicket = new System.Windows.Forms.Button();
+            this.txtPermission = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOperationsBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // dgvOperationsBox
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 99);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(776, 350);
-            this.dataGridView1.TabIndex = 0;
+            this.dgvOperationsBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvOperationsBox.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvOperationsBox.Location = new System.Drawing.Point(12, 99);
+            this.dgvOperationsBox.Name = "dgvOperationsBox";
+            this.dgvOperationsBox.Size = new System.Drawing.Size(655, 350);
+            this.dgvOperationsBox.TabIndex = 0;
             // 
             // txtUserId
             // 
-            this.txtUserId.Location = new System.Drawing.Point(526, 9);
+            this.txtUserId.Location = new System.Drawing.Point(413, 1);
             this.txtUserId.Name = "txtUserId";
             this.txtUserId.Size = new System.Drawing.Size(100, 20);
             this.txtUserId.TabIndex = 1;
+            this.txtUserId.Visible = false;
             // 
             // dtpDateEnd
             // 
-            this.dtpDateEnd.Location = new System.Drawing.Point(316, 49);
+            this.dtpDateEnd.Location = new System.Drawing.Point(313, 49);
             this.dtpDateEnd.Name = "dtpDateEnd";
             this.dtpDateEnd.Size = new System.Drawing.Size(200, 20);
             this.dtpDateEnd.TabIndex = 2;
@@ -90,7 +95,7 @@ namespace PL
             // lblEnd
             // 
             this.lblEnd.AutoSize = true;
-            this.lblEnd.Location = new System.Drawing.Point(278, 53);
+            this.lblEnd.Location = new System.Drawing.Point(272, 53);
             this.lblEnd.Name = "lblEnd";
             this.lblEnd.Size = new System.Drawing.Size(35, 13);
             this.lblEnd.TabIndex = 5;
@@ -100,7 +105,7 @@ namespace PL
             // 
             this.lblMessage.AutoSize = true;
             this.lblMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMessage.Location = new System.Drawing.Point(168, 82);
+            this.lblMessage.Location = new System.Drawing.Point(121, 83);
             this.lblMessage.Name = "lblMessage";
             this.lblMessage.Size = new System.Drawing.Size(371, 12);
             this.lblMessage.TabIndex = 6;
@@ -109,19 +114,21 @@ namespace PL
             // btnFind
             // 
             this.btnFind.Image = global::PL.Properties.Resources.search;
-            this.btnFind.Location = new System.Drawing.Point(526, 36);
+            this.btnFind.Location = new System.Drawing.Point(544, 40);
             this.btnFind.Name = "btnFind";
             this.btnFind.Size = new System.Drawing.Size(43, 42);
             this.btnFind.TabIndex = 7;
             this.btnFind.UseVisualStyleBackColor = true;
+            this.btnFind.Click += new System.EventHandler(this.btnFind_Click);
             // 
-            // comboBox1
+            // cmbListProcess
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(61, 16);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 8;
+            this.cmbListProcess.FormattingEnabled = true;
+            this.cmbListProcess.Location = new System.Drawing.Point(61, 16);
+            this.cmbListProcess.Name = "cmbListProcess";
+            this.cmbListProcess.Size = new System.Drawing.Size(121, 21);
+            this.cmbListProcess.TabIndex = 8;
+            this.cmbListProcess.DropDown += new System.EventHandler(this.cmbListProcess_DropDown);
             // 
             // lblFilterProcess
             // 
@@ -146,34 +153,45 @@ namespace PL
             this.lblUsers.Text = "Usuario";
             this.lblUsers.Visible = false;
             // 
-            // cmbUsers
+            // cmbListUsers
             // 
-            this.cmbUsers.FormattingEnabled = true;
-            this.cmbUsers.Location = new System.Drawing.Point(252, 14);
-            this.cmbUsers.Name = "cmbUsers";
-            this.cmbUsers.Size = new System.Drawing.Size(121, 21);
-            this.cmbUsers.TabIndex = 10;
-            this.cmbUsers.Visible = false;
+            this.cmbListUsers.FormattingEnabled = true;
+            this.cmbListUsers.Location = new System.Drawing.Point(252, 14);
+            this.cmbListUsers.Name = "cmbListUsers";
+            this.cmbListUsers.Size = new System.Drawing.Size(121, 21);
+            this.cmbListUsers.TabIndex = 10;
+            this.cmbListUsers.Visible = false;
+            this.cmbListUsers.DropDown += new System.EventHandler(this.cmbListUsers_DropDown);
             // 
-            // button1
+            // btnPrintTicket
             // 
-            this.button1.Image = global::PL.Properties.Resources.print;
-            this.button1.Location = new System.Drawing.Point(670, 38);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(50, 42);
-            this.button1.TabIndex = 12;
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnPrintTicket.Image = global::PL.Properties.Resources.print;
+            this.btnPrintTicket.Location = new System.Drawing.Point(593, 40);
+            this.btnPrintTicket.Name = "btnPrintTicket";
+            this.btnPrintTicket.Size = new System.Drawing.Size(50, 42);
+            this.btnPrintTicket.TabIndex = 12;
+            this.btnPrintTicket.UseVisualStyleBackColor = true;
+            this.btnPrintTicket.Click += new System.EventHandler(this.btnPrintTicket_Click);
+            // 
+            // txtPermission
+            // 
+            this.txtPermission.Location = new System.Drawing.Point(519, 1);
+            this.txtPermission.Name = "txtPermission";
+            this.txtPermission.Size = new System.Drawing.Size(100, 20);
+            this.txtPermission.TabIndex = 13;
+            this.txtPermission.Visible = false;
             // 
             // frmConsOpCaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 458);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(677, 458);
+            this.Controls.Add(this.txtPermission);
+            this.Controls.Add(this.btnPrintTicket);
             this.Controls.Add(this.lblUsers);
-            this.Controls.Add(this.cmbUsers);
+            this.Controls.Add(this.cmbListUsers);
             this.Controls.Add(this.lblFilterProcess);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cmbListProcess);
             this.Controls.Add(this.btnFind);
             this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.lblEnd);
@@ -181,13 +199,13 @@ namespace PL
             this.Controls.Add(this.dtpDateBegin);
             this.Controls.Add(this.dtpDateEnd);
             this.Controls.Add(this.txtUserId);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvOperationsBox);
             this.MaximizeBox = false;
             this.Name = "frmConsOpCaja";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Historial Operaciones de Apertura y Cierre de la Caja";
             this.Load += new System.EventHandler(this.frmConsOpCaja_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOperationsBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -196,7 +214,7 @@ namespace PL
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvOperationsBox;
         public System.Windows.Forms.TextBox txtUserId;
         private System.Windows.Forms.DateTimePicker dtpDateEnd;
         private System.Windows.Forms.DateTimePicker dtpDateBegin;
@@ -204,12 +222,13 @@ namespace PL
         private System.Windows.Forms.Label lblEnd;
         private System.Windows.Forms.Label lblMessage;
         private System.Windows.Forms.Button btnFind;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbListProcess;
         private System.Windows.Forms.Label lblFilterProcess;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         public System.Windows.Forms.Label lblUsers;
-        public System.Windows.Forms.ComboBox cmbUsers;
-        private System.Windows.Forms.Button button1;
+        public System.Windows.Forms.ComboBox cmbListUsers;
+        private System.Windows.Forms.Button btnPrintTicket;
+        public System.Windows.Forms.TextBox txtPermission;
     }
 }

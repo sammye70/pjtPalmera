@@ -64,7 +64,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.txtStatus = new System.Windows.Forms.TextBox();
+            this.txtIdTicket = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -83,7 +83,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(440, 31);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(32, 16);
+            this.label5.Size = new System.Drawing.Size(31, 16);
             this.label5.TabIndex = 44;
             this.label5.Text = "500";
             // 
@@ -100,7 +100,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(308, 31);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(32, 16);
+            this.label6.Size = new System.Drawing.Size(31, 16);
             this.label6.TabIndex = 42;
             this.label6.Text = "200";
             // 
@@ -117,7 +117,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(181, 31);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(32, 16);
+            this.label7.Size = new System.Drawing.Size(31, 16);
             this.label7.TabIndex = 40;
             this.label7.Text = "100";
             // 
@@ -134,7 +134,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(51, 31);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(24, 16);
+            this.label8.Size = new System.Drawing.Size(23, 16);
             this.label8.TabIndex = 38;
             this.label8.Text = "50";
             // 
@@ -169,7 +169,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(447, 32);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(24, 16);
+            this.label4.Size = new System.Drawing.Size(23, 16);
             this.label4.TabIndex = 44;
             this.label4.Text = "25";
             // 
@@ -186,7 +186,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(319, 32);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(24, 16);
+            this.label3.Size = new System.Drawing.Size(23, 16);
             this.label3.TabIndex = 42;
             this.label3.Text = "10";
             // 
@@ -203,7 +203,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(198, 32);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(16, 16);
+            this.label2.Size = new System.Drawing.Size(15, 16);
             this.label2.TabIndex = 40;
             this.label2.Text = "5";
             // 
@@ -220,7 +220,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(56, 32);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(16, 16);
+            this.label1.Size = new System.Drawing.Size(15, 16);
             this.label1.TabIndex = 38;
             this.label1.Text = "1";
             // 
@@ -287,7 +287,7 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(181, 79);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(40, 16);
+            this.label10.Size = new System.Drawing.Size(39, 16);
             this.label10.TabIndex = 48;
             this.label10.Text = "2000";
             // 
@@ -304,7 +304,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(50, 79);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(40, 16);
+            this.label9.Size = new System.Drawing.Size(39, 16);
             this.label9.TabIndex = 46;
             this.label9.Text = "1000";
             // 
@@ -400,20 +400,20 @@
             this.label14.Text = "IMPORTANTE: Agregar 0 en los campos cuando no disponga de la denominación de una " +
     "moneda";
             // 
-            // txtStatus
+            // txtIdTicket
             // 
-            this.txtStatus.Location = new System.Drawing.Point(544, 227);
-            this.txtStatus.Name = "txtStatus";
-            this.txtStatus.Size = new System.Drawing.Size(42, 20);
-            this.txtStatus.TabIndex = 76;
-            this.txtStatus.Visible = false;
+            this.txtIdTicket.Location = new System.Drawing.Point(544, 227);
+            this.txtIdTicket.Name = "txtIdTicket";
+            this.txtIdTicket.Size = new System.Drawing.Size(42, 20);
+            this.txtIdTicket.TabIndex = 76;
+            this.txtIdTicket.Visible = false;
             // 
             // frmAbrirCaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(609, 347);
-            this.Controls.Add(this.txtStatus);
+            this.Controls.Add(this.txtIdTicket);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.btnCalcularMonto);
@@ -472,7 +472,7 @@
         private System.Windows.Forms.ToolTip toolTip1;
         public System.Windows.Forms.TextBox txtIdUser;
         public System.Windows.Forms.TextBox txtType;
-        public System.Windows.Forms.TextBox txtStatus;
+        public System.Windows.Forms.TextBox txtIdTicket;
         public System.Windows.Forms.TextBox txtUserFirstNameLast;
         private System.Windows.Forms.TextBox txtDate;
     }

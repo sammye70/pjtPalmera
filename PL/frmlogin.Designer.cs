@@ -52,7 +52,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(186, 112);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 16);
+            this.label1.Size = new System.Drawing.Size(54, 16);
             this.label1.TabIndex = 3;
             this.label1.Text = "Usuario";
             // 
@@ -62,7 +62,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(186, 152);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 16);
+            this.label2.Size = new System.Drawing.Size(83, 16);
             this.label2.TabIndex = 4;
             this.label2.Text = "Constraseña";
             // 
@@ -162,6 +162,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(451, 272);
             this.ControlBox = false;
             this.Controls.Add(this.lblCompanyName);
@@ -184,7 +185,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-            
+
         }
 
         #endregion

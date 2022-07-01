@@ -124,7 +124,7 @@
             this.rbCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbCategory.Location = new System.Drawing.Point(253, 24);
             this.rbCategory.Name = "rbCategory";
-            this.rbCategory.Size = new System.Drawing.Size(104, 20);
+            this.rbCategory.Size = new System.Drawing.Size(103, 20);
             this.rbCategory.TabIndex = 65;
             this.rbCategory.Text = "CATEGORIA";
             this.rbCategory.UseVisualStyleBackColor = true;
@@ -136,7 +136,7 @@
             this.rbStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbStatus.Location = new System.Drawing.Point(379, 24);
             this.rbStatus.Name = "rbStatus";
-            this.rbStatus.Size = new System.Drawing.Size(82, 20);
+            this.rbStatus.Size = new System.Drawing.Size(81, 20);
             this.rbStatus.TabIndex = 64;
             this.rbStatus.Text = "ESTADO";
             this.rbStatus.UseVisualStyleBackColor = true;
@@ -148,7 +148,7 @@
             this.rbDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbDescription.Location = new System.Drawing.Point(113, 24);
             this.rbDescription.Name = "rbDescription";
-            this.rbDescription.Size = new System.Drawing.Size(117, 20);
+            this.rbDescription.Size = new System.Drawing.Size(116, 20);
             this.rbDescription.TabIndex = 13;
             this.rbDescription.Text = "DESCRIPCION";
             this.rbDescription.UseVisualStyleBackColor = true;
@@ -160,7 +160,7 @@
             this.rbCodigo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbCodigo.Location = new System.Drawing.Point(20, 24);
             this.rbCodigo.Name = "rbCodigo";
-            this.rbCodigo.Size = new System.Drawing.Size(78, 20);
+            this.rbCodigo.Size = new System.Drawing.Size(77, 20);
             this.rbCodigo.TabIndex = 12;
             this.rbCodigo.Text = "CODIGO";
             this.rbCodigo.UseVisualStyleBackColor = true;
@@ -224,7 +224,7 @@
             this.lblCriterio.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCriterio.Location = new System.Drawing.Point(16, 26);
             this.lblCriterio.Name = "lblCriterio";
-            this.lblCriterio.Size = new System.Drawing.Size(38, 16);
+            this.lblCriterio.Size = new System.Drawing.Size(37, 16);
             this.lblCriterio.TabIndex = 6;
             this.lblCriterio.Text = "label";
             // 
@@ -308,7 +308,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvProductOnlyActive.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProductOnlyActive.Location = new System.Drawing.Point(11, 89);
+            this.dgvProductOnlyActive.Location = new System.Drawing.Point(11, 88);
             this.dgvProductOnlyActive.Name = "dgvProductOnlyActive";
             this.dgvProductOnlyActive.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvProductOnlyActive.Size = new System.Drawing.Size(1144, 374);

@@ -71,6 +71,9 @@ namespace pjPalmera.PL
         {
             this.btnEditar.Visible = false;
             this.btnEliminar.Visible = false;
+            this.dgvClientConsultar.Columns["Created"].Visible = false;
+            this.dgvClientConsultar.Columns["Createby"].Visible = false;
+
         }
 
         /// <summary>
@@ -84,11 +87,13 @@ namespace pjPalmera.PL
                 {
                     clientes.Cedula = this.txtCriterioBusqueda.Text;
                     this.dgvClientConsultar.DataSource = ClientesBO.GetbyCedula(clientes.Cedula);
+                    this.HideCtrlCustmer();
                 }
                 else
                 {
                     this.dgvClientConsultar.DataSource = null;
                     this.dgvClientConsultar.DataSource = ClientesBO.GetAll();
+                    this.HideCtrlCustmer();
                 }
             }
             catch (Exception ex)
@@ -119,16 +124,17 @@ namespace pjPalmera.PL
             {   
                 this.dgvClientConsultar.DataSource = ClientesBO.GetAll();
                 this.dgvClientConsultar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
-                
+                this.HideCtrlCustmer();
                 var row = this.dgvClientConsultar.RowCount;
 
                 if (row <= 0)
                 {
                     MessageBox.Show("No Hay Datos que Mostrar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    this.HideCtrlCustmer();
                     this.txtCriterioBusqueda.Focus();
                 }
                 else {
-
+                    this.HideCtrlCustmer();
                     this.txtCriterioBusqueda.Focus();
                 }
             }
@@ -223,11 +229,13 @@ namespace pjPalmera.PL
 
                     MessageBox.Show(ClientesBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.dgvClientConsultar.DataSource = ClientesBO.GetAll();
+                    this.HideCtrlCustmer();
 
                 }
                 else if (question == DialogResult.No)
                 {
                     this.rbCedula.Focus();
+                    this.HideCtrlCustmer();
                     return;
                 }
             }
@@ -258,6 +266,7 @@ namespace pjPalmera.PL
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             this.dgvClientConsultar.DataSource = ClientesBO.GetAll();
+            this.HideCtrlCustmer();
 
             var row = this.dgvClientConsultar.Rows.Count;
             DialogResult result = new DialogResult();
@@ -284,6 +293,7 @@ namespace pjPalmera.PL
             else if (Question == DialogResult.No)
             {
                 this.dgvClientConsultar.DataSource = ClientesBO.GetAll();
+                this.HideCtrlCustmer();
                 this.txtCriterioBusqueda.Focus();
                 return;
             }
@@ -298,6 +308,7 @@ namespace pjPalmera.PL
                 this.txtCriterioBusqueda.Text = "";
                 this.txtCriterioBusqueda.Focus();
                 this.dgvClientConsultar.DataSource = ClientesBO.GetAll();
+                this.HideCtrlCustmer();
             }
         }
 
@@ -309,6 +320,7 @@ namespace pjPalmera.PL
                 this.txtCriterioBusqueda.Text = "";
                 this.txtCriterioBusqueda.Focus();
                 this.dgvClientConsultar.DataSource = ClientesBO.GetAll();
+                this.HideCtrlCustmer();
             }
         }
 
@@ -320,6 +332,7 @@ namespace pjPalmera.PL
                 this.txtCriterioBusqueda.Text = "";
                 this.txtCriterioBusqueda.Focus();
                 this.dgvClientConsultar.DataSource = ClientesBO.GetAll();
+                this.HideCtrlCustmer();
             }
         }
 
@@ -342,12 +355,14 @@ namespace pjPalmera.PL
                         if (cedu.Count != 0)
                         {
                             this.dgvClientConsultar.DataSource = ClientesBO.GetCustomerByCedula(valCriterio);
+                            this.HideCtrlCustmer();
                         }
                         else
                         {
                             MessageBox.Show("No hay Clientes que mostrar que esten asociados a la Cédula indicada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             this.dgvClientConsultar.DataSource = null;
                             this.dgvClientConsultar.DataSource = ClientesBO.GetAll();
+                            this.HideCtrlCustmer();
                             this.txtCriterioBusqueda.Focus();
                         }
                     }
@@ -358,6 +373,7 @@ namespace pjPalmera.PL
                         if (apellClient.Count != 0)
                         {
                             this.dgvClientConsultar.DataSource = ClientesBO.GetbyApellidos(valCriterio);
+                            this.HideCtrlCustmer();
                         }
                         else
                         {
@@ -375,6 +391,7 @@ namespace pjPalmera.PL
                         if (nombClient.Count != 0)
                         {
                             this.dgvClientConsultar.DataSource = ClientesBO.GetbyNombre(valCriterio);
+                            this.HideCtrlCustmer();
                         }
                         else
                         {
@@ -382,6 +399,7 @@ namespace pjPalmera.PL
                             MessageBox.Show("No hay Clientes que mostrar que esten asociados al Nombre indicado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             this.dgvClientConsultar.DataSource = null;
                             this.dgvClientConsultar.DataSource = ClientesBO.GetAll();
+                            this.HideCtrlCustmer();
                             this.txtCriterioBusqueda.Focus();
                         }
                     }

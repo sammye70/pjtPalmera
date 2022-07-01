@@ -15,12 +15,34 @@ namespace pjPalmera.PL
 {
     public partial class frmEfectPagosFactCred : Form
     {
-        PagosEntity Pagos = new PagosEntity();
-        VentaEntity venta = new VentaEntity();
 
         public frmEfectPagosFactCred()
         {
             InitializeComponent();
+        }
+
+
+        PagosEntity Pagos = new PagosEntity();
+        VentaEntity venta = new VentaEntity();
+
+        private string concept;
+        private decimal currentamount;
+        private long ticketid;
+        
+
+        public string getConcept
+        {
+            get { return concept; }
+        }
+
+        public decimal getAmountAfterPay
+        {
+            get { return currentamount; }
+        }
+
+        public long getTicketId
+        {
+            get { return ticketid; }
         }
 
 
@@ -91,8 +113,9 @@ namespace pjPalmera.PL
         /// </summary>
         public void iniControls()
         {
-            this.txtIdRecibo.Text = "0.00";
+            this.txtIdRecibo.Text = "";
             this.txtValorPago.Text = "0.00";
+            this.rbEfectivo.Checked = true;
 
         }
 
@@ -104,7 +127,7 @@ namespace pjPalmera.PL
             this.txtBalanceBeforePaid.Visible = false;
             this.txtIdClient.Visible = false;
             this.txtIdRecibo.Visible = false;
-            this.txtIdUser.Visible = false;
+           // this.txtIdUser.Visible = false;
             this.txtPermissions.Visible = false;
             this.txtUserLong.Visible = false;
         
@@ -130,7 +153,6 @@ namespace pjPalmera.PL
         /// Date: 13/01/2020
         public void PrintTicket()
         {
-
             //Parameters
             PrintDocument pd = new PrintDocument();
             PaperSize pz = new PaperSize("", 420, 520);
@@ -179,7 +201,7 @@ namespace pjPalmera.PL
             Graphics g = e.Graphics;
             SolidBrush sb = new SolidBrush(Color.Black); // Set Brush color for Drawing Charaters
             string Type = "COMPROBANTE DE PAGO"; //Type of invoice
-            string Type1 = "";
+          //  string Type1 = "";
 
             //    //Id Invoice
             //    venta.id = FacturaBO.LastId();
@@ -206,7 +228,7 @@ namespace pjPalmera.PL
             g.DrawString(this.txtCliente.Text, fBody, sb, 80, 220);
            // g.DrawString(this.txtApellidos.Text, fBody, sb, 180, 220);
             g.DrawString("NIR:", fTitle, sb, 10, 232);
-            g.DrawString(this.txtIdRecibo.Text, fBody, sb, 50, 232);
+            g.DrawString(this.txtIdRecibo.Text = this.getTicketId.ToString(), fBody, sb, 50, 232);
          
 
             //
@@ -219,15 +241,18 @@ namespace pjPalmera.PL
             int AutoScrollOffset = +14;
 
             //
-            if (this.txtValorPago.Text == this.lblBalenceResultados.Text)
-            {
-                Type1 = "SALDO DEL BALANCE PENDIENTE";
-            }
-            else
-            {
-                Type1 = "ABONO AL BALANCE PENDIENTE";
-            }
-            g.DrawString(Type1, fTitle, sb, 49, 320);
+            #region oldCode Pay Concept
+            //if (this.txtValorPago.Text == this.lblBalenceResultados.Text)
+            //{
+            //    Type1 = "SALDO DEL BALANCE PENDIENTE";
+            //}
+            //else
+            //{
+            //    Type1 = "ABONO AL BALANCE PENDIENTE";
+            //}
+            #endregion
+
+            g.DrawString(this.txtConcep.Text = this.getConcept, fdpTitle, sb, 70, 320);
 
             //    int a = this.dgvDetalle.Rows.Count;
 
@@ -243,17 +268,17 @@ namespace pjPalmera.PL
 
             //Paid Detail
             AutoScrollOffset = AutoScrollOffset + 12;
-            g.DrawString("Pago Realizado por:", fdpTitle, sb, 90, 318 + AutoScrollOffset); //
-            g.DrawString(this.txtValorPago.Text, fBody, sb, 225, 318 + AutoScrollOffset);  //
-            g.DrawString("Recibido RD$:", fdpTitle, sb, 90, 332 + AutoScrollOffset);   // 
-            g.DrawString(this.txtRecibidoEfectivo.Text, fBody, sb, 225, 332 + AutoScrollOffset);  //
-            g.DrawString("Devuelta RD$ :", fdpTitle, sb, 90, 350 + AutoScrollOffset);
-            g.DrawString(this.lblDevueltResult.Text, fBody, sb, 225, 350 + AutoScrollOffset); //
-            g.DrawString("Balance Actual RD$:", fpTitle, sb, 90, 368 + AutoScrollOffset); //
-            g.DrawString(this.txtBalanceAfterPaid.Text, fpBody, sb, 225, 368 + AutoScrollOffset);  //
+            g.DrawString("Pago Realizado por:", fdpTitle, sb, 83, 318 + AutoScrollOffset); //
+            g.DrawString(this.txtValorPago.Text + ".00", fBody, sb, 223, 318 + AutoScrollOffset);  //
+            g.DrawString("Recibido RD$:", fdpTitle, sb, 83, 332 + AutoScrollOffset);   // 
+            g.DrawString(this.txtRecibidoEfectivo.Text + ".00", fBody, sb, 223, 332 + AutoScrollOffset);  //
+            g.DrawString("Devuelta RD$ :", fdpTitle, sb, 83, 350 + AutoScrollOffset);
+            g.DrawString(this.lblDevueltResult.Text + ".00", fBody, sb, 223, 350 + AutoScrollOffset); //
+            g.DrawString("Balance Actual RD$:", fpTitle, sb, 83, 368 + AutoScrollOffset); //
+            g.DrawString(this.txtBalanceAfterPaid.Text = this.getAmountAfterPay.ToString(), fpBody, sb, 223, 368 + AutoScrollOffset);  //
             //g.DrawString("", fdpTitle, sb, 100, 370 + AutoScrollOffset);
             //Cachier Signature
-            g.DrawString("Firma del Cajero", fdpTitle, sb, 49, 405 + AutoScrollOffset);    //Aqui estoy trabajando
+            g.DrawString("Firma del Cajero", fdpTitle, sb, 49, 410 + AutoScrollOffset);    // Working here (DONE)
 
             //Feet Messenge
             AutoScrollOffset = AutoScrollOffset + 8;
@@ -268,11 +293,148 @@ namespace pjPalmera.PL
         }
         #endregion
 
-        private void btnSearchInvoices_Click(object sender, EventArgs e)
-        {
-            frmConsFactCredClient FactCreditoClientPend = new frmConsFactCredClient();
-            FactCreditoClientPend.ShowDialog(this);
 
+        /// <summary>
+        /// Check if all controls has content before continues with process
+        /// </summary>
+        /// <returns>true if all controls are diferent empty and false when empty </returns>
+        private bool Validador() 
+        {
+            bool result = true;
+
+            if(this.txtCliente.Text == string.Empty)
+            {
+                this.txtCliente.Focus();
+                result = false;
+            }
+
+            if(decimal.TryParse(this.txtValorPago.Text, out decimal resul) && (this.txtValorPago.Text == string.Empty))
+            {
+                this.txtValorPago.Focus();
+                result = false;
+            }
+
+            if ((int.TryParse(this.txtIdClient.Text, out int res)) && (this.txtIdClient.Text == string.Empty))
+            {
+                result = false;
+            }
+
+            if ((decimal.TryParse(this.txtRecibidoEfectivo.Text, out decimal resu)) && (this.txtRecibidoEfectivo.Text == string.Empty))
+            {
+                this.txtRecibidoEfectivo.Focus();
+                result = false;
+            }
+
+            if ((this.rbEfectivo.Enabled == false) && (this.rbTarjeta.Enabled == false))
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        ///  get Method pay for current transaction
+        /// </summary>
+        /// <returns></returns>
+        private int setMethodPay()
+        {
+            int val = 0;
+            if(this.rbEfectivo.Checked == true && this.rbTarjeta.Checked == false)
+            {
+                val = 1;
+            }
+            else if(this.rbTarjeta.Checked == true && this.rbEfectivo.Checked == false)
+            {
+                val = 2;
+            }
+
+            return val;
+        }
+
+        /// <summary>
+        ///  Process for pay customer amount pendding in account
+        /// </summary>
+        private void Process_Pay()
+        {
+            try
+            {
+                var fpago = new frmEfectPagosFactCred();
+                var craccount = new CreditAccountEntity();
+
+
+                craccount.id_cliente = int.Parse(this.txtIdClient.Text);
+                craccount.id_user = int.Parse(this.txtIdUser.Text);
+                craccount.PayValue = decimal.Parse(this.txtValorPago.Text);
+
+                      
+                if (Validador() != false) //--------> working with validate controls (Done)
+                  
+                CreditAccountBO.UpdateCrAccountPay(craccount);
+                this.currentamount = craccount.NewAmountcr;
+                this.txtBalanceBeforePaid.Text = craccount.PastAmountcr.ToString();
+                this.concept = craccount.Concept.ToString();
+                craccount.recibido = decimal.Parse(this.txtRecibidoEfectivo.Text);
+                craccount.devuelta = decimal.Parse(this.lblDevueltResult.Text);
+                craccount.total = decimal.Parse(this.txtValorPago.Text);
+                craccount.method_pago = this.setMethodPay();
+                //--------------> Here call rule from  CreditAccountBO that to allow save in history_pay_credit_account (DONE below)
+
+                CreditAccountBO.SavePayHistory(craccount);
+                ticketid = craccount.id;
+                FacturaBO.CreateTranstCredit(craccount); //--> add credit_type reference  CreditAccountBO.UpdateCrAccountPay but DAL Layer correspond (DONE)
+               
+                PrintTicket();
+                Limpiar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+            
+        }
+
+        private void txtRecibidoEfectivo_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                var docs = new VentaCrEntity();
+                this.lblDevueltResult.Text = "";
+
+                if (this.txtRecibidoEfectivo.Text != String.Empty)
+                {
+                    this.lblDevueltResult.Text = (docs.Change(decimal.Parse(this.txtRecibidoEfectivo.Text), decimal.Parse(this.txtValorPago.Text))).ToString();
+                }
+            }
+            catch (Exception)
+            {
+
+
+            }
+        }
+
+        private void btnCobrar_Click(object sender, EventArgs e)
+        {
+            var Result = new DialogResult();
+
+            Result = MessageBox.Show("Seguro que Desea Procesar el Pago", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+
+            if (Result == DialogResult.Yes)
+            {
+                // MessageBox.Show("Pago Procesado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Process_Pay(); // --------------------------- >>> Here pendding  test when running DONE
+            }
+            else if (Result == DialogResult.No)
+            {
+                MessageBox.Show("Pago No Procesado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+        }
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            Limpiar();
+            iniControls();
         }
 
         private void btnSearchClient_Click(object sender, EventArgs e)
@@ -288,129 +450,10 @@ namespace pjPalmera.PL
             }
         }
 
-
-        /// <summary>
-        /// Check if all controls has content before continues with process
-        /// </summary>
-        /// <returns>true if all controls are diferent empty and false when empty </returns>
-        private bool Validador() 
+        private void btnSearchInvoices_Click(object sender, EventArgs e)
         {
-            bool result = true;
-
-            if(this.txtCliente.Text == string.Empty)
-            {
-                result = false;
-            }
-
-            if(decimal.TryParse(this.txtValorPago.Text, out decimal resul) && (this.txtValorPago.Text == string.Empty))
-            {
-                result = false;
-
-            }
-
-            if ((int.TryParse(this.txtIdClient.Text, out int res)) && (this.txtIdClient.Text == string.Empty))
-            {
-                result = false;
-            }
-
-            if ((decimal.TryParse(this.txtRecibidoEfectivo.Text, out decimal resu)) && (this.txtRecibidoEfectivo.Text == string.Empty))
-            {
-                result = false;
-            }
-
-            if ((this.rbEfectivo.Enabled == false) && (this.rbTarjeta.Enabled == false))
-            {
-                result = false;
-            }
-
-            return result;
+            frmConsFactCredClient FactCreditoClientPend = new frmConsFactCredClient();
+            FactCreditoClientPend.ShowDialog(this);
         }
-
-        private void btnNuevo_Click(object sender, EventArgs e)
-        {
-            Limpiar();
-        }
-
-        private void btnCobrar_Click(object sender, EventArgs e)
-        {
-            var Result = new DialogResult();
-
-            Result= MessageBox.Show("Seguro que Desea Procesar el Pago", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-
-            if (Result == DialogResult.Yes)
-            {
-                // MessageBox.Show("Pago Procesado Satisfactoriamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Process_Pay(); // --------------------------- >>> Here pendding  test when running DONE
-                PrintTicket();
-                Limpiar();
-            }
-            else if (Result == DialogResult.No)
-            {
-               MessageBox.Show("Pago No Procesado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-               return;
-            }
-        }
-
-        private void txtRecibidoEfectivo_TextChanged(object sender, EventArgs e)
-        {
-
-            try
-            {
-                var docs = new VentaCrEntity();
-                this.lblDevueltResult.Text = "";
-
-                if ((this.txtRecibidoEfectivo.Text != String.Empty))
-                {
-                    this.lblDevueltResult.Text = (docs.Change(decimal.Parse(this.txtRecibidoEfectivo.Text), decimal.Parse(this.txtValorPago.Text))).ToString();
-                }
-            }
-            catch (Exception)
-            {
-
-                
-            }
-
-            
-        }
-
-
-        /// <summary>
-        ///  Process for pay customer amount pendding in account
-        /// </summary>
-        private void Process_Pay()
-        {
-
-            try
-            {
-                var fpago = new frmEfectPagosFactCred();
-                var craccount = new CreditAccountEntity();
-
-
-                craccount.id_cliente = int.Parse(this.txtIdClient.Text);
-                craccount.PayValue = decimal.Parse(this.txtValorPago.Text);
-
-
-                if (Validador() != false) //--------> working with validate controls (Done)
-                    return;
-
-                CreditAccountBO.UpdateCrAccountPay(craccount);
-                fpago.txtBalanceAfterPaid.Text = craccount.NewAmountcr.ToString();
-                fpago.txtBalanceBeforePaid.Text = craccount.PastAmountcr.ToString();
-
-                CreditAccountBO.GetcrAccountBasic(craccount);
-                fpago.txtIdAccount.Text = craccount.IdAccount.ToString();
-
-                //--------------> Here call rule from  CreditAccountBO that to allow save in history_pay_credit_account (Done below)
-
-                CreditAccountBO.SavePayHistory(craccount);
-                fpago.txtIdRecibo.Text = craccount.id.ToString();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-            }
-            
-        }
-
     }
 }

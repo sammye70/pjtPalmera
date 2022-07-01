@@ -293,6 +293,7 @@ namespace pjPalmera.PL
                     productos.Precio_venta = Convert.ToDecimal(txtPrecioVenta.Text);
                     productos.Creado = DateTime.Now.Date;
                     // productos.Estado = st.ToString();
+                    productos.Creado_por = int.Parse(this.txtIdUser.Text);
                     productos.Estado = this.cmbEstado.SelectedValue.ToString();
 
                     ProductosBO.Save(productos);

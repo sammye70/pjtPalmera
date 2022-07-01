@@ -29,6 +29,7 @@ namespace pjPalmera.PL
 
         private void frmlogin_Load(object sender, EventArgs e)
         {
+            //
             CleanControls();
             SetTool();
             this.txtUserName.Focus();
@@ -92,7 +93,6 @@ namespace pjPalmera.PL
 
 
                 if (CheckStringControls() != false)
-                    // {
                    
                 switch (stUser)
                 {
@@ -102,8 +102,10 @@ namespace pjPalmera.PL
 
                         if (loguser == true)
                         {
-                            fmain.txtUsername.Text = infuser.User_name;
+                            //fmain.txtUsername.Text = infuser.User_name;
+                            fmain.lblUserAuth.Text = infuser.User_name;
                             fmain.txtLongName.Text = infuser.LongName;
+                            fmain.lblLongName.Text = infuser.LongName;
                             fmain.txtPermisson.Text = infuser.Privileges.ToString();
                             fmain.txtIdUser.Text = infuser.Id_user.ToString();
                             
@@ -151,7 +153,7 @@ namespace pjPalmera.PL
 
         private void lblForgetPassword_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //frmRecoveryPassword RecoveryPass = new frmRecoveryPassword();
+            //var RecoveryPass = new frmRecoveryPassword();
             //RecoveryPass.ShowDialog(this);
             MessageBox.Show("Esta función no esta disponible. Disculpe los inconvenientes. \n Si necesita alguna información consultar su supervisor o administrador.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }

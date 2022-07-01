@@ -196,8 +196,8 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::PL.Properties.Resources.user;
-            this.pictureBox1.Location = new System.Drawing.Point(479, 14);
+            this.pictureBox1.Image = global::PL.Properties.Resources.Person_Male_Light_icon;
+            this.pictureBox1.Location = new System.Drawing.Point(490, 74);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(82, 89);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -285,7 +285,7 @@
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(161, 28);
+            this.lblTitle.Location = new System.Drawing.Point(157, 28);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(225, 25);
             this.lblTitle.TabIndex = 29;

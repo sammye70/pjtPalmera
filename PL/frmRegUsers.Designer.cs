@@ -209,6 +209,7 @@
             this.txtidUser.Name = "txtidUser";
             this.txtidUser.Size = new System.Drawing.Size(100, 20);
             this.txtidUser.TabIndex = 108;
+            this.txtidUser.Visible = false;
             // 
             // groupBox2
             // 
@@ -319,11 +320,12 @@
             this.txtUserIdMod.Name = "txtUserIdMod";
             this.txtUserIdMod.Size = new System.Drawing.Size(100, 20);
             this.txtUserIdMod.TabIndex = 121;
+            this.txtUserIdMod.Visible = false;
             // 
             // btnUpdate
             // 
             this.btnUpdate.Image = global::PL.Properties.Resources.save;
-            this.btnUpdate.Location = new System.Drawing.Point(440, 500);
+            this.btnUpdate.Location = new System.Drawing.Point(442, 501);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(58, 54);
             this.btnUpdate.TabIndex = 122;

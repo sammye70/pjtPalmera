@@ -15,8 +15,9 @@ namespace pjPalmera.PL
 {
     public partial class frmAbrirCaja : Form
     {
-        AperturaCajaEntity opcaja = new AperturaCajaEntity();
+        OperationsCajaEntity oCaja = new OperationsCajaEntity();
         OpServices Services = new OpServices();
+
 
         public frmAbrirCaja()
         {
@@ -29,7 +30,7 @@ namespace pjPalmera.PL
             DesableControls();
             CleanControls();
             this.txtMonedas1.Focus();
-            opcaja = null;
+            // oCaja = null;
         }
 
 
@@ -185,15 +186,16 @@ namespace pjPalmera.PL
         /// <summary>
         /// Open Box for Casher, this method need to valitate if box is open, in this case will to send a message that was opened or closed
         /// </summary>
-        private void OpenBox(AperturaCajaEntity oCaja)
+        private void OpenBox(OperationsCajaEntity oCaja)
         {
+            
             try
             {
                 if (oCaja != null)
                 {
-                    oCaja.TypeOp = 1;
+                    oCaja.TypeOp = "2";
                     oCaja.UserId = Int32.Parse(this.txtIdUser.Text);
-                    oCaja.Status = Int32.Parse(this.txtStatus.Text);
+                    // oCaja.Status = Int32.Parse(this.txtStatus.Text);
                     oCaja.Uno = Convert.ToInt32(this.txtMonedas1.Text);
                     oCaja.Cinco = Convert.ToInt32(this.txtMonedas5.Text);
                     oCaja.Diez = Convert.ToInt32(this.txtMonedas10.Text);
@@ -205,16 +207,17 @@ namespace pjPalmera.PL
                     oCaja.Mil = Convert.ToInt32(this.txtBilletes1000.Text);
                     oCaja.Dosmil = Convert.ToInt32(this.txtBilletes2000.Text);
                     oCaja.Monto = Convert.ToDecimal(this.lblMontoTotal.Text);
+                    oCaja.Venta = 0;
+                    oCaja.Faltante = 0;
 
-                    AperturaCajaBO.CreateOpenBox(oCaja);     //  --------------------------------------------------->
-                    AperturaCajaBO.CreateHistoryOpenBox(oCaja); //  ---------------------------------------------------> Create Method to save openbox details DONE
-                                                                //  ---------------------------------------------------> 
-                    PrintTicketOp();  // send to print ticket, if process was well. ---------------------------------->
+                    OperationsCajaBO.CreateOpenBox(oCaja);     
+                    OperationsCajaBO.CreateHistoryOpenBox(oCaja);       //----------------------> Create Method to save openbox details DONE
+                    this.txtIdTicket.Text = oCaja.Id.ToString();
+                    PrintTicketOp();                          //--------> send to print ticket, if process was well. ---------------------------------->
                 }
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message, "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally 
@@ -245,10 +248,17 @@ namespace pjPalmera.PL
         private void btnProcesar_Click(object sender, EventArgs e)
         {
             var Openbox = new frmCierreCaja();
-            var oCaja = new AperturaCajaEntity();
+            var oCaja = new OperationsCajaEntity();
 
             try
             {
+                if((this.lblMontoTotal.Equals("0.00")) || (this.lblMontoTotal.Equals("0")))
+                {
+                    MessageBox.Show("El monto total debe ser diferente de 0. \n De esta forma poder continuar con el proceso de apertura de Caja", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.txtMonedas1.Focus();
+                }
+                else
+                {
                     switch (ValidatorCharacters())
                     {
                         case true:
@@ -258,27 +268,41 @@ namespace pjPalmera.PL
 
                             if (Answer == DialogResult.Yes)
                             {
-                            // function valide if current user has some box with opened status
-                            this.txtDate.Text = DateTime.Today.Date.ToShortDateString();
-                               oCaja.UserId  = Convert.ToInt32(this.txtIdUser.Text);
-                                
-                                var statusbox = AperturaCajaBO.GetStatusBox(oCaja);
 
-                                switch (statusbox) 
-                                {
-                                    case 0:
-                                        OpenBox(oCaja);
+                                this.txtDate.Text = DateTime.Today.Date.ToShortDateString();
+                                oCaja.UserId = int.Parse(this.txtIdUser.Text);
 
-                                        MessageBox.Show("Caja Abierta! Recuerde que debe Cerrar la Caja al Finalizar las Labores", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                        CleanControls();
-                                        this.Close();
-                                        break;
+                                #region Old Validate status box not used rigth now
 
-                                    case 1:
-                                        MessageBox.Show(AperturaCajaBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                                        this.Close();
-                                        break;
-                                }
+                                // function valide if current user has some box with opened status
+                                this.txtDate.Text = DateTime.Today.Date.ToShortDateString();
+                                // oCaja.UserId  = Convert.ToInt32(this.txtIdUser.Text);
+
+
+                                //var statusbox = OperationsCajaBO.GetStatusBox(oCaja);
+
+                                //switch (statusbox) 
+                                //{
+                                //    case 0:
+                                //        this.OpenBox(oCaja);
+
+                                //        MessageBox.Show("Caja Abierta! Recuerde que debe Cerrar la Caja al Finalizar las Labores", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                //        CleanControls();
+                                //        this.Close();
+                                //        break;
+
+                                //    case 1:
+                                //        MessageBox.Show(OperationsCajaBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                //        this.Close();
+                                //        break;
+                                //}
+                                #endregion
+
+                                this.OpenBox(oCaja);
+
+                                // MessageBox.Show("Caja Abierta! Recuerde que debe Cerrar la Caja al Finalizar las Labores", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                CleanControls();
+                                this.Close();
                             }
 
                             else if (Answer == DialogResult.No)
@@ -293,10 +317,11 @@ namespace pjPalmera.PL
                             MessageBox.Show("Debe Revisar los Valor Ingresados al parecer están vacios o los Proporcionados no son correctos. Para poder Aperturar la Caja.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                             break;
                     }
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.StackTrace, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.txtMonedas1.Focus();
             }
         }
@@ -365,7 +390,7 @@ namespace pjPalmera.PL
             // this.txtId_Invoice.Text = Convert.ToString(Id_invoice);  //
 
 
-            RawPrinterHelper j = new RawPrinterHelper(); //
+            RawPrinterHelper j = new RawPrinterHelper(); //OperationsCajaBO
 
             // Header Ticket
 
@@ -386,16 +411,16 @@ namespace pjPalmera.PL
             g.DrawString(this.txtIdUser.Text, fBody, sb, 110, 222);
             // g.DrawString(this.txtApClientes.Text, fBody, sb, 180, 220); //
             g.DrawString("CAJERO:", fTitle, sb, 10, 234); //
-            g.DrawString(this.txtUserFirstNameLast.Text, fBody, sb, 95, 234);
-            g.DrawString("NO. OPERACION:", fTitle, sb, 10, 246); //
-            // g.DrawString(this.txtId_Invoice.Text, fBody, sb, 50, 244); //
+            g.DrawString(this.txtUserFirstNameLast.Text, fBody, sb, 107, 234);
+            g.DrawString("NO. OPERACION:", fTitle, sb, 10, 245); //
+            g.DrawString(this.txtIdTicket.Text, fBody, sb, 115, 245); //
 
-            var opBoxop = new AperturaCajaEntity();
+            var opBoxop = new OperationsCajaEntity();
 
-            opBoxop.TypeOp = Convert.ToInt32(this.txtType.Text);
+            opBoxop.TypeOp = Convert.ToString(this.txtType.Text);
 
 
-            int op = opBoxop.TypeOp;
+            var op = opBoxop.TypeOp;
 
             // Open box title
             g.DrawString(Type1, fTitle, sb, 75, 262);
@@ -406,39 +431,88 @@ namespace pjPalmera.PL
             g.DrawString("-----------------------------------------", fBody, sb, 5, 280);
             g.DrawString("     DETALLES DE OPERACION EN CAJA       ", fdpTitle, sb, 10, 290);
             g.DrawString("-----------------------------------------", fBody, sb, 5, 298);
-            g.DrawString("   DENOMINACION    CANTIDAD    MONTO     ", fdpTitle, sb, 10, 304);
+            g.DrawString("   DENOMINACION    CANTIDAD   MONTO      ", fdpTitle, sb, 10, 304);
             g.DrawString("-----------------------------------------", fBody, sb, 5, 310);
 
             int AutoScrollOffset = +14;
 
             // detail open box process
+            #region old code details not used ...
+                //AutoScrollOffset = AutoScrollOffset + 12;
+                //g.DrawString("Monedas de 1: ", fdpTitle, sb, 90, 330 + AutoScrollOffset);   // 
+                //g.DrawString(this.txtMonedas1.Text, fBody, sb, 202, 330 + AutoScrollOffset);  //
+                //g.DrawString("Monedas de 5: ", fdpTitle, sb, 90, 350 + AutoScrollOffset);
+                //g.DrawString(this.txtMonedas5.Text, fBody, sb, 202, 350 + AutoScrollOffset); //
+                //g.DrawString("Monedas de 10: ", fpTitle, sb, 90, 368 + AutoScrollOffset); //
+                //g.DrawString(this.txtMonedas10.Text, fpBody, sb, 202, 368 + AutoScrollOffset);  //
+                //g.DrawString("Monedas de 25 ", fdpTitle, sb, 100, 370 + AutoScrollOffset);
+                //g.DrawString(this.txtMonedas25.Text, fBody, sb, 202, 389 + AutoScrollOffset);
+                //g.DrawString("Billetes de 50: ", fdpTitle, sb, 90, 389 + AutoScrollOffset); //
+                //g.DrawString(this.txtBilletes50.Text, fBody, sb, 202, 389 + AutoScrollOffset); //
+                //g.DrawString("Billetes de 100: ", fdpTitle, sb, 90, 405 + AutoScrollOffset); //
+                //g.DrawString(this.txtBilletes100.Text, fBody, sb, 202, 405 + AutoScrollOffset); //
+                //g.DrawString("Billetes de 200: ", fdpTitle, sb, 90, 420 + AutoScrollOffset);
+                //g.DrawString(this.txtBilletes200.Text, fdpTitle, sb, 202, 420 + AutoScrollOffset);
+                //g.DrawString("Billetes de 500: ", fdpTitle, sb, 90, 420 + AutoScrollOffset);
+                //g.DrawString(this.txtBilletes500.Text, fdpTitle, sb, 202, 420 + AutoScrollOffset);
+                //g.DrawString("Billetes de 1000: ", fdpTitle, sb, 90, 420 + AutoScrollOffset);
+                //g.DrawString(this.txtBilletes1000.Text, fdpTitle, sb, 202, 420 + AutoScrollOffset);
+                //g.DrawString("Billetes de 2000: ", fdpTitle, sb, 90, 420 + AutoScrollOffset);
+                //g.DrawString(this.txtBilletes2000.Text, fdpTitle, sb, 202, 420 + AutoScrollOffset);
+            #endregion
+
+            //
             AutoScrollOffset = AutoScrollOffset + 12;
-            g.DrawString("Monedas de 1: ", fdpTitle, sb, 90, 330 + AutoScrollOffset);   // 
-            g.DrawString(this.txtMonedas1.Text, fBody, sb, 202, 330 + AutoScrollOffset);  //
-            g.DrawString("Monedas de 5: ", fdpTitle, sb, 90, 350 + AutoScrollOffset);
-            g.DrawString(this.txtMonedas5.Text, fBody, sb, 202, 350 + AutoScrollOffset); //
-            g.DrawString("Monedas de 10: ", fpTitle, sb, 90, 368 + AutoScrollOffset); //
-            g.DrawString(this.txtMonedas10.Text, fpBody, sb, 202, 368 + AutoScrollOffset);  //
-            g.DrawString("Monedas de 25 ", fdpTitle, sb, 100, 370 + AutoScrollOffset);
-            g.DrawString(this.txtMonedas25.Text, fBody, sb, 202, 389 + AutoScrollOffset);
-            g.DrawString("Billetes de 50: ", fdpTitle, sb, 90, 389 + AutoScrollOffset); //
-            g.DrawString(this.txtBilletes50.Text, fBody, sb, 202, 389 + AutoScrollOffset); //
-            g.DrawString("Billetes de 100: ", fdpTitle, sb, 90, 405 + AutoScrollOffset); //
-            g.DrawString(this.txtBilletes100.Text, fBody, sb, 202, 405 + AutoScrollOffset); //
-            g.DrawString("Billetes de 200: ", fdpTitle, sb, 90, 420 + AutoScrollOffset);
-            g.DrawString(this.txtBilletes200.Text, fdpTitle, sb, 202, 420 + AutoScrollOffset);
-            g.DrawString("Billetes de 500: ", fdpTitle, sb, 90, 420 + AutoScrollOffset);
-            g.DrawString(this.txtBilletes500.Text, fdpTitle, sb, 202, 420 + AutoScrollOffset);
-            g.DrawString("Billetes de 1000: ", fdpTitle, sb, 90, 420 + AutoScrollOffset);
-            g.DrawString(this.txtBilletes1000.Text, fdpTitle, sb, 202, 420 + AutoScrollOffset);
-            g.DrawString("Billetes de 2000: ", fdpTitle, sb, 90, 420 + AutoScrollOffset);
-            g.DrawString(this.txtBilletes2000.Text, fdpTitle, sb, 202, 420 + AutoScrollOffset);
+            g.DrawString("Monedas de 1: ", fdpTitle, sb, 10, 308 + AutoScrollOffset);   // 
+            g.DrawString(this.txtMonedas1.Text, fBody, sb, 158, 308 + AutoScrollOffset);  //
+            decimal r1 = 1 * decimal.Parse(this.txtMonedas1.Text);
+            g.DrawString(r1.ToString() + ".00", fBody, sb, 212, 308 + AutoScrollOffset);
+            g.DrawString("Monedas de 5: ", fdpTitle, sb, 10, 324 + AutoScrollOffset);
+            g.DrawString(this.txtMonedas5.Text, fBody, sb, 158, 324 + AutoScrollOffset); //
+            decimal r2 = 5 * decimal.Parse(this.txtMonedas5.Text);
+            g.DrawString(r2.ToString() + ".00", fBody, sb, 212, 324 + AutoScrollOffset);
+            g.DrawString("Monedas de 10: ", fdpTitle, sb, 10, 339 + AutoScrollOffset); //
+            g.DrawString(this.txtMonedas10.Text, fpBody, sb, 158, 339 + AutoScrollOffset);  //
+            decimal r3 = 10 * decimal.Parse(this.txtMonedas10.Text);
+            g.DrawString(r3.ToString() + ".00", fBody, sb, 212, 339 + AutoScrollOffset);
+            g.DrawString("Monedas de 25: ", fdpTitle, sb, 10, 356 + AutoScrollOffset);
+            g.DrawString(this.txtMonedas25.Text, fBody, sb, 158, 356 + AutoScrollOffset);
+            decimal r4 = 25 * decimal.Parse(this.txtMonedas25.Text);
+            g.DrawString(r4.ToString() + ".00", fBody, sb, 212, 356 + AutoScrollOffset);
+            g.DrawString("Billetes de 50: ", fdpTitle, sb, 10, 369 + AutoScrollOffset); //
+            g.DrawString(this.txtBilletes50.Text, fBody, sb, 158, 369 + AutoScrollOffset); //
+            decimal r5 = 50 * decimal.Parse(this.txtBilletes50.Text);
+            g.DrawString(r5.ToString() + ".00", fBody, sb, 212, 369 + AutoScrollOffset);
+            g.DrawString("Billetes de 100: ", fdpTitle, sb, 10, 385 + AutoScrollOffset); //
+            g.DrawString(this.txtBilletes100.Text, fBody, sb, 158, 385 + AutoScrollOffset); //
+            decimal r6 = 100 * decimal.Parse(this.txtBilletes100.Text);
+            g.DrawString(r6.ToString() + ".00", fBody, sb, 212, 385 + AutoScrollOffset);
+            g.DrawString("Billetes de 200: ", fdpTitle, sb, 10, 405 + AutoScrollOffset);
+            g.DrawString(this.txtBilletes200.Text, fBody, sb, 158, 405 + AutoScrollOffset);
+            decimal r7 = 200 * decimal.Parse(this.txtBilletes200.Text);
+            g.DrawString(r7.ToString() + ".00", fBody, sb, 212, 405 + AutoScrollOffset);
+            g.DrawString("Billetes de 500: ", fdpTitle, sb, 10, 420 + AutoScrollOffset);
+            g.DrawString(this.txtBilletes500.Text, fBody, sb, 158, 420 + AutoScrollOffset);
+            decimal r8 = 500 * decimal.Parse(this.txtBilletes500.Text);
+            g.DrawString(r8.ToString() + ".00", fBody, sb, 212, 420 + AutoScrollOffset);
+            g.DrawString("Billetes de 1,000: ", fdpTitle, sb, 10, 438 + AutoScrollOffset);
+            g.DrawString(this.txtBilletes1000.Text, fBody, sb, 158, 438 + AutoScrollOffset);
+            decimal r9 = 1000 * decimal.Parse(this.txtBilletes1000.Text);
+            g.DrawString(r9.ToString() + ".00", fBody, sb, 212, 438 + AutoScrollOffset);
+            g.DrawString("Billetes de 2,000: ", fdpTitle, sb, 10, 457 + AutoScrollOffset);
+            g.DrawString(this.txtBilletes2000.Text, fBody, sb, 158, 457 + AutoScrollOffset);
+            decimal r10 = 2000 * decimal.Parse(this.txtBilletes2000.Text);
+            g.DrawString(r10.ToString() + ".00", fBody, sb, 212, 457 + AutoScrollOffset);
+
 
             //Total Amount for this process
 
             AutoScrollOffset = AutoScrollOffset + 8;
-            g.DrawString("Monto Total:", fBody, sb, 5, 426 + AutoScrollOffset);
-            g.DrawString(this.lblMontoTotal.Text, fpBody, sb, 200, 426 + AutoScrollOffset);   //
+            g.DrawString("Monto Total:", fdpTitle, sb, 10, 480 + AutoScrollOffset);
+            g.DrawString(this.lblMontoTotal.Text + ".00", fpBody, sb, 212, 480 + AutoScrollOffset);
+
+
+            #region feet Ticket not used...
 
             /*  }
               else if (opBoxcl.TypeOp == 2)
@@ -497,6 +571,7 @@ namespace pjPalmera.PL
              g.DrawString(".", tblank, sb, 5, 506 + AutoScrollOffset);
              // 
              */
+            #endregion
         }
         #endregion
 

@@ -11,7 +11,7 @@ namespace pjPalmera.PL
 {
     public partial class frmRegClientes : Form
     {
-        ClientesEntity clientes = new ClientesEntity();
+       ClientesEntity clientes = new ClientesEntity();
 
         /// <summary>
         /// Customer's Consult
@@ -80,11 +80,13 @@ namespace pjPalmera.PL
         /// </summary>
         private void NewCustomer()
         {
-            if (clientes == null)
-            {
-                clientes.Cedula = this.mktCedula.Text;
+           var cliente = new ClientesEntity();
 
-                var valCriterio = clientes.Cedula; // Get cedula from class customer
+            if (cliente.Id == 0)
+            {
+                cliente.Cedula = this.mktCedula.Text;
+
+                var valCriterio = cliente.Cedula; // Get cedula from class customer
                 var SearchCedProcess = ClientesBO.ExitsCedula(valCriterio); // Check if exist Cedula in db
                 var messenge = new DialogResult();
 
@@ -111,19 +113,19 @@ namespace pjPalmera.PL
                              
                            // var resProcess = ClientesBO.ResultRequest(valCriterio); //
                            
-                                var clientes = new ClientesEntity();
+                              //  var clientes = new ClientesEntity();
 
                                 
-                                clientes.Nombre = this.txtNombre.Text;
-                                clientes.Apellidos = this.txtApellidos.Text;
-                                clientes.Direccion = this.txtDireccion.Text;
-                                clientes.Ciudad = this.cmbCiudad.SelectedValue.ToString();
-                                clientes.Provincia = this.cmbProvincia.SelectedValue.ToString();
-                                clientes.Telefono = this.mktTelefono.Text;
-                                clientes.Limite_credito = Convert.ToDecimal(this.mktLimteCredClient.Text);
-                                clientes.Createby = int.Parse(this.txtIdUser.Text);
+                                cliente.Nombre = this.txtNombre.Text;
+                                cliente.Apellidos = this.txtApellidos.Text;
+                                cliente.Direccion = this.txtDireccion.Text;
+                                cliente.Ciudad = this.cmbCiudad.SelectedValue.ToString();
+                                cliente.Provincia = this.cmbProvincia.SelectedValue.ToString();
+                                cliente.Telefono = this.mktTelefono.Text;
+                                cliente.Limite_credito = Convert.ToDecimal(this.mktLimteCredClient.Text);
+                                cliente.Createby = int.Parse(this.txtIdUser.Text);
 
-                                ClientesBO.Save(clientes);
+                                ClientesBO.Save(cliente);
                                 CleanControls();
                                 this.errorProvider1.Clear();
                                 DesableControls();
@@ -138,7 +140,6 @@ namespace pjPalmera.PL
                             DesableControls();
                             this.btnNuevo.Focus();
                         }
-
                         break;
                 }
             }

@@ -72,18 +72,17 @@ namespace pjPalmera.PL
         {
             this.chStatusBox();
             timer1.Enabled = true;
-            Limpiar();
-            LimpiarEfectivo();
+            CleanControlsSell();
+            cleanCash();
             Deshabilitar();
             this.txtItbis.Visible = false;
             this.label9.Visible = false;
             this.txtAprobacionNo.Visible = false;
             SetToolControls();
             InitialControls();
-            DiscountAverageInvoice();
+            DiscountAverageInvoice();      
             this.btnNuevo.Focus();
             this.chbPrintTicketFact.Checked = true;
-
         }
 
         private void btnBuscarClientes_Click(object sender, EventArgs e)
@@ -225,27 +224,27 @@ namespace pjPalmera.PL
             }
         }
 
-        
-        private void btnGuardar_Click(object sender, EventArgs e)
-        {
-         
-        }
-
 
         private void txtEfectivoRecibido_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                decimal efectivo, cobrar;
-                cobrar = decimal.Parse(this.lblTotalPagar.Text);
-                efectivo = decimal.Parse(this.txtEfectivoRecibido.Text);
-                this.lblResDevuelta.Text = Convert.ToString(efectivo - cobrar);
-                // this.txtDevueltaEfectivo.Text = Convert.ToString(efectivo - cobrar);
+                if(this.txtEfectivoRecibido.Text == null)
+                {
+                    throw new ArgumentNullException();
+                }
+                else
+                {
+                    decimal efectivo, cobrar;
+                    cobrar = decimal.Parse(this.lblTotalPagar.Text);
+                    efectivo = decimal.Parse(this.txtEfectivoRecibido.Text);
+                    this.lblResDevuelta.Text = Convert.ToString(efectivo - cobrar);
+                }
+ 
             }
-            catch
+            catch(ArgumentNullException)
             {
-                this.txtDevueltaEfectivo.Text = "";
-                this.txtEfectivoRecibido.Focus();
+                return;
             }
         }
 
@@ -264,12 +263,15 @@ namespace pjPalmera.PL
         }
 
         /// <summary>
-        /// Validator Post Pay
+        /// Validator controls before Pay (Cash or credit card only)
         /// </summary>
         public bool ValidatorPost()
         {
-            var cash = cobros.txtEfectivoRecibido.Text;
-            var type_pay = cobros.cmbfPagos.Text;
+            // var cash = cobros.txtEfectivoRecibido.Text;
+            // var type_pay = cobros.cmbfPagos.Text;
+           // var cash = this.txtEfectivoRecibido.Text;
+           // var type_pay = this.cmbfPagos.Text;
+           // var reference = this.txtAprobacionNo.Text;
             var tpay = new type_payEntity();
 
             bool resul = true;
@@ -281,23 +283,66 @@ namespace pjPalmera.PL
                 resul = false;
             }
 
-            if (type_pay == tpay.getMethod(0).ToString())
+            #region method code
+            if (this.cmbfPagos.Text == tpay.getMethod(0).ToString())
             {
-                 if (( cash == string.Empty) && (cash == "0.00"))
-                 {
+                if ((this.txtEfectivoRecibido.Text == string.Empty) || (this.txtEfectivoRecibido.Text == "0.00"))
+                {
                     MessageBox.Show("Indicar el efectivo recibido por el cliente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     resul = false;
-                 }
+                }
+            }
+
+            if (this.cmbfPagos.Text == tpay.getMethod(1).ToString())
+            {
+                if (string.IsNullOrEmpty(this.txtAprobacionNo.Text) != true)
+                {
+                    MessageBox.Show("Indicar el Número de Aprobación", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.txtAprobacionNo.Focus();
+                    resul = false;
+                }
+            } 
+            #endregion
+
+            if(this.cmbfPagos.Text == String.Empty && this.txtAprobacionNo.Text == String.Empty)
+            {
+                MessageBox.Show("Algunas informaciones son requeridas para continuar, verificar y después intentar nuevamente.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                resul = false;
+            }
+            //  verify credit card before pay process 
+            if (this.cmbfPagos.Text != String.Empty && this.txtAprobacionNo.Visible == true && string.IsNullOrEmpty(this.txtAprobacionNo.Text) == true)
+            {
+                MessageBox.Show("Indicar el Número de Aprobación", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.txtAprobacionNo.Focus();
+                resul = false;
+            }
+
+            if (this.cmbfPagos.Text != String.Empty && this.txtAprobacionNo.Visible == true && string.IsNullOrEmpty(this.txtAprobacionNo.Text) == false && this.txtEfectivoRecibido.Enabled == false)
+            {
+                resul = true;
+            }
+            //  verify cash before pay process 
+            if (this.cmbfPagos.Text != String.Empty && this.txtEfectivoRecibido.Enabled == true && string.IsNullOrEmpty(this.txtEfectivoRecibido.Text) == true)
+            {
+                MessageBox.Show("Indicar el efectivo recibido por el cliente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.txtEfectivoRecibido.Focus();
+                resul = false;
+            }
+
+            if (this.cmbfPagos.Text != String.Empty && this.txtEfectivoRecibido.Enabled == true && string.IsNullOrEmpty(this.txtEfectivoRecibido.Text) == false && this.txtAprobacionNo.Visible == false)
+            {
+                resul = true;
             }
 
             return resul;
         }
 
 
+
         /// <summary>
         /// Clear Textbox after process sell or preparent new invoice
         /// </summary>
-        public void Limpiar()
+        public void CleanControlsSell()
         {
             //this.txtClientes.Clear();
             this.txtProductos.Clear();
@@ -307,12 +352,15 @@ namespace pjPalmera.PL
             this.cmbDescPostVentaExt.Text = "";
             this.txtAprobacionNo.Text = "";
             this.cmbCondictionDays.Text = "";
-            this.txtClientes.Text = "";
-            this.txtIdCliente.Text = "";
+            // this.txtClientes.Text = "";
+            // this.txtIdCliente.Text = "";
             this.txtId_Invoice.Text = "";
             this.txtCreditLimit.Text = "";
             this.txtCurrentAmount.Text = "";
             this.txtAmountPast.Text = "";
+            this.txtAprobacionNo.Visible = false;
+            this.lblAprobacion.Visible = false;
+            this.txtEfectivoRecibido.Enabled = false;
 
             //this.lblDescuento.Clear();
             //this.lblTotalPagar.Clear();
@@ -349,6 +397,7 @@ namespace pjPalmera.PL
         public void DesVisibleCtrlInvCr()
         {
             this.txtClientes.Visible = false;
+            this.txtIdCliente.Visible = false;
             this.cmbCondictionDays.Visible = false;
             this.lblCustomer.Visible = false;
             this.btnFindCustomer.Visible = false;
@@ -365,10 +414,10 @@ namespace pjPalmera.PL
         public void EnVisibleCtrlInvCr()
         {
             this.txtClientes.Visible = true;
-            this.cmbCondictionDays.Visible = true;
+            this.cmbCondictionDays.Visible = false;
             this.lblCustomer.Visible = true;
             this.btnFindCustomer.Visible = true;
-            this.lblCondictionCr.Visible = true;
+            this.lblCondictionCr.Visible = false;
         }
 
 
@@ -394,11 +443,7 @@ namespace pjPalmera.PL
             this.lblCustomer.Visible = false;
             this.lblDescInvoiceCash.Visible = false;
             this.cmbDescPostVentaExt.Visible = false;
-
         }
-
-
-
 
         /// <summary>
         /// Loop until x value, and average descount
@@ -418,8 +463,8 @@ namespace pjPalmera.PL
         private void NewInvoiceCr()
         {
             Habilitar();
-            Limpiar();
-            //LimpiarEfectivo();
+            CleanControlsSell();
+            //cleanCash();
             OnlyRead();
             // this.txtApClientes.Text = "CONTADO";
             // this.txtIdCliente.Text = "1";
@@ -450,12 +495,12 @@ namespace pjPalmera.PL
         /// </summary>
         private void Pagar()
         {
-            Limpiar();
+            CleanControlsSell();
             OnlyRead();
             this.txtClientes.Clear();
             this.cmbfPagos.Text = "";
             this.dgvDetalle.DataSource = null;
-            LimpiarEfectivo();
+            cleanCash();
             this.cmbfPagos.Focus();
         }
         #endregion
@@ -556,9 +601,9 @@ namespace pjPalmera.PL
         #endregion
 
         /// <summary>
-        /// Clean labels
+        /// Clean cash labels
         /// </summary>
-        public void LimpiarEfectivo()
+        public void cleanCash()
         {
             this.txtDevueltaEfectivo.Text = "";
             this.txtEfectivoRecibido.Text = "";
@@ -580,8 +625,8 @@ namespace pjPalmera.PL
         public void NewInvoice()
         {
             Habilitar();
-            Limpiar();
-            //LimpiarEfectivo();
+            CleanControlsSell();
+            //cleanCash();
             OnlyRead();
             // BuildDataGrid();    // ----> New Method  to Initial DataGridView
             // LoadHeadGrid();     // ----> New Method to Initial Head in DataGridView
@@ -636,19 +681,24 @@ namespace pjPalmera.PL
         /// </summary>
         private void SearchCostumer()
         {
-            frmConsulClientes Con_Clientes = new frmConsulClientes();
+            var Con_Clientes = new frmConsulClientes();
+            var Stype = this.txtTypeInvoice.Text;
             Con_Clientes.HideCtrlCustmer();
 
             if (Con_Clientes.ShowDialog() == DialogResult.OK)
             {
+
                 clientes = ClientesBO.GetbyId(Con_Clientes.Orden);
 
-                this.txtIdCliente.Text =  (clientes.Id).ToString();
-                //this.txtIdCliente.Text = Convert.ToString(Con_Clientes.Orden);
-                this.txtClientes.Text = clientes.Nombre + " " + clientes.Apellidos;
-                this.txtCreditLimit.Text = clientes.Limite_credito.ToString();
-               // this.txtApClientes.Text = clientes.Apellidos;
-                this.txtProductos.Focus(); //
+                if(clientes != null)
+                {
+                    this.txtIdCliente.Text = (clientes.Id).ToString();
+                    //this.txtIdCliente.Text = Convert.ToString(Con_Clientes.Orden);
+                    this.txtClientes.Text = clientes.Nombre + " " + clientes.Apellidos;
+                    this.txtCreditLimit.Text = clientes.Limite_credito.ToString();
+                    // this.txtApClientes.Text = clientes.Apellidos;
+                    this.txtProductos.Focus(); //
+                }
             }
         }
 
@@ -745,8 +795,6 @@ namespace pjPalmera.PL
             
         }
 
-
-
         #region Enable and Desable Controls
 
         /// <summary>
@@ -810,8 +858,8 @@ namespace pjPalmera.PL
             this.btnEliminar.Enabled = true;
             //   this.txtApClientes.Enabled = true;
             this.btnProcesarPago.Enabled = true;
-            this.txtEfectivoRecibido.Enabled = true;
-            this.txtDevueltaEfectivo.Enabled = true;
+            // this.txtEfectivoRecibido.Enabled = true;
+            // this.txtDevueltaEfectivo.Enabled = true;
             this.cmbDescPostVentaExt.Enabled = true;
             this.cmbCondictionDays.Enabled = true;
             this.btnProcInvoiceCr.Enabled = true;
@@ -819,7 +867,7 @@ namespace pjPalmera.PL
         }
         #endregion
 
-        #region Process_Selling_Cash
+        #region Process_Selling_Cash_or_Credit
         /// <summary>
         /// All Steps for Process one Sell
         /// </summary>
@@ -836,33 +884,35 @@ namespace pjPalmera.PL
 
             // Answer = MessageBox.Show("Imprimir Recibo", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if (resp == true) // Print Ticket
+            switch(resp)
             {
-                // cobros.Hide();
-                // this.txtProductos.Focus();
-                CreateInvoice(type);
-                PrintTicket();
-                FacturaBO.DeleteEmptyRow();
-                // MessageBox.Show("Se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                MessageBox.Show("Venta Procesada, Retirar Ticket", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                NewInvoice();
-                LimpiarEfectivo();
-                Limpiar();
-                this.txtProductos.Focus();
-            }
-            else if (resp == false) // Not Print Ticket
-            {
-                // cobros.Close();
-                CreateInvoice(type);
-                FacturaBO.DeleteEmptyRow();
-                caja.AbreCajon();
-                //  MessageBox.Show("No se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                MessageBox.Show("Venta Procesada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                NewInvoice();
-                LimpiarEfectivo();
-                Limpiar();
-                this.txtProductos.Focus();
-            }
+                case true: // Print Ticket
+                    // cobros.Hide();
+                    // this.txtProductos.Focus();
+                    CreateInvoice(type);
+                    PrintTicket();
+                    FacturaBO.DeleteEmptyRow();
+                    // MessageBox.Show("Se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Venta Procesada, Retirar Ticket", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    NewInvoice();
+                    cleanCash();
+                    CleanControlsSell();
+                    this.txtProductos.Focus();
+                    break;
+
+                case false: // Not Print Ticket
+                    // cobros.Close();
+                    CreateInvoice(type);
+                    FacturaBO.DeleteEmptyRow();
+                    caja.AbreCajon();
+                    //  MessageBox.Show("No se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Venta Procesada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    NewInvoice();
+                    cleanCash();
+                    CleanControlsSell();
+                    this.txtProductos.Focus();
+                    break;
+            }          
         }
         #endregion
 
@@ -987,36 +1037,37 @@ namespace pjPalmera.PL
                 AutoScrollOffset = AutoScrollOffset + 12;
             }
 
-
-            if (tp == "1")
+            switch(tp)
             {
-                // Paid Detail
-                AutoScrollOffset = AutoScrollOffset + 12;
-                g.DrawString("SubTotal:", fdpTitle, sb, 90, 330 + AutoScrollOffset);   // 
-                g.DrawString(this.lblSubtotal.Text, fBody, sb, 202, 330 + AutoScrollOffset);  //
-                g.DrawString("Descuento:", fdpTitle, sb, 90, 350 + AutoScrollOffset);
-                g.DrawString(this.lblDescuento.Text, fBody, sb, 202, 350 + AutoScrollOffset); //
-                g.DrawString("Total a Pagar:", fpTitle, sb, 90, 368 + AutoScrollOffset); //
-                g.DrawString(this.lblTotalPagar.Text, fpBody, sb, 202, 368 + AutoScrollOffset);  //
-                g.DrawString("", fdpTitle, sb, 100, 370 + AutoScrollOffset);
-                g.DrawString("Recibido:", fdpTitle, sb, 90, 389 + AutoScrollOffset); //
-                g.DrawString(this.txtEfectivoRecibido.Text, fBody, sb, 202, 389 + AutoScrollOffset); //
-                g.DrawString("Devuelta:", fdpTitle, sb, 90, 405 + AutoScrollOffset); //
-                g.DrawString(this.lblResDevuelta.Text, fBody, sb, 202, 405 + AutoScrollOffset); //
-                g.DrawString("Pagado con:", fdpTitle, sb, 90, 420 + AutoScrollOffset);
-                g.DrawString(this.cmbfPagos.Text, fdpTitle, sb, 200, 420 + AutoScrollOffset);
-            }
-            else if (tp == "2")
-            {
-                // summary credit account
-                g.DrawString("Monto Venta:", fpTitle, sb, 78, 330 + AutoScrollOffset); //
-                g.DrawString(this.lblTotalPagar.Text, fpBody, sb, 202, 330 + AutoScrollOffset);  //
-                g.DrawString("Balance Anterior:", fdpTitle, sb, 78, 350 + AutoScrollOffset); //
-                g.DrawString(this.txtAmountPast.Text, fBody, sb, 202, 350 + AutoScrollOffset); //
-                g.DrawString("Nuevo Balance:", fpTitle, sb, 78, 368 + AutoScrollOffset); //
-                g.DrawString(this.txtCurrentAmount.Text, fpBody, sb, 202, 368 + AutoScrollOffset);  //
-            }
+                case "1":
+                    // Paid Detail
+                    AutoScrollOffset = AutoScrollOffset + 12;
+                    g.DrawString("SubTotal:", fdpTitle, sb, 90, 330 + AutoScrollOffset);   // 
+                    g.DrawString(this.lblSubtotal.Text, fBody, sb, 202, 330 + AutoScrollOffset);  //
+                    g.DrawString("Descuento:", fdpTitle, sb, 90, 350 + AutoScrollOffset);
+                    g.DrawString(this.lblDescuento.Text, fBody, sb, 202, 350 + AutoScrollOffset); //
+                    g.DrawString("Total a Pagar:", fpTitle, sb, 90, 368 + AutoScrollOffset); //
+                    g.DrawString(this.lblTotalPagar.Text, fpBody, sb, 202, 368 + AutoScrollOffset);  //
+                    g.DrawString("", fdpTitle, sb, 100, 370 + AutoScrollOffset);
+                    g.DrawString("Recibido:", fdpTitle, sb, 90, 389 + AutoScrollOffset); //
+                    g.DrawString(this.txtEfectivoRecibido.Text, fBody, sb, 202, 389 + AutoScrollOffset); //
+                    g.DrawString("Devuelta:", fdpTitle, sb, 90, 405 + AutoScrollOffset); //
+                    g.DrawString(this.lblResDevuelta.Text, fBody, sb, 202, 405 + AutoScrollOffset); //
+                    g.DrawString("Pagado con:", fdpTitle, sb, 90, 420 + AutoScrollOffset);
+                    g.DrawString(this.cmbfPagos.Text, fdpTitle, sb, 200, 420 + AutoScrollOffset);
+                    break;
 
+                case "2":
+                     // summary credit account
+                    g.DrawString("Monto Venta:", fpTitle, sb, 78, 330 + AutoScrollOffset); //
+                    g.DrawString(this.lblTotalPagar.Text, fpBody, sb, 202, 330 + AutoScrollOffset);  //
+                    g.DrawString("Balance Anterior:", fdpTitle, sb, 78, 350 + AutoScrollOffset); //
+                    g.DrawString(this.txtAmountPast.Text, fBody, sb, 202, 350 + AutoScrollOffset); //
+                    g.DrawString("Nuevo Balance:", fpTitle, sb, 78, 368 + AutoScrollOffset); //
+                    g.DrawString(this.txtCurrentAmount.Text, fpBody, sb, 202, 368 + AutoScrollOffset);  //
+                    break;
+            }
+ 
             // Feet Messenge
             AutoScrollOffset = AutoScrollOffset + 8;
             g.DrawString("Le Atendio:", fBody, sb, 5, 426 + AutoScrollOffset);
@@ -1035,7 +1086,7 @@ namespace pjPalmera.PL
 
         #region Validator content in Controls
         /// <summary>
-        /// 
+        ///  Validator content in Controls (type to corresponded)
         /// </summary>
         /// <returns></returns>
         public bool Validator()
@@ -1167,6 +1218,7 @@ namespace pjPalmera.PL
 
                             importT = venta.ProductValue(Convert.ToDecimal(this.txtCantidad.Text), Convert.ToDecimal(this.txtPrecio.Text));
                             this.dgvDetalle.Rows.Add(this.txtProductos.Text, this.txtDescripcion.Text, this.txtCantidad.Text, this.txtPrecio.Text, importT);
+                            this.dgvDetalle.AllowUserToAddRows = false;
 
                             ////Add prices all elements in list
                             foreach (DataGridViewRow row in this.dgvDetalle.Rows)
@@ -1178,7 +1230,7 @@ namespace pjPalmera.PL
                             this.lblDescuento.Text = Convert.ToString(venta.Descuento(amount));
                             this.lblTotalPagar.Text = Convert.ToString(venta.Pagar(amount));
 
-                            Limpiar();
+                            CleanControlsSell();
                             this.txtProductos.Focus();
 
                             break;
@@ -1192,6 +1244,7 @@ namespace pjPalmera.PL
 
                             importT = venta.ProductValue(Convert.ToDecimal(this.txtCantidad.Text), Convert.ToDecimal(this.txtPrecio.Text));
                             this.dgvDetalle.Rows.Add(this.txtProductos.Text, this.txtDescripcion.Text, this.txtCantidad.Text, this.txtPrecio.Text, importT);
+                            this.dgvDetalle.AllowUserToAddRows = false;
 
                             ////Add prices all elements in list
                             foreach (DataGridViewRow rows in this.dgvDetalle.Rows)
@@ -1257,7 +1310,7 @@ namespace pjPalmera.PL
                 //Column.Visible = false;
 
                 SetPagar();
-                Limpiar();
+                CleanControlsSell();
                 this.txtProductos.Focus();
             }
             catch (Exception ex)
@@ -1281,7 +1334,7 @@ namespace pjPalmera.PL
            // Save_Transactions();
         }
 
-        #region New Create Invoice code
+        #region New- Create Invoice code
 
 
 
@@ -1306,10 +1359,10 @@ namespace pjPalmera.PL
                     // Generate cash invoice to customers
                     case 1:
                         // Header
-                        ventas.id_caja = 1;
+                        // ventas.id_caja = 1;
                         ventas.id_user = Int32.Parse(this.txtUserId.Text);
                         ventas.tipo = this.txtTypeInvoice.Text;
-                        ventas.id_cliente = Int32.Parse(this.txtIdCliente.Text);
+                        ventas.id_cliente = int.Parse(this.txtIdCliente.Text);
                         ventas.clientes = this.txtClientes.Text; //
                         // ventas.apellidos = this.txtApClientes.Text; //
                         ventas.total = decimal.Parse(this.lblTotalPagar.Text); //
@@ -1342,7 +1395,7 @@ namespace pjPalmera.PL
                         FacturaBO.CreateInvoice(ventas);  // Cash Invoices (Save history all invoices)
                         ProductosBO.Decrease_Stock(ventas); // Decrease Stock 
                         FacturaBO.CreateTranst(ventas);
-                        FacturaBO.SetInvoiceCashPay(ventas);
+                      //  FacturaBO.SetInvoiceCashPay(ventas);
                         id_venta = ventas.id;
 
                         break;
@@ -1350,7 +1403,7 @@ namespace pjPalmera.PL
                     // Generate invoice if customer has line credit
                     case 2:
                         // Header
-                        ventascr.id_caja = 1;  //-----------------------------------> it's need to get from casher setting
+                        //ventascr.id_caja = 1;  //-----------------------------------> it's need to get from casher setting
                         ventascr.id_user = Int32.Parse(this.txtUserId.Text);
                         ventascr.tipo = this.txtTypeInvoice.Text;
                         ventascr.id_cliente = Convert.ToInt32(this.txtIdCliente.Text);
@@ -1376,7 +1429,8 @@ namespace pjPalmera.PL
                         }
 
                         // var chklineCredit = FacturaBO.CheckProcessCredit(ventascr);  // Old Business Object, but has of some funtionalite that BO bellow
-                        var chklineCredit = ClientesBO.VeficafyCreditAmount(ventascr.id_cliente); // Check if customer has line credit
+                        var amount = decimal.Parse(this.lblTotalPagar.Text);
+                        var chklineCredit = ClientesBO.VeficafyCreditAmount(ventascr.id_cliente, amount); // Check if customer has line credit
 
                         if (chklineCredit == true)
                         {
@@ -1389,14 +1443,14 @@ namespace pjPalmera.PL
                             craccount.id = ventascr.id;
                             craccount.InvoiceAmount = ventascr.total;
                             craccount.id_user = ventascr.id_user;
-                          // craccount.CurrentAmount = ventascr.total;
-                          // craccount.PastAmountcr = Decimal.Parse((CreditAccountBO.GetAmount(int.Parse(this.txtIdCliente.Text))).ToString()); //-->
+                            // craccount.CurrentAmount = ventascr.total;
+                            // craccount.PastAmountcr = Decimal.Parse((CreditAccountBO.GetAmount(int.Parse(this.txtIdCliente.Text))).ToString()); //-->
 
                             CreditAccountBO.CreateCrAccount(craccount);
                             // FacturaBO.SetInvoiceCashPay(ventascr);
                             id_venta = ventascr.id;
-                            
-                           // craccount.CurrentAmount = Decimal.Parse((CreditAccountBO.GetAmount(int.Parse(this.txtIdCliente.Text))).ToString());
+
+                            // craccount.CurrentAmount = Decimal.Parse((CreditAccountBO.GetAmount(int.Parse(this.txtIdCliente.Text))).ToString());
                             this.txtCurrentAmount.Text = craccount.NewAmountcr.ToString();
                             this.txtAmountPast.Text = craccount.PastAmountcr.ToString();
 
@@ -1407,16 +1461,15 @@ namespace pjPalmera.PL
                             // MessageBox.Show("Se Imprimio Recibo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             MessageBox.Show("Venta Procesada, Retirar Ticket!", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             NewInvoice();
-                            LimpiarEfectivo();
-                            Limpiar();
-                            this.btnFindCustomer.Focus();
-
-
+                            cleanCash();
+                            CleanControlsSell();
+                            this.Close();
                         }
                         else if(chklineCredit == false)
                         {
                             MessageBox.Show(ClientesBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                             this.btnNewInvoiceCr.Focus();
+                            return;
                         }
 
                         break;
@@ -1432,7 +1485,7 @@ namespace pjPalmera.PL
         }
         #endregion
 
-       
+
         /// <summary>
         /// Update Decrease    
         /// </summary>
@@ -1459,6 +1512,24 @@ namespace pjPalmera.PL
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
+        }
+
+        /// <summary>
+        ///  Validator controls before credit line process (not cash or card)
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidatorPostCr()
+        {
+            bool resul = true;
+
+            if (this.lblTotalPagar.Text == "0.00")
+            {
+                MessageBox.Show("No se puede procesar la venta. Debe Efectuar una antes.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.btnNuevo.Focus();
+                resul = false;
+            }
+
+            return resul;
         }
 
         /// <summary>
@@ -1556,8 +1627,8 @@ namespace pjPalmera.PL
         /// </summary>
         private void ProcessSellCr()
         {
-            // if (!ValidatorPost())   ----> create method that valide controls after process credit sell
-            //     return;
+             if (!ValidatorPostCr())   //----> create method that valide controls after process credit sell -- DONE
+                    return;
 
             var type = Int32.Parse(this.txtTypeInvoice.Text); // Get type invoice 
 
@@ -1569,7 +1640,49 @@ namespace pjPalmera.PL
             {
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-        } 
+        }
+        #endregion
+
+        #region Check Box Status before begin sell process (Determine if is cash  or credit it)
+        /// <summary>
+        ///  Check if box was opened or closed to one user
+        /// </summary>
+        public void chStatusBox()
+        {
+            var sell = new VentaEntity();
+            var tSell = this.txtTypeInvoice.Text;
+            var sBox = new OperationsCajaEntity();
+            var frmBox = new frmAbrirCaja();
+            var type = sell.Set_Type_invoice(FacturaBO.eType_invoices.cash.ToString());
+            sBox.UserId = int.Parse(this.txtUserId.Text);
+            var status = OperationsCajaBO.GetStatusBox(sBox);
+
+            switch (status)                                     // -------------------------------> it need to check before putting in production. working continue here.
+            {
+                case 0:
+                    MessageBox.Show(OperationsCajaBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    this.Hide();
+                    this.Dispose();
+                    frmBox.txtIdUser.Text = sBox.UserId.ToString();
+                    frmBox.ShowDialog();
+                    break;
+
+                case 1:
+                    if (tSell.Equals(type))
+                    {
+                        // MessageBox.Show("Abierta para venta a contado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        this.NewInvoice();
+                        this.btnNuevo.Focus();
+                    }
+                    else
+                    {
+                        // MessageBox.Show("Abierta para venta a crédito", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        this.NewInvoiceCr();
+                        this.btnNuevo.Focus();
+                    }
+                    break;
+            }
+        }
         #endregion
 
         private void dgvDetalle_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -1594,12 +1707,12 @@ namespace pjPalmera.PL
         private void txtProductos_KeyDown(object sender, KeyEventArgs e)
         {
 
-            if (e.KeyData == Keys.F2)
+            if (e.KeyData == Keys.F3)
             {
                 this.btnProcesarPago.Focus();
             }
 
-            if (e.KeyData == Keys.F3)
+            if (e.KeyData == Keys.F4)
             {
                 try
                 {
@@ -1621,13 +1734,13 @@ namespace pjPalmera.PL
         private void btnNuevo_Click(object sender, EventArgs e)
         {
             FacturaBO.DeleteEmptyRow();
-            //var Amount = AperturaCajaBO.GetAmount(); //Get Current Amount Invoices after Open Box
+            //var Amount = OperationsCajaBO.GetAmount(); //Get Current Amount Invoices after Open Box
             decimal Amount = 1000;  //------> This variable is use to development
 
             if (Amount != 0)
             {
                 NewInvoice();
-                LimpiarEfectivo();
+                cleanCash();
             }
             else
             {
@@ -1658,10 +1771,18 @@ namespace pjPalmera.PL
                 case "efectivo":
                     this.txtAprobacionNo.Visible = false;
                     this.lblAprobacion.Visible = false;
-                    this.btnProcesarPago.Focus();
+                    this.txtDevueltaEfectivo.Text = "0.00";
+                    this.txtEfectivoRecibido.Text = "";
+                    this.txtEfectivoRecibido.Enabled = true;
+                    this.txtEfectivoRecibido.Focus();
+                    //this.btnProcesarPago.Focus();
                     break;
 
                 case "tarjeta":
+                    _amount = decimal.Parse(this.lblTotalPagar.Text);
+                    // this.txtDevueltaEfectivo.Text = "0";
+                    this.txtEfectivoRecibido.Text = this.Amount_.ToString();
+                    this.txtEfectivoRecibido.Enabled = false;
                     this.txtAprobacionNo.Visible = true;
                     this.lblAprobacion.Visible = true;
                     this.txtAprobacionNo.Focus();
@@ -1673,32 +1794,45 @@ namespace pjPalmera.PL
 
         private void btnProcesarPago_Click(object sender, EventArgs e)
         {
-          /* 
-           * Verificate if send to print ticket, Using Method ProcessSell with boolean value.
-           * If ProcessSell value is true print, else not print.
-           * Variable b: is who store answer value from MessegeBox(It's true or false).
-           * Variable cb: it is store value boolean true or false. Use to sent printing ticket.
-          */
-
-            var answer = new DialogResult();
-            bool b;
-            answer = MessageBox.Show("Imprimir Recibo", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            var cb = this.chbPrintTicketFact.Checked;
-
+            /* 
+             * Verificate if send to print ticket, Using Method ProcessSell with boolean value.
+             * If ProcessSell value is true print, else not print.
+             * Variable b: is who store answer value from MessegeBox(It's true or false).
+             * Variable cb: it is store value boolean true or false. Use to sent printing ticket.
+            */
             try
             {
-                if (answer == DialogResult.Yes)
+                if (!ValidatorPost())
+                    return;
+
+                var type = this.txtTypeInvoice.Text;
+
+                switch (type)
                 {
-                    b = true;
-                    // _amount = Convert.ToDecimal(this.lblTotalPagar.Text);   
-                    // cobros.lblTotalCobrar.Text = this.Amount_.ToString();
-                    // cobros.ShowDialog(this);
-                    ProcessSell(b);   //---------------------------------------------------> This Method is working, pendding to put in operation
-                }
-                else if (answer == DialogResult.No)
-                {
-                    b = false;
-                    ProcessSell(b);
+                    case "1":
+                        var answer = new DialogResult();
+                        bool b;
+                        answer = MessageBox.Show("Imprimir Recibo", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        var cb = this.chbPrintTicketFact.Checked;
+
+                        if (answer == DialogResult.Yes)
+                        {
+                            b = true;
+                            // _amount = Convert.ToDecimal(this.lblTotalPagar.Text);   
+                            // cobros.lblTotalCobrar.Text = this.Amount_.ToString();
+                            // cobros.ShowDialog(this);
+                            ProcessSell(b);   //---------------------------------------------------> This Method is working, pendding to put in operation
+                        }
+                        else if (answer == DialogResult.No)
+                        {
+                            b = false;
+                            ProcessSell(b);
+                        }
+                        break;
+                    case "2":
+                        b = true;
+                        ProcessSell(b);
+                        break;
                 }
             }
             catch (Exception ex)
@@ -1725,51 +1859,7 @@ namespace pjPalmera.PL
             ProcessSellCr(); //--->> working here
         }
 
-        /// <summary>
-        ///  Check if box was opened or closed to one user
-        /// </summary>
-        private void chStatusBox()
-        {
-            var tSell = this.txtTypeInvoice.Text;
-            var sBox = new AperturaCajaEntity();
-            var frmBox = new frmAbrirCaja();
-            var type = FacturaBO.eType_invoices.cash.ToString();
-            sBox.UserId = int.Parse(this.txtUserId.Text);
-            var status = AperturaCajaBO.GetStatusBox(sBox);  
-
-            switch (status)                                     // -------------------------------> it need to check before putting in production. working continue here.
-            {
-                case 0:
-                    MessageBox.Show(AperturaCajaBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    this.Hide();
-                    this.Dispose();
-                    frmBox.txtIdUser.Text = sBox.UserId.ToString();
-                    frmBox.ShowDialog();
-                    break;
-
-                case 1:
-                    if (tSell.Equals(type))
-                    {
-                        MessageBox.Show("Abierta para venta a contado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
-                        this.NewInvoice();
-                        this.btnNuevo.Focus();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Abierta para venta a crédito", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
-                        this.NewInvoiceCr();
-                        this.btnNuevo.Focus();
-                    }
-                    break;
-            }
-        }
+        
     }
 
 }
-
-
-
-
-

@@ -60,7 +60,7 @@
             // 
             this.groupBox1.Controls.Add(this.rbFecha);
             this.groupBox1.Controls.Add(this.rbNumFact);
-            this.groupBox1.Location = new System.Drawing.Point(473, 3);
+            this.groupBox1.Location = new System.Drawing.Point(425, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(228, 52);
             this.groupBox1.TabIndex = 12;
@@ -87,7 +87,7 @@
             this.rbNumFact.Size = new System.Drawing.Size(101, 17);
             this.rbNumFact.TabIndex = 6;
             this.rbNumFact.TabStop = true;
-            this.rbNumFact.Text = "Numero Factura";
+            this.rbNumFact.Text = "Número Factura";
             this.rbNumFact.UseVisualStyleBackColor = true;
             this.rbNumFact.CheckedChanged += new System.EventHandler(this.rbNumFact_CheckedChanged);
             // 
@@ -119,11 +119,14 @@
             // 
             // btnExpExcel
             // 
-            this.btnExpExcel.Location = new System.Drawing.Point(1046, 20);
+            this.btnExpExcel.Image = global::PL.Properties.Resources.up;
+            this.btnExpExcel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExpExcel.Location = new System.Drawing.Point(1046, 22);
             this.btnExpExcel.Name = "btnExpExcel";
-            this.btnExpExcel.Size = new System.Drawing.Size(110, 31);
+            this.btnExpExcel.Size = new System.Drawing.Size(122, 39);
             this.btnExpExcel.TabIndex = 14;
             this.btnExpExcel.Text = "Exportar a Excel";
+            this.btnExpExcel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnExpExcel.UseVisualStyleBackColor = true;
             this.btnExpExcel.Visible = false;
             // 
@@ -168,6 +171,7 @@
             this.lblMontoTotalinvoicesRes.Size = new System.Drawing.Size(109, 24);
             this.lblMontoTotalinvoicesRes.TabIndex = 19;
             this.lblMontoTotalinvoicesRes.Text = "Resultado ";
+            this.lblMontoTotalinvoicesRes.Visible = false;
             // 
             // lblMontoAll_invoices
             // 
@@ -181,6 +185,7 @@
             this.lblMontoAll_invoices.Size = new System.Drawing.Size(126, 24);
             this.lblMontoAll_invoices.TabIndex = 18;
             this.lblMontoAll_invoices.Text = "Monto Total:";
+            this.lblMontoAll_invoices.Visible = false;
             // 
             // gbHeadInvoices
             // 
@@ -236,31 +241,40 @@
             // 
             // btnConsulDetailinvoice
             // 
-            this.btnConsulDetailinvoice.Location = new System.Drawing.Point(723, 20);
+            this.btnConsulDetailinvoice.Image = global::PL.Properties.Resources.go;
+            this.btnConsulDetailinvoice.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnConsulDetailinvoice.Location = new System.Drawing.Point(684, 22);
             this.btnConsulDetailinvoice.Name = "btnConsulDetailinvoice";
-            this.btnConsulDetailinvoice.Size = new System.Drawing.Size(110, 31);
+            this.btnConsulDetailinvoice.Size = new System.Drawing.Size(130, 39);
             this.btnConsulDetailinvoice.TabIndex = 24;
             this.btnConsulDetailinvoice.Text = "Consultar Detalle";
+            this.btnConsulDetailinvoice.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnConsulDetailinvoice.UseVisualStyleBackColor = true;
             this.btnConsulDetailinvoice.Click += new System.EventHandler(this.btnConsulDetailinvoice_Click);
             // 
             // btnFiltroInvoices
             // 
-            this.btnFiltroInvoices.Location = new System.Drawing.Point(839, 20);
+            this.btnFiltroInvoices.Image = global::PL.Properties.Resources.delete;
+            this.btnFiltroInvoices.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnFiltroInvoices.Location = new System.Drawing.Point(820, 22);
             this.btnFiltroInvoices.Name = "btnFiltroInvoices";
-            this.btnFiltroInvoices.Size = new System.Drawing.Size(91, 31);
+            this.btnFiltroInvoices.Size = new System.Drawing.Size(110, 39);
             this.btnFiltroInvoices.TabIndex = 25;
             this.btnFiltroInvoices.Text = "Borrar Filtro";
+            this.btnFiltroInvoices.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnFiltroInvoices.UseVisualStyleBackColor = true;
             this.btnFiltroInvoices.Click += new System.EventHandler(this.btnFiltroInvoices_Click);
             // 
             // btnReprintInvoice
             // 
-            this.btnReprintInvoice.Location = new System.Drawing.Point(936, 20);
+            this.btnReprintInvoice.Image = global::PL.Properties.Resources.print;
+            this.btnReprintInvoice.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReprintInvoice.Location = new System.Drawing.Point(936, 22);
             this.btnReprintInvoice.Name = "btnReprintInvoice";
-            this.btnReprintInvoice.Size = new System.Drawing.Size(91, 31);
+            this.btnReprintInvoice.Size = new System.Drawing.Size(104, 39);
             this.btnReprintInvoice.TabIndex = 26;
             this.btnReprintInvoice.Text = "Reimprimir";
+            this.btnReprintInvoice.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnReprintInvoice.UseVisualStyleBackColor = true;
             this.btnReprintInvoice.Click += new System.EventHandler(this.btnReprintInvoice_Click);
             // 

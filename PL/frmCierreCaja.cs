@@ -17,12 +17,13 @@ namespace pjPalmera.PL
     {
         OpServices Services = new OpServices();
 
+        OperationsCajaEntity cBox = new OperationsCajaEntity();
+
         public frmCierreCaja()
         {
             InitializeComponent();
             Desable();
         }
-
 
         /// <summary>
         /// Desable Controls
@@ -51,6 +52,11 @@ namespace pjPalmera.PL
             this.lblEfectivoCaja.Text = "0.00";
             this.lblFaltante.Text = "0.00";
             this.lblTotalVentas.Text = "0.00";
+            this.lblPagosCxC.Text = "0.00";
+           // this.lblPaysCash.Text = "0.00";
+           // this.lblPaysCreditCard.Text = "0.00";
+            this.lblSellsTotalCash.Text = "0.00";
+            this.lblSellsTotalCreditCard.Text = "0.00";
         }
 
         /// <summary>
@@ -58,25 +64,48 @@ namespace pjPalmera.PL
         /// </summary>
         private void CloseBoxProc()
         {
+                      
 
-            var cBox = new CierreCajaEntity();
+            if(cBox != null)
+            {
+                cBox.TypeOp = "3";
+                cBox.UserId = Int32.Parse(this.txtIdUser.Text);
+                cBox.Uno = Int32.Parse(this.txtMonedas1.Text);
+                cBox.Cinco = Int32.Parse(this.txtMonedas5.Text);
+                cBox.Diez = Int32.Parse(this.txtMonedas10.Text);
+                cBox.Venticinco = Int32.Parse(this.txtMonedas25.Text);
+                cBox.Cincuenta = Int32.Parse(this.txtBilletes50.Text);
+                cBox.Cien = Int32.Parse(this.txtBilletes100.Text);
+                cBox.Doscientos = Int32.Parse(this.txtBilletes100.Text);
+                cBox.Quinientos = Int32.Parse(this.txtBilletes500.Text);
+                cBox.Mil = Int32.Parse(this.txtBilletes1000.Text);
+                cBox.Dosmil = Int32.Parse(this.txtBilletes2000.Text);
+                cBox.Monto = decimal.Parse(this.lblEfectivoCaja.Text);
+                cBox.Faltante = decimal.Parse(this.lblFaltante.Text);
+                cBox.Venta = decimal.Parse(this.lblTotalVentas.Text);
+                cBox.AmountSellsCard = decimal.Parse(this.lblSellsTotalCreditCard.Text);
+                cBox.AmountSellsCash = decimal.Parse(this.lblSellsTotalCash.Text);
+                // cBox.TotalAmountPaysCard =0M;
+               // cBox.TotalAmountPaysCash =0M;
+                cBox.MontosPagos = decimal.Parse(this.lblPagosCxC.Text);
+               
 
-            cBox.TypeOp = 2;
-            cBox.UserId = Int32.Parse(this.txtIdUser.Text);
-            cBox.Uno = Int32.Parse(this.txtMonedas1.Text);
-            cBox.Cinco = Int32.Parse(this.txtMonedas5.Text);
-            cBox.Diez = Int32.Parse(this.txtMonedas10.Text);
-            cBox.Venticinco = Int32.Parse(this.txtMonedas25.Text);
-            cBox.Cincuenta = Int32.Parse(this.txtBilletes50.Text);
-            cBox.Cien = Int32.Parse(this.txtBilletes100.Text);
-            cBox.Doscientos = Int32.Parse(this.txtBilletes100.Text);
-            cBox.Quinientos = Int32.Parse(this.txtBilletes500.Text);
-            cBox.Mil = Int32.Parse(this.txtBilletes1000.Text);
-            cBox.Dosmil = Int32.Parse(this.txtBilletes2000.Text);
+                OperationsCajaBO.CreateHistoryCloseBox(cBox);
+                this.txtIdTicket.Text = cBox.Id.ToString();
+                OperationsCajaBO.CleanTranstactions(cBox); //-------> Create method to remove transtaction by id 
+                //  this.txtIdProcess.Text = this.IdProcess.ToString();
+                // OperationsCajaBO.CleanOpenBox();
 
-            CierreCajaBO.CreateHistoryCloseBox(cBox);
-            CierreCajaBO.CleanTranstactions(cBox); //-------> Create method to remove transtaction by id
-            // CierreCajaBO.CleanOpenBox();
+                Print();
+                CleanControls();
+
+            }
+            else 
+            {
+                this.txtMonedas1.Focus();
+                return;
+            }
+
 
         }
 
@@ -104,16 +133,16 @@ namespace pjPalmera.PL
 
 
         /// <summary>
-        /// Get Amount Total Invoices
+        /// Get Amount Total Invoices (cash or internal credit line - cash or credit card)
         /// </summary>
         private void GetAmount()
         {
             try
             {
-                var cCaja = new CierreCajaEntity();
+                var cCaja = new OperationsCajaEntity();
                 cCaja.UserId = int.Parse(this.txtIdUser.Text);
-                decimal Amount = 0;
-                Amount = CierreCajaBO.MontoVentas(cCaja);
+                decimal Amount = 0M;
+                Amount = OperationsCajaBO.MontoVentas(cCaja);
                 lblTotalVentas.Text = Convert.ToString(Amount);
             }
             catch //(Exception ex)
@@ -123,13 +152,109 @@ namespace pjPalmera.PL
         }
 
         /// <summary>
+        /// Get Amount Total sells with Cash
+        /// </summary>
+        private void GetAmountSellsCash()
+        {
+            try
+            {
+                var cCaja = new OperationsCajaEntity();
+                cCaja.UserId = int.Parse(this.txtIdUser.Text);
+                decimal Amount = 0M;
+                Amount = OperationsCajaBO.MontoSellsCash(cCaja);
+                this.lblSellsTotalCash.Text = Convert.ToString(Amount);
+            }
+            catch //(Exception ex)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// Get Amount Total sells with Credit Card
+        /// </summary>
+        private void GetAmountSellsCreditCard()
+        {
+            try
+            {
+                var cCaja = new OperationsCajaEntity();
+                cCaja.UserId = int.Parse(this.txtIdUser.Text);
+                decimal Amount = 0M;
+                Amount = OperationsCajaBO.MontoSellsCreditCard(cCaja);
+                this.lblSellsTotalCreditCard.Text = Convert.ToString(Amount);
+            }
+            catch //(Exception ex)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// Get Amount Total pay to credit account (Cash or Credit Card)
+        /// </summary>
+        private void GetAmountPays()
+        {
+            try
+            {
+                var cCaja = new OperationsCajaEntity();
+                cCaja.UserId = int.Parse(this.txtIdUser.Text);
+                decimal Amount = 0M;
+                Amount = OperationsCajaBO.MontoPays(cCaja);
+                this.lblPagosCxC.Text = Convert.ToString(Amount);
+            }
+            catch //(Exception ex)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// Get Amount Total pay to credit account but with Credit Card
+        /// </summary>
+        private void GetAmountPaysCreditCard()
+        {
+            try
+            {
+                var cCaja = new OperationsCajaEntity();
+                cCaja.UserId = int.Parse(this.txtIdUser.Text);
+                decimal Amount = 0M;
+                Amount = OperationsCajaBO.MontoPaysCreditCard(cCaja);
+                //this.lblPaysCreditCard.Text = Convert.ToString(Amount);
+            }
+            catch //(Exception ex)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// Get Amount Total pay to credit account but with Credit Card
+        /// </summary>
+        private void GetAmountPaysCash()
+        {
+            try
+            {
+                var cCaja = new OperationsCajaEntity();
+                cCaja.UserId = int.Parse(this.txtIdUser.Text);
+                decimal Amount = 0M;
+                Amount = OperationsCajaBO.MontoPaysCash(cCaja);
+                //this.lblPaysCash.Text = Convert.ToString(Amount);
+            }
+            catch //(Exception ex)
+            {
+
+            }
+        }
+
+
+        /// <summary>
         /// Get Amount Missing before Calculate Amount Total Invoices
         /// </summary>
         private void GetMAmount()
         {
             try
             {
-                this.lblFaltante.Text = Convert.ToString(Services.cuadre(Convert.ToDecimal(this.lblEfectivoCaja.Text), Convert.ToDecimal(this.lblTotalVentas.Text)));
+                this.lblFaltante.Text = Convert.ToString(Services.cuadre(Convert.ToDecimal(this.lblEfectivoCaja.Text), Convert.ToDecimal(this.lblSellsTotalCash.Text), Convert.ToDecimal(this.lblPagosCxC.Text)));
             }
             catch (Exception)
             {
@@ -141,10 +266,15 @@ namespace pjPalmera.PL
 
         private void frmCierreCaja_Load(object sender, EventArgs e)
         {
-            InfControls();
-            Desable();
-            CleanControls();
-            GetAmount();
+            this.InfControls();
+            this.Desable();
+            this.CleanControls();
+            this.GetAmount();
+            this.GetAmountSellsCash();
+            this.GetAmountSellsCreditCard();
+            this.GetAmountPays();
+            this.GetAmountPaysCreditCard();
+            this.GetAmountPaysCash();
         }
 
         private void btnCalcularMonto_Click(object sender, EventArgs e)
@@ -269,11 +399,11 @@ namespace pjPalmera.PL
             if (QuestionPrint == DialogResult.Yes)
             {
                 PrintTicket();
-                MessageBox.Show("Se imprimio", "Mensaje del Sistema");
+                MessageBox.Show("Se imprimio el ticket correspondiente al cierre de Caja", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else if (QuestionPrint == DialogResult.No)
             {
-                MessageBox.Show("No imprimio", "Mensaje del Sistema");
+                // MessageBox.Show("No imprimio", "Mensaje del Sistema");
                 return;
             }
         }
@@ -297,8 +427,6 @@ namespace pjPalmera.PL
                     if (Answer == DialogResult.Yes)
                     {
                         CloseBoxProc();
-                        Print();
-                        CleanControls();
                         this.Close();
                     }
                     else if (Answer == DialogResult.No)
@@ -381,8 +509,8 @@ namespace pjPalmera.PL
             SolidBrush sb = new SolidBrush(Color.Black); // Set Brush color for Drawing Charaters
 
             // Ticket Titles
-            string Type1 = "CIERRE DE LA CAJA";
-            // string Type2 = "CIERRE DE LA CAJA";
+            // string Type1 = "APERTURA DE LA CAJA";
+            string Type2 = "CIERRE DE LA CAJA";
 
             //Id Invoice
             // this.txtId_Invoice.Text = Convert.ToString(Id_invoice);  //
@@ -410,63 +538,86 @@ namespace pjPalmera.PL
             // g.DrawString(this.txtApClientes.Text, fBody, sb, 180, 220); //
             g.DrawString("CAJERO:", fTitle, sb, 10, 234); //
             g.DrawString(this.txtUserFirstNameLast.Text, fBody, sb, 95, 234);
-            g.DrawString("NO. OPERACION:", fTitle, sb, 10, 246); //
-            // g.DrawString(this.txtId_Invoice.Text, fBody, sb, 50, 244); //
-
-            var opBoxop = new AperturaCajaEntity();
-
-            opBoxop.TypeOp = Convert.ToInt32(this.txtType.Text);
+            g.DrawString("NO. OPERACION:", fTitle, sb, 10, 245); //
+            g.DrawString(this.txtIdTicket.Text, fBody, sb, 115, 245); //
 
 
-            int op = opBoxop.TypeOp;
 
             // Open box title
-            g.DrawString(Type1, fTitle, sb, 75, 262);
-
+            g.DrawString(Type2, fTitle, sb, 75, 262);
 
             // Detail cash
 
             g.DrawString("-----------------------------------------", fBody, sb, 5, 280);
             g.DrawString("     DETALLES DE OPERACION EN CAJA       ", fdpTitle, sb, 10, 290);
             g.DrawString("-----------------------------------------", fBody, sb, 5, 298);
-            g.DrawString("   DENOMINACION    CANTIDAD    MONTO     ", fdpTitle, sb, 10, 304);
+            g.DrawString("   DENOMINACION    CANTIDAD   MONTO      ", fdpTitle, sb, 10, 304);
             g.DrawString("-----------------------------------------", fBody, sb, 5, 310);
 
             int AutoScrollOffset = +14;
 
             // detail open box process
             AutoScrollOffset = AutoScrollOffset + 12;
-            g.DrawString("Monedas de 1: ", fdpTitle, sb, 90, 330 + AutoScrollOffset);   // 
-            g.DrawString(this.txtMonedas1.Text, fBody, sb, 202, 330 + AutoScrollOffset);  //
-            g.DrawString("Monedas de 5: ", fdpTitle, sb, 90, 350 + AutoScrollOffset);
-            g.DrawString(this.txtMonedas5.Text, fBody, sb, 202, 350 + AutoScrollOffset); //
-            g.DrawString("Monedas de 10: ", fpTitle, sb, 90, 368 + AutoScrollOffset); //
-            g.DrawString(this.txtMonedas10.Text, fpBody, sb, 202, 368 + AutoScrollOffset);  //
-            g.DrawString("Monedas de 25 ", fdpTitle, sb, 100, 370 + AutoScrollOffset);
-            g.DrawString(this.txtMonedas25.Text, fBody, sb, 202, 389 + AutoScrollOffset);
-            g.DrawString("Billetes de 50: ", fdpTitle, sb, 90, 389 + AutoScrollOffset); //
-            g.DrawString(this.txtBilletes50.Text, fBody, sb, 202, 389 + AutoScrollOffset); //
-            g.DrawString("Billetes de 100: ", fdpTitle, sb, 90, 405 + AutoScrollOffset); //
-            g.DrawString(this.txtBilletes100.Text, fBody, sb, 202, 405 + AutoScrollOffset); //
-            g.DrawString("Billetes de 200: ", fdpTitle, sb, 90, 420 + AutoScrollOffset);
-            g.DrawString(this.txtBilletes200.Text, fdpTitle, sb, 202, 420 + AutoScrollOffset);
-            g.DrawString("Billetes de 500: ", fdpTitle, sb, 90, 420 + AutoScrollOffset);
-            g.DrawString(this.txtBilletes500.Text, fdpTitle, sb, 202, 420 + AutoScrollOffset);
-            g.DrawString("Billetes de 1000: ", fdpTitle, sb, 90, 420 + AutoScrollOffset);
-            g.DrawString(this.txtBilletes1000.Text, fdpTitle, sb, 202, 420 + AutoScrollOffset);
-            g.DrawString("Billetes de 2000: ", fdpTitle, sb, 90, 420 + AutoScrollOffset);
-            g.DrawString(this.txtBilletes2000.Text, fdpTitle, sb, 202, 420 + AutoScrollOffset);
+            g.DrawString("Monedas de 1: ", fdpTitle, sb, 10, 308 + AutoScrollOffset);   // 
+            g.DrawString(this.txtMonedas1.Text, fBody, sb, 158, 308 + AutoScrollOffset);  //
+            decimal r1 = 1 * decimal.Parse(this.txtMonedas1.Text);
+            g.DrawString(r1.ToString() + ".00", fBody, sb, 212, 308 + AutoScrollOffset);
+            g.DrawString("Monedas de 5: ", fdpTitle, sb, 10, 324 + AutoScrollOffset);
+            g.DrawString(this.txtMonedas5.Text, fBody, sb, 158, 324 + AutoScrollOffset); //
+            decimal r2 = 5 * decimal.Parse(this.txtMonedas5.Text);
+            g.DrawString(r2.ToString() + ".00", fBody, sb, 212, 324 + AutoScrollOffset);
+            g.DrawString("Monedas de 10: ", fdpTitle, sb, 10, 339 + AutoScrollOffset); //
+            g.DrawString(this.txtMonedas10.Text, fpBody, sb, 158, 339 + AutoScrollOffset);  //
+            decimal r3 = 10 * decimal.Parse(this.txtMonedas10.Text);
+            g.DrawString(r3.ToString() + ".00", fBody, sb, 212, 339 + AutoScrollOffset);
+            g.DrawString("Monedas de 25: ", fdpTitle, sb, 10, 356 + AutoScrollOffset);
+            g.DrawString(this.txtMonedas25.Text, fBody, sb, 158, 356 + AutoScrollOffset);
+            decimal r4 = 25 * decimal.Parse(this.txtMonedas25.Text);
+            g.DrawString(r4.ToString() + ".00", fBody, sb, 212, 356 + AutoScrollOffset);
+            g.DrawString("Billetes de 50: ", fdpTitle, sb, 10, 369 + AutoScrollOffset); //
+            g.DrawString(this.txtBilletes50.Text, fBody, sb, 158, 369 + AutoScrollOffset); //
+            decimal r5 = 50 * decimal.Parse(this.txtBilletes50.Text);
+            g.DrawString(r5.ToString() + ".00", fBody, sb, 212, 369 + AutoScrollOffset);
+            g.DrawString("Billetes de 100: ", fdpTitle, sb, 10, 385 + AutoScrollOffset); //
+            g.DrawString(this.txtBilletes100.Text, fBody, sb, 158, 385 + AutoScrollOffset); //
+            decimal r6 = 100 * decimal.Parse(this.txtBilletes100.Text);
+            g.DrawString(r6.ToString() + ".00", fBody, sb, 212, 385 + AutoScrollOffset);
+            g.DrawString("Billetes de 200: ", fdpTitle, sb, 10, 405 + AutoScrollOffset);
+            g.DrawString(this.txtBilletes200.Text, fBody, sb, 158, 405 + AutoScrollOffset);
+            decimal r7 = 200 * decimal.Parse(this.txtBilletes200.Text);
+            g.DrawString(r7.ToString() + ".00", fBody, sb, 212, 405 + AutoScrollOffset);
+            g.DrawString("Billetes de 500: ", fdpTitle, sb, 10, 420 + AutoScrollOffset);
+            g.DrawString(this.txtBilletes500.Text, fBody, sb, 158, 420 + AutoScrollOffset);
+            decimal r8 = 500 * decimal.Parse(this.txtBilletes500.Text);
+            g.DrawString(r8.ToString() + ".00", fBody, sb, 212, 420 + AutoScrollOffset);
+            g.DrawString("Billetes de 1,000: ", fdpTitle, sb, 10, 438 + AutoScrollOffset);
+            g.DrawString(this.txtBilletes1000.Text, fBody, sb, 158, 438 + AutoScrollOffset);
+            decimal r9 = 1000 * decimal.Parse(this.txtBilletes1000.Text);
+            g.DrawString(r9.ToString() + ".00", fBody, sb, 212, 438 + AutoScrollOffset);
+            g.DrawString("Billetes de 2,000: ", fdpTitle, sb, 10, 457 + AutoScrollOffset);
+            g.DrawString(this.txtBilletes2000.Text, fBody, sb, 158, 457 + AutoScrollOffset);
+            decimal r10 = 2000 * decimal.Parse(this.txtBilletes2000.Text);
+            g.DrawString(r10.ToString() + ".00", fBody, sb, 212, 457 + AutoScrollOffset);
 
             //Total Amount for this process
 
             AutoScrollOffset = AutoScrollOffset + 8;
-            g.DrawString("Efectivo en Caja:", fBody, sb, 5, 426 + AutoScrollOffset);
-            g.DrawString(this.lblEfectivoCaja.Text, fpBody, sb, 200, 426 + AutoScrollOffset);
-            g.DrawString("Total de Ventas:", fBody, sb, 5, 426 + AutoScrollOffset);
-            g.DrawString(this.lblTotalVentas.Text, fpBody, sb, 200, 426 + AutoScrollOffset);
-            g.DrawString("Faltante:", fBody, sb, 5, 426 + AutoScrollOffset);
-            g.DrawString(this.lblFaltante.Text, fpBody, sb, 200, 426 + AutoScrollOffset);
+            g.DrawString("Efectivo en Caja:", fdpTitle, sb, 10, 490 + AutoScrollOffset);
+            g.DrawString(this.lblEfectivoCaja.Text + ".00", fpBody, sb, 212, 490 + AutoScrollOffset);
+            g.DrawString("Total de Venta con Tarjeta:", fdpTitle, sb, 10, 505 + AutoScrollOffset);
+            g.DrawString(this.lblSellsTotalCreditCard.Text + ".00", fpBody, sb, 212, 505 + AutoScrollOffset);
+            g.DrawString("Total de Venta en Efectivo:", fdpTitle, sb, 10, 519 + AutoScrollOffset);
+            g.DrawString(this.lblSellsTotalCash.Text + ".00", fpBody, sb, 212, 519 + AutoScrollOffset);
+            //g.DrawString("Total de Venta a Crédito:", fdpTitle, sb, 10, 490 + AutoScrollOffset);
+            //g.DrawString(this.lblEfectivoCaja.Text + ".00", fpBody, sb, 212, 490 + AutoScrollOffset);
+            g.DrawString("Total de Ventas:", fdpTitle, sb, 10, 528 + AutoScrollOffset);
+            g.DrawString(this.lblTotalVentas.Text, fpBody, sb, 212, 528 + AutoScrollOffset);
+            g.DrawString("Total de Pago cta crédito:", fdpTitle, sb, 10, 539 + AutoScrollOffset);
+            g.DrawString(this.lblPagosCxC.Text, fpBody, sb, 212, 539 + AutoScrollOffset);
+            g.DrawString("Faltante:", fdpTitle, sb, 10, 548 + AutoScrollOffset);
+            g.DrawString(this.lblFaltante.Text, fpBody, sb, 212, 548 + AutoScrollOffset);
             // 
+
         }
         #endregion
     }

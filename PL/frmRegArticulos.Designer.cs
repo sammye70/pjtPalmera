@@ -67,6 +67,7 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnNuevo = new System.Windows.Forms.Button();
+            this.txtIdUser = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -78,7 +79,7 @@
             this.label1.Location = new System.Drawing.Point(36, 134);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 16);
+            this.label1.Size = new System.Drawing.Size(51, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Código";
             // 
@@ -89,7 +90,7 @@
             this.label2.Location = new System.Drawing.Point(36, 180);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(80, 16);
+            this.label2.Size = new System.Drawing.Size(79, 16);
             this.label2.TabIndex = 1;
             this.label2.Text = "Descripción";
             // 
@@ -100,7 +101,7 @@
             this.label3.Location = new System.Drawing.Point(36, 223);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(76, 16);
+            this.label3.Size = new System.Drawing.Size(75, 16);
             this.label3.TabIndex = 2;
             this.label3.Text = "Distribuidor";
             // 
@@ -119,7 +120,7 @@
             this.label4.Location = new System.Drawing.Point(557, 43);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(82, 16);
+            this.label4.Size = new System.Drawing.Size(81, 16);
             this.label4.TabIndex = 4;
             this.label4.Text = "Vencimiento";
             // 
@@ -144,13 +145,12 @@
             // 
             this.lblStockInicial.AutoSize = true;
             this.lblStockInicial.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStockInicial.Location = new System.Drawing.Point(389, 393);
+            this.lblStockInicial.Location = new System.Drawing.Point(792, 274);
             this.lblStockInicial.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblStockInicial.Name = "lblStockInicial";
-            this.lblStockInicial.Size = new System.Drawing.Size(79, 16);
+            this.lblStockInicial.Size = new System.Drawing.Size(78, 16);
             this.lblStockInicial.TabIndex = 7;
             this.lblStockInicial.Text = "Stock Inicial";
-            this.lblStockInicial.Visible = false;
             // 
             // label6
             // 
@@ -159,7 +159,7 @@
             this.label6.Location = new System.Drawing.Point(36, 274);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(43, 16);
+            this.label6.Size = new System.Drawing.Size(42, 16);
             this.label6.TabIndex = 8;
             this.label6.Text = "Costo";
             // 
@@ -170,7 +170,7 @@
             this.label7.Location = new System.Drawing.Point(391, 274);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(85, 16);
+            this.label7.Size = new System.Drawing.Size(84, 16);
             this.label7.TabIndex = 9;
             this.label7.Text = "Precio Venta";
             // 
@@ -181,7 +181,7 @@
             this.lblStockMinimo.Location = new System.Drawing.Point(616, 273);
             this.lblStockMinimo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblStockMinimo.Name = "lblStockMinimo";
-            this.lblStockMinimo.Size = new System.Drawing.Size(88, 16);
+            this.lblStockMinimo.Size = new System.Drawing.Size(87, 16);
             this.lblStockMinimo.TabIndex = 10;
             this.lblStockMinimo.Text = "Stock Minimo";
             // 
@@ -192,7 +192,7 @@
             this.label9.Location = new System.Drawing.Point(545, 223);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(67, 16);
+            this.label9.Size = new System.Drawing.Size(66, 16);
             this.label9.TabIndex = 11;
             this.label9.Text = "Categoría";
             // 
@@ -224,12 +224,11 @@
             // 
             // txtStockInicial
             // 
-            this.txtStockInicial.Location = new System.Drawing.Point(484, 390);
+            this.txtStockInicial.Location = new System.Drawing.Point(887, 271);
             this.txtStockInicial.Margin = new System.Windows.Forms.Padding(4);
             this.txtStockInicial.Name = "txtStockInicial";
             this.txtStockInicial.Size = new System.Drawing.Size(56, 22);
             this.txtStockInicial.TabIndex = 16;
-            this.txtStockInicial.Visible = false;
             // 
             // txtStockMinimo
             // 
@@ -245,7 +244,7 @@
             this.label10.Location = new System.Drawing.Point(204, 348);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(163, 16);
+            this.label10.Size = new System.Drawing.Size(162, 16);
             this.label10.TabIndex = 21;
             this.label10.Text = "Localizacion en el Estante";
             this.label10.Visible = false;
@@ -281,7 +280,7 @@
             this.label5.Location = new System.Drawing.Point(233, 273);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(89, 16);
+            this.label5.Size = new System.Drawing.Size(88, 16);
             this.label5.TabIndex = 27;
             this.label5.Text = "Ganancia (%)";
             // 
@@ -313,7 +312,7 @@
             this.lblEstado.Location = new System.Drawing.Point(620, 134);
             this.lblEstado.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEstado.Name = "lblEstado";
-            this.lblEstado.Size = new System.Drawing.Size(51, 16);
+            this.lblEstado.Size = new System.Drawing.Size(50, 16);
             this.lblEstado.TabIndex = 31;
             this.lblEstado.Text = "Estado";
             // 
@@ -447,11 +446,20 @@
             this.btnNuevo.UseVisualStyleBackColor = true;
             this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
+            // txtIdUser
+            // 
+            this.txtIdUser.Location = new System.Drawing.Point(139, 388);
+            this.txtIdUser.Name = "txtIdUser";
+            this.txtIdUser.Size = new System.Drawing.Size(100, 22);
+            this.txtIdUser.TabIndex = 40;
+            this.txtIdUser.Visible = false;
+            // 
             // frmRegArticulos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1003, 427);
+            this.Controls.Add(this.txtIdUser);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.pictureBox1);
@@ -541,5 +549,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label lblTitle;
+        public System.Windows.Forms.TextBox txtIdUser;
     }
 }

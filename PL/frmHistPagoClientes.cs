@@ -53,7 +53,6 @@ namespace pjPalmera.PL
             Clean();
         }
 
-
         /// <summary>
         /// Clean content inside all Controls
         /// </summary>
@@ -63,6 +62,13 @@ namespace pjPalmera.PL
            // this.lblCriterial.Text = "";
         }
          
+        /// <summary>
+        ///  Set data name in datagrid
+        /// </summary>
+        public void setDetailsData()
+        {
+            this.dgvHistPagosClientCr.Columns["Id_cliente"].HeaderText = "Código Cliente";
+        }
 
         /// <summary>
         ///  Get Credit Accounts by id or id card
@@ -70,21 +76,22 @@ namespace pjPalmera.PL
         private void Filter()
         {
             var val = this.txtCriterial.Text;
-            var query = this.txtTypeQuery.Text;
+            var query = int.Parse(this.txtTypeQuery.Text);
+
+            if (string.IsNullOrEmpty(val) != false)
+                return;
 
             switch (query)
             {
-
-                case "1":
+                case 1:
                     this.dgvHistPagosClientCr.DataSource = CreditAccountBO.GetPayCrAcCustomerById(int.Parse(val));
-                    this.typeQuery(int.Parse(query));
+                    this.typeQuery(query);
                     break;
 
-                case "2":
+                case 2:
                     this.dgvHistPagosClientCr.DataSource = CreditAccountBO.GetPayCrAcCustomerByIdEx(int.Parse(val));
-                    this.typeQuery(int.Parse(query));
+                    this.typeQuery(query);
                     break;
- 
             }
         }
 
@@ -98,6 +105,7 @@ namespace pjPalmera.PL
             {
                 case 1:
                     this.dgvHistPagosClientCr.Columns["Monto"].Visible = false;
+                    this.setDetailsData();
                     break;
 
                 case 2:

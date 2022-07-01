@@ -15,7 +15,7 @@ namespace pjPalmera.PL
 {
     public partial class frmRegUsers : Form
     {
-      // UsuariosEntity Usuarios = new UsuariosEntity();
+        // UsuariosEntity Usuarios = new UsuariosEntity();
 
         public frmRegUsers()
         {
@@ -41,11 +41,12 @@ namespace pjPalmera.PL
 
         private void frmRegUsers_Load(object sender, EventArgs e)
         {
-            
+
             MaxLengthPass();
             CleanControls();
+            this.lblRescPassDiferent.Text = ".";
             this.btnNuevo.Focus();
-            
+
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)
@@ -54,7 +55,7 @@ namespace pjPalmera.PL
             this.txtFirstName.Focus();
         }
 
-
+        #region Validator all controls before with save process
         /// <summary>
         /// Checking TextBox are not Empty
         /// </summary>
@@ -62,69 +63,66 @@ namespace pjPalmera.PL
         public bool Validator_Controls()
         {
 
-            bool result = true;
+            bool result = false;
 
-            if (string.IsNullOrEmpty(this.txtUsername.Text))
+            if (string.IsNullOrEmpty(this.txtFirstName.Text) == true)
             {
-                this.errorProvider1.SetError(this.txtUsername, "Indicar un nombre de usuario.");
-                result = false;
+                this.errorProvider1.SetError(this.txtFirstName, "Indicar un nombre.");
+                result = true;
             }
 
-            if (string.IsNullOrEmpty(this.txtPassword.Text))
+            if (string.IsNullOrEmpty(this.txtLastName.Text) == true)
+            {
+                this.errorProvider1.SetError(this.txtLastName, "Indicar el/los apellido(s).");
+                result = true;
+            }
+
+            if (string.IsNullOrEmpty(this.txtUsername.Text) == true)
+            {
+                this.errorProvider1.SetError(this.txtUsername, "Indicar un usuario.");
+                result = true;
+            }
+
+            if (string.IsNullOrEmpty(this.txtPassword.Text) == true)
             {
                 this.errorProvider1.SetError(this.txtPassword, "Indicar una contraseña.");
-                result = false;
+                result = true;
             }
 
-            if (string.IsNullOrEmpty(this.txtRetPassword.Text))
+            if (string.IsNullOrEmpty(this.txtRetPassword.Text) == true)
             {
                 this.errorProvider1.SetError(this.txtRetPassword, "Indicar la contraseña igual a la anterior.");
-                result = false;
+                result = true;
             }
 
-            if (string.IsNullOrEmpty(this.cmbPrivileges.Text) || this.cmbPrivileges.SelectedIndex == -1 || this.cmbPrivileges.SelectedIndex == 0)
+            if (string.IsNullOrEmpty(this.cmbPrivileges.Text) == true || this.cmbPrivileges.SelectedIndex == -1 || this.cmbPrivileges.SelectedIndex < 0)
             {
                 this.errorProvider1.SetError(this.cmbPrivileges, "Seleccionar un rol para otorgar al usuario de los listados.");
-                result = false;
+                result = true;
             }
 
-            if (string.IsNullOrEmpty(this.cmbSecretQuestion1.Text) || this.cmbSecretQuestion1.SelectedIndex == -1  || this.cmbSecretQuestion1.SelectedIndex == 0)
+            if (string.IsNullOrEmpty(this.cmbSecretQuestion1.Text) == true || this.cmbSecretQuestion1.SelectedIndex == -1 || this.cmbSecretQuestion1.SelectedIndex < 0)
             {
-                this.errorProvider1.SetError(this.txtidUser, "Seleccionar una pregunta de seguridad de las listadas.");
-                result = false;
+                this.errorProvider1.SetError(this.cmbSecretQuestion1, "Seleccionar una pregunta de seguridad de las listadas.");
+                result = true;
             }
 
-            if (string.IsNullOrEmpty(this.txtSecretAnswer1.Text))
+            if (string.IsNullOrEmpty(this.txtSecretAnswer1.Text) == true)
             {
                 this.errorProvider1.SetError(this.txtSecretAnswer1, "Indicar la respuesta a la pregunta de seguridad.");
-                result = false;
+                result = true;
             }
 
+            if (CheckPass() != true)
+            {
+                result = true;
+            }
 
             return result;
         }
 
-        /// <summary>
-        /// Checking  the fields password and re-password are equivalent
-        /// </summary>
-        /// <returns></returns>
-        public bool Password_Validator()
-        {
-            var result = this.txtPassword.Equals(this.txtRetPassword);
-            return result;
-            //bool Result = true;
-            //if (this.txtPassword.Text == this.txtRetPassword.Text)
-            //{
-            //    Result = true;
-            //}
-            //else
-            //{
-            //    Result = false;
-            //}
-            //return Result;
+        #endregion
 
-
-        }
 
         /// <summary>
         /// Enable all controls on this form
@@ -188,7 +186,8 @@ namespace pjPalmera.PL
             var pass_hash = user.setHash(this.txtPassword.Text);
             var sec_ans_hast = user.setHash(this.txtSecretAnswer1.Text);
 
-
+            user.Createby = int.Parse(this.txtidUser.Text);
+            user.Id_user = int.Parse(this.txtUserIdMod.Text);
             user.Firstname = this.txtFirstName.Text;
             user.Lastname = this.txtLastName.Text;
             user.LongName = user.ContName(user.Firstname, user.Lastname);
@@ -207,13 +206,13 @@ namespace pjPalmera.PL
             this.Close();
         }
 
-
+        #region Create new user
         /// <summary>
         /// Create New User
         /// </summary>
         private void NewUser()
         {
-           var ValCrit = UsuariosBO.ExistsUser(this.txtUsername.Text);
+            var ValCrit = UsuariosBO.ExistsUser(this.txtUsername.Text);
 
             switch (ValCrit)
             {
@@ -227,9 +226,9 @@ namespace pjPalmera.PL
                     string email = "n/a";
                     int status = 1;
                     var pass_hash = user.setHash(this.txtPassword.Text);
-                    var sec_ans_hast = user.setHash(this.txtSecretAnswer1.Text);
-                    
+                    var sec_ans_hash = user.setHash(this.txtSecretAnswer1.Text);
 
+                    user.Createby = int.Parse(this.txtidUser.Text);
                     user.Firstname = this.txtFirstName.Text;
                     user.Lastname = this.txtLastName.Text;
                     user.LongName = user.ContName(user.Firstname, user.Lastname);
@@ -238,7 +237,7 @@ namespace pjPalmera.PL
                     user.Email = email;
                     user.Privileges = this.cmbPrivileges.SelectedIndex.ToString();
                     user.Secret_question = this.cmbSecretQuestion1.SelectedIndex.ToString();
-                    user.Secret_answer = sec_ans_hast;
+                    user.Secret_answer = sec_ans_hash;
                     user.Status = Convert.ToString(status);
 
                     UsuariosBO.Save(user);
@@ -250,24 +249,32 @@ namespace pjPalmera.PL
                     break;
             }
         }
+        #endregion
 
+        #region Verify if passwords are the same
         /// <summary>
         ///  Verify properties, behivors for password and repassword
         /// </summary>
-        private void CheckPass()
+        /// <returns> true when the password and repassword are equals otherwise false</returns>
+        private bool CheckPass()
         {
+            bool result = true;
             var pass = this.txtPassword.Text; // main password
             var respass = this.txtRetPassword.Text; // password confirmation
 
-            // Verify if main password and confirmation password are some.
-            if (pass.Equals(respass))
+            // Verify if main password and confirmation password are same.
+            if (string.Equals(pass,respass) == true)
             {
                 this.lblRescPassDiferent.Text = "";
+                result = true;
             }
             else
             {
                 this.lblRescPassDiferent.ForeColor = Color.Red;
                 this.lblRescPassDiferent.Text = "Las Contraseñas son Diferentes.";
+                this.errorProvider1.SetError(this.txtPassword, "Verificar la contraseña indicada!");
+                this.errorProvider1.SetError(this.txtRetPassword, "Indicar una contraseña igual que la anterior!");
+                result = false;
             }
 
             // Check Reconfirmation password length 
@@ -289,7 +296,7 @@ namespace pjPalmera.PL
                 this.lblRescPassLength.Text = "Contraseña Fuerte";
                 this.lblRescPassLength.BackColor = Color.Green;
             }
-            else 
+            else
             {
                 this.lblRescPassLength.Visible = false;
             }
@@ -318,8 +325,12 @@ namespace pjPalmera.PL
             {
                 this.lblPassLength.Visible = false;
             }
-        }
 
+            return result;
+        }
+        #endregion
+
+        #region Password Length
         /// <summary>
         /// Set Maximum Characters in password and repassword.
         /// </summary>
@@ -332,6 +343,7 @@ namespace pjPalmera.PL
             cfpasslng = 20;
         }
 
+        #endregion
 
         /// <summary>
         ///  Load all avalible secret questions that can set to users
@@ -342,6 +354,7 @@ namespace pjPalmera.PL
             this.cmbSecretQuestion1.DisplayMember = "Question";
         }
 
+
         /// <summary>
         /// Load all avaible roles that can set to users
         /// </summary>
@@ -351,14 +364,17 @@ namespace pjPalmera.PL
             this.cmbPrivileges.DisplayMember = "Rol";
         }
 
+
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
-                if ((Validator_Controls() == true) && (Password_Validator() == true))
-                {
-                    this.NewUser();
-                }
+                if (Validator_Controls() != false)
+                    return;
+
+                this.NewUser();
+
+               
             }
             catch (Exception ex)
             {
@@ -418,10 +434,11 @@ namespace pjPalmera.PL
         {
             try
             {
-                if ((Validator_Controls() == true) && (Password_Validator() == true))
-                {
-                    this.NewUser();
-                }
+                if(Validator_Controls() != false)
+                    return;
+
+                this.UpdateUser();
+
             }
             catch (Exception ex)
             {

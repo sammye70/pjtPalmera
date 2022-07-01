@@ -27,7 +27,7 @@ namespace pjPalmera.PL
             }
         }
 
-        private UsuariosEntity user = new UsuariosEntity();
+       // private UsuariosEntity user = new UsuariosEntity();
 
         public frmPrincipal()
         {
@@ -87,18 +87,9 @@ namespace pjPalmera.PL
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
-
-     
-        private void pictureBox3_Click(object sender, EventArgs e)
-        {
-            AppExit();
-        }
-
-
 
         private void pictureBox4_Click(object sender, EventArgs e)
         {
@@ -130,21 +121,21 @@ namespace pjPalmera.PL
 
             // info User      
             var user = new UsuariosEntity();
-            var box = new AperturaCajaEntity();
+            var box = new OperationsCajaEntity();
             var fmbox = new frmAbrirCaja();
 
             user.Id_user = Int32.Parse(this.txtIdUser.Text); //
             user.LongName = this.txtLongName.Text;
             user.User_name = this.txtUsername.Text;
             user.Privileges = this.txtPermisson.Text;
-            box.TypeOp = 1;
+            box.TypeOp = "1";
             box.Status = 1;
             fmbox.txtUserFirstNameLast.Text = user.LongName;
            // fmbox.txtUserName.Text = user.User_name;
             fmbox.txtIdUser.Text = user.Id_user.ToString();
             // fmbox.txtPermission.Text = user.Privileges.ToString();
             fmbox.txtType.Text = box.TypeOp.ToString();
-            fmbox.txtStatus.Text = box.Status.ToString();
+            fmbox.txtIdTicket.Text = box.Status.ToString();
             fmbox.ShowDialog(this);
         }
 
@@ -213,12 +204,7 @@ namespace pjPalmera.PL
         }
 
 
-        private void pictureBox7_Click(object sender, EventArgs e)
-        {
-            AppExit();
-        }
-
-        private void registrarUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
+         private void registrarUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmRegUsers regUsers = new frmRegUsers();
             regUsers.Show(this);
@@ -237,7 +223,7 @@ namespace pjPalmera.PL
             this.DetailControls();
          //   this.ValidateProfiles(user);
             this.menuStrip1.Visible = false;
-           
+            this.lblStation.Text = Environment.MachineName;         
         }
 
         private void pbRegClient_Click(object sender, EventArgs e)
@@ -285,11 +271,11 @@ namespace pjPalmera.PL
             // 
             var sell = new VentaEntity();
             var cashier = new UsuariosEntity();
-            frmVenta finvoice = new frmVenta();
+            var finvoice = new frmVenta();
 
-            var type = Int32.Parse(sell.Set_Type_invoice((FacturaBO.eType_invoices.cash).ToString())); // Get type invoice and convert to int value
+            var type = int.Parse(sell.Set_Type_invoice(FacturaBO.eType_invoices.cash.ToString())); // Get type invoice and convert to int value
             sell.tipo = type.ToString();
-            cashier.Id_user = Int32.Parse(this.txtIdUser.Text);
+            cashier.Id_user = int.Parse(this.txtIdUser.Text);
             cashier.LongName = this.txtLongName.Text;
             cashier.Privileges = this.txtPermisson.Text;
             cashier.User_name = this.txtUsername.Text;
@@ -307,8 +293,9 @@ namespace pjPalmera.PL
             switch (rol)
             {
                 case "1":
-                    finvoice.Show();
+                    finvoice.Text = "Ventas al Contado";
                     finvoice.DesVisibleCtrlInvCr();
+                    finvoice.Show();
                     break;
                 case "2":
                     // MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -320,8 +307,9 @@ namespace pjPalmera.PL
                     MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     break;
                 case "4":
-                    finvoice.Show();
+                    finvoice.Text = "Ventas al Contado";
                     finvoice.DesVisibleCtrlInvCr();
+                    finvoice.Show();
                     break;
             }            
         }
@@ -334,7 +322,8 @@ namespace pjPalmera.PL
         {
             var casher = new UsuariosEntity();
             var venta = new VentaCrEntity();
-            frmVenta ventas = new frmVenta();
+            var ventas = new frmVenta();
+            var allower = new frmAutorizar();
             var type = Int32.Parse(venta.Set_Type_invoice(FacturaBO.eType_invoices.credit.ToString())); // Get type invoice and convert to int value
 
             venta.tipo = type.ToString();
@@ -362,21 +351,23 @@ namespace pjPalmera.PL
             switch (rol)
             {
                 case "1":
-                    ventas.Text = "Ventas al Contado";
+                    ventas.Text = "Ventas a Crédito";
                     ventas.DesVisibleCtrlInvCash();
                     ventas.EnVisibleCtrlInvCr();
-                    ventas.btnNewInvoiceCr.Focus();
                     ventas.Show();
                     break;
                 case "2":
-                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                    allower.ShowDialog();
                     break;
                 case "3":
                     MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     break;
 
                 case "4":
+                    ventas.Text = "Ventas a Crédito";
+                    ventas.DesVisibleCtrlInvCash();
+                    ventas.EnVisibleCtrlInvCr();
+                    ventas.Show();
                     break;
             }
 
@@ -386,7 +377,7 @@ namespace pjPalmera.PL
 
 
         /// <summary>
-        /// Description about Controls
+        /// Description about Controls 
         /// </summary>
         private void DetailControls()
         {
@@ -395,7 +386,8 @@ namespace pjPalmera.PL
             this.toolTip1.SetToolTip(this.pbCashSell1, "Realizar Venta al Contado");
             this.toolTip1.SetToolTip(this.pbSellCred1, "Realizar Venta a Crédito");
             this.toolTip1.SetToolTip(this.pbIngProd, "Agregar Nuevos Productos");
-            // this.toolTip1.SetToolTip(this.pictureBox4,"Ingresar Pedidos");
+            //this.toolTip1.SetToolTip(this.pictureBox4,"Ingresar Pedidos");
+            this.toolTip1.SetToolTip(this.pbEditProv, "Editar Proveedor");
             this.toolTip1.SetToolTip(this.pbConsultProd, "Consultar Catalogo de Productos");
             this.toolTip1.SetToolTip(this.pbInvoiceCont, "Consultar Documentos de Ventas al Contado");
             this.toolTip1.SetToolTip(this.pbInvCancel, "Consultar Ventas Anuladas");
@@ -425,7 +417,8 @@ namespace pjPalmera.PL
             this.toolTip1.SetToolTip(this.pbopenBox, "Aperturar Caja Actual para iniciar las operaciones");
             this.toolTip1.SetToolTip(this.pbhistoryBox, "Historial de Apertura o Cierre de Caja");
             this.toolTip1.SetToolTip(this.pbConsUser, "Consultar y Editar Usuarios");
-
+            this.toolTip1.SetToolTip(this.pbEditCustomers, "Editar informaciones del Usuario");
+            this.toolTip1.SetToolTip(this.pbConsultCustomer, "Consultar Usuarios");
         }
 
 
@@ -435,13 +428,29 @@ namespace pjPalmera.PL
         /// </summary>
         private void AppExit()
         {
+            var user = new UsuariosEntity();
+            var box = new OperationsCajaEntity();
+            var fmbox = new frmCierreCaja();
             var answer = new DialogResult();
 
             answer = MessageBox.Show("Seguro que desea salir del Sistema", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
             if (answer == DialogResult.Yes)
             {
-                Application.Exit();
+                // function valide if current user has some box with opened status
+                box.UserId = Convert.ToInt32(this.txtIdUser.Text);
+                var statusbox = OperationsCajaBO.GetStatusBox(box);
+
+                switch (statusbox)
+                {
+                    case 0:
+                        Application.Exit();
+                        break;
+
+                    case 1:
+                        MessageBox.Show(OperationsCajaBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        break;
+                }
             }
             else if (answer == DialogResult.No)
             {
@@ -452,11 +461,12 @@ namespace pjPalmera.PL
 
         private void pbChangeReturn_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void pbInvoiceCont_Click(object sender, EventArgs e)
         {
+            var user = new UsuariosEntity();
             user.Id_user = int.Parse(this.txtIdUser.Text);
             frmConsultFacturasCont ConsultFactEmit = new frmConsultFacturasCont();
 
@@ -481,6 +491,7 @@ namespace pjPalmera.PL
 
         private void pbConsInvoiceCred_Click(object sender, EventArgs e)
         {
+            var user = new UsuariosEntity();
             user.Id_user = int.Parse(this.txtIdUser.Text);
             frmConsulFactCredito FacturasCredito = new frmConsulFactCredito();
 
@@ -507,6 +518,7 @@ namespace pjPalmera.PL
 
         private void pbInvCancel_Click(object sender, EventArgs e)
         {
+            var user = new UsuariosEntity();
             user.Id_user = int.Parse(this.txtIdUser.Text);
             frmConsultFactAnuladas FactAnuladas = new frmConsultFactAnuladas();
 
@@ -531,6 +543,7 @@ namespace pjPalmera.PL
 
         private void pbProdSold_Click(object sender, EventArgs e)
         {
+            var user = new UsuariosEntity();
             user.Id_user = int.Parse(this.txtIdUser.Text);
             frmHistorialVentArticulos ArticulosVendidos = new frmHistorialVentArticulos();
 
@@ -555,6 +568,7 @@ namespace pjPalmera.PL
 
         private void pbAddProd_Click(object sender, EventArgs e)
         {
+            var user = new UsuariosEntity();
             user.Id_user = int.Parse(this.txtIdUser.Text);
             frmRegArticulos RegArt = new frmRegArticulos();
 
@@ -579,6 +593,7 @@ namespace pjPalmera.PL
 
         private void pbAddReq_Click(object sender, EventArgs e)
         {
+            var user = new UsuariosEntity();
             var editProduct = new frmAjustarProductos();
             user.Id_user = int.Parse(this.txtIdUser.Text);
             
@@ -604,6 +619,7 @@ namespace pjPalmera.PL
 
         private void pbExpProd_Click(object sender, EventArgs e)
         {
+            var user = new UsuariosEntity();
             var ArtVencer = new frmConsulArticulosExpirar();
             user.Id_user = int.Parse(this.txtIdUser.Text);
 
@@ -628,6 +644,7 @@ namespace pjPalmera.PL
         }
         private void pbAddProvedor_Click(object sender, EventArgs e)
         {
+            var user = new UsuariosEntity();
             var fprovider = new frmRegProveedor();
             user.Id_user = int.Parse(this.txtIdUser.Text);
             fprovider.txtIdUser.Text = user.Id_user.ToString();
@@ -660,6 +677,7 @@ namespace pjPalmera.PL
 
         private void pbEditProv_Click(object sender, EventArgs e)
         {
+            var user = new UsuariosEntity();
             var proveedor = new frmConsultarProveedor();
             user.Id_user = int.Parse(this.txtIdUser.Text);
             proveedor.Text = "Editar Proveedor";
@@ -689,6 +707,7 @@ namespace pjPalmera.PL
 
         private void pbAddCustomers_Click(object sender, EventArgs e)
         {
+            var user = new UsuariosEntity();
             var regCustomer = new frmRegClientes();
             user.Id_user = int.Parse(this.txtIdUser.Text);
             regCustomer.txtIdUser.Text = user.Id_user.ToString();
@@ -741,11 +760,12 @@ namespace pjPalmera.PL
 
         private void pbConsProdMin_Click(object sender, EventArgs e)
         {
+            var user = new UsuariosEntity();
             var productos = new frmConsultarProductos();
             user.Id_user = int.Parse(this.txtIdUser.Text);
             
             productos.txtIdUser.Text = user.Id_user.ToString();
-            productos.txtRol.Text = user.Privileges.ToString();
+            // productos.txtRol.Text = user.Privileges.ToString();
             productos.Text = "Consultar Articulos";
 
 
@@ -798,6 +818,7 @@ namespace pjPalmera.PL
 
         private void pbStockMin_Click(object sender, EventArgs e)
         {
+            var user = new UsuariosEntity();
             var minimo = new frmStockMinimo();
             user.Id_user = int.Parse(this.txtIdUser.Text);
 
@@ -865,6 +886,8 @@ namespace pjPalmera.PL
         private void pbConsultCustomer_Click(object sender, EventArgs e)
         {
             var conCustomer = new frmConsulClientes();
+            var user = new UsuariosEntity();
+
             user.Id_user = int.Parse(this.txtIdUser.Text);
             
             conCustomer.txtIdUser.Text = user.Id_user.ToString();
@@ -899,6 +922,7 @@ namespace pjPalmera.PL
         private void pbEditCustomers_Click(object sender, EventArgs e)
         {
             var conCustomer = new frmConsulClientes();
+            var user = new UsuariosEntity();
             user.Id_user = int.Parse(this.txtIdUser.Text);
             
             conCustomer.txtIdUser.Text = user.Id_user.ToString();
@@ -925,12 +949,23 @@ namespace pjPalmera.PL
             }
         }
 
+
+
+        
+
         private void pbPayCredit_Click(object sender, EventArgs e)
         {
             var pay = new frmEfectPagosFactCred();
+            var user = new UsuariosEntity();
+            var sBox = new OperationsCajaEntity();
+            var fmain = new frmPrincipal();
+            user.LongName = fmain.txtLongName.Text;
             user.Id_user = int.Parse(this.txtIdUser.Text);
             pay.txtIdUser.Text = user.Id_user.ToString();
-            
+            sBox.UserId = int.Parse(this.txtIdUser.Text);
+            var frmBox = new frmAbrirCaja();
+
+            var status = OperationsCajaBO.GetStatusBox(sBox);
 
             UsuariosBO.getVisibleControls(user);
             var rol = UsuariosBO.result;
@@ -938,7 +973,18 @@ namespace pjPalmera.PL
             switch (rol)
             {
                 case "1":
-                    pay.ShowDialog(this);
+
+                    if(status == 0)
+                    {
+                        MessageBox.Show(OperationsCajaBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        frmBox.txtIdUser.Text = sBox.UserId.ToString();
+                        frmBox.txtUserFirstNameLast.Text = user.LongName;
+                        frmBox.ShowDialog(this);
+                    }
+                    else
+                    {
+                        pay.ShowDialog(this);
+                    }
                     break;
                 case "2":
                     MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -954,6 +1000,7 @@ namespace pjPalmera.PL
 
         private void pbPaidHistory_Click(object sender, EventArgs e)
         {
+            var user = new UsuariosEntity();
             var hpagocred = new frmHistPagoClientesCr();
             var query = new CreditAccountEntity();
             query.Result = 1;
@@ -985,6 +1032,7 @@ namespace pjPalmera.PL
 
         private void pbBalance_Click(object sender, EventArgs e)
         {
+            var user = new UsuariosEntity();
             var hpagocred = new frmHistPagoClientesCr();
             var query = new CreditAccountEntity();
             query.Result = 2;
@@ -1015,60 +1063,61 @@ namespace pjPalmera.PL
 
         private void pbSellCred1_Click(object sender, EventArgs e)
         {
-            var allow = new frmAutorizar();
-            var casher = new UsuariosEntity();
-            var venta = new VentaCrEntity();
-            frmVenta ventas = new frmVenta();
-            var type = Int32.Parse(venta.Set_Type_invoice(FacturaBO.eType_invoices.credit.ToString())); // Get type invoice and convert to int value
+            #region old code
+            //var allow = new frmAutorizar();
+            //var casher = new UsuariosEntity();
+            //var venta = new VentaCrEntity();
+            //frmVenta ventas = new frmVenta();
+            //var type = Int32.Parse(venta.Set_Type_invoice(FacturaBO.eType_invoices.credit.ToString())); // Get type invoice and convert to int value
 
-            venta.tipo = type.ToString();
-            ventas.txtTypeInvoice.Text = venta.tipo;
-            casher.Id_user = Int32.Parse(this.txtIdUser.Text);
-            casher.LongName = this.txtLongName.Text;
-            casher.Privileges = this.txtPermisson.Text;
-            casher.User_name = this.txtUsername.Text;
-            ventas.lblCajeroName.Text = casher.LongName;
-            ventas.txtPermissionId.Text = casher.Privileges.ToString();
-            ventas.txtUsername.Text = casher.User_name;
-            ventas.txtUserId.Text = casher.Id_user.ToString();
-            allow.txtUserId.Text = casher.Id_user.ToString();
-            allow.txtUserName.Text = casher.User_name.ToString();
-            allow.txtLongName.Text = casher.LongName.ToString();
-            
+            //venta.tipo = type.ToString();
+            //ventas.txtTypeInvoice.Text = venta.tipo;
+            //casher.Id_user = Int32.Parse(this.txtIdUser.Text);
+            //casher.LongName = this.txtLongName.Text;
+            //casher.Privileges = this.txtPermisson.Text;
+            //casher.User_name = this.txtUsername.Text;
+            //ventas.lblCajeroName.Text = casher.LongName;
+            //ventas.txtPermissionId.Text = casher.Privileges.ToString();
+            //ventas.txtUsername.Text = casher.User_name;
+            //ventas.txtUserId.Text = casher.Id_user.ToString();
+            //allow.txtUserId.Text = casher.Id_user.ToString();
+            //allow.txtUserName.Text = casher.User_name.ToString();
+            //allow.txtLongName.Text = casher.LongName.ToString();
 
+            //// Here:
+            //// Validate permission before to access  into this module or use
+            ////
 
-            // Here:
-            // Validate permission before to access  into this module or use
-            //
+            //UsuariosBO.getVisibleControls(casher);
+            //var rol = UsuariosBO.result;
 
+            //switch (rol)
+            //{
+            //    case "1":
+            //        ventas.Text = "Ventas a Crédito";
+            //        ventas.DesVisibleCtrlInvCash();
+            //        ventas.EnVisibleCtrlInvCr();
+            //        ventas.btnNewInvoiceCr.Focus();
+            //        ventas.Show();
+            //        break;
+            //    case "2":
+            //        allow.ShowDialog();
+            //        break;
+            //    case "3":
+            //        MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //        break;
+            //    case "4":
+            //        MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //        break;
+            //}
+            #endregion
 
-            UsuariosBO.getVisibleControls(casher);
-            var rol = UsuariosBO.result;
-
-            switch (rol)
-            {
-                case "1":
-                    ventas.Text = "Ventas a Crédito";
-                    ventas.DesVisibleCtrlInvCash();
-                    ventas.EnVisibleCtrlInvCr();
-                    ventas.btnNewInvoiceCr.Focus();
-                    ventas.ShowDialog(this);
-                    break;
-                case "2":
-                        allow.ShowDialog();
-                    break;
-                case "3":
-                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    break;
-                case "4":
-                    MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    break;
-            }
-
+            CreditS();
         }
 
         private void pictureBox4_Click_1(object sender, EventArgs e)
         {
+            var user = new UsuariosEntity();
             var rptProductosAct = new frmRepProductos();
             user.Id_user = Int32.Parse(this.txtIdUser.Text);
 
@@ -1095,6 +1144,7 @@ namespace pjPalmera.PL
 
         private void pbaddUser_Click(object sender, EventArgs e)
         {
+            var user = new UsuariosEntity();
             var regUsers = new frmRegUsers();
             user.Id_user = Int32.Parse(this.txtIdUser.Text);
             regUsers.txtidUser.Text = user.Id_user.ToString();
@@ -1125,20 +1175,25 @@ namespace pjPalmera.PL
         {
             // info User      
             var user = new UsuariosEntity();
-            var box = new AperturaCajaEntity();
+            var box = new OperationsCajaEntity();
             var fmbox = new frmAbrirCaja();
 
             user.Id_user = Int32.Parse(this.txtIdUser.Text); //
-            //user.LongName = this.txtLongName.Text;
+            user.LongName = this.txtLongName.Text;
             //user.User_name = this.txtUsername.Text;
-            box.TypeOp = 1;
+            box.TypeOp = "2";
             box.Status = 1;
-            // fmbox.txtUserFirstNameLast.Text = user.LongName;
+            fmbox.txtUserFirstNameLast.Text = user.LongName;
             //fmbox.txtUserName.Text = user.User_name;
             fmbox.txtIdUser.Text = user.Id_user.ToString();
             //fmbox.txtPermission.Text = user.Privileges.ToString();
             fmbox.txtType.Text = box.TypeOp.ToString();
-            fmbox.txtStatus.Text = box.Status.ToString();
+            fmbox.txtIdTicket.Text = box.Status.ToString();
+
+            // function valide if current user has some box with opened status
+            box.UserId = Convert.ToInt32(this.txtIdUser.Text);
+            var statusbox = OperationsCajaBO.GetStatusBox(box);
+
 
             UsuariosBO.getVisibleControls(user);
             var rol = UsuariosBO.result;
@@ -1146,43 +1201,72 @@ namespace pjPalmera.PL
             switch (rol)
             {
                 case "1":
-                    fmbox.ShowDialog(this);
+                    if (statusbox != 1)
+                    {
+                        fmbox.ShowDialog(this);
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show(OperationsCajaBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
                     break;
+
                 case "2":
-                    fmbox.ShowDialog(this);
+                    if (statusbox != 1)
+                    {
+                        fmbox.ShowDialog(this);
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show(OperationsCajaBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
                     // MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     break;
+
                 case "3":
                     MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     break;
+
                 case "4":
-                    fmbox.ShowDialog(this);
+                    if (statusbox != 1)
+                    {
+                        fmbox.ShowDialog(this);
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show(OperationsCajaBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
                     // MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     break;
             }
-
-
-            fmbox.ShowDialog(this);
         }
 
         private void pbcloseBox_Click(object sender, EventArgs e)
         {
             // info User      
             var user = new UsuariosEntity();
-            var box = new AperturaCajaEntity();
+            var box = new OperationsCajaEntity();
             var fmbox = new frmCierreCaja();
+            var fbopen = new frmAbrirCaja();
 
             user.Id_user = Int32.Parse(this.txtIdUser.Text); //
-            //user.LongName = this.txtLongName.Text;
+            user.LongName = this.txtLongName.Text;
             //user.User_name = this.txtUsername.Text;
-            box.TypeOp = 2;
+            box.TypeOp = "3";
             box.Status = 1;
-            // fmbox.txtUserFirstNameLast.Text = user.LongName;
+            fmbox.txtUserFirstNameLast.Text = user.LongName;
             //fmbox.txtUserName.Text = user.User_name;
             fmbox.txtIdUser.Text = user.Id_user.ToString();
             //fmbox.txtPermission.Text = user.Privileges.ToString();
             fmbox.txtType.Text = box.TypeOp.ToString();
             // fmbox.txtStatus.Text = box.Status.ToString();
+
+            // function valide if current user has some box with opened status
+            box.UserId = Convert.ToInt32(this.txtIdUser.Text);
+            var statusbox = OperationsCajaBO.GetStatusBox(box);
 
             UsuariosBO.getVisibleControls(user);
             var rol = UsuariosBO.result;
@@ -1190,17 +1274,47 @@ namespace pjPalmera.PL
             switch (rol)
             {
                 case "1":
-                    fmbox.ShowDialog(this);
+                    if (statusbox != 0)
+                    {
+                        fmbox.ShowDialog(this);
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show(OperationsCajaBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        // fbopen.ShowDialog(this);
+                    }
                     break;
+
                 case "2":
-                    fmbox.ShowDialog(this);
+                    if (statusbox != 0)
+                    {
+                        fmbox.ShowDialog(this);
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show(OperationsCajaBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        // fbopen.ShowDialog(this);
+                    }
                     // MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     break;
+
                 case "3":
                     MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     break;
+
                 case "4":
-                    fmbox.ShowDialog(this);
+                    if (statusbox != 0)
+                    {
+                        fmbox.ShowDialog(this);
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show(OperationsCajaBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        // fbopen.ShowDialog(this);
+                    }
                     // MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     break;
             }
@@ -1213,9 +1327,10 @@ namespace pjPalmera.PL
             var fmHbox = new frmConsOpCaja();
 
             user.Id_user = Int32.Parse(this.txtIdUser.Text); //
+            user.Privileges = this.txtPermisson.Text.ToString();
 
             fmHbox.txtUserId.Text = user.Id_user.ToString();
-
+            fmHbox.txtPermission.Text = user.Privileges.ToString();
 
             UsuariosBO.getVisibleControls(user);
             var rol = UsuariosBO.result;
@@ -1223,10 +1338,11 @@ namespace pjPalmera.PL
             switch (rol)
             {
                 case "1":
-                    fmHbox.iniControl();
+                    fmHbox.iniControlAdmin();
                     fmHbox.ShowDialog(this);
                     break;
                 case "2":
+                    fmHbox.iniControls();
                     fmHbox.ShowDialog(this);
                     // MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     break;
@@ -1269,6 +1385,11 @@ namespace pjPalmera.PL
                         MessageBox.Show("No tiene permisos para realizar la operación.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     break;
             }
+        }
+
+        private void pbExitApp_Click(object sender, EventArgs e)
+        {
+            AppExit();
         }
     }
 }

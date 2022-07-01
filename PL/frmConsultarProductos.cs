@@ -18,8 +18,6 @@ namespace pjPalmera.PL
 
         ProductosEntity productos = new ProductosEntity();
 
-
-
         public frmConsultarProductos()
         {
             InitializeComponent();
@@ -47,11 +45,15 @@ namespace pjPalmera.PL
             DesableControls();
             DetailControls();
 
-            this.dgvProdConsultar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             //StockUnit();
             AutoSizeCells();
             //AmountAllProduct();
             InitialControls();
+            this.txtCriterioBusqueda.Focus();
+            this.dgvProdConsultar.Rows[0].Selected = false;
+            this.dgvProdConsultar.CurrentRow.Selected = false;
+            
+
         }
     
 
@@ -218,8 +220,10 @@ namespace pjPalmera.PL
         /// </summary>
         public void rol1()
         {
-            this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
-            this.dgvProdConsultar.Columns["Orden"].Visible = false;
+            //this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+            this.dgvProdConsultar.Columns["Creado_Por"].Visible = false;
+            this.dgvProdConsultar.Columns["Creado"].Visible = false;
+            this.dgvProdConsultar.Columns["Stockminimo"].Visible = false;
         }
 
         /// <summary>
@@ -227,7 +231,7 @@ namespace pjPalmera.PL
         /// </summary>
         public void rol2()
         {
-            this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+            //this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
             this.btnEditarProd.Visible = false;
             this.btnRemove.Visible = false;
             this.rbStatus.Visible = false;
@@ -237,6 +241,7 @@ namespace pjPalmera.PL
             this.dgvProdConsultar.Columns["Creado"].Visible = false;
             this.dgvProdConsultar.Columns["Stockminimo"].Visible = false;
             this.dgvProdConsultar.Columns["Orden"].Visible = false;
+
             // this.dgvProdConsultar.Columns["Modificated"].Visible = false;
 
         }
@@ -248,8 +253,6 @@ namespace pjPalmera.PL
         {
 
         }
-
-
 
 
 
@@ -277,7 +280,8 @@ namespace pjPalmera.PL
             else
             {
                 this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
-                this.dgvProductOnlyActive.DataSource = ProductosBO.GetAll();
+                //this.dgvProductOnlyActive.DataSource = ProductosBO.GetAll();
+                this.txtCriterioBusqueda.Focus();
             }
         }
 
@@ -343,7 +347,8 @@ namespace pjPalmera.PL
 
                     MessageBox.Show(ProductosBO.strMensajeBO, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     this.dgvProdConsultar.DataSource = null;
-                 //   this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+                   // this.dgvProdConsultar.DataSource = ProductosBO.GetAll();
+                    this.rol2();
                     return;
                 } 
 
@@ -355,6 +360,7 @@ namespace pjPalmera.PL
                     _numero = Convert.ToInt64(dgvProdConsultar.Rows[e.RowIndex].Cells["Orden"].Value);
 
                     this.DialogResult = DialogResult.OK;
+                    this.rol2();
                     this.Close();
                 }
             }
