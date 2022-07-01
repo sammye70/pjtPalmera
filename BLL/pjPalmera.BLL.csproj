@@ -43,14 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AperturaCajaBO.cs" />
     <Compile Include="CategoriaBO.cs" />
-    <Compile Include="CierreCajaBO.cs" />
     <Compile Include="CiudadBO.cs" />
     <Compile Include="ClientesBO.cs" />
     <Compile Include="CreditAccountBO.cs" />
     <Compile Include="CuentasBO.cs" />
     <Compile Include="FacturaBO.cs" />
+    <Compile Include="OperationsCajaBO.cs" />
     <Compile Include="PersonasBO.cs" />
     <Compile Include="ProductosBO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -453,12 +453,11 @@ namespace pjPalmera.BLL
         {
             try
             {
-                 FacturasDAL.Create(Venta);
-                // strMensajeBO = "";
+               FacturasDAL.Create(Venta);
             }
-            catch (Exception ex)
+            catch //(Exception ex)
             {
-                MessageBox.Show("Error " + ex.ToString(), "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 // return null;
             }
         }
@@ -537,16 +536,68 @@ namespace pjPalmera.BLL
         {
             try
             {
-                FacturasDAL.CreateTranstPermant(invoice);
+                if (invoice == null)
+                {
+                    throw new ApplicationException("Algo salio mal cuando se intento registrar la transacción");                    
+                }
+                else
+                {
+                    FacturasDAL.CreateTranstPermant(invoice);
+                }
+            }
+
+            catch(ApplicationException ax)
+            {
+                MessageBox.Show(ax.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
             catch (InvalidOperationException ex)
             {
-                ex.GetType();
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
 
             }
         }
+
+
+
+        /// <summary>
+        /// Create Daily Transactions Temporaly and Permanent (Credit Transactions)
+        /// </summary>
+        /// <param name="invoice"></param>
+        public static void CreateTranstCredit(VentaEntity invoice)
+        {
+            try
+            {
+                if (invoice == null)
+                {
+                    throw new ApplicationException("Algo salio mal cuando se intento registrar la transacción");
+                }
+                else
+                {
+                    FacturasDAL.CreateTranstPermantCredit(invoice);
+                }
+            }
+
+            catch (ApplicationException ax)
+            {
+                MessageBox.Show(ax.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+
+            }
+        }
+
+
+
+
+
 
         /// <summary>
         /// Update Daily Transactions Permanenet and Temporal

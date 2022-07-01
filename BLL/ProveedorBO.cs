@@ -218,7 +218,22 @@ namespace pjPalmera.BLL
 
             try
             {
-                return ProveedorDAL.ProviderByCode(code);
+                var rs = ProveedorDAL.ProviderByCode(code);
+
+                if(rs == null)
+                {
+                    throw new ArgumentException("Algo salió mal y no se pudo completar la operaón solicitad.");
+                }
+                else
+                {
+                    return rs;
+                }
+            }
+
+            catch(ArgumentException ae)
+            {
+                MessageBox.Show(ae.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
             }
             catch (Exception ex)
             {
@@ -237,8 +252,25 @@ namespace pjPalmera.BLL
         {
             try
             {
-                return ProveedorDAL.FilterByRnc(code);
+                var rs = ProveedorDAL.FilterByRnc(code);
+
+                if (rs == null)
+                {
+                    throw new ArgumentException("Algo salió mal y no se pudo completar la operaón solicitad.");
+                }
+                else
+                {
+                    return rs;
+                }
             }
+
+            catch (ArgumentException ae)
+            {
+                MessageBox.Show(ae.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
+            }
+
+
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);

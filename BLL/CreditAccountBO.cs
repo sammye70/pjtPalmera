@@ -242,6 +242,8 @@ namespace pjPalmera.BLL
 
             try
             {
+                //var craccount = new CreditAccountEntity();
+
                 if (crAccount == null)
                 {
                     throw new ApplicationException("Cuenta no inicializada. Verificar y intentar nuevamente!!");
@@ -257,6 +259,17 @@ namespace pjPalmera.BLL
                     if (pAccount.Result == 1)
                     {
                         // return crAccount;
+                        if (getNewBalance <= 0)
+                        {
+                            crAccount.Concept = "Saldo del monto pendiente.";
+                            crAccount.credit_type = 1;
+                        }
+                        else if (getNewBalance > 0)
+                        {
+                            crAccount.Concept = "Abono al monto pendiente.";
+                            crAccount.credit_type = 2;
+                        }
+
                         throw new ApplicationException("Operación realizada Satisfactoriamente!!");
                     }
                     else 
@@ -265,7 +278,6 @@ namespace pjPalmera.BLL
                         throw new Exception("Uff, algo no esta bien para continuar con la operación solicitada!!");
                     }
                 }
-
             }
             catch (ApplicationException ax)
             {
@@ -290,11 +302,12 @@ namespace pjPalmera.BLL
         {
             try
             {
-               var usr = CreditAccountDAL.SavePayHistory(crAccount);
+                crAccount.IdAccount = CreditAccountDAL.GetcrAccountBasic(crAccount);
+                crAccount = CreditAccountDAL.SavePayHistory(crAccount);
 
-                if (usr.id == 0)
+                if (crAccount.id == 0)
                 {
-                    throw new ApplicationException("Algo salio mal cuando intento salvar en el historial de operaciones del cliente!!");
+                    throw new ApplicationException("Algo salio mal cuando se intento salvar en el historial de operaciones del cliente!!");
                 }
                 else
                 {
@@ -304,7 +317,7 @@ namespace pjPalmera.BLL
             catch (ApplicationException ax)
             {
                 MessageBox.Show(ax.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return crAccount;
+                return null;
             }
 
             catch (Exception ex)
@@ -314,8 +327,6 @@ namespace pjPalmera.BLL
             }
         }
 
-
-
         /// <summary>
         ///  Get Basic informations from CreditAccount
         /// </summary>
@@ -323,8 +334,24 @@ namespace pjPalmera.BLL
         {
             try
             {
-                return CreditAccountDAL.GetcrAccountBasic((craccount.id_cliente));
+                craccount.IdAccount = CreditAccountDAL.GetcrAccountBasic(craccount);
+
+                if (craccount.NewAmountcr == 0 || craccount.PastAmountcr == 0 || craccount.IdAccount == 0 )
+                {
+                    throw new ApplicationException("Algo salio mal cuando se intento recuperar la informaciones de la cuenta solicitada..!!");
+                }
+                else 
+                {
+                    return craccount; 
+                }
             }
+
+            catch (ApplicationException ax)
+            {
+                MessageBox.Show(ax.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
+
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);

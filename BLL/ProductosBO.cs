@@ -477,12 +477,28 @@ namespace pjPalmera.BLL
         {
             try
             {
-                return ProductosDAL.StockMinimo();
+               var ls = ProductosDAL.StockMinimo();
+
+               if(ls == null)
+               {
+                    throw new ArgumentNullException("Algo salió mal y no se puedo cargar los articulos.!");
+               }
+               else
+               {
+                    return ls;
+               }
             }
+
+            catch(ArgumentNullException an)
+            {
+                MessageBox.Show(an.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return null;
+            }
+
             catch (Exception ex)
             {
 
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
         }

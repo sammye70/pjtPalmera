@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data;
 using pjPalmera.DAL;
 using pjPalmera.Entities;
 
@@ -20,7 +21,8 @@ namespace pjPalmera.BLL
         ///  Return String Result from UsuariosBO
         /// </summary>
         public static string result;
-            
+
+        #region Save New User
         /// <summary>
         /// Create New Account User
         /// </summary>
@@ -28,7 +30,7 @@ namespace pjPalmera.BLL
         public static void Save(UsuariosEntity user)
         {
             try
-            { 
+            {
                 var result = UsuariosDAL.Create(user);
 
                 if (result == 1)
@@ -39,7 +41,7 @@ namespace pjPalmera.BLL
                 {
                     throw new ApplicationException("Uff, algo ocurrio mal, no se pudo completar la operación solicitada");
                 }
-       
+
             }
             catch (AggregateException ae)
             {
@@ -53,11 +55,13 @@ namespace pjPalmera.BLL
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message,"Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
         }
+        #endregion
 
+        #region Update informations about Users
         /// <summary>
         ///  Update All informations about Users
         /// </summary>
@@ -92,8 +96,10 @@ namespace pjPalmera.BLL
                 return;
             }
         }
+        #endregion
 
 
+        #region Remove User
         /// <summary>
         ///  Remove user by id
         /// </summary>
@@ -101,20 +107,28 @@ namespace pjPalmera.BLL
         {
             try
             {
-                var result = UsuariosDAL.RemoveUser(user);
-
-                if (result == 1)
+                if (user.Id_user == 1)
                 {
-                    throw new AggregateException("Operación de Eliminación Efectuada Satisfactoriamente!");
+                    throw new ApplicationException("No es posible eliminar este usuario. Cualquier asistencia contacar soporte técnica");
                 }
                 else
                 {
-                    throw new ApplicationException("Uff, algo ocurrio mal, no se pudo completar la operación solicitada");
+                    var result = UsuariosDAL.RemoveUser(user);
+
+                    if (result == 1)
+                    {
+                        throw new AggregateException("Operación de Eliminación Efectuada Satisfactoriamente!");
+                    }
+                    else
+                    {
+                        throw new ApplicationException("Uff, algo ocurrio mal, no se pudo completar la operación solicitada");
+                    }
                 }
+
             }
             catch (AggregateException ae)
             {
-                MessageBox.Show(ae.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(ae.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             catch (ApplicationException ax)
@@ -127,7 +141,8 @@ namespace pjPalmera.BLL
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-        }
+        } 
+        #endregion
 
 
         /// <summary>
@@ -201,11 +216,12 @@ namespace pjPalmera.BLL
         }
 
 
-            /// <summary>
-            /// Check if exists username
-            /// </summary>
-            /// <returns>true or false</returns>
-            public static bool ExistsUser(string username)
+        #region Verify if user exists or not
+        /// <summary>
+        /// Check if exists username
+        /// </summary>
+        /// <returns>true when user exists and otherwise false</returns>
+        public static bool ExistsUser(string username)
         {
             var val = UsuariosDAL.ExistsUser(username);
 
@@ -221,32 +237,44 @@ namespace pjPalmera.BLL
             }
 
             return val;
+
         }
+        #endregion
 
-
+        #region User login process
         /// <summary>
         /// Search user and password. Then they are true allow to login, else not login.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>true when user or password are the same that registred and otherwise false</returns>
         public static bool Login_User(UsuariosEntity user)
         {
 
-           var val = UsuariosDAL.Login_User(user);
+            try
+            {
+                var val = UsuariosDAL.Login_User(user);
 
-            if (val == true)
-            {
-               return val;
-            }
-            else if (val == false)
-            {
-                strMessegerBO = "El nombre de usuario o la contraseña no son válidos. Verificar y después intentar nuevamente.";
+                if (val == true)
+                {
+                    return val;
+                }
+                else if (val == false)
+                {
+                    strMessegerBO = "El nombre de usuario o la contraseña no es válida. Verificar y después intentar nuevamente.";
+                    return val;
+                }
+
                 return val;
             }
+            catch (Exception)
+            {
 
-            return val;
+                throw;
+            }
         }
+        #endregion
 
 
+        #region Verify user status before login or anything else task
         /// <summary>
         ///  Get status current user that try login.
         /// </summary>
@@ -259,7 +287,7 @@ namespace pjPalmera.BLL
 
                 if (val == true)
                 {
-                    return val; 
+                    return val;
                 }
                 else if (val == false)
                 {
@@ -275,7 +303,8 @@ namespace pjPalmera.BLL
                 strMessegerBO = "Ufff Algo Salio Mal.\n \n Pasos sugeridos para intentar solucionar: \n \n 1. Comprobar que el Router o Switch tenga todos los indicadores de luz encendidos.\n \n 2. Verificar que el computador tenga conectividad con la Red. \n 3. Comprobar que el cable de Red este conectado desde el computador hasta el Router o Switch.\n \n 4. Verificar que el cable este en buen estado (ambas puntas del cable, y que no tenga cortes). \n  \n Cualquier otro inconveniente fuera de los listadas anteriormente contactar asistencia de Soporte Técnico.";
                 return false;
             }
-        }
+        } 
+        #endregion
 
         /// <summary>
         ///  Get all information about User after login successfully by User Name
@@ -297,6 +326,7 @@ namespace pjPalmera.BLL
                 }
                 
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -304,7 +334,7 @@ namespace pjPalmera.BLL
             }
         }
 
-
+    
 
         /// <summary>
         /// Get All Users

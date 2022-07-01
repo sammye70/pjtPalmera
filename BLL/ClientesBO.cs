@@ -17,30 +17,31 @@ namespace pjPalmera.BLL
         /// </summary>
         public static string strMensajeBO;
 
+        #region Save informations about users
         /// <summary>
         /// Save customer's informations
         /// </summary>
         /// <param name="costumer"></param>
         /// <returns></returns>
-        public static void Save(ClientesEntity costumer)
+        public static void Save(ClientesEntity customer)
         {
             try
             {
-                if (costumer == null)
+                if (customer == null)
                 {
                     return;
                     throw new AggregateException("Verificar la información suministrada e intentar nuevamente.");
                 }
                 else
                 {
-                    var result = ClientesDAL.Create(costumer);
+                    var result = ClientesDAL.Create(customer);
 
                     if (result == 1)
                     {
                         throw new ApplicationException("Salvado Satisfactoriamente.!!");
                         // strMensajeBO = "Actualizado Satisfactoriamente.!!";
                     }
-                    else 
+                    else
                     {
                         return;
                         throw new AggregateException("Uff, algo salio ocurrio y no se salvo.!!");
@@ -48,9 +49,9 @@ namespace pjPalmera.BLL
                 }
             }
 
-             catch (AggregateException aex)
+            catch (AggregateException aex)
             {
-                MessageBox.Show("Mensaje del Sistema", aex.Message, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(aex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             catch (ApplicationException ae)
@@ -66,7 +67,10 @@ namespace pjPalmera.BLL
 
         }
 
-        /// <summary>
+
+        #endregion        /// <summary>
+
+        #region Verify if exists one customers
         ///  Message about request create customer state
         /// </summary>
         /// <param name="cedula"></param>
@@ -110,8 +114,10 @@ namespace pjPalmera.BLL
                 strMensajeBO = ex.Message;
                 return true;
             }
-        }
+        } 
+        #endregion
 
+        #region Update informations about customers
         /// <summary>
         /// Update customer information        --------------------------------> this need to create any exceptions for throw error without app
         /// </summary>
@@ -139,7 +145,7 @@ namespace pjPalmera.BLL
                         throw new ApplicationException("Se Editó Satisfactoriamente el Registro Indicado!!");
                         //strMensajeBO = "Se Editó Satisfactoriamente el Registro Indicado!!";
                     }
-                    else 
+                    else
                     {
                         throw new AggregateException("Uff Algo Salio mal..!!");
                         //strMensajeBO = "Se Editó Satisfactoriamente el Registro Indicado!!";
@@ -172,7 +178,9 @@ namespace pjPalmera.BLL
                 return;
             }
         }
+        #endregion
 
+        #region Remove one users
         /// <summary>
         ///Delete Client by Id 
         /// </summary>
@@ -213,9 +221,11 @@ namespace pjPalmera.BLL
 
             }
         }
+        #endregion
 
+        #region Get list of users
         /// <summary>
-        ///Get all Costumers 
+        ///Get all Customers 
         /// </summary>
         /// <returns></returns>
         public static List<ClientesEntity> GetAll()
@@ -230,7 +240,9 @@ namespace pjPalmera.BLL
                 return null;
             }
         }
+        #endregion
 
+        #region Get customer by Id
         /// <summary>
         /// Get Users by Id from Customers
         /// </summary>
@@ -240,16 +252,16 @@ namespace pjPalmera.BLL
         {
             try
             {
-              var customer =  ClientesDAL.GetbyId(Id);
+                var customer = ClientesDAL.GetbyId(Id);
 
-                if(customer == null)
+                if (customer == null || customer.Id == 1)
                 {
-                    throw new ApplicationException("La informaciones solicitadas fueron encontradas satisfactoriamente!!!");
+                    throw new Exception("Algo salio mal con el id" + " " + customer.Id + " que indico o intentando realizar una operación con el mismo. \nIntentar con un cliente valido.");
                 }
                 else
                 {
                     return customer;
-                    throw new Exception("Algo salio mal o no existen informaciones asociadas con el id" + " " + customer.Id + " " + "que fue indicado.");
+                    // throw new ApplicationException("La informaciones solicitadas fueron encontradas satisfactoriamente!!!");
                 }
             }
 
@@ -264,7 +276,9 @@ namespace pjPalmera.BLL
                 return null;
             }
         }
+        #endregion
 
+        #region Use informations about customers
         /// <summary>
         /// Get User by Id for Update Information
         /// </summary>
@@ -281,9 +295,11 @@ namespace pjPalmera.BLL
                 return null;
             }
         }
+        #endregion
 
+        #region Get list of customer by lastname
         /// <summary>
-        ///  Get Costumer by Lastname (List)
+        ///  Get Customer by Lastname (List)
         /// </summary>
         /// <returns></returns>
         public static List<ClientesEntity> GetbyApellidos(string lastname)
@@ -299,7 +315,9 @@ namespace pjPalmera.BLL
             }
 
         }
+        #endregion
 
+        #region Get list of customer by firstname
         /// <summary>
         ///  Get Costumer by Firstname (List)
         /// </summary>
@@ -318,7 +336,8 @@ namespace pjPalmera.BLL
                 else
                 {
                     strMensajeBO = "No se encontraron Nombres que concuerden con el/los indicados";
-                    return ClientesDAL.GetbyNombre(fistname);
+                    // return ClientesDAL.GetbyNombre(fistname);
+                    return null;
                 }
             }
             catch (Exception ex)
@@ -327,7 +346,9 @@ namespace pjPalmera.BLL
                 return null;
             }
         }
+        #endregion
 
+        #region Get of customer by Cedula
         /// <summary>
         /// Filter Customer by cedula
         /// </summary>
@@ -345,7 +366,9 @@ namespace pjPalmera.BLL
                 return null;
             }
         }
+        #endregion
 
+        #region Verify if exists Cedula
         /// <summary>
         /// Check if exits customer cedula
         /// </summary>
@@ -395,39 +418,51 @@ namespace pjPalmera.BLL
                 return false;
             }
 
-        }
+        } 
+        #endregion
 
+        #region Verify Customers Credit Line
 
         /// <summary>
         /// Verify Current  Customer Amount in the checkout if it is posible
         /// </summary>
         /// <returns></returns>
-        public static bool VeficafyCreditAmount(long idcustomer)
+        public static bool VeficafyCreditAmount(long idcustomer, decimal amount_inv)
         {
             try
             {
                 var getLineCreditAmountCustomer = ClientesDAL.Get_setCustomerAmount(idcustomer); // Get amount that set first time when registed  the Customer
-                var getCurrentAmountCredit = ClientesDAL.Get_CrAmountCustomer(idcustomer);    //  Get total current from credit account manager
-
-                if (getCurrentAmountCredit <= getLineCreditAmountCustomer)
+                var getCurrentAmountCredit = ClientesDAL.Get_CrAmountCustomer(idcustomer);    //  Get total current from credit account manager at this time
+                var getAmountBeforeProcess = getCurrentAmountCredit + amount_inv; // Total amount before process credit sell
+               
+                if ((getCurrentAmountCredit < getLineCreditAmountCustomer) && (getAmountBeforeProcess < getCurrentAmountCredit) && (getAmountBeforeProcess < getLineCreditAmountCustomer))
+                {          
+                    // return true;
+                    throw new ApplicationException("Disponible para comprar");
+                }
+                else if((getCurrentAmountCredit >= getLineCreditAmountCustomer) && (getAmountBeforeProcess >= getCurrentAmountCredit) && (getAmountBeforeProcess >= getLineCreditAmountCustomer))
                 {
-                   // return true;
-                    throw new ApplicationException ("Disponible para comprar");
-                    
+                    // return false;
+                    throw new AggregateException("No dispone de balance suficiente en su linea de crédito. Si es necesario Solicitar un Supervisor.");
+                }
+                else if((getLineCreditAmountCustomer < getCurrentAmountCredit) && (getCurrentAmountCredit >= getAmountBeforeProcess) && (getLineCreditAmountCustomer <= getAmountBeforeProcess))
+                {
+                    // return false;
+                    throw new AggregateException("No dispone de balance suficiente en su linea de crédito. Si es necesario Solicitar un Supervisor.");
                 }
                 else
                 {
-                   // return false;
-                    throw new AggregateException ("No dispone de balance suficiente en su linea de crédito. Si requiere Solicitar un Supervisor.");
+                    // return false;
+                    throw new AggregateException("No fue posible continuar con la operación solicitada, verificar y nuevamente intentar.");
                 }
             }
-            catch(ApplicationException ae)
+            catch (ApplicationException ae)
             {
                 strMensajeBO = ae.Message;
-               return true;
+                return true;
             }
 
-            catch(AggregateException ae1)
+            catch (AggregateException ae1)
             {
                 strMensajeBO = ae1.Message;
                 return false;
@@ -436,10 +471,12 @@ namespace pjPalmera.BLL
             catch (Exception ex)
             {
                 strMensajeBO = ex.Message;
-                return true;
+                return false;
             }
         }
+        #endregion
 
+        #region Get list by Cedula
         /// <summary>
         /// Filter Customer by Cedula 
         /// </summary>
@@ -456,54 +493,55 @@ namespace pjPalmera.BLL
                 return null;
             }
         }
+        #endregion
 
-
+        #region Verify if exists customer code
         /// <summary>
         /// Check if Exits Customer Code
         /// </summary>
         /// <returns></returns>
         public static bool ExitsCode(int code)
         {
-            try 
-            { 
-                var messengerDAL = ClientesDAL.ExitsCode(code);
+            try
+            {
+                var messenger = ClientesDAL.ExitsCode(code);
 
-                if (messengerDAL == true)
+                if (messenger == true)
                 {
                     return true;
                     throw new ApplicationException("Se encontro el Código.");
                     // strMensajeBO = "Se encontro el Código";
-                    
                 }
-                else if (messengerDAL == false)
+                else if (messenger == false)
                 {
                     return false;
                     throw new AggregateException("No se encontro el Código indicado, verificar e intentar nuevamente.");
-                  //  strMensajeBO = "No se encontro el Código indicado, verificar e intentar nuevamente";
+                    //  strMensajeBO = "No se encontro el Código indicado, verificar e intentar nuevamente";
                 }
 
-                return messengerDAL;
+                return messenger;
             }
 
-            catch(ApplicationException ape)
+            catch (ApplicationException ape)
             {
                 strMensajeBO = ape.Message;
                 return true;
             }
 
-            catch(AggregateException age)
+            catch (AggregateException age)
             {
                 strMensajeBO = age.Message;
                 return false;
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 strMensajeBO = ex.Message;
                 return false;
             }
 
-        }
+        } 
+        #endregion
 
     }
 
