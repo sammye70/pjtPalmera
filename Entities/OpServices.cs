@@ -49,11 +49,17 @@ namespace pjPalmera.Entities
         /// <param name="efectivo"></param>
         /// <param name="venta"></param>
         /// <returns></returns>
-        public decimal cuadre(decimal efectivo, decimal venta)
+        public decimal cuadre(decimal efectivo, decimal venta, decimal pays)
         {
-            decimal t_faltante;
+            decimal t_faltante, tcash;
 
-            t_faltante = efectivo - venta;
+            tcash = venta + pays;
+            t_faltante = efectivo - tcash;
+            
+            if(efectivo >=  tcash)
+            {
+                t_faltante = 0M;
+            }
 
             return t_faltante;
         }
@@ -80,11 +86,11 @@ namespace pjPalmera.Entities
         /// </summary>
         /// <param name="cost"></param>
         /// <returns></returns>
-        public decimal SetPrice(decimal cost, decimal ganancia)
+        public decimal SetPrice(decimal cost, decimal income)
         {
             decimal pg, pv;
             var c = cost;
-            var p = ganancia;
+            var p = income;
 
             pg = (c * p) / 100;
             pv = c + pg;
@@ -92,17 +98,18 @@ namespace pjPalmera.Entities
             return pv;
         }
 
+
         /// <summary>
         /// Refrest Sub Amount after remove item from the list
         /// </summary>
         /// <returns>diferencia</returns>
         public static decimal UpdateSubAmount(decimal subtotal, decimal amount_item) 
         {
-            decimal diferencia;
-            
-            diferencia = subtotal - amount_item;
+            decimal different;
 
-            return diferencia;
+            different = subtotal - amount_item;
+
+            return different;
         }
 
         /// <summary>

@@ -19,6 +19,7 @@ namespace pjPalmera.Entities
         private decimal pastamountcr;
         private DateTime modificate_date;
         private int result;
+        private string concept;
 
         // Constructor
         public CreditAccountEntity()
@@ -89,6 +90,15 @@ namespace pjPalmera.Entities
         {
             get { return result; }
             set { result = value; }
+        }
+
+        /// <summary>
+        ///  Set or Get pay concept
+        /// </summary>
+        public string Concept
+        {
+            get { return concept; }
+            set { concept = value; }
         }
     }
 }

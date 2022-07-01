@@ -41,8 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CierreCajaEntity.cs" />
-    <Compile Include="AperturaCajaEntity.cs" />
     <Compile Include="CategoriaEntity.cs" />
     <Compile Include="CiudadEntity.cs" />
     <Compile Include="ClientesEntity.cs" />
@@ -54,6 +52,8 @@
     <Compile Include="iCreditAccount.cs" />
     <Compile Include="InventarioEntity.cs" />
     <Compile Include="InvoiceCashPayEntity.cs" />
+    <Compile Include="OperationsCajaEntity.cs" />
+    <Compile Include="OperationsTypeEntity.cs" />
     <Compile Include="OpServices.cs" />
     <Compile Include="PagosEntity.cs" />
     <Compile Include="PedidosEntity.cs" />

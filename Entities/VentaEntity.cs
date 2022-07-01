@@ -54,6 +54,7 @@ namespace pjPalmera.Entities
         public int id_user { get; set; }
         public int method_pago { get; set; }
         public string request_number { get; set; }
+        public int credit_type { get; set; }
         private List<DetalleVentaEntity> item;
 
 
