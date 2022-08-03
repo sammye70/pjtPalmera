@@ -88,7 +88,7 @@ namespace pjPalmera.PL
                 user.User_name = this.txtUserName.Text; // Get username from textbox username
                 user.Password = this.txtPassword.Text; // Get password from textbox password
                 user.Password = user.setHash(user.Password); // Generate and Encrypt password
-                /// var strform = CheckStringControls(user); // Check if exists content inside form
+                /// var strform = CheckStringControls(user); // Check if exists some things inside form
                 var stUser = UsuariosBO.GetStatusUser(user.User_name); // Check username status
 
 
