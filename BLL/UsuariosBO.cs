@@ -39,7 +39,7 @@ namespace pjPalmera.BLL
                 }
                 else
                 {
-                    throw new ApplicationException("Uff, algo ocurrio mal, no se pudo completar la operación solicitada");
+                    throw new ApplicationException("Uff, algo ocurrio, no se pudo completar la operación solicitada");
                 }
 
             }
