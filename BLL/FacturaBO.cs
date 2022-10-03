@@ -304,7 +304,7 @@ namespace pjPalmera.BLL
 
 
         /// <summary>
-        /// Get Head Invoice by Id use to desable current invoice
+        /// Get Head Invoice by Id use to diseble current invoice
         /// </summary>
         /// <param name="invoice_id"></param>
         /// <returns></returns>
