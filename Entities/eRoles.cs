@@ -10,7 +10,7 @@ namespace pjPalmera.Entities
     /// <summary>
     ///  Roles for profiles
     /// </summary>
-    public enum eRoles_U
+    public enum ERoles_U
     {
         none,
         supervisor,

@@ -48,7 +48,8 @@
     <Compile Include="CuentaEntity.cs" />
     <Compile Include="DetalleVentaCrEntity.cs" />
     <Compile Include="DetalleVentaEntity.cs" />
-    <Compile Include="eRoles.cs" />
+    <Compile Include="EnterpriseSettings.cs" />
+    <Compile Include="ERoles.cs" />
     <Compile Include="iCreditAccount.cs" />
     <Compile Include="InventarioEntity.cs" />
     <Compile Include="InvoiceCashPayEntity.cs" />
