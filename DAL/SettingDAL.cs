@@ -25,7 +25,7 @@ namespace pjPalmera.DAL
         /// ------------------------------------------------------------------------------------------------------ //
         /// 
 
-        private static readonly string ConnectionString = @"server=192.168.189.2;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas"; //Home dev last;
+        private static readonly string ConnectionString = @"server=10.0.0.22;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas"; //Home dev last;
 
         // private static readonly String ConnectionString = @"server=localhost;port=3306;uid=usr;pwd=Abeja30$;database=ebgsolut_abejas;"; // Drog Store ip
 

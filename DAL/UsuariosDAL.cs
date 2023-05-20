@@ -253,9 +253,6 @@ namespace pjPalmera.DAL
             return ls;
         }
 
-
-
-
         /// <summary>
         ///  Get all secret questions
         /// </summary>
