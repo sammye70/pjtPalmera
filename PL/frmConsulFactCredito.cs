@@ -123,7 +123,7 @@ namespace pjPalmera.PL
             {
                 try
                 {
-                    this.dgvFacturasEmitidasCred.DataSource=FacturaBO.SearhByNumberCr(Convert.ToInt64(this.txtNumFactura.Text));
+                    this.dgvFacturasEmitidasCred.DataSource=FacturaBO.SearchByNumberCr(Convert.ToInt64(this.txtNumFactura.Text));
                 }
                 catch (Exception)
                 {

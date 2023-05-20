@@ -1752,7 +1752,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::PL.Properties.Resources._52744491;
+            //this.BackgroundImage = global::PL.Properties.Resources._52744491;
             this.ClientSize = new System.Drawing.Size(1138, 531);
             this.Controls.Add(this.txtIdUser);
             this.Controls.Add(this.txtPermisson);

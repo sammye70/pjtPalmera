@@ -167,7 +167,7 @@ namespace pjPalmera.PL
             try
             {
                 venta.id = Convert.ToInt32(this.txtValorCriterio1.Text);
-                this.dgvFacturasEmitidas.DataSource = FacturaBO.SearhByNumber(venta.id);
+                this.dgvFacturasEmitidas.DataSource = FacturaBO.SearchByNumber(venta.id);
             }
             catch
             {
@@ -178,14 +178,14 @@ namespace pjPalmera.PL
         /// <summary>
         /// Search Invoices by Date
         /// </summary>
-        private void SearhByDate()
+        private void SearchByDate()
         {
             try
             {
                 DateTime date1=venta.fecha = Convert.ToDateTime(mktxtFechaDesde.Text);
                 DateTime date2=venta.fecha = Convert.ToDateTime(mktxtFechaHasta.Text);
 
-                this.dgvFacturasEmitidas.DataSource = FacturaBO.SearhByDate(Convert.ToString(date1), Convert.ToString(date2));
+                this.dgvFacturasEmitidas.DataSource = FacturaBO.SearchByDate(Convert.ToString(date1), Convert.ToString(date2));
             }
             catch
             {
@@ -237,7 +237,7 @@ namespace pjPalmera.PL
         {
             if (this.rbFecha.Checked == true)
             {
-                SearhByDate();
+                SearchByDate();
             }
             else
             {

@@ -976,6 +976,9 @@ namespace pjPalmera.PL
             string Type1 = "FACTURA AL CONTADO";
             string Type2 = "FACTURA A CREDITO";
 
+            //Setting Business
+            var infoBusiness = new EnterpriseSettings();
+
             //Id Invoice
             
             this.txtId_Invoice.Text = Convert.ToString(Id_invoice);  //
@@ -987,12 +990,12 @@ namespace pjPalmera.PL
             
             //int AutoScrollOffset1= -100;
             //AutoScrollOffset1 = AutoScrollOffset1 -100;
-            g.DrawString("Farmacia CRM", ffTitle, sb, 75, 120);
-            g.DrawString("Donde tu Salud es Nuestra Prioridad", fTitle, sb, 20, 134);
-            g.DrawString("C/9, #15, Las Escobas, Jima Arriba", fdTitle, sb, 27, 148);
-            g.DrawString("RNC:80700148433", fdTitle, sb, 80, 160);
-            g.DrawString("Tel: 809-954-9952", fdTitle, sb, 80, 175);
-            g.DrawString("Whatsapp:809-851-2775", fdTitle, sb, 70, 185);
+            g.DrawString(infoBusiness.Name, ffTitle, sb, 75, 120);
+            g.DrawString(infoBusiness.sLogan, fTitle, sb, 20, 134);
+            g.DrawString(infoBusiness.Address, fdTitle, sb, 27, 148);
+            g.DrawString("RNC:" + infoBusiness.rNc, fdTitle, sb, 80, 160);
+            g.DrawString("Tel:" + infoBusiness.phoneNumber0, fdTitle, sb, 80, 175);
+            g.DrawString("Whatsapp:" + infoBusiness.phoneNumber1, fdTitle, sb, 70, 185);
 
             g.DrawString("FECHA:", fTitle, sb, 10, 210); //
             g.DrawString(DateTime.Now.ToShortDateString(), fBody, sb, 80, 210); //

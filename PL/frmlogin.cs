@@ -91,7 +91,7 @@ namespace pjPalmera.PL
                 /// var strform = CheckStringControls(user); // Check if exists some things inside form
                 var stUser = UsuariosBO.GetStatusUser(user.User_name); // Check username status
 
-
+                
                 if (CheckStringControls() != false)
                    
                 switch (stUser)
