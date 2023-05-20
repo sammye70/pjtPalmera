@@ -259,7 +259,7 @@ namespace pjPalmera.BLL
                 }
                 else if (val == false)
                 {
-                    strMessegerBO = "El nombre de usuario o la contraseña no es válida. Verificar y después intentar nuevamente.";
+                    strMessegerBO = "El nombre de usuario o la contraseña no es válido. Verificar y después intentar nuevamente.";
                     return val;
                 }
 
@@ -318,7 +318,7 @@ namespace pjPalmera.BLL
 
                 if ( user == null)
                 {
-                    throw new Exception("Usuario no inicializado.");
+                    throw new Exception("Usuario no inicializado!");
                 }
                 else 
                 {

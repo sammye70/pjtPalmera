@@ -84,7 +84,7 @@ namespace pjPalmera.BLL
             /// Amount Total All Invoices where Active and type iqual Credit
             /// </summary>
             /// <returns></returns>
-            public static decimal AmountAllInvoicesCr()
+        public static decimal AmountAllInvoicesCr()
         {
             try
             {
@@ -123,7 +123,7 @@ namespace pjPalmera.BLL
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
-        public static List<VentaEntity> SearhByNumber(Int64 number)
+        public static List<VentaEntity> SearchByNumber(Int64 number)
         {
             try
             {
@@ -143,7 +143,7 @@ namespace pjPalmera.BLL
         /// <param name="DateBegin"></param>
         /// <param name="DateUntil"></param>
         /// <returns></returns>
-        public static List<VentaEntity> SearhByDate(string DateBegin, string DateUntil)
+        public static List<VentaEntity> SearchByDate(string DateBegin, string DateUntil)
         {
             try
             {
@@ -200,7 +200,7 @@ namespace pjPalmera.BLL
         /// Search Invoices by Number and type equial to credit
         /// </summary>
         /// <returns></returns>
-        public static List<VentaEntity> SearhByNumberCr(Int64 number)
+        public static List<VentaEntity> SearchByNumberCr(Int64 number)
         {
 
             try
@@ -304,7 +304,7 @@ namespace pjPalmera.BLL
 
 
         /// <summary>
-        /// Get Head Invoice by Id use to diseble current invoice
+        /// Get Head Invoice by Id use to desable current invoice
         /// </summary>
         /// <param name="invoice_id"></param>
         /// <returns></returns>
@@ -517,10 +517,6 @@ namespace pjPalmera.BLL
         }
 
 
-        
-
-
-
         /*----------------------------------------------------------------------------------------------------------
         // Name: Register Daily Transactions 
         // Created: 09/07/2020
@@ -593,10 +589,6 @@ namespace pjPalmera.BLL
 
             }
         }
-
-
-
-
 
 
         /// <summary>

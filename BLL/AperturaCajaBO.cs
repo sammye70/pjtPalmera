@@ -31,7 +31,7 @@ namespace pjPalmera.BLL
 
                 if (result >= 1)
                 {
-                    throw new ApplicationException("Operación realizada satisfactoriamente!");
+                    throw new ApplicationException("Operación realizada satisfactoriamente.");
                 }
                 else
                 {
@@ -62,7 +62,7 @@ namespace pjPalmera.BLL
                 var result = AperturaCajaDAL.CreateOpenBox(oCaja);
                 if (result >= 1 )
                 {
-                    throw new ApplicationException("Operación realizada satisfactoriamente!");
+                    throw new ApplicationException("Operación realizada satisfactoriamente.");
                 }
                 else
                 {
