@@ -211,7 +211,7 @@ namespace pjPalmera.BLL
                 if(chkStAccount == 0)
                 {
                     return CreditAccountDAL.CreateCrAccount(crAccount);
-             //Add new messages vrible to take any results from here.
+             //Add new messages varible to take any results from here.
                 }
                 else
                 {
